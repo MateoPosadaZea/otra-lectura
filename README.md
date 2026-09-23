@@ -59,9 +59,8 @@ Workers detecta el push y ejecuta `npx wrangler deploy`, que publica `site/`
 tal cual según `wrangler.jsonc`. No hay build en Cloudflare: el HTML ya viene
 generado.
 
-El sitio es privado mediante Cloudflare Access (política con los correos
-autorizados), tanto en el dominio propio como en `*.workers.dev`. Para abrirlo
-al público basta con borrar esas aplicaciones de Access.
+El sitio es público. Si algún día se quiere privado, se pone Cloudflare
+Access delante del Worker; no hay que tocar el código.
 
 ## Estructura
 

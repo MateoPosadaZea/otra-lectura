@@ -68,11 +68,11 @@ instalar algo, que sea una sola dependencia y quede fijada en el repo.
 
 ## Despliegue
 
-- GitHub Pages sirviendo `site/`.
+- Cloudflare Workers sirviendo `site/` como estáticos (`wrangler.jsonc`),
+  desplegado en cada push a `main`.
 - Cloudflare para DNS y certificado.
-- Cloudflare Access para dejar el sitio privado para dos usuarios (es
-  gratis hasta 50). Quitar esa política es lo único que hay que hacer si
-  más adelante se abre al público.
+- Sitio público. Si más adelante se quiere privado, se pone Cloudflare
+  Access delante del Worker.
 
 ## Fase 2, no construir todavía
 
