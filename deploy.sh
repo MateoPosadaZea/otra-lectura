@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build + commit + push. Cloudflare Pages publica site/ al recibir el push.
+# Build + commit + push. Cloudflare publica site/ al recibir el push.
 set -euo pipefail
 cd "$(dirname "$0")"
 

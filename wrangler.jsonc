@@ -1,0 +1,9 @@
+// Cloudflare Workers: sirve site/ como archivos estáticos, sin código.
+// Cloudflare ejecuta `npx wrangler deploy` en cada push; no hay build.
+{
+  "name": "otra-lectura",
+  "compatibility_date": "2025-09-01",
+  "assets": {
+    "directory": "./site"
+  }
+}

@@ -55,17 +55,12 @@ El formato editorial está en `prompt.md` y el técnico en `ESPECIFICACION.md`.
 ```
 
 El script hace build, commit (de `ediciones/` y `site/`) y push. Cloudflare
-Pages detecta el push a la rama de producción y publica `site/` tal cual: no
-hay comando de build en Cloudflare, porque el HTML ya viene generado.
-
-Configuración del proyecto en Cloudflare Pages:
-
-- Framework preset: None
-- Build command: vacío
-- Build output directory: `site`
+Workers detecta el push y ejecuta `npx wrangler deploy`, que publica `site/`
+tal cual según `wrangler.jsonc`. No hay build en Cloudflare: el HTML ya viene
+generado.
 
 El sitio es privado mediante Cloudflare Access (política con los correos
-autorizados), tanto en el dominio propio como en `*.pages.dev`. Para abrirlo
+autorizados), tanto en el dominio propio como en `*.workers.dev`. Para abrirlo
 al público basta con borrar esas aplicaciones de Access.
 
 ## Estructura
@@ -79,4 +74,5 @@ scripts/build.py    frontmatter + markdown → HTML
 build.sh            prepara .venv y ejecuta el build
 deploy.sh           build + commit + push
 site/               salida generada (se publica tal cual)
+wrangler.jsonc      Cloudflare Workers sirve site/ como estáticos
 ```
