@@ -15,6 +15,9 @@
   --nover-borde: #b7791f;
   --nover-etiqueta: #7a4f0e;
 
+  --alerta: #a4262c;
+
+  /* Pendiente: reemplazar por el stack tipográfico de Mattriz. */
   --serif: "Iowan Old Style", "Charter", "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --medida: 65ch;
@@ -35,6 +38,8 @@
     --nover-fondo: #2a2214;
     --nover-borde: #d9a441;
     --nover-etiqueta: #e9c27a;
+
+    --alerta: #f0857f;
   }
 }
 
@@ -117,36 +122,59 @@ footer.sitio p { margin: 0; font-family: var(--sans); font-size: 0.85rem; }
   color: var(--tenue);
 }
 
-/* --- Jerarquía del cuerpo --- */
+/* --- Jerarquía del cuerpo ---
+   carril (h2) → fricción (h3) → subtítulo (etiqueta en negrita) → cuerpo */
 
-/* Título de cada fricción: grande, con filete arriba que separa fricciones. */
+/* Entrada de la edición, antes del primer carril. */
+.edicion > p { color: var(--tenue); font-style: italic; }
+
+/* Carril: divisor estructural, pequeño pero con filete fuerte. */
 .edicion h2 {
-  font-size: 1.55em;
-  line-height: 1.2;
-  margin: 3.5rem 0 1rem;
-  padding-top: 1.5rem;
-  border-top: 2px solid var(--texto);
-  hyphens: manual;
-}
-
-/* Subtítulos (qué pasó, quién lo está resolviendo, contrapeso…): pequeños, sans, versalitas. */
-.edicion h3 {
   font-family: var(--sans);
   font-size: 0.8rem;
   font-weight: 700;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--tenue);
-  margin: 2rem 0 0.4rem;
+  color: var(--acento);
+  margin: 4rem 0 0;
+  padding-top: 0.6rem;
+  border-top: 3px solid var(--texto);
 }
-.edicion h4, .edicion h5, .edicion h6 {
-  font-size: 1em;
-  margin: 1.5rem 0 0.25rem;
+
+/* Fricción: el título de lectura, el más grande del cuerpo. */
+.edicion h3 {
+  font-size: 1.45em;
+  line-height: 1.22;
+  margin: 2.25rem 0 1rem;
+  hyphens: manual;
 }
+.edicion h2 + .item > h3, .edicion h2 + h3, .edicion h2 + p { margin-top: 1.25rem; }
+.item + .item { border-top: 1px solid var(--linea); }
+
+.edicion h4, .edicion h5, .edicion h6 { font-size: 1em; margin: 1.5rem 0 0.25rem; }
 
 .edicion p, .edicion ul, .edicion ol { margin: 0 0 1em; }
 .edicion ul, .edicion ol { padding-left: 1.25em; }
 .edicion li + li { margin-top: 0.3em; }
+
+/* Subtítulo de la fricción (Qué pasó, Quién lo está resolviendo…): etiqueta sans en bloque. */
+.carril-radar .etiqueta {
+  display: block;
+  margin: 1.6rem 0 0.2rem;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--tenue);
+}
+.carril-radar h3 + p .etiqueta { margin-top: 0; }
+
+/* Asombro y cierre: la negrita es un título corrido, no un subtítulo. */
+.carril-asombro .con-etiqueta, .cierre .con-etiqueta { margin-bottom: 1.25em; }
+.carril-asombro .etiqueta { font-size: 1.05em; }
+.cierre { font-size: 0.94em; }
+.cierre li { margin-top: 0.45em; }
 
 .edicion blockquote {
   margin: 1.25em 0;
@@ -154,68 +182,85 @@ footer.sitio p { margin: 0; font-family: var(--sans); font-size: 0.85rem; }
   border-left: 3px solid var(--linea);
   color: var(--tenue);
 }
-
 .edicion hr { border: 0; border-top: 1px solid var(--linea); margin: 2.5rem 0; }
-
 .edicion table { border-collapse: collapse; width: 100%; font-size: 0.9em; display: block; overflow-x: auto; }
 .edicion th, .edicion td { border-bottom: 1px solid var(--linea); padding: 0.35em 0.5em; text-align: left; }
-
 .edicion img { max-width: 100%; height: auto; }
 .edicion code { font-size: 0.9em; }
 
 /* --- Bloques distinguidos del cuerpo --- */
 
-.contrapeso, .no-verificado {
-  position: relative;
-  margin: 1.5rem 0;
-  padding: 0.9rem 1.1rem 0.1rem;
-  border-left: 4px solid;
+/* Contrapeso: recuadro azul con filete sólido. */
+.edicion p.contrapeso {
+  margin: 1.4rem 0;
+  padding: 0.85rem 1.1rem 0.9rem;
+  background: var(--contrapeso-fondo);
+  border-left: 4px solid var(--contrapeso-borde);
   border-radius: 0 4px 4px 0;
 }
-.contrapeso > h3:first-child, .no-verificado > h3:first-child { margin-top: 0; }
+.edicion p.contrapeso .etiqueta { margin-top: 0; color: var(--contrapeso-etiqueta); }
 
-.contrapeso {
-  background: var(--contrapeso-fondo);
-  border-color: var(--contrapeso-borde);
-}
-.contrapeso > h3:first-child { color: var(--contrapeso-etiqueta); }
-
-.no-verificado {
+/* No verificado: fondo ámbar, filete punteado, texto en cursiva. */
+.edicion p.no-verificado {
+  margin: 1.4rem 0;
+  padding: 0.85rem 1.1rem 0.9rem;
   background: var(--nover-fondo);
-  border-left-style: dashed;
-  border-color: var(--nover-borde);
+  border-left: 4px dashed var(--nover-borde);
+  border-radius: 0 4px 4px 0;
   font-style: italic;
 }
-.no-verificado > h3:first-child { color: var(--nover-etiqueta); font-style: normal; }
+.edicion p.no-verificado .etiqueta { margin-top: 0; color: var(--nover-etiqueta); font-style: normal; }
 
-/* Párrafo o ítem suelto sin título propio: una etiqueta hace explícito el estado. */
-p.no-verificado::before, li.no-verificado::before, blockquote.no-verificado::before {
-  content: "No verificado";
-  display: block;
-  margin-bottom: 0.2rem;
+/* La marca "(Conocimiento general…)" en sí, como sello sans. */
+.marca-nv {
   font-family: var(--sans);
   font-style: normal;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
+  font-size: 0.8em;
+  font-weight: 600;
   color: var(--nover-etiqueta);
 }
-p.no-verificado, li.no-verificado, blockquote.no-verificado,
-p.contrapeso, li.contrapeso, blockquote.contrapeso { padding-bottom: 0.9rem; }
-li.no-verificado { list-style: none; margin-left: -1.25em; }
-
-/* Sin doble recuadro cuando un bloque marcado vive dentro de otro. */
-.contrapeso .contrapeso,
-.no-verificado .no-verificado,
-.contrapeso .no-verificado:not(section),
-.no-verificado .contrapeso:not(section) {
-  background: none;
-  border: 0;
-  padding: 0;
-  margin: 0 0 1em;
+/* Tramo no verificado dentro de un párrafo verificado. */
+.nv-tramo {
+  background: var(--nover-fondo);
+  box-shadow: 0 0 0 2px var(--nover-fondo);
+  border-bottom: 1.5px dashed var(--nover-borde);
+  font-style: italic;
 }
-.no-verificado .no-verificado::before { content: none; }
+.contrapeso .nv-tramo { background: var(--nover-fondo); }
+
+/* Sin salida conocida: etiqueta en color de alerta. */
+.edicion p.sin-salida .etiqueta { color: var(--alerta); }
+
+/* Conflicto de interés: nota sans enmarcada, antes del ítem. */
+.edicion p.conflicto {
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--linea);
+  border-radius: 4px;
+  font-family: var(--sans);
+  font-size: 0.85em;
+}
+.edicion p.conflicto .etiqueta { margin-top: 0; color: var(--alerta); }
+
+/* Seguimiento: nota corta, no análisis completo. */
+.item.seguimiento { font-size: 0.95em; }
+.item.seguimiento > h3 {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--tenue);
+}
+
+/* Nota editorial en la cabecera (p. ej., edición anterior al formato). */
+.cabecera .nota {
+  margin: 1rem 0 0;
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--linea);
+  color: var(--tenue);
+  font-family: var(--sans);
+  font-size: 0.85rem;
+}
+.cabecera .lugares { margin: 0; color: var(--tenue); font-family: var(--sans); font-size: 0.85rem; }
 
 /* --- Navegación e índice --- */
 
@@ -234,7 +279,7 @@ li.no-verificado { list-style: none; margin-left: -1.25em; }
 .indice { list-style: none; padding: 0; margin: 0; }
 .indice > li { padding: 1.1rem 0; border-top: 1px solid var(--linea); }
 .indice > li:last-child { border-bottom: 1px solid var(--linea); }
-.indice time { display: block; color: var(--tenue); font-family: var(--sans); font-size: 0.85rem; }
+.indice .fecha { font-size: 0.85rem; }
 .indice > li > a {
   display: inline-block;
   margin: 0.15rem 0 0.1rem;
@@ -247,5 +292,5 @@ li.no-verificado { list-style: none; margin-left: -1.25em; }
 
 @media print {
   header.sitio, footer.sitio, .entre-ediciones { display: none; }
-  .contrapeso, .no-verificado { break-inside: avoid; }
+  .contrapeso, .no-verificado, .conflicto { break-inside: avoid; }
 }
