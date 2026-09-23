@@ -1,0 +1,2 @@
+# Único conversor de markdown. Versión fijada a propósito: subirla es una decisión explícita.
+markdown==3.7
