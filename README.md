@@ -54,11 +54,19 @@ El formato editorial está en `prompt.md` y el técnico en `ESPECIFICACION.md`.
 ./deploy.sh "Edición del 23 de septiembre"   # el mensaje es opcional
 ```
 
-El script hace build, commit (de `ediciones/` y `site/`) y push. Al llegar el
-push a `main`, GitHub Actions (`.github/workflows/pages.yml`) publica `site/`
-en GitHub Pages sin volver a construir. Como `site/` está en el repo, cualquier
-hosting estático puede servirlo sin paso de build (por ejemplo, Cloudflare
-Pages con directorio de salida `site` y sin comando de build).
+El script hace build, commit (de `ediciones/` y `site/`) y push. Cloudflare
+Pages detecta el push a la rama de producción y publica `site/` tal cual: no
+hay comando de build en Cloudflare, porque el HTML ya viene generado.
+
+Configuración del proyecto en Cloudflare Pages:
+
+- Framework preset: None
+- Build command: vacío
+- Build output directory: `site`
+
+El sitio es privado mediante Cloudflare Access (política con los correos
+autorizados), tanto en el dominio propio como en `*.pages.dev`. Para abrirlo
+al público basta con borrar esas aplicaciones de Access.
 
 ## Estructura
 
