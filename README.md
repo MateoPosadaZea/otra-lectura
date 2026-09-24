@@ -85,15 +85,18 @@ El formato editorial está en `prompt.md` y el técnico en `ESPECIFICACION.md`.
 - un slug de `seguimiento` no aparece en `temas` de ninguna edición
   anterior;
 - una actualización apunta a una fricción que no existe en esa edición;
-- `candidatas.md` tiene un estado inválido.
+- en `candidatas.md` una candidata no empieza con `Estado:` o tiene un
+  estado inválido.
 
 ## Candidatas
 
 `site/candidatas.html` reúne las ideas del campo `cruce_mattriz` de todas
-las ediciones, con la edición de origen, la fecha y el estado. El estado se
-lleva a mano en `candidatas.md` (tabla `| Candidata | Estado |`): `pendiente`,
-`evaluada`, `descartada` o `activa`. Si una candidata no está en la tabla,
-se muestra como `pendiente`. La página se enlaza desde el pie del sitio.
+las ediciones, con la edición de origen, la fecha, el estado y su
+desarrollo. Se lleva a mano en `candidatas.md`: una sección `## Idea` por
+candidata, con la línea `Estado: pendiente | evaluada | descartada | activa`
+y los bloques **Qué resolvería.**, **Cómo.**, **Por dónde empezar.** y
+**Entregable posible.** Si una candidata no está en el archivo, se muestra
+como `pendiente` y sin desarrollo. La página se enlaza desde el pie.
 
 ## Indexación
 

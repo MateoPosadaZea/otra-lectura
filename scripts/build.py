@@ -431,20 +431,32 @@ def resolver_seguimientos(ediciones):
 # --- Candidatas ---------------------------------------------------------------
 
 def leer_candidatas():
-    """Estados de candidatas.md: {idea_normalizada: estado}."""
+    """candidatas.md: {idea_normalizada: {"titulo", "estado", "detalle" (html)}}.
+
+    Formato: una sección "## Idea" por candidata; primera línea
+    "Estado: …"; el resto es markdown (qué resolvería, cómo, por dónde
+    empezar, entregable posible).
+    """
     if not CANDIDATAS.exists():
         return {}
-    estados = {}
-    for n, linea in enumerate(CANDIDATAS.read_text(encoding="utf-8").split("\n"), 1):
-        celdas = [c.strip() for c in linea.strip().strip("|").split("|")] if linea.strip().startswith("|") else []
-        if len(celdas) != 2 or set(celdas[1]) <= set("-: ") or celdas[0].lower() == "candidata":
-            continue
-        idea, estado = celdas[0], celdas[1].lower()
+    candidatas = {}
+    lineas = CANDIDATAS.read_text(encoding="utf-8").split("\n")
+    inicios = [i for i, l in enumerate(lineas) if l.startswith("## ")]
+    for k, i in enumerate(inicios):
+        fin = inicios[k + 1] if k + 1 < len(inicios) else len(lineas)
+        titulo = lineas[i][3:].strip()
+        resto = lineas[i + 1:fin]
+        m = next(((n, l) for n, l in enumerate(resto) if l.strip()), None)
+        if not m or not m[1].lower().startswith("estado:"):
+            raise ErrorEdicion(f"candidatas.md, línea {i + 1}: «{titulo}» debe empezar con "
+                               f"'Estado: …' (válidos: {' | '.join(ESTADOS_CANDIDATA)})")
+        estado = m[1].split(":", 1)[1].strip().lower()
         if estado not in ESTADOS_CANDIDATA:
-            raise ErrorEdicion(f"candidatas.md, línea {n}: estado «{celdas[1]}» inválido "
+            raise ErrorEdicion(f"candidatas.md, línea {i + m[0] + 2}: estado «{estado}» inválido "
                                f"(válidos: {' | '.join(ESTADOS_CANDIDATA)})")
-        estados[normalizar(idea)] = estado
-    return estados
+        detalle = marcar_bloques(convertir("\n".join(resto[m[0] + 1:])))
+        candidatas[normalizar(titulo)] = {"titulo": titulo, "estado": estado, "detalle": detalle}
+    return candidatas
 
 
 def reunir_candidatas(ediciones, estados):
@@ -460,7 +472,11 @@ def reunir_candidatas(ediciones, estados):
     candidatas = []
     for clave, g in grupos.items():
         g["origenes"].sort(key=lambda o: (o["fecha"], o["orden"]))
-        g["estado"] = estados.get(clave, "pendiente")
+        info = estados.get(clave, {})
+        g["estado"] = info.get("estado", "pendiente")
+        g["detalle"] = info.get("detalle", "")
+        if info.get("titulo"):
+            g["idea"] = info["titulo"]
         candidatas.append(g)
     candidatas.sort(key=lambda g: (g["origenes"][-1]["fecha"], g["origenes"][-1]["orden"]), reverse=True)
     return candidatas
@@ -762,15 +778,16 @@ def pagina_candidatas(base, candidatas):
         origenes = ", ".join(enlace_edicion(o, "") for o in c["origenes"])
         filas.append(f"""<li>
 <p class="fecha"><span class="estado estado-{c['estado']}">{c['estado']}</span></p>
-<p class="idea">{html.escape(c['idea'])}</p>
+<p class="idea">{html.escape(c['idea'][:1].upper() + c['idea'][1:])}</p>
 <p class="origen">Surgió en {origenes}</p>
+{f'<div class="candidata-detalle">{c["detalle"]}</div>' if c["detalle"] else ""}
 </li>""")
     lista = "\n".join(filas) if filas else "<li>Todavía no hay candidatas.</li>"
     contenido = f"""<header class="cabecera">
 <h1>Candidatas</h1>
 <p class="bajada">Cruces con Mattriz surgidos en el radar. Candidatas, no tareas.</p>
 </header>
-<p class="candidatas-resumen">{resumen or "Sin candidatas"}. El estado se edita a mano en <code>candidatas.md</code>.</p>
+<p class="candidatas-resumen">{resumen or "Sin candidatas"}. El desarrollo y el estado se editan en <code>candidatas.md</code>.</p>
 <ol class="indice candidatas">
 {lista}
 </ol>

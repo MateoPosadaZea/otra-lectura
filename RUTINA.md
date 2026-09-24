@@ -141,6 +141,12 @@ partir del campo `seguimiento`.
   evidencia nombrado y lenguaje calibrado ante la incertidumbre. El cierre
   y el glosario van en registro directo.
 - Aplicar además las reglas vigentes de `AJUSTES.md`.
+- Cada idea nueva en `cruce_mattriz` se agrega también a `candidatas.md`
+  como sección `## Idea` (mismo texto), con `Estado: pendiente` y cuatro
+  bloques breves: **Qué resolvería.**, **Cómo.**, **Por dónde empezar.**
+  (dos o tres pasos concretos; marcar "a verificar" lo que dependa de
+  datos no confirmados) y **Entregable posible.** (algo pequeño y
+  demostrable). Si la idea ya existe, no se duplica.
 
 ## 5. Publicar
 
