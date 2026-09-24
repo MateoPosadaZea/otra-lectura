@@ -4,6 +4,23 @@ Otra lectura se construye entre quienes la leen. Sus comentarios cambian
 el sitio: corrigen datos, ajustan el tono y proponen mejoras. Aquí está,
 paso a paso, cómo hacerlo.
 
+## La forma más fácil: seleccionar y comentar
+
+1. Seleccione una frase del texto (en el celular, deje el dedo presionado
+   sobre una palabra y arrastre).
+2. Aparece un botón negro: **💬 Comentar**. Tóquelo.
+3. Debajo del párrafo se abre un espacio para escribir. Escriba su
+   comentario y toque **Enviar**. Listo.
+
+Si prefiere hablar, toque **🎤 Decirlo** en vez de Comentar.
+
+## El resumen en tres minutos
+
+Cada edición empieza con **⏱ En tres minutos**: lo esencial del día. Está
+en la portada, apenas entra, y dentro de cada edición hay un botón
+**⏱ Resumen en 3 minutos** arriba. Cuando baje leyendo, en la barra de
+arriba aparece **⏱ Resumen** para volver a él.
+
 ## Dejar notas mientras lee
 
 Al lado izquierdo de la pantalla está el recuadro **Notas**. En el celular

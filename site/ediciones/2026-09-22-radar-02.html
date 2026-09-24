@@ -25,8 +25,9 @@
 </head>
 <body>
 <a class="saltar" href="#contenido">Ir al contenido</a>
-<div class="barra-fija" aria-hidden="true">
-<a class="cabezote" href="../index.html" tabindex="-1">Otra Lectura</a>
+<div class="barra-fija">
+<a class="cabezote" href="../index.html" tabindex="-1" aria-hidden="true">Otra Lectura</a>
+<a class="barra-resumen" href="#en-tres-minutos" hidden>⏱ Resumen</a>
 </div>
 <header class="sitio">
 <div class="marca">
@@ -52,6 +53,7 @@
 <h1>Un medicamento de casi un billón y una isla sin lluvia</h1>
 <p class="lugares">Colombia · India · Puerto Rico · Sudáfrica</p>
 <ul class="temas" aria-label="Categorías"><li><a href="../categorias/salud.html">Salud</a></li><li><a href="../categorias/ambiente.html">Ambiente</a></li></ul>
+
 
 
 
@@ -187,15 +189,15 @@ llega lejos, solo que más lento.</p></section>
 <div class="tambien"><p class="siguiente-rotulo">También le puede interesar</p><ul><li><a href="2026-09-23-radar.html">El presupuesto que recorta donde duele y la ONU admite el sobrepaso</a> <span>23 de septiembre de 2026 · 6 min de lectura</span></li><li><a href="2026-09-22-radar-01.html">Deuda, reconstrucción, páramos y quién se queda con el crédito</a> <span>22 de septiembre de 2026 · 5 min de lectura</span></li></ul></div>
 </aside>
 </main>
-<aside class="notas" aria-label="Notas para ajustar el sitio">
+<aside class="notas" aria-label="Comentarios y ajustes">
 <details open>
-<summary>Notas <span class="notas-cuenta" hidden></span></summary>
+<summary>💬 Comentar <span class="notas-cuenta" hidden></span></summary>
 <form class="notas-form" method="post" action="/api/ajuste">
 <input type="hidden" name="pagina" value="/ediciones/2026-09-22-radar-02.html">
 <input type="hidden" name="titulo" value="Un medicamento de casi un billón y una isla sin lluvia">
 <p class="notas-ayuda">Escriba lo que quiera corregir o proponer. ¿Es sobre una frase? Selecciónela antes. <a href="../ayuda.html">Ayuda</a></p>
 <p class="notas-cita" hidden><span></span> <button type="button" aria-label="Quitar la cita">×</button></p>
-<textarea name="texto" rows="3" maxlength="4000" aria-label="Nota" placeholder="Escriba una nota…"></textarea>
+<textarea name="texto" rows="3" maxlength="4000" aria-label="Nota" placeholder="¿Qué cambiaría, qué no se entiende, qué le parece?"></textarea>
 <button type="button" class="notas-agregar" hidden>Agregar nota</button>
 <ol class="notas-lista" hidden></ol>
 <div class="notas-envio">
@@ -363,7 +365,7 @@ llega lejos, solo que más lento.</p></section>
     var sel = ".edicion .cabecera h1, .edicion .cabecera .fecha, .edicion h2, .edicion h3, .edicion p, .edicion li";
     return Array.prototype.filter.call(document.querySelectorAll(sel), function (el) {
       return !el.closest(".fuentes, figure, table, .escuchar, .temas, nav, .glosario-flotante, #glosario, " +
-        ".plegable, .lugares, .nota, .seguimiento-de, .hilo-enlace, .aviso-cambios, .dia-temas") &&
+        ".plegable, .lugares, .nota, .seguimiento-de, .hilo-enlace, .aviso-cambios, .dia-temas, .atajos, .comentario-caja") &&
         !el.querySelector("p, li") && el.textContent.trim();
     });
   }
@@ -935,7 +937,8 @@ llega lejos, solo que más lento.</p></section>
     ya.onclick = function () { enviar(texto); };
   }
   boton.addEventListener("click", function () {
-    cita = citaActual();
+    cita = citaActual() || window.citaParaDictar || "";
+    window.citaParaDictar = "";
     final = ""; cancelado = false;
     rec = new Reconocer();
     rec.lang = "es-CO";
@@ -974,6 +977,124 @@ llega lejos, solo que más lento.</p></section>
     try { rec.abort(); } catch (e) {}
     cerrar();
   });
+})();
+</script>
+<script>
+/* Comentar una frase: al seleccionar texto aparece "💬 Comentar" (y "🎤
+   Decirlo"); el comentario se escribe ahí mismo, debajo del párrafo, y se
+   envía con un toque. También: acceso al resumen desde la barra fija. */
+(function () {
+  var resumen = document.getElementById("en-tres-minutos");
+  var enlace = document.querySelector(".barra-resumen");
+  if (resumen && enlace) enlace.hidden = false;
+
+  var contenido = document.getElementById("contenido");
+  var form = document.querySelector(".notas-form");
+  if (!contenido || !form || !window.fetch) return;
+  function leer(k) { try { return JSON.parse(localStorage.getItem(k) || '""'); } catch (e) { return ""; } }
+  var pop = document.createElement("div");
+  pop.className = "comentar-pop";
+  pop.hidden = true;
+  pop.innerHTML = '<button type="button" class="comentar-si">💬 Comentar</button>' +
+    (document.querySelector(".dictar") || window.SpeechRecognition || window.webkitSpeechRecognition
+      ? '<button type="button" class="comentar-voz">🎤 Decirlo</button>' : "");
+  document.body.appendChild(pop);
+  var cita = "", ancla = null;
+
+  function seleccion() {
+    var sel = document.getSelection();
+    if (!sel || sel.isCollapsed || !sel.rangeCount) return null;
+    var t = String(sel).replace(/\s+/g, " ").trim();
+    if (t.length < 2 || !contenido.contains(sel.anchorNode)) return null;
+    if (sel.anchorNode.parentElement && sel.anchorNode.parentElement.closest(".comentario-caja, .pulso, .escuchar")) return null;
+    return { texto: t.slice(0, 600), rect: sel.getRangeAt(0).getBoundingClientRect(), nodo: sel.anchorNode };
+  }
+  function mostrar() {
+    var s = seleccion();
+    if (!s) { pop.hidden = true; return; }
+    cita = s.texto;
+    var el = s.nodo.nodeType === 1 ? s.nodo : s.nodo.parentElement;
+    ancla = el.closest("p, li, h1, h2, h3, h4, dd") || el;
+    pop.hidden = false;
+    var arriba = s.rect.top - pop.offsetHeight - 10;
+    // En el celular el menú del sistema aparece arriba de la selección: el botón va debajo.
+    var tactil = matchMedia("(pointer: coarse)").matches;
+    var top = tactil || arriba < 50 ? s.rect.bottom + 12 : arriba;
+    pop.style.top = Math.min(top, innerHeight - pop.offsetHeight - 8) + "px";
+    pop.style.left = Math.max(8, Math.min(s.rect.left + s.rect.width / 2 - pop.offsetWidth / 2, innerWidth - pop.offsetWidth - 8)) + "px";
+  }
+  var reloj = null;
+  document.addEventListener("selectionchange", function () { clearTimeout(reloj); reloj = setTimeout(mostrar, 250); });
+  addEventListener("scroll", function () { if (!pop.hidden) mostrar(); }, { passive: true });
+
+  function enviar(caja, texto) {
+    var estado = caja.querySelector(".comentario-estado");
+    var quien = caja.querySelector("[name=quien]"), clave = caja.querySelector("[name=clave]");
+    var q = quien.value || leer("notas-quien"), c = clave.value || leer("notas-clave");
+    if (!c) {
+      caja.querySelector(".comentario-cred").hidden = false;
+      estado.textContent = "Escriba su nombre y la clave (solo esta vez).";
+      clave.focus();
+      return;
+    }
+    var d = new FormData();
+    d.set("quien", q); d.set("clave", c);
+    d.set("pagina", form.elements.pagina.value); d.set("titulo", form.elements.titulo.value);
+    d.set("notas", JSON.stringify([{ texto: texto, cita: caja.dataset.cita,
+      pagina: form.elements.pagina.value, titulo: form.elements.titulo.value }]));
+    estado.textContent = "Enviando…";
+    fetch(form.action, { method: "POST", body: d, headers: { Accept: "application/json" } })
+      .then(function (r) { return r.json().then(function (j) { return [r.status, j]; }); })
+      .then(function (res) {
+        if (res[0] === 200) {
+          if (clave.value) {
+            try { localStorage.setItem("notas-quien", JSON.stringify(q)); localStorage.setItem("notas-clave", JSON.stringify(c)); } catch (e) {}
+          }
+          caja.innerHTML = '<p class="comentario-gracias">¡Gracias! Su comentario llegó ✓</p>';
+          setTimeout(function () { caja.remove(); }, 3500);
+        } else {
+          if (res[0] === 401) caja.querySelector(".comentario-cred").hidden = false;
+          estado.textContent = res[1].mensaje;
+        }
+      })
+      .catch(function () { estado.textContent = "No se pudo enviar. Revise la conexión."; });
+  }
+  pop.querySelector(".comentar-si").addEventListener("mousedown", function (ev) { ev.preventDefault(); });
+  pop.querySelector(".comentar-si").addEventListener("click", function () {
+    pop.hidden = true;
+    var vieja = document.querySelector(".comentario-caja");
+    if (vieja) vieja.remove();
+    var caja = document.createElement("div");
+    caja.className = "comentario-caja";
+    caja.dataset.cita = cita;
+    caja.setAttribute("contenteditable", "false");
+    caja.innerHTML = '<p class="comentario-cita"></p>' +
+      '<textarea rows="2" aria-label="Su comentario" placeholder="Escriba su comentario…"></textarea>' +
+      '<div class="comentario-cred" hidden><input name="quien" placeholder="Nombre" aria-label="Nombre" autocomplete="name">' +
+      '<input name="clave" type="password" placeholder="Clave" aria-label="Clave" autocomplete="current-password"></div>' +
+      '<div class="comentario-acciones"><button type="button" class="comentario-enviar">Enviar</button>' +
+      '<button type="button" class="comentario-cancelar">Cancelar</button><span class="comentario-estado" role="status" aria-live="polite"></span></div>';
+    caja.querySelector(".comentario-cita").textContent = "«" + (cita.length > 140 ? cita.slice(0, 140) + "…" : cita) + "»";
+    var destino = ancla && ancla.closest("li") ? ancla.closest("ul, ol") : ancla;
+    (destino || contenido).insertAdjacentElement("afterend", caja);
+    var t = caja.querySelector("textarea");
+    t.focus();
+    caja.querySelector(".comentario-enviar").addEventListener("click", function () {
+      if (t.value.trim()) enviar(caja, t.value.trim()); else t.focus();
+    });
+    caja.querySelector(".comentario-cancelar").addEventListener("click", function () { caja.remove(); });
+    getSelection().removeAllRanges();
+  });
+  var voz = pop.querySelector(".comentar-voz");
+  if (voz) {
+    voz.addEventListener("mousedown", function (ev) { ev.preventDefault(); });
+    voz.addEventListener("click", function () {
+      pop.hidden = true;
+      window.citaParaDictar = cita;
+      var boton = document.querySelector(".dictar");
+      if (boton) boton.click();
+    });
+  }
 })();
 </script>
 </body>

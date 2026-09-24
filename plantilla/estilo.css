@@ -1444,7 +1444,7 @@ html:not(.js) .barra-fija { display: none; }
 
 .dictar {
   position: fixed;
-  left: 7.4rem;
+  left: 9.4rem;
   bottom: 1rem;
   z-index: 4;
   min-height: 2.3rem;
@@ -1509,3 +1509,118 @@ html:not(.js) .barra-fija { display: none; }
   text-decoration: underline;
   cursor: pointer;
 }
+
+/* --- En tres minutos: en la portada y accesos directos --- */
+
+.breve-portada {
+  max-width: 32em;
+  margin: 0.4rem auto 0;
+  padding: 1rem 1.2rem 0.6rem;
+  border: 1px solid var(--tinta);
+  background: var(--papel-claro);
+  text-align: left;
+}
+.breve-rotulo {
+  margin: 0 0 0.6rem;
+  font: 800 0.7rem/1.3 var(--sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rojo);
+}
+.breve-portada ul { margin: 0; padding-left: 1.1em; font-size: 0.95em; }
+.breve-portada li { margin: 0 0 0.6em; }
+.breve-mas { margin: 0.8rem 0 0.4rem; text-align: center; font: 700 0.78rem/1.3 var(--sans); }
+.breve-mas a { text-decoration: none; border-bottom: 1px solid currentColor; }
+.atajos { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin: 1.2rem 0 0; }
+.atajos a {
+  display: inline-block;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--tinta);
+  font: 700 0.74rem/1 var(--sans);
+  letter-spacing: 0.06em;
+  text-decoration: none;
+}
+.atajos a:first-child { background: var(--tinta); color: var(--papel); }
+.atajos a:hover { background: var(--rojo); border-color: var(--rojo); color: var(--papel); }
+.barra-resumen {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font: 800 0.66rem/1 var(--sans);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+#en-tres-minutos, #para-conversar { scroll-margin-top: 4rem; }
+
+/* --- Comentar una frase --- */
+
+.comentar-pop {
+  position: fixed;
+  z-index: 8;
+  display: flex;
+  gap: 0;
+  background: var(--tinta);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+.comentar-pop button {
+  min-height: 2.6rem;
+  padding: 0.45rem 0.9rem;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--papel);
+  font: 800 0.74rem/1 var(--sans);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+.comentar-pop button + button { border-left: 1px solid rgba(255, 255, 255, 0.25); }
+.comentar-pop button:hover { background: var(--rojo); }
+.comentario-caja {
+  margin: 0.6rem 0 1.4rem;
+  padding: 0.8rem 0.9rem;
+  border-left: 3px solid var(--rojo);
+  background: var(--papel-claro);
+  font-family: var(--sans);
+}
+.comentario-cita { margin: 0 0 0.5rem; color: var(--tenue); font-size: 0.85em; font-style: italic; }
+.comentario-caja textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  border: 1px solid var(--tinta);
+  border-radius: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font: 1rem/1.4 var(--sans);
+  resize: vertical;
+}
+.comentario-cred { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
+.comentario-cred input {
+  flex: 1 1 8rem;
+  min-height: 2.3rem;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--tinta);
+  border-radius: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font: 1rem var(--sans);
+}
+.comentario-acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-top: 0.5rem; }
+.comentario-acciones button {
+  min-height: 2.4rem;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid var(--tinta);
+  border-radius: 0;
+  background: none;
+  color: var(--tinta);
+  font: 700 0.7rem/1 var(--sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.comentario-acciones .comentario-enviar { background: var(--tinta); color: var(--papel); }
+.comentario-estado { font-size: 0.82rem; color: var(--tenue); }
+.comentario-gracias { margin: 0; font-weight: 700; }
+@media print { .comentar-pop, .comentario-caja, .atajos { display: none !important; } }

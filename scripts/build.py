@@ -300,7 +300,9 @@ def envolver_secciones(cuerpo):
                 salida.append("<!--antes-glosario-->\n")
                 salida.append(f'<section class="{" ".join(clases)}" id="glosario">\n')
             else:
-                salida.append(f'<section class="{" ".join(clases)}">\n')
+                ancla = {"en-breve": ' id="en-tres-minutos"', "conversar": ' id="para-conversar"'}
+                extra = next((ancla[c] for c in clases if c in ancla), "")
+                salida.append(f'<section class="{" ".join(clases)}"{extra}>\n')
             # "Carril 1: Radar" → "Radar", con una línea que explica el carril.
             heading = re.sub(r"(<h2[^>]*>)\s*Carril\s+\d+\s*:\s*", r"\1", heading, flags=re.I)
             bajada = next((BAJADA_CARRIL[c] for c in clases if c in BAJADA_CARRIL), "")
@@ -426,6 +428,8 @@ def leer_edicion(ruta):
     lectura = re.split(r'<section class="carril cierre"', cuerpo)[0]
     e["palabras"] = len(texto_plano(lectura).split())
     e["minutos"] = max(1, round(e["palabras"] / 200))
+    m_breve = re.search(r'<section class="carril en-breve"[^>]*>\s*<h2[^>]*>.*?</h2>(.*?)</section>', cuerpo, re.S)
+    e["en_breve"] = m_breve.group(1).strip() if m_breve else ""
     e["cuerpo"] = graficos.insertar(marcar_bloques(cuerpo), figuras)
     e["glosario"] = extraer_glosario(e["cuerpo"])
 
@@ -802,6 +806,7 @@ def pagina_edicion(base, e, ediciones):
 {nota}
 {aviso_cambios(e)}
 {seguimiento}
+{html_atajos(e)}
 {HTML_ESCUCHAR}
 </header>
 {cuerpo_edicion(e)}
@@ -821,6 +826,16 @@ def pagina_edicion(base, e, ediciones):
         ld["citation"] = [f["url"] for f in e["fuentes"]]
     return pagina(base, html.escape(f"{e['titulo']} · Otra lectura"), descripcion, "../",
                   contenido, f"/ediciones/{e['slug']}.html", "article", ld)
+
+
+def html_atajos(e):
+    """Accesos visibles al resumen y a la pregunta del final."""
+    atajos = []
+    if e["en_breve"]:
+        atajos.append('<a href="#en-tres-minutos">⏱ Resumen en 3 minutos</a>')
+    if 'id="para-conversar"' in e["cuerpo"]:
+        atajos.append('<a href="#para-conversar">💬 Para conversar</a>')
+    return f'<nav class="atajos" aria-label="Ir a">{"".join(atajos)}</nav>' if atajos else ""
 
 
 # Controles para escuchar la edición. Ocultos sin JavaScript o sin voz en el
@@ -887,6 +902,10 @@ def html_ediciones_dia(ediciones, raiz):
         temas = "".join(f'<li><a href="{href}#{slug}">{html.escape(t)}</a></li>'
                         for slug, t in e["indice_fricciones"])
         temas = f'<ul class="dia-temas" aria-label="Temas principales">{temas}</ul>' if temas else ""
+        if e["en_breve"]:
+            temas = (f'<div class="breve-portada"><p class="breve-rotulo">⏱ En tres minutos</p>'
+                     f'{e["en_breve"]}<p class="breve-mas"><a href="{href}">Leer la edición completa · '
+                     f'{minutos_lectura(e)} →</a></p></div>')
         edicion = " · ".join(([f"Edición {html.escape(e['edicion'])}"] if e["edicion"] else [])
                              + [minutos_lectura(e)])
         bloques.append(f"""<li>
