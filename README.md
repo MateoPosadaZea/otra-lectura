@@ -103,6 +103,12 @@ nofollow">` en todas las páginas. Ambos salen de una sola constante: para
 abrirlo a buscadores, cambia `INDEXAR = False` a `True` en
 `scripts/build.py` y publica.
 
+Cada página lleva además descripción, Open Graph y tarjeta de X (vista
+previa al compartir por WhatsApp, LinkedIn o X), datos estructurados
+JSON-LD (`Article` en las ediciones) y la imagen `plantilla/og.png`. La
+imagen, la url canónica y `sitemap.xml` necesitan la dirección pública:
+pon la url del sitio en `SITIO_URL` (`scripts/build.py`).
+
 ## Desplegar
 
 ```sh

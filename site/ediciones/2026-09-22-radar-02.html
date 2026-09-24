@@ -5,8 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>Un medicamento de casi un billón y una isla sin lluvia · Otra lectura</title>
-<meta name="description" content="Radar · 22 de septiembre de 2026 (segunda edición)">
+<meta name="description" content="Edición 2, 22 de septiembre de 2026: Un solo medicamento, casi un billón de pesos; Una isla sin lluvia y una ciudad que partió su consumo a la mitad. Contexto…">
+<meta property="og:site_name" content="Otra lectura">
+<meta property="og:locale" content="es_CO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Un medicamento de casi un billón y una isla sin lluvia · Otra lectura">
+<meta property="og:description" content="Edición 2, 22 de septiembre de 2026: Un solo medicamento, casi un billón de pesos; Una isla sin lluvia y una ciudad que partió su consumo a la mitad. Contexto, soluciones y contrapeso.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Un medicamento de casi un billón y una isla sin lluvia · Otra lectura">
+<meta name="twitter:description" content="Edición 2, 22 de septiembre de 2026: Un solo medicamento, casi un billón de pesos; Una isla sin lluvia y una ciudad que partió su consumo a la mitad. Contexto, soluciones y contrapeso.">
+<meta name="theme-color" content="#d8d1c7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1b1a18" media="(prefers-color-scheme: dark)">
 <meta name="robots" content="noindex, nofollow">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Un medicamento de casi un billón y una isla sin lluvia", "description": "Edición 2, 22 de septiembre de 2026: Un solo medicamento, casi un billón de pesos; Una isla sin lluvia y una ciudad que partió su consumo a la mitad. Contexto, soluciones y contrapeso.", "datePublished": "2026-09-22", "dateModified": "2026-09-22", "inLanguage": "es-CO", "articleSection": ["Salud", "Ambiente y clima"], "keywords": "salud-medicamentos, agua-sequia", "contentLocation": ["Colombia", "India", "Puerto Rico", "Sudáfrica"], "author": {"@type": "Organization", "name": "Otra lectura"}, "publisher": {"@type": "Organization", "name": "Otra lectura"}, "isAccessibleForFree": true}</script>
 <link rel="preload" href="../fuentes/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../fuentes/unifraktur.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../estilo.css">
@@ -15,10 +26,14 @@
 <body>
 <a class="saltar" href="#contenido">Ir al contenido</a>
 <header class="sitio">
-<p class="lado">Radar de fricciones</p>
+<details class="menu">
+<summary><span aria-hidden="true">☰</span> <span class="menu-texto">Secciones</span></summary>
+<nav aria-label="Secciones">
+<ul><li><a href="../index.html">Todas las ediciones</a></li><li><a href="../categorias/economia.html">Economía</a></li><li><a href="../categorias/salud.html">Salud</a></li><li><a href="../categorias/ambiente.html">Ambiente y clima</a></li><li><a href="../categorias/energia.html">Energía</a></li><li><a href="../categorias/justicia.html">Justicia y Estado</a></li><li><a href="../categorias/territorio.html">Ciudades y territorio</a></li><li><a href="../categorias/ciencia.html">Ciencia y tecnología</a></li><li class="menu-aparte"><a href="../candidatas.html">Candidatas</a></li></ul>
+</nav>
+</details>
 <a class="cabezote" href="../index.html">Otra Lectura</a>
 <div class="lado-der">
-<p class="lado">Colombia · mundo</p>
 <button class="tema" type="button" hidden>Oscuro</button>
 </div>
 </header>
@@ -36,7 +51,8 @@
 <p>Primera edición con el formato de soluciones: quién lo está resolviendo,
 cómo, y con qué contrapeso.</p>
 <section class="carril carril-radar">
-<h2>Carril 1: Radar</h2>
+<h2>Radar</h2>
+<p class="carril-bajada">Problemas que se repiten, quién los está abordando, con qué resultados y con qué críticas.</p>
 <article class="item" id="un-solo-medicamento-casi-un-billon-de-pesos-colombia-india">
 <h3>1. Un solo medicamento, casi un billón de pesos (Colombia → India)</h3>
 <p class="con-etiqueta"><strong class="etiqueta">Qué pasó.</strong> En 2025 el sistema de salud colombiano destinó $919.023
@@ -103,7 +119,8 @@ radar seguido en que el cruce es un tablero público de transparencia.</p>
 </article>
 </section>
 <section class="carril carril-asombro">
-<h2>Carril 2: Asombro</h2>
+<h2>Asombro</h2>
+<p class="carril-bajada">Hallazgos e historias que amplían la mirada, aunque no sirvan para nada inmediato.</p>
 <p class="con-etiqueta"><strong class="etiqueta">Leer libros quemados hace 2.000 años sin abrirlos.</strong> Los rollos de
 Herculano quedaron carbonizados por la erupción del Vesubio en el año 79
 y son la única biblioteca intacta del mundo antiguo. El cómo: sincrotrón
@@ -148,7 +165,7 @@ llega lejos, solo que más lento.</p></section>
 </main>
 <footer class="sitio">
 <p><a class="cabezote" href="../index.html">Otra Lectura</a></p>
-<p>Qué se traba, quién lo está resolviendo y con qué contrapeso.</p>
+<p>Otra manera de leer las noticias: con contexto, soluciones y contrapeso.</p>
 <p class="pie-enlaces"><a href="../index.html">Todas las ediciones</a> · <a href="../candidatas.html">Candidatas</a></p>
 </footer>
 <script>
@@ -172,6 +189,12 @@ llega lejos, solo que más lento.</p></section>
     pintar();
   });
   sistema.addEventListener("change", pintar);
+})();
+/* Cierra el menú de secciones al hacer clic fuera o con Escape. */
+(function () {
+  var menu = document.querySelector("details.menu");
+  document.addEventListener("click", function (ev) { if (!menu.contains(ev.target)) menu.open = false; });
+  document.addEventListener("keydown", function (ev) { if (ev.key === "Escape") menu.open = false; });
 })();
 </script>
 <script>

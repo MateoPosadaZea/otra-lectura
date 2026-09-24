@@ -18,6 +18,7 @@ resuelve a ninguna edición anterior.
 """
 
 import html
+import json
 import re
 import shutil
 import sys
@@ -36,6 +37,18 @@ EDICIONES = RAIZ / "ediciones"
 PLANTILLA = RAIZ / "plantilla"
 SITE = RAIZ / "site"
 CANDIDATAS = RAIZ / "candidatas.md"
+
+# Dirección pública del sitio, sin barra final (p. ej. "https://otra-lectura.xxx.workers.dev").
+# Hace falta para las vistas previas al compartir (og:image y og:url deben ser
+# absolutas), la url canónica y el sitemap. Vacía, esas etiquetas se omiten.
+SITIO_URL = ""
+
+NOMBRE_SITIO = "Otra lectura"
+DESCRIPCION_SITIO = (
+    "Otra manera de leer las noticias. Cada día, los problemas que se repiten "
+    "en Colombia, América Latina y el mundo, con su contexto histórico, las "
+    "soluciones que ya funcionan en otros lugares y sus críticas. Menos "
+    "ansiedad, más criterio para participar.")
 
 # Mientras el proyecto está en calibración, el sitio pide no ser indexado
 # (robots.txt con Disallow total y meta noindex). Para abrirlo a buscadores,
@@ -58,6 +71,16 @@ CATEGORIAS = {
     "sociedad": "Sociedad",
     "ciencia": "Ciencia y tecnología",
 }
+
+# Explicación corta bajo la banda de cada carril (el markdown dice "Carril 1: Radar";
+# en pantalla se muestra solo "Radar").
+BAJADA_CARRIL = {
+    "carril-radar": "Problemas que se repiten, quién los está abordando, con qué resultados y con qué críticas.",
+    "carril-asombro": "Hallazgos e historias que amplían la mirada, aunque no sirvan para nada inmediato.",
+}
+
+# Categorías con al menos una edición; las llena main() para el menú.
+CATEGORIAS_ACTIVAS = []
 
 ESTADOS_CANDIDATA = ["pendiente", "evaluada", "descartada", "activa"]
 
@@ -257,6 +280,11 @@ def envolver_secciones(cuerpo):
                 salida.append(f'<section class="{" ".join(clases)}" id="glosario">\n')
             else:
                 salida.append(f'<section class="{" ".join(clases)}">\n')
+            # "Carril 1: Radar" → "Radar", con una línea que explica el carril.
+            heading = re.sub(r"(<h2[^>]*>)\s*Carril\s+\d+\s*:\s*", r"\1", heading, flags=re.I)
+            bajada = next((BAJADA_CARRIL[c] for c in clases if c in BAJADA_CARRIL), "")
+            if bajada:
+                heading += f'\n<p class="carril-bajada">{bajada}</p>'
             pila.append((nivel, "section", None))
         elif nivel == 3 and clases:
             # Slug explícito con {#slug} (attr_list) o derivado del título sin número.
@@ -361,6 +389,10 @@ def leer_edicion(ruta):
         cuerpo = cuerpo[m.end():]
 
     cuerpo, e["fricciones"] = envolver_secciones(cuerpo)
+    # Títulos de las fricciones (sin número ni lugares) para la descripción.
+    e["titulos_fricciones"] = [
+        re.sub(r"\s*\([^)]*\)\s*$", "", re.sub(r"^\s*\d+\.\s*", "", texto_plano(t))).strip()
+        for t in re.findall(r'<article class="item(?! seguimiento)[^"]*"[^>]*>\s*<h3[^>]*>(.*?)</h3>', cuerpo, re.S)]
     e["cuerpo"] = marcar_bloques(cuerpo)
     e["glosario"] = extraer_glosario(e["cuerpo"])
 
@@ -578,10 +610,65 @@ def form_ajuste(pagina, titulo):
 </details>"""
 
 
-def pagina(base, titulo, descripcion, raiz, contenido):
-    robots = "" if INDEXAR else '<meta name="robots" content="noindex, nofollow">'
-    return base.substitute(titulo=titulo, descripcion=descripcion, raiz=raiz,
-                           contenido=contenido, robots=robots)
+def html_menu(raiz):
+    """Menú de secciones de la cabecera: archivo, categorías y candidatas."""
+    items = [f'<li><a href="{raiz}index.html">Todas las ediciones</a></li>']
+    items += [f'<li><a href="{raiz}categorias/{c}.html">{html.escape(CATEGORIAS[c])}</a></li>'
+              for c in CATEGORIAS_ACTIVAS]
+    items.append(f'<li class="menu-aparte"><a href="{raiz}candidatas.html">Candidatas</a></li>')
+    return "<ul>" + "".join(items) + "</ul>"
+
+
+def recortar(texto, limite):
+    """Corta en el último espacio antes del límite y agrega puntos suspensivos."""
+    texto = re.sub(r"\s+", " ", texto).strip()
+    return texto if len(texto) <= limite else texto[:limite].rsplit(" ", 1)[0].rstrip(",;:") + "…"
+
+
+def descripcion_edicion(e):
+    temas = "; ".join(e["titulos_fricciones"])
+    inicio = f"Edición {e['edicion']}, {fecha_legible(e['fecha'])}"
+    cuerpo = f"{inicio}: {temas}." if temas else f"{inicio}: {e['titulo']}."
+    return f"{cuerpo} Contexto, soluciones y contrapeso."
+
+
+def meta_etiquetas(titulo, descripcion, ruta, tipo, ld):
+    """<meta> de descripción, robots, Open Graph, tarjeta de X y JSON-LD."""
+    desc = recortar(descripcion, 300)
+    m = [f'<meta name="description" content="{html.escape(recortar(descripcion, 160))}">',
+         f'<meta property="og:site_name" content="{NOMBRE_SITIO}">',
+         '<meta property="og:locale" content="es_CO">',
+         f'<meta property="og:type" content="{tipo}">',
+         f'<meta property="og:title" content="{titulo}">',
+         f'<meta property="og:description" content="{html.escape(desc)}">',
+         '<meta name="twitter:card" content="summary_large_image">',
+         f'<meta name="twitter:title" content="{titulo}">',
+         f'<meta name="twitter:description" content="{html.escape(desc)}">',
+         '<meta name="theme-color" content="#d8d1c7" media="(prefers-color-scheme: light)">',
+         '<meta name="theme-color" content="#1b1a18" media="(prefers-color-scheme: dark)">']
+    if not INDEXAR:
+        m.append('<meta name="robots" content="noindex, nofollow">')
+    if SITIO_URL:
+        url = SITIO_URL + ruta
+        m += [f'<link rel="canonical" href="{url}">',
+              f'<meta property="og:url" content="{url}">',
+              f'<meta property="og:image" content="{SITIO_URL}/og.png">',
+              '<meta property="og:image:width" content="1200">',
+              '<meta property="og:image:height" content="630">',
+              f'<meta property="og:image:alt" content="{NOMBRE_SITIO}: otra manera de leer las noticias">',
+              f'<meta name="twitter:image" content="{SITIO_URL}/og.png">']
+        ld = {**ld, "url": url}
+    # "<\/" evita que un "</script>" dentro de los datos cierre el bloque.
+    datos = json.dumps({"@context": "https://schema.org", **ld}, ensure_ascii=False).replace("</", "<\\/")
+    m.append(f'<script type="application/ld+json">{datos}</script>')
+    return "\n".join(m)
+
+
+def pagina(base, titulo, descripcion, raiz, contenido, ruta, tipo="website", ld=None):
+    ld = ld or {"@type": "WebPage", "name": html.unescape(titulo), "description": descripcion,
+                "inLanguage": "es-CO", "isPartOf": {"@type": "WebSite", "name": NOMBRE_SITIO}}
+    return base.substitute(titulo=titulo, raiz=raiz, contenido=contenido, menu=html_menu(raiz),
+                           meta=meta_etiquetas(titulo, descripcion, ruta, tipo, ld))
 
 
 def pagina_edicion(base, e, anterior, siguiente):
@@ -615,8 +702,18 @@ def pagina_edicion(base, e, anterior, siguiente):
 {html_glosario_flotante(e['glosario'])}
 <nav class="entre-ediciones" aria-label="Otras ediciones">{''.join(nav)}</nav>
 {form_ajuste(f"/ediciones/{e['slug']}.html", e['titulo'])}"""
-    return pagina(base, html.escape(f"{e['titulo']} · Otra lectura"),
-                  html.escape(e["antetitulo"] or e["titulo"]), "../", contenido)
+    descripcion = descripcion_edicion(e)
+    ld = {"@type": "Article", "headline": e["titulo"], "description": descripcion,
+          "datePublished": e["fecha"], "dateModified": e["ultimo_cambio"] or e["fecha"],
+          "inLanguage": "es-CO", "articleSection": [CATEGORIAS[c] for c in e["categorias"]],
+          "keywords": ", ".join(e["temas"]), "contentLocation": e["lugares"],
+          "author": {"@type": "Organization", "name": NOMBRE_SITIO},
+          "publisher": {"@type": "Organization", "name": NOMBRE_SITIO},
+          "isAccessibleForFree": True}
+    if e["fuentes"]:
+        ld["citation"] = [f["url"] for f in e["fuentes"]]
+    return pagina(base, html.escape(f"{e['titulo']} · Otra lectura"), descripcion, "../",
+                  contenido, f"/ediciones/{e['slug']}.html", "article", ld)
 
 
 def pagina_lista(base, ediciones, todas, raiz, titulo, bajada, actual=None):
@@ -637,8 +734,15 @@ def pagina_lista(base, ediciones, todas, raiz, titulo, bajada, actual=None):
 {lista}
 </ol>
 {form_ajuste("/" if actual is None else f"/categorias/{actual}.html", titulo)}"""
-    return pagina(base, html.escape(titulo if actual is None else f"{titulo} · Otra lectura"),
-                  html.escape(bajada), raiz, contenido)
+    if actual is None:
+        ld = {"@type": "WebSite", "name": NOMBRE_SITIO, "description": DESCRIPCION_SITIO,
+              "inLanguage": "es-CO"}
+        return pagina(base, "Otra lectura · Otra manera de leer las noticias", DESCRIPCION_SITIO,
+                      raiz, contenido, "/", "website", ld)
+    descripcion = (f"{titulo}: ediciones de Otra lectura con contexto, soluciones y contrapeso. "
+                   f"{bajada}.")
+    return pagina(base, html.escape(f"{titulo} · Otra lectura"), descripcion, raiz, contenido,
+                  f"/categorias/{actual}.html")
 
 
 def pagina_candidatas(base, candidatas):
@@ -663,7 +767,8 @@ def pagina_candidatas(base, candidatas):
 </ol>
 {form_ajuste("/candidatas.html", "Candidatas")}"""
     return pagina(base, "Candidatas · Otra lectura",
-                  "Cruces con Mattriz surgidos en el radar.", "", contenido)
+                  "Ideas de cruce con Mattriz surgidas en Otra lectura: candidatas, no tareas.",
+                  "", contenido, "/candidatas.html")
 
 
 # --- Principal -----------------------------------------------------------------
@@ -697,6 +802,7 @@ def main():
 
     # Cronológico inverso; a igual fecha, la edición de número mayor primero.
     ediciones.sort(key=lambda e: (e["fecha"], e["orden"], e["slug"]), reverse=True)
+    CATEGORIAS_ACTIVAS[:] = [c for c in CATEGORIAS if any(c in e["categorias"] for e in ediciones)]
 
     # site/ es salida: se regenera entero.
     if SITE.exists():
@@ -704,8 +810,11 @@ def main():
     (SITE / "ediciones").mkdir(parents=True)
     shutil.copy(PLANTILLA / "estilo.css", SITE / "estilo.css")
     shutil.copytree(PLANTILLA / "fuentes", SITE / "fuentes")
-    (SITE / "robots.txt").write_text(
-        "User-agent: *\n" + ("Allow: /\n" if INDEXAR else "Disallow: /\n"), encoding="utf-8")
+    shutil.copy(PLANTILLA / "og.png", SITE / "og.png")
+    robots = "User-agent: *\n" + ("Allow: /\n" if INDEXAR else "Disallow: /\n")
+    if INDEXAR and SITIO_URL:
+        robots += f"Sitemap: {SITIO_URL}/sitemap.xml\n"
+    (SITE / "robots.txt").write_text(robots, encoding="utf-8")
 
     for i, e in enumerate(ediciones):
         anterior = ediciones[i + 1] if i + 1 < len(ediciones) else None
@@ -715,8 +824,8 @@ def main():
 
     (SITE / "index.html").write_text(pagina_lista(
         base, ediciones, ediciones, "", "Archivo",
-        "Un hábito de lectura, no un noticiero: qué se traba, quién lo está "
-        "resolviendo y con qué contrapeso."), encoding="utf-8")
+        "Otra manera de leer las noticias: con contexto, con soluciones y con "
+        "contrapeso. Una mirada pragmática para informarse y participar."), encoding="utf-8")
 
     (SITE / "categorias").mkdir()
     for c, nombre in CATEGORIAS.items():
@@ -725,6 +834,17 @@ def main():
         bajada = f"{n} edición" if n == 1 else f"{n} ediciones"
         (SITE / "categorias" / f"{c}.html").write_text(pagina_lista(
             base, de_categoria, ediciones, "../", nombre, bajada, actual=c), encoding="utf-8")
+
+    if SITIO_URL:
+        urls = [("/", ediciones[0]["fecha"] if ediciones else "")]
+        urls += [(f"/ediciones/{e['slug']}.html", e["ultimo_cambio"] or e["fecha"]) for e in ediciones]
+        urls += [(f"/categorias/{c}.html", "") for c in CATEGORIAS_ACTIVAS]
+        filas = "".join(f"<url><loc>{SITIO_URL}{u}</loc>" + (f"<lastmod>{f}</lastmod>" if f else "")
+                        + "</url>\n" for u, f in urls)
+        (SITE / "sitemap.xml").write_text(
+            '<?xml version="1.0" encoding="UTF-8"?>\n'
+            f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{filas}</urlset>\n',
+            encoding="utf-8")
 
     candidatas = reunir_candidatas(ediciones, estados)
     (SITE / "candidatas.html").write_text(pagina_candidatas(base, candidatas), encoding="utf-8")

@@ -115,7 +115,42 @@ header.sitio {
   padding: 1rem clamp(1.1rem, 3vw, 2.5rem);
   border-bottom: 1px solid var(--tinta);
 }
-header.sitio .lado { margin: 0; font-size: 0.8rem; color: var(--tenue); }
+/* Menú de secciones: <details>, funciona sin JavaScript. */
+.menu { justify-self: start; }
+.menu summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--tinta);
+  font: 700 0.62rem/1 var(--sans);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.menu summary::-webkit-details-marker { display: none; }
+.menu summary:hover, .menu[open] summary { background: var(--tinta); color: var(--papel); }
+.menu nav {
+  position: absolute;
+  top: calc(100% - 1px);
+  left: clamp(1.1rem, 3vw, 2.5rem);
+  z-index: 6;
+  min-width: 15rem;
+  padding: 0.5rem 0;
+  background: var(--papel);
+  border: 1px solid var(--tinta);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+.menu ul { list-style: none; margin: 0; padding: 0; }
+.menu li a {
+  display: block;
+  padding: 0.55rem 1rem;
+  font: 700 0.7rem/1.2 var(--sans);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.menu li a:hover { background: var(--tinta); color: var(--papel); }
+.menu .menu-aparte { margin-top: 0.4rem; padding-top: 0.4rem; border-top: 1px solid var(--filete); }
 header.sitio .lado-der {
   display: flex;
   justify-content: flex-end;
@@ -143,10 +178,12 @@ header.sitio .lado-der {
   white-space: nowrap;
 }
 @media (max-width: 560px) {
-  header.sitio { grid-template-columns: 1fr; text-align: center; }
-  header.sitio .lado { display: none; }
-  header.sitio .lado-der { position: absolute; right: 1.1rem; top: 50%; transform: translateY(-50%); }
-  header.sitio .cabezote { justify-self: start; }
+  header.sitio { gap: 0.5rem; }
+  .cabezote { font-size: 1.55rem; }
+  /* En móvil el menú muestra solo el ícono; el texto queda para lectores de pantalla. */
+  .menu-texto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .menu summary { font-size: 0.9rem; padding: 0.25rem 0.55rem; }
+  .menu nav { left: 1.1rem; right: 1.1rem; }
 }
 
 footer.sitio {
@@ -404,7 +441,7 @@ footer.sitio .cabezote { font-size: 1.6rem; color: var(--tinta); }
 
 @media print {
   body { background: #fff; }
-  header.sitio .lado, .tema, footer.sitio, .entre-ediciones { display: none; }
+  .menu, .tema, footer.sitio, .entre-ediciones { display: none; }
   .contrapeso, .no-verificado, .conflicto, .seguimiento { break-inside: avoid; }
 }
 
@@ -630,3 +667,14 @@ footer.sitio .pie-enlaces { font-family: var(--sans); }
 @media print {
   .glosario-flotante, .glosario-boton { display: none !important; }
 }
+
+/* Explicación bajo la banda de cada carril. */
+.edicion .carril-bajada {
+  margin: 0.7rem 0 0;
+  text-align: center;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.15em;
+  color: var(--tenue);
+}
+.carril-asombro .carril-bajada + .con-etiqueta { border-top: 0; }

@@ -5,8 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>Ambiente y clima · Otra lectura</title>
-<meta name="description" content="4 ediciones">
+<meta name="description" content="Ambiente y clima: ediciones de Otra lectura con contexto, soluciones y contrapeso. 4 ediciones.">
+<meta property="og:site_name" content="Otra lectura">
+<meta property="og:locale" content="es_CO">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ambiente y clima · Otra lectura">
+<meta property="og:description" content="Ambiente y clima: ediciones de Otra lectura con contexto, soluciones y contrapeso. 4 ediciones.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ambiente y clima · Otra lectura">
+<meta name="twitter:description" content="Ambiente y clima: ediciones de Otra lectura con contexto, soluciones y contrapeso. 4 ediciones.">
+<meta name="theme-color" content="#d8d1c7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1b1a18" media="(prefers-color-scheme: dark)">
 <meta name="robots" content="noindex, nofollow">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Ambiente y clima · Otra lectura", "description": "Ambiente y clima: ediciones de Otra lectura con contexto, soluciones y contrapeso. 4 ediciones.", "inLanguage": "es-CO", "isPartOf": {"@type": "WebSite", "name": "Otra lectura"}}</script>
 <link rel="preload" href="../fuentes/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../fuentes/unifraktur.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../estilo.css">
@@ -15,10 +26,14 @@
 <body>
 <a class="saltar" href="#contenido">Ir al contenido</a>
 <header class="sitio">
-<p class="lado">Radar de fricciones</p>
+<details class="menu">
+<summary><span aria-hidden="true">☰</span> <span class="menu-texto">Secciones</span></summary>
+<nav aria-label="Secciones">
+<ul><li><a href="../index.html">Todas las ediciones</a></li><li><a href="../categorias/economia.html">Economía</a></li><li><a href="../categorias/salud.html">Salud</a></li><li><a href="../categorias/ambiente.html">Ambiente y clima</a></li><li><a href="../categorias/energia.html">Energía</a></li><li><a href="../categorias/justicia.html">Justicia y Estado</a></li><li><a href="../categorias/territorio.html">Ciudades y territorio</a></li><li><a href="../categorias/ciencia.html">Ciencia y tecnología</a></li><li class="menu-aparte"><a href="../candidatas.html">Candidatas</a></li></ul>
+</nav>
+</details>
 <a class="cabezote" href="../index.html">Otra Lectura</a>
 <div class="lado-der">
-<p class="lado">Colombia · mundo</p>
 <button class="tema" type="button" hidden>Oscuro</button>
 </div>
 </header>
@@ -73,7 +88,7 @@
 </main>
 <footer class="sitio">
 <p><a class="cabezote" href="../index.html">Otra Lectura</a></p>
-<p>Qué se traba, quién lo está resolviendo y con qué contrapeso.</p>
+<p>Otra manera de leer las noticias: con contexto, soluciones y contrapeso.</p>
 <p class="pie-enlaces"><a href="../index.html">Todas las ediciones</a> · <a href="../candidatas.html">Candidatas</a></p>
 </footer>
 <script>
@@ -97,6 +112,12 @@
     pintar();
   });
   sistema.addEventListener("change", pintar);
+})();
+/* Cierra el menú de secciones al hacer clic fuera o con Escape. */
+(function () {
+  var menu = document.querySelector("details.menu");
+  document.addEventListener("click", function (ev) { if (!menu.contains(ev.target)) menu.open = false; });
+  document.addEventListener("keydown", function (ev) { if (ev.key === "Escape") menu.open = false; });
 })();
 </script>
 <script>

@@ -132,7 +132,7 @@ function respuestaHtml(estado, titulo, mensaje, volver) {
 <link rel="stylesheet" href="/estilo.css">
 </head>
 <body>
-<header class="sitio"><p class="lado"></p><a class="cabezote" href="/index.html">Otra Lectura</a><p class="lado"></p></header>
+<header class="sitio"><span></span><a class="cabezote" href="/index.html">Otra Lectura</a><span></span></header>
 <main>
 <header class="cabecera">
 <h1>${escapar(titulo)}</h1>
