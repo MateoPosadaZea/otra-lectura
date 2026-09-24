@@ -317,6 +317,7 @@ def main():
         shutil.rmtree(SITE)
     (SITE / "ediciones").mkdir(parents=True)
     shutil.copy(PLANTILLA / "estilo.css", SITE / "estilo.css")
+    shutil.copytree(PLANTILLA / "fuentes", SITE / "fuentes")
 
     for i, e in enumerate(ediciones):
         anterior = ediciones[i + 1] if i + 1 < len(ediciones) else None
