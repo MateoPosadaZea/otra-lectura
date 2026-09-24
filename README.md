@@ -7,6 +7,15 @@ Requisitos: `bash`, `git` y `python3` (3.9 o más). El único conversor de
 markdown es Python-Markdown, con la versión fijada en `requirements.txt`.
 `build.sh` lo instala en `.venv/` la primera vez.
 
+## Estructura de una edición
+
+`## En tres minutos` (resumen arriba, en recuadro) → `## Carril 1: Radar`
+→ `## Carril 2: Asombro` → `## Para conversar` (pregunta y, si aplica,
+qué puede hacer un ciudadano) → `## Descartes` → `## Glosario` →
+`## Nota metodológica`. El build calcula el tiempo de lectura (~200
+palabras por minuto, sin el cierre) y avisa, sin detenerse, si una edición
+pasa de `LARGO_MAXIMO` (1.500 palabras). Detalle en `RUTINA.md`.
+
 ## Navegación
 
 - **Portada** (`index.html`): el epígrafe y solo las ediciones del día más

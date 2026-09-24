@@ -10,4 +10,8 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
 
 ## Reglas vigentes
 
-(Todavía no hay reglas.)
+- 2026-09-24 · Pedido de Mateo ("no queremos causar desgaste a nuestros
+  lectores"): ediciones de máximo unas 1.500 palabras de lectura y hasta
+  tres fricciones; abrir con "En tres minutos"; cerrar con "Para
+  conversar" (una pregunta y, si aplica, qué puede hacer un ciudadano).
+  El objetivo es entender y conversar, no acumular información.

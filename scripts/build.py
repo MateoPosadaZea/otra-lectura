@@ -97,6 +97,9 @@ CAMPOS_LISTA = ["temas", "categorias", "lugares", "cruce_mattriz", "seguimiento"
 CAMPOS_CONOCIDOS = {"fecha", "edicion", "titulo", "slug", "nota",
                     "actualizaciones", "correcciones", "fuentes", *CAMPOS_LISTA}
 
+# Techo editorial de una edición (palabras de lectura, sin el cierre).
+LARGO_MAXIMO = 1500
+
 RE_NO_VERIFICADO = re.compile(r"conocimiento\s+general|no\s+verificad[oa]s?", re.I)
 
 # Etiqueta en negrita → clase del párrafo que la lleva.
@@ -249,6 +252,10 @@ RE_HEADING = re.compile(r"<h([1-6])([^>]*)>(.*?)</h\1>", re.S)
 def clases_heading(nivel, texto):
     t = texto.lower()
     if nivel == 2:
+        if "tres minutos" in t:
+            return ["carril", "en-breve"]
+        if "para conversar" in t:
+            return ["carril", "conversar"]
         if "asombro" in t:
             return ["carril", "carril-asombro"]
         if "radar" in t or "carril" in t:
@@ -414,6 +421,11 @@ def leer_edicion(ruta):
         for slug, t in re.findall(
             r'<article class="item(?! seguimiento)[^"]*" id="([^"]+)">\s*<h3[^>]*>(.*?)</h3>', cuerpo, re.S)]
     e["titulos_fricciones"] = [t for _, t in e["indice_fricciones"]]
+    # Tiempo de lectura: ~200 palabras por minuto, sin contar descartes,
+    # glosario ni nota metodológica (van al cierre y son de consulta).
+    lectura = re.split(r'<section class="carril cierre"', cuerpo)[0]
+    e["palabras"] = len(texto_plano(lectura).split())
+    e["minutos"] = max(1, round(e["palabras"] / 200))
     e["cuerpo"] = graficos.insertar(marcar_bloques(cuerpo), figuras)
     e["glosario"] = extraer_glosario(e["cuerpo"])
 
@@ -513,7 +525,12 @@ def linea_fecha(e):
     partes = [f'<time datetime="{html.escape(e["fecha"])}">{fecha_legible(e["fecha"])}</time>']
     if e["edicion"]:
         partes.append(f"Edición {html.escape(e['edicion'])}")
+    partes.append(minutos_lectura(e))
     return " · ".join(partes)
+
+
+def minutos_lectura(e):
+    return f"{e['minutos']} min de lectura"
 
 
 def enlace_edicion(o, raiz):
@@ -765,7 +782,8 @@ def html_ediciones_dia(ediciones, raiz):
         temas = "".join(f'<li><a href="{href}#{slug}">{html.escape(t)}</a></li>'
                         for slug, t in e["indice_fricciones"])
         temas = f'<ul class="dia-temas" aria-label="Temas principales">{temas}</ul>' if temas else ""
-        edicion = f"Edición {html.escape(e['edicion'])}" if e["edicion"] else ""
+        edicion = " · ".join(([f"Edición {html.escape(e['edicion'])}"] if e["edicion"] else [])
+                             + [minutos_lectura(e)])
         bloques.append(f"""<li>
 <p class="fecha">{edicion}</p>
 <a class="dia-titulo" href="{href}">{html.escape(e['titulo'])}</a>
@@ -962,6 +980,12 @@ def main():
         for err in errores:
             print(f"  error: {err}", file=sys.stderr)
         sys.exit(1)
+
+    # Aviso (no detiene el build): el techo editorial es de ~1.500 palabras.
+    for e in ediciones:
+        if e["palabras"] > LARGO_MAXIMO:
+            print(f"  aviso: ediciones/{e['archivo']} tiene ~{e['palabras']} palabras de lectura "
+                  f"(techo: {LARGO_MAXIMO}).", file=sys.stderr)
 
     # Cronológico inverso; a igual fecha, la edición de número mayor primero.
     ediciones.sort(key=lambda e: (e["fecha"], e["orden"], e["slug"]), reverse=True)

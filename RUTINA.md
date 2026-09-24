@@ -83,6 +83,11 @@ Cuerpo, en este orden (ver `prompt.md` 2.0 para el contenido de cada parte):
 ```markdown
 # Radar · 25 de septiembre de 2026
 
+## En tres minutos
+
+- **Tema uno en pocas palabras.** Qué pasó y quién lo está resolviendo, en una o dos frases.
+- **Tema dos…** (una viñeta por fricción, y una más si hay seguimiento)
+
 ## Carril 1: Radar
 
 ### 1. Título de la fricción (lugar → lugar de la intervención) {#tema-uno}
@@ -103,6 +108,14 @@ partir del campo `seguimiento`.
 
 **Titular corrido.** texto…
 
+## Para conversar
+
+**La pregunta.** Una sola pregunta abierta, sin respuesta obvia, para
+discutir en la sobremesa.
+
+**Qué puede hacer usted.** Solo si hay algo concreto, posible y
+cercano (preguntar, participar, votar, revisar). Si no lo hay, se omite.
+
 ## Descartes
 
 ## Glosario
@@ -110,7 +123,17 @@ partir del campo `seguimiento`.
 ## Nota metodológica
 ```
 
-- De dos a cuatro fricciones. Cada subtítulo es una negrita al inicio del
+- **Largo (para no desgastar):** la edición completa, sin contar Descartes,
+  Glosario ni Nota metodológica, no pasa de unas 1.500 palabras (unos 7
+  minutos de lectura). El build avisa si se pasa: en ese caso recortar,
+  no justificar. Mejor tres temas bien entendidos que cinco a medias. Un
+  día sin novedades de fondo puede tener una sola fricción, o solo
+  seguimientos.
+- **En tres minutos** va primero: una viñeta por fricción, en registro
+  directo y sin cifras de más. Quien solo lea eso debe quedar informado.
+- **Para conversar** cierra la parte de lectura: una pregunta que invite a
+  pensar (no a indignarse) y, cuando exista, una acción ciudadana concreta.
+- Hasta tres fricciones (dos es un buen número). Cada subtítulo es una negrita al inicio del
   párrafo que termina en punto; así lo reconoce la plantilla.
 - Si no hay intervención documentada, usar **Sin salida conocida.**
   (máximo una o dos por edición, nunca todas).

@@ -1230,3 +1230,36 @@ html:not(.js) .barra-fija { display: none; }
 @media (max-width: 480px) {
   .sonando .escuchar-voces { display: none; }
 }
+
+/* --- En tres minutos (arriba) y Para conversar (al final del Radar/Asombro) --- */
+
+.edicion .en-breve, .edicion .conversar {
+  margin: 2.5rem 0;
+  padding: 1.3rem 1.4rem 1.1rem;
+  border: 1px solid var(--tinta);
+  background: var(--papel-claro);
+}
+.edicion .en-breve h2, .edicion .conversar h2 {
+  margin: 0 0 0.8rem;
+  padding: 0;
+  background: none;
+  color: var(--rojo);
+  font: 800 0.72rem/1.3 var(--sans);
+  letter-spacing: 0.16em;
+  text-align: left;
+}
+.en-breve ul, .en-breve ol, .conversar ul, .conversar ol { margin: 0; padding-left: 1.2em; }
+.en-breve li, .conversar li { margin: 0 0 0.6em; }
+.en-breve p, .conversar p { margin: 0 0 0.7em; }
+.conversar { border-style: double; border-width: 3px; }
+.conversar .etiqueta {
+  display: block;
+  margin: 0.9rem 0 0.25rem;
+  font: 800 0.7rem/1.3 var(--sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.conversar p:first-of-type .etiqueta { margin-top: 0; }
+@media (max-width: 600px) {
+  .edicion .en-breve, .edicion .conversar { padding: 1rem 1rem 0.8rem; margin-inline: -0.25rem; }
+}
