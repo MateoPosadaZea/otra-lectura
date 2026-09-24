@@ -25,18 +25,21 @@
 </head>
 <body>
 <a class="saltar" href="#contenido">Ir al contenido</a>
+<div class="barra-fija" aria-hidden="true">
+<a class="cabezote" href="../index.html" tabindex="-1">Otra Lectura</a>
+</div>
 <header class="sitio">
 <div class="marca">
 <a class="cabezote" href="../index.html">Otra Lectura</a>
 </div>
 <div class="barra">
 <nav class="principal" aria-label="Secciones">
-<ul><li><a href="../index.html">Inicio</a></li><li><a href="../categorias/economia.html">Economía</a></li><li><a href="../categorias/salud.html">Salud</a></li><li><a href="../categorias/ambiente.html">Ambiente</a></li><li><a href="../categorias/sociedad.html">Sociedad</a></li><li><a href="../categorias/ciencia.html">Ciencia</a></li></ul>
+<ul><li><a href="../index.html">Inicio</a></li><li><a href="../categorias/economia.html">Economía</a></li><li><a href="../categorias/salud.html">Salud</a></li><li><a href="../categorias/ambiente.html">Ambiente</a></li><li><a href="../categorias/sociedad.html">Sociedad</a></li><li><a href="../categorias/ciencia.html">Ciencia</a></li><li><a href="../sobre.html">¿Qué es esto?</a></li></ul>
 </nav>
 <details class="menu">
 <summary><span aria-hidden="true">☰</span> Secciones</summary>
 <nav aria-label="Secciones">
-<ul><li><a href="../index.html">Inicio</a></li><li><a href="../categorias/economia.html">Economía</a></li><li><a href="../categorias/salud.html">Salud</a></li><li><a href="../categorias/ambiente.html">Ambiente</a></li><li><a href="../categorias/sociedad.html">Sociedad</a></li><li><a href="../categorias/ciencia.html">Ciencia</a></li></ul>
+<ul><li><a href="../index.html">Inicio</a></li><li><a href="../categorias/economia.html">Economía</a></li><li><a href="../categorias/salud.html">Salud</a></li><li><a href="../categorias/ambiente.html">Ambiente</a></li><li><a href="../categorias/sociedad.html">Sociedad</a></li><li><a href="../categorias/ciencia.html">Ciencia</a></li><li><a href="../sobre.html">¿Qué es esto?</a></li></ul>
 </nav>
 </details>
 <button class="tema" type="button" hidden>Oscuro</button>
@@ -52,6 +55,16 @@
 <p class="nota">Edición anterior al formato v1.0 — sin sección de solución ni contrapeso sistemático</p>
 
 
+<div class="escuchar" role="group" aria-label="Escuchar la edición" hidden>
+<button type="button" class="escuchar-play" aria-pressed="false">▶ Escuchar</button>
+<button type="button" class="escuchar-detener" hidden>■ Detener</button>
+<label><span class="escuchar-rotulo">Velocidad</span> <select aria-label="Velocidad de lectura">
+<option value="0.85">Lenta</option>
+<option value="1" selected>Normal</option>
+<option value="1.2">Rápida</option>
+</select></label>
+<p class="escuchar-estado" role="status" aria-live="polite"></p>
+</div>
 </header>
 <section class="carril carril-radar">
 <h2>Radar</h2>
@@ -199,8 +212,10 @@ de la actividad de neuronas de la corteza visual de ratones.</p></section>
 <footer class="sitio">
 <p><a class="cabezote" href="../index.html">Otra Lectura</a></p>
 <p>Una mirada pragmática para informarse y participar.</p>
-<p class="pie-enlaces"><a href="../index.html">Todas las ediciones</a> · <a href="../candidatas.html">Candidatas</a> · <a href="../ayuda.html">Cómo participar</a></p>
+<p class="pie-enlaces"><a href="../archivo.html">Días anteriores</a> · <a href="../candidatas.html">Candidatas</a> · <a href="../ayuda.html">Cómo participar</a> · <a href="../sobre.html">¿Qué es esto?</a></p>
+<p class="pie-enlaces"><a href="#">↑ Volver arriba</a></p>
 </footer>
+<a class="arriba" href="#" aria-label="Volver arriba" hidden><span aria-hidden="true">↑</span> Arriba</a>
 <script>
 /* Cambio claro/oscuro. Sin elección guardada, sigue al sistema. */
 (function () {
@@ -245,6 +260,117 @@ de la actividad de neuronas de la corteza visual de ratones.</p></section>
     el.addEventListener("blur", function () { tip.hidden = true; });
   });
   addEventListener("scroll", function () { tip.hidden = true; }, { passive: true });
+})();
+/* Al bajar: barra fija con el logotipo pequeño y botón para volver arriba. */
+(function () {
+  var cabecera = document.querySelector("header.sitio");
+  var arriba = document.querySelector(".arriba");
+  var raiz = document.documentElement;
+  if (!cabecera || !("IntersectionObserver" in window)) return;
+  arriba.hidden = false;
+  new IntersectionObserver(function (entradas) {
+    raiz.classList.toggle("bajando", !entradas[0].isIntersecting);
+  }).observe(cabecera);
+  arriba.addEventListener("click", function (ev) {
+    ev.preventDefault();
+    var suave = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+    scrollTo({ top: 0, behavior: suave ? "smooth" : "auto" });
+    var destino = document.getElementById("contenido");
+    destino.setAttribute("tabindex", "-1");
+    destino.focus({ preventScroll: true });
+  });
+})();
+/* Escuchar: lee la edición en voz alta con la voz del dispositivo, párrafo
+   por párrafo, resaltando el que se está leyendo. */
+(function () {
+  var caja = document.querySelector(".escuchar");
+  if (!caja || !("speechSynthesis" in window)) return;
+  var voz = window.speechSynthesis;
+  var boton = caja.querySelector(".escuchar-play");
+  var detener = caja.querySelector(".escuchar-detener");
+  var velocidad = caja.querySelector("select");
+  var estado = caja.querySelector(".escuchar-estado");
+  var bloques = [], i = 0, activo = false, pausado = false, actual = null, turno = 0;
+  caja.hidden = false;
+  try { var v = localStorage.getItem("voz-velocidad"); if (v) velocidad.value = v; } catch (e) {}
+
+  function elegirVoz() {
+    var voces = voz.getVoices(), orden = ["es-CO", "es-419", "es-MX", "es-US", "es-ES", "es"];
+    for (var k = 0; k < orden.length; k++) {
+      for (var j = 0; j < voces.length; j++) {
+        if (voces[j].lang.replace("_", "-").indexOf(orden[k]) === 0) return voces[j];
+      }
+    }
+    return null;
+  }
+  function reunir() {
+    // Títulos y párrafos del texto; sin fuentes, gráficos ni tablas de datos.
+    var sel = ".edicion .cabecera h1, .edicion h2, .edicion h3, .edicion p, .edicion li";
+    return Array.prototype.filter.call(document.querySelectorAll(sel), function (el) {
+      return !el.closest(".fuentes, figure, table, .escuchar, .temas, nav, .glosario-flotante") &&
+        !el.querySelector("p, li") && el.textContent.trim();
+    });
+  }
+  function marcar(el) {
+    if (actual) actual.classList.remove("leyendo");
+    actual = el;
+    if (!el) return;
+    el.classList.add("leyendo");
+    var r = el.getBoundingClientRect();
+    if (r.top < 60 || r.bottom > innerHeight - 40) {
+      el.scrollIntoView({ block: "center", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    }
+  }
+  function pintar() {
+    boton.textContent = activo && !pausado ? "❚❚ Pausa" : (pausado ? "▶ Seguir" : "▶ Escuchar");
+    boton.setAttribute("aria-pressed", activo && !pausado ? "true" : "false");
+    detener.hidden = !activo;
+    // Mientras suena, los controles quedan a mano en la parte superior.
+    document.documentElement.classList.toggle("sonando", activo);
+  }
+  function leer() {
+    if (i >= bloques.length) { parar(); estado.textContent = "Fin de la edición."; return; }
+    var el = bloques[i], t = ++turno;
+    var u = new SpeechSynthesisUtterance(el.textContent.replace(/\s+/g, " ").trim());
+    var elegida = elegirVoz();
+    if (elegida) u.voice = elegida;
+    u.lang = elegida ? elegida.lang : "es-CO";
+    u.rate = parseFloat(velocidad.value) || 1;
+    // Cada frase lleva su turno: al pausar o cambiar la velocidad, los avisos
+    // de la frase cancelada se ignoran.
+    function seguir() { if (t === turno && activo && !pausado) { i++; leer(); } }
+    u.onend = seguir;
+    u.onerror = seguir;
+    marcar(el);
+    voz.speak(u);
+  }
+  function parar() {
+    activo = false; pausado = false; turno++; voz.cancel(); marcar(null); pintar();
+  }
+  boton.addEventListener("click", function () {
+    estado.textContent = "";
+    if (!activo) {
+      bloques = reunir();
+      // Si el lector seleccionó o está viendo un párrafo, empieza desde ahí.
+      i = 0;
+      for (var k = 0; k < bloques.length; k++) {
+        if (bloques[k].getBoundingClientRect().top > 70) { i = window.scrollY > 300 ? k : 0; break; }
+      }
+      activo = true; pausado = false; turno++; voz.cancel(); leer();
+    } else if (!pausado) {
+      pausado = true; turno++; voz.cancel();
+    } else {
+      pausado = false; leer();
+    }
+    pintar();
+  });
+  detener.addEventListener("click", parar);
+  velocidad.addEventListener("change", function () {
+    try { localStorage.setItem("voz-velocidad", velocidad.value); } catch (e) {}
+    if (activo && !pausado) { turno++; voz.cancel(); leer(); }
+  });
+  addEventListener("pagehide", function () { voz.cancel(); });
+  voz.getVoices();
 })();
 /* Cierra el menú de secciones al hacer clic fuera o con Escape. */
 (function () {

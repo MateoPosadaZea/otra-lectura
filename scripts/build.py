@@ -39,6 +39,7 @@ PLANTILLA = RAIZ / "plantilla"
 SITE = RAIZ / "site"
 CANDIDATAS = RAIZ / "candidatas.md"
 AYUDA = RAIZ / "ayuda.md"
+SOBRE = RAIZ / "sobre.md"
 
 # Dirección pública del sitio, sin barra final (p. ej. "https://otra-lectura.xxx.workers.dev").
 # Hace falta para las vistas previas al compartir (og:image y og:url deben ser
@@ -57,6 +58,8 @@ DESCRIPCION_SITIO = (
 # (robots.txt con Disallow total y meta noindex). Para abrirlo a buscadores,
 # basta con cambiar esto a True y volver a publicar.
 INDEXAR = False
+
+DIAS_SEMANA = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
 
 MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
          "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
@@ -117,6 +120,11 @@ def fecha_legible(iso):
     except ValueError:
         return iso
     return f"{d.day} de {MESES[d.month - 1]} de {d.year}"
+
+
+def fecha_con_dia(iso):
+    """"jueves 24 de septiembre de 2026"."""
+    return f"{DIAS_SEMANA[date.fromisoformat(iso).weekday()]} {fecha_legible(iso)}"
 
 
 def slugificar(texto):
@@ -401,9 +409,11 @@ def leer_edicion(ruta):
 
     cuerpo, e["fricciones"] = envolver_secciones(cuerpo)
     # Títulos de las fricciones (sin número ni lugares) para la descripción.
-    e["titulos_fricciones"] = [
-        re.sub(r"\s*\([^)]*\)\s*$", "", re.sub(r"^\s*\d+\.\s*", "", texto_plano(t))).strip()
-        for t in re.findall(r'<article class="item(?! seguimiento)[^"]*"[^>]*>\s*<h3[^>]*>(.*?)</h3>', cuerpo, re.S)]
+    e["indice_fricciones"] = [
+        (slug, re.sub(r"\s*\([^)]*\)\s*$", "", re.sub(r"^\s*\d+\.\s*", "", texto_plano(t))).strip())
+        for slug, t in re.findall(
+            r'<article class="item(?! seguimiento)[^"]*" id="([^"]+)">\s*<h3[^>]*>(.*?)</h3>', cuerpo, re.S)]
+    e["titulos_fricciones"] = [t for _, t in e["indice_fricciones"]]
     e["cuerpo"] = graficos.insertar(marcar_bloques(cuerpo), figuras)
     e["glosario"] = extraer_glosario(e["cuerpo"])
 
@@ -610,6 +620,7 @@ def html_menu(raiz, seccion=None):
         return f'<li><a href="{href}"{marca}>{html.escape(nombre)}</a></li>'
     items = [item("inicio", f"{raiz}index.html", "Inicio")]
     items += [item(c, f"{raiz}categorias/{c}.html", CATEGORIAS[c]) for c in CATEGORIAS_ACTIVAS]
+    items.append(item("sobre", f"{raiz}sobre.html", "¿Qué es esto?"))
     return "<ul>" + "".join(items) + "</ul>"
 
 
@@ -692,6 +703,7 @@ def pagina_edicion(base, e, anterior, siguiente):
 {nota}
 {aviso_cambios(e)}
 {seguimiento}
+{HTML_ESCUCHAR}
 </header>
 {cuerpo_edicion(e)}
 </article>
@@ -711,6 +723,20 @@ def pagina_edicion(base, e, anterior, siguiente):
                   contenido, f"/ediciones/{e['slug']}.html", "article", ld)
 
 
+# Controles para escuchar la edición. Ocultos sin JavaScript o sin voz en el
+# navegador; los activa plantilla/base.html.
+HTML_ESCUCHAR = """<div class="escuchar" role="group" aria-label="Escuchar la edición" hidden>
+<button type="button" class="escuchar-play" aria-pressed="false">▶ Escuchar</button>
+<button type="button" class="escuchar-detener" hidden>■ Detener</button>
+<label><span class="escuchar-rotulo">Velocidad</span> <select aria-label="Velocidad de lectura">
+<option value="0.85">Lenta</option>
+<option value="1" selected>Normal</option>
+<option value="1.2">Rápida</option>
+</select></label>
+<p class="escuchar-estado" role="status" aria-live="polite"></p>
+</div>"""
+
+
 # Epígrafe de la portada: cita, autor y obra.
 EPIGRAFE = {
     "cita": "He procurado con esmero no ridiculizar ni lamentar ni detestar las acciones "
@@ -721,40 +747,147 @@ EPIGRAFE = {
 }
 
 
-def pagina_lista(base, ediciones, todas, raiz, titulo, bajada, actual=None):
-    """Portada (todas las ediciones) o página de una categoría."""
-    filas = [f"""<li>
-<p class="fecha">{linea_fecha(e)}</p>
-<a href="{raiz}ediciones/{e['slug']}.html">{html.escape(e['titulo'])}</a>
+def por_dia(ediciones):
+    """[(fecha, [ediciones de ese día])], del día más reciente al más antiguo."""
+    dias = {}
+    for e in ediciones:
+        dias.setdefault(e["fecha"], []).append(e)
+    return sorted(dias.items(), reverse=True)
+
+
+def html_ediciones_dia(ediciones, raiz):
+    """Las ediciones de un día con sus fricciones principales."""
+    bloques = []
+    for e in ediciones:
+        href = f"{raiz}ediciones/{e['slug']}.html"
+        temas = "".join(f'<li><a href="{href}#{slug}">{html.escape(t)}</a></li>'
+                        for slug, t in e["indice_fricciones"])
+        temas = f'<ul class="dia-temas" aria-label="Temas principales">{temas}</ul>' if temas else ""
+        edicion = f"Edición {html.escape(e['edicion'])}" if e["edicion"] else ""
+        bloques.append(f"""<li>
+<p class="fecha">{edicion}</p>
+<a class="dia-titulo" href="{href}">{html.escape(e['titulo'])}</a>
 {aviso_cambios(e, raiz)}
-</li>""" for e in ediciones]
-    lista = "\n".join(filas) if filas else "<li>Todavía no hay ediciones.</li>"
-    if actual is None:
-        cabecera = f"""<header class="cabecera portada">
+{temas}
+</li>""")
+    return '<ol class="indice dia">\n' + "\n".join(bloques) + "\n</ol>"
+
+
+def pagina_portada(base, dias):
+    """Portada: solo las ediciones del día más reciente y el camino a los anteriores."""
+    epigrafe = f"""<header class="cabecera portada">
 <h1 class="solo-lectores">Otra lectura</h1>
 <figure class="epigrafe">
 <blockquote><p>«{html.escape(EPIGRAFE['cita'])}»</p></blockquote>
 <figcaption>{html.escape(EPIGRAFE['autor'])} <cite>{html.escape(EPIGRAFE['obra'])}</cite>, {EPIGRAFE['anio']}</figcaption>
 </figure>
 </header>"""
+    if dias:
+        fecha, del_dia = dias[0]
+        cuerpo = f"""<section class="hoy" aria-labelledby="hoy-titulo">
+<h2 id="hoy-titulo" class="dia-fecha"><time datetime="{fecha}">{fecha_con_dia(fecha).capitalize()}</time></h2>
+{html_ediciones_dia(del_dia, "")}
+</section>"""
+        if len(dias) > 1:
+            cuerpo += '\n<p class="dias-anteriores"><a href="archivo.html">Días anteriores →</a></p>'
     else:
-        cabecera = f"""<header class="cabecera">
+        cuerpo = '<p class="bajada">Todavía no hay ediciones.</p>'
+    ld = {"@type": "WebSite", "name": NOMBRE_SITIO, "description": DESCRIPCION_SITIO,
+          "inLanguage": "es-CO"}
+    return pagina(base, "Otra lectura", DESCRIPCION_SITIO, "", f"{epigrafe}\n{cuerpo}",
+                  "/", "website", ld, seccion="inicio")
+
+
+def pagina_dia(base, fecha, del_dia, anterior, siguiente):
+    """dias/AAAA-MM-DD.html: lo que se publicó ese día."""
+    nav = []
+    if anterior:
+        nav.append(f'<a rel="prev" href="{anterior}.html">← {fecha_legible(anterior)}</a>')
+    if siguiente:
+        nav.append(f'<a rel="next" href="{siguiente}.html">{fecha_legible(siguiente)} →</a>')
+    titulo = fecha_con_dia(fecha).capitalize()
+    contenido = f"""<header class="cabecera">
+<p class="fecha"><a href="../archivo.html">Días anteriores</a></p>
+<h1><time datetime="{fecha}">{titulo}</time></h1>
+</header>
+{html_ediciones_dia(del_dia, "../")}
+<nav class="entre-ediciones" aria-label="Otros días">{''.join(nav)}</nav>"""
+    temas = "; ".join(t for e in del_dia for t in e["titulos_fricciones"])
+    descripcion = f"Otra lectura del {fecha_legible(fecha)}: {temas}." if temas else f"Otra lectura del {fecha_legible(fecha)}."
+    return pagina(base, html.escape(f"{titulo} · Otra lectura"), descripcion, "../", contenido,
+                  f"/dias/{fecha}.html")
+
+
+def pagina_archivo(base, dias):
+    """archivo.html: todos los días, agrupados por mes, con sus temas."""
+    meses, bloques = {}, []
+    for fecha, del_dia in dias:
+        meses.setdefault(fecha[:7], []).append((fecha, del_dia))
+    for mes, lista in meses.items():
+        anio, m = mes.split("-")
+        filas = []
+        for fecha, del_dia in lista:
+            temas = " · ".join(html.escape(t) for e in del_dia for t in e["titulos_fricciones"])
+            filas.append(f"""<li>
+<a href="dias/{fecha}.html"><time datetime="{fecha}">{fecha_con_dia(fecha).capitalize()}</time></a>
+<p class="archivo-temas">{temas}</p>
+</li>""")
+        bloques.append(f'<section class="archivo-mes">\n<h2>{MESES[int(m) - 1].capitalize()} de {anio}</h2>\n'
+                       f'<ol class="archivo-dias">\n{"".join(filas)}\n</ol>\n</section>')
+    fechas = [f for f, _ in dias]
+    buscador = ""
+    if fechas:
+        # Sin JavaScript queda la lista; con él, un selector de fecha.
+        buscador = f"""<form class="ir-fecha" hidden data-fechas="{' '.join(fechas)}">
+<label>Ir a una fecha <input type="date" min="{fechas[-1]}" max="{fechas[0]}" value="{fechas[0]}"></label>
+<button type="submit">Ver</button>
+<p class="ir-fecha-estado" role="status" aria-live="polite"></p>
+</form>
+<script>
+(function () {{
+  var f = document.querySelector(".ir-fecha");
+  var hay = f.getAttribute("data-fechas").split(" ");
+  var estado = f.querySelector(".ir-fecha-estado");
+  f.hidden = false;
+  f.addEventListener("submit", function (ev) {{
+    ev.preventDefault();
+    var v = f.querySelector("input").value;
+    if (hay.indexOf(v) >= 0) location.href = "dias/" + v + ".html";
+    else estado.textContent = "Ese día no hubo edición. Pruebe con otra fecha de la lista.";
+  }});
+}})();
+</script>"""
+    n = len(dias)
+    contenido = f"""<header class="cabecera">
+<h1>Días anteriores</h1>
+<p class="bajada">{n} {"día" if n == 1 else "días"} con edición. Elija una fecha para ver qué se publicó.</p>
+</header>
+{buscador}
+{"".join(bloques) or "<p>Todavía no hay ediciones.</p>"}"""
+    return pagina(base, "Días anteriores · Otra lectura",
+                  "Archivo de Otra lectura por fechas: qué temas se trataron cada día.", "",
+                  contenido, "/archivo.html", seccion="archivo")
+
+
+def pagina_categoria(base, ediciones, clave):
+    filas = [f"""<li>
+<p class="fecha">{linea_fecha(e)}</p>
+<a href="../ediciones/{e['slug']}.html">{html.escape(e['titulo'])}</a>
+{aviso_cambios(e, "../")}
+</li>""" for e in ediciones]
+    titulo = CATEGORIAS[clave]
+    n = len(ediciones)
+    bajada = f"{n} edición" if n == 1 else f"{n} ediciones"
+    contenido = f"""<header class="cabecera">
 <h1>{html.escape(titulo)}</h1>
-<p class="bajada">{html.escape(bajada)}</p>
-</header>"""
-    contenido = f"""{cabecera}
+<p class="bajada">{bajada}</p>
+</header>
 <ol class="indice" reversed>
-{lista}
+{"".join(filas) or "<li>Todavía no hay ediciones.</li>"}
 </ol>"""
-    if actual is None:
-        ld = {"@type": "WebSite", "name": NOMBRE_SITIO, "description": DESCRIPCION_SITIO,
-              "inLanguage": "es-CO"}
-        return pagina(base, "Otra lectura", DESCRIPCION_SITIO,
-                      raiz, contenido, "/", "website", ld, seccion="inicio")
-    descripcion = (f"{titulo}: ediciones de Otra lectura con contexto, soluciones y contrapeso. "
-                   f"{bajada}.")
-    return pagina(base, html.escape(f"{titulo} · Otra lectura"), descripcion, raiz, contenido,
-                  f"/categorias/{actual}.html", seccion=actual)
+    descripcion = f"{titulo}: ediciones de Otra lectura con contexto, soluciones y contrapeso. {bajada}."
+    return pagina(base, html.escape(f"{titulo} · Otra lectura"), descripcion, "../", contenido,
+                  f"/categorias/{clave}.html", seccion=clave)
 
 
 def pagina_candidatas(base, candidatas):
@@ -783,10 +916,9 @@ def pagina_candidatas(base, candidatas):
                   "", contenido, "/candidatas.html")
 
 
-def pagina_ayuda(base):
-    """ayuda.md → ayuda.html: cómo participar y cómo leer una edición."""
-    cuerpo = convertir(AYUDA.read_text(encoding="utf-8")).strip()
-    titulo = "Cómo participar"
+def pagina_texto(base, origen, destino, titulo, descripcion, seccion=None):
+    """Página de texto a partir de un markdown de la raíz (ayuda.md, sobre.md)."""
+    cuerpo = convertir(origen.read_text(encoding="utf-8")).strip()
     m = re.match(r"<h1[^>]*>(.*?)</h1>\s*", cuerpo, re.S)
     if m:
         titulo, cuerpo = texto_plano(m.group(1)).strip(), cuerpo[m.end():]
@@ -796,9 +928,8 @@ def pagina_ayuda(base):
 <article class="texto">
 {cuerpo}
 </article>"""
-    return pagina(base, f"{html.escape(titulo)} · Otra lectura",
-                  "Cómo dejar notas y comentarios en Otra lectura, y cómo leer una edición.",
-                  "", contenido, "/ayuda.html")
+    return pagina(base, f"{html.escape(titulo)} · Otra lectura", descripcion, "", contenido,
+                  f"/{destino}", seccion=seccion)
 
 
 # --- Principal -----------------------------------------------------------------
@@ -852,22 +983,28 @@ def main():
         (SITE / "ediciones" / f"{e['slug']}.html").write_text(
             pagina_edicion(base, e, anterior, siguiente), encoding="utf-8")
 
-    (SITE / "index.html").write_text(pagina_lista(
-        base, ediciones, ediciones, "", "Archivo",
-        FRASE_SITIO), encoding="utf-8")
+    dias = por_dia(ediciones)
+    (SITE / "index.html").write_text(pagina_portada(base, dias), encoding="utf-8")
+    (SITE / "archivo.html").write_text(pagina_archivo(base, dias), encoding="utf-8")
+    (SITE / "dias").mkdir()
+    for i, (fecha, del_dia) in enumerate(dias):
+        anterior = dias[i + 1][0] if i + 1 < len(dias) else None
+        siguiente = dias[i - 1][0] if i > 0 else None
+        (SITE / "dias" / f"{fecha}.html").write_text(
+            pagina_dia(base, fecha, del_dia, anterior, siguiente), encoding="utf-8")
 
     (SITE / "categorias").mkdir()
-    for c, nombre in CATEGORIAS.items():
+    for c in CATEGORIAS:
         de_categoria = [e for e in ediciones if c in e["categorias"]]
-        n = len(de_categoria)
-        bajada = f"{n} edición" if n == 1 else f"{n} ediciones"
-        (SITE / "categorias" / f"{c}.html").write_text(pagina_lista(
-            base, de_categoria, ediciones, "../", nombre, bajada, actual=c), encoding="utf-8")
+        (SITE / "categorias" / f"{c}.html").write_text(
+            pagina_categoria(base, de_categoria, c), encoding="utf-8")
 
     if SITIO_URL:
         urls = [("/", ediciones[0]["fecha"] if ediciones else "")]
         urls += [(f"/ediciones/{e['slug']}.html", e["ultimo_cambio"] or e["fecha"]) for e in ediciones]
+        urls += [(f"/dias/{f}.html", "") for f, _ in dias]
         urls += [(f"/categorias/{c}.html", "") for c in CATEGORIAS_ACTIVAS]
+        urls += [("/archivo.html", ""), ("/sobre.html", "")]
         filas = "".join(f"<url><loc>{SITIO_URL}{u}</loc>" + (f"<lastmod>{f}</lastmod>" if f else "")
                         + "</url>\n" for u, f in urls)
         (SITE / "sitemap.xml").write_text(
@@ -876,7 +1013,14 @@ def main():
             encoding="utf-8")
 
     if AYUDA.exists():
-        (SITE / "ayuda.html").write_text(pagina_ayuda(base), encoding="utf-8")
+        (SITE / "ayuda.html").write_text(pagina_texto(
+            base, AYUDA, "ayuda.html", "Cómo participar",
+            "Cómo dejar notas y comentarios en Otra lectura, y cómo leer una edición."), encoding="utf-8")
+    if SOBRE.exists():
+        (SITE / "sobre.html").write_text(pagina_texto(
+            base, SOBRE, "sobre.html", "¿Qué es esto?",
+            "Otra lectura: un sitio para entender temas de actualidad y de alto impacto, con "
+            "contexto, historia, soluciones y contrapeso.", seccion="sobre"), encoding="utf-8")
 
     candidatas = reunir_candidatas(ediciones, estados)
     (SITE / "candidatas.html").write_text(pagina_candidatas(base, candidatas), encoding="utf-8")

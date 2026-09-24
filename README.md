@@ -7,6 +7,29 @@ Requisitos: `bash`, `git` y `python3` (3.9 o más). El único conversor de
 markdown es Python-Markdown, con la versión fijada en `requirements.txt`.
 `build.sh` lo instala en `.venv/` la primera vez.
 
+## Navegación
+
+- **Portada** (`index.html`): el epígrafe y solo las ediciones del día más
+  reciente, cada una con sus fricciones principales (enlazan a su ancla).
+- **Días anteriores** (`archivo.html`): todas las fechas agrupadas por mes,
+  con sus temas; con JavaScript, además, un selector "Ir a una fecha".
+- **Un día** (`dias/AAAA-MM-DD.html`): las ediciones de esa fecha, con
+  paso al día anterior y al siguiente.
+- **Categorías** (`categorias/*.html`) y **¿Qué es esto?** (`sobre.html`,
+  desde `sobre.md`) en la barra de secciones.
+
+Accesibilidad y lectura (todo gratis y sin dependencias; lo que usa
+JavaScript simplemente no aparece sin él):
+
+- Al bajar, una barra fija con el logotipo pequeño y un botón **Arriba**
+  (en el pie hay además un enlace "Volver arriba" que funciona sin JS).
+- **Escuchar**: cada edición se puede oír en voz alta con la voz del
+  propio dispositivo (Web Speech API, sin archivos de audio ni servicios
+  pagos). Lee párrafo por párrafo, resalta el que suena, permite pausar,
+  detener y cambiar la velocidad, y omite fuentes, gráficos y tablas. La
+  calidad de la voz depende del teléfono o computador.
+- Respeta `prefers-reduced-motion` y el modo claro/oscuro.
+
 ## Agregar una edición
 
 El formato editorial está en `prompt.md` y el técnico en `ESPECIFICACION.md`.
@@ -199,6 +222,7 @@ scripts/build.py    markdown → HTML, verificación, candidatas
 scripts/frontmatter.py  lector del frontmatter (subconjunto de YAML, sin dependencias)
 scripts/graficos.py bloques ```grafico → gráficos HTML/SVG
 ayuda.md            página "Cómo participar" (instrucciones para lectores)
+sobre.md            página "¿Qué es esto?"
 candidatas.md       estado de las candidatas (editable a mano)
 build.sh            prepara .venv y ejecuta el build
 deploy.sh           build + commit + push
