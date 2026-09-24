@@ -377,10 +377,12 @@
     try { localStorage.setItem("notas-quien", JSON.stringify(q)); localStorage.setItem("notas-clave", JSON.stringify(c)); } catch (e) {}
   }
 
-  var sel = ".cabecera h1, .edicion h3, .edicion h4, .edicion p, .edicion li";
-  bloques = Array.prototype.filter.call(edicion.querySelectorAll(sel), function (el) {
+  // Texto de la edición y también el glosario (el del final y el recuadro fijo).
+  var sel = ".edicion .cabecera h1, .edicion h3, .edicion h4, .edicion p, .edicion li, " +
+    ".glosario-flotante dt, .glosario-flotante dd";
+  bloques = Array.prototype.filter.call(document.querySelectorAll(sel), function (el) {
     return !el.closest(".fuentes, figure, table, .escuchar, .temas, nav, .seguimiento-de, " +
-      ".aviso-cambios, .avisos, .actualizacion, .hilo-enlace, .fecha, .lugares, .nota, .carril-bajada, details") &&
+      ".aviso-cambios, .avisos, .actualizacion, .hilo-enlace, .fecha, .lugares, .nota, .carril-bajada, .plegable") &&
       !el.querySelector("p, li") && texto(el);
   });
   bloques.forEach(function (el) {
@@ -436,7 +438,15 @@
     d.set("titulo", texto(document.querySelector(".edicion .cabecera h1") || document.querySelector("title")));
     d.set("quien", quien.value || leer("notas-quien"));
     d.set("clave", clave.value || leer("notas-clave"));
-    d.set("cambios", JSON.stringify(lista.map(function (el) { return recorte(el.dataset.orig, texto(el)); })));
+    d.set("cambios", JSON.stringify(lista.map(function (el) {
+      var c = recorte(el.dataset.orig, texto(el));
+      // En el glosario se indica de qué término se trata, para ubicarlo en la lista.
+      if (el.closest(".glosario-flotante, #glosario")) {
+        var dt = el.tagName === "DD" ? el.previousElementSibling : null;
+        c.parrafo = "[Glosario] " + (dt ? (dt.dataset.orig || texto(dt)) + ": " : "") + el.dataset.orig;
+      }
+      return c;
+    })));
     return d;
   }
   function guardar() {
@@ -477,16 +487,17 @@
       });
   }
 
-  edicion.addEventListener("input", function () {
+  document.addEventListener("input", function (ev) {
+    if (!ev.target.isContentEditable || !ev.target.classList.contains("editable")) return;
     pintar();
     clearTimeout(reloj);
     reloj = setTimeout(guardar, ESPERA);
   });
   // Un párrafo es un párrafo: Enter guarda en vez de partirlo; lo pegado entra como texto.
-  edicion.addEventListener("keydown", function (ev) {
+  document.addEventListener("keydown", function (ev) {
     if (ev.key === "Enter" && ev.target.isContentEditable) { ev.preventDefault(); ev.target.blur(); guardar(); }
   });
-  edicion.addEventListener("paste", function (ev) {
+  document.addEventListener("paste", function (ev) {
     if (!ev.target.isContentEditable) return;
     ev.preventDefault();
     var t = (ev.clipboardData || window.clipboardData).getData("text").replace(/\s+/g, " ");

@@ -37,7 +37,9 @@ como texto plano. Los párrafos tocados se guardan solos 12 segundos
 después de dejar de escribir, con Enter o al salir de la página
 (`sendBeacon`): por cada párrafo se envía el fragmento "quitar → poner"
 con unas palabras de contexto (`POST /api/ajuste` con `cambios`, misma
-clave que las notas; la pide una vez en la barra inferior). El Worker
+clave que las notas; la pide una vez en la barra inferior). El glosario también es editable (la lista del final y el
+recuadro fijo de la derecha); esos cambios llevan el párrafo marcado
+`[Glosario] Término: definición` para ubicarlo en la lista. El Worker
 crea un issue `[Edición] …` y la revisión horaria lo aplica al markdown,
 en orden de llegada. Los cambios de redacción se aplican tal cual; si un
 cambio altera una cifra, fecha o hecho, además se deja una entrada en
