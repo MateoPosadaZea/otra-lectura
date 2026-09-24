@@ -1226,3 +1226,7 @@ html:not(.js) .barra-fija { display: none; }
   .candidatas .idea { font-size: 1.4em; }
   .entre-ediciones { font-size: 1.05em; }
 }
+.escuchar-voz { max-width: 13em; text-overflow: ellipsis; }
+@media (max-width: 480px) {
+  .sonando .escuchar-voces { display: none; }
+}

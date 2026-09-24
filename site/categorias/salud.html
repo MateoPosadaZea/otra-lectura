@@ -168,21 +168,58 @@
   var voz = window.speechSynthesis;
   var boton = caja.querySelector(".escuchar-play");
   var detener = caja.querySelector(".escuchar-detener");
-  var velocidad = caja.querySelector("select");
+  var velocidad = caja.querySelector(".escuchar-velocidad");
+  var selVoz = caja.querySelector(".escuchar-voz");
   var estado = caja.querySelector(".escuchar-estado");
   var bloques = [], i = 0, activo = false, pausado = false, actual = null, turno = 0;
   caja.hidden = false;
-  try { var v = localStorage.getItem("voz-velocidad"); if (v) velocidad.value = v; } catch (e) {}
+  try { var v = localStorage.getItem("voz-ritmo"); if (v) velocidad.value = v; } catch (e) {}
 
-  function elegirVoz() {
-    var voces = voz.getVoices(), orden = ["es-CO", "es-419", "es-MX", "es-US", "es-ES", "es"];
-    for (var k = 0; k < orden.length; k++) {
-      for (var j = 0; j < voces.length; j++) {
-        if (voces[j].lang.replace("_", "-").indexOf(orden[k]) === 0) return voces[j];
-      }
-    }
-    return null;
+  // Voces en español, de la más cálida y natural a la más robótica: primero
+  // las "naturales" o mejoradas (Edge, Apple), luego voces masculinas
+  // conocidas, luego el acento más cercano. Las de Google van al final.
+  var MASCULINAS = /gonzalo|jorge|juan|diego|carlos|pablo|raul|raúl|alvaro|álvaro|andr[eé]s|enrique|jaime|tom[aá]s|lorenzo|alonso|gerardo|lucas|dario|darío/i;
+  function puntaje(v) {
+    var n = v.name, l = v.lang.replace("_", "-"), p = 0;
+    if (/natural|neural|premium|enhanced|mejorad|online/i.test(n)) p += 100;
+    if (MASCULINAS.test(n)) p += 50;
+    if (/^es-CO/i.test(l)) p += 30;
+    else if (/^es-(419|MX|US|AR|CL|PE|VE|EC)/i.test(l)) p += 20;
+    else if (/^es-ES/i.test(l)) p += 10;
+    if (/google/i.test(n)) p -= 40;
+    if (/compact|eloquence|grandpa|grandma|abuel|rocko|shelley|flo|reed|sandy/i.test(n)) p -= 60;
+    return p;
   }
+  function vocesEs() {
+    return voz.getVoices().filter(function (v) { return /^es/i.test(v.lang); })
+      .sort(function (a, b) { return puntaje(b) - puntaje(a); });
+  }
+  function llenarVoces() {
+    var lista = vocesEs();
+    if (!lista.length) return;
+    var guardada = "";
+    try { guardada = localStorage.getItem("voz-nombre") || ""; } catch (e) {}
+    selVoz.innerHTML = "";
+    lista.forEach(function (v) {
+      var o = document.createElement("option");
+      o.value = v.name;
+      o.textContent = v.name.replace(/^(Microsoft|Google)\s+/, "").split(" (")[0] + " · " + v.lang;
+      selVoz.appendChild(o);
+    });
+    if (guardada && lista.some(function (v) { return v.name === guardada; })) selVoz.value = guardada;
+    selVoz.closest("label").hidden = lista.length < 2;
+  }
+  function elegirVoz() {
+    var lista = vocesEs();
+    for (var k = 0; k < lista.length; k++) if (lista[k].name === selVoz.value) return lista[k];
+    return lista[0] || null;
+  }
+  llenarVoces();
+  if ("onvoiceschanged" in voz) voz.addEventListener("voiceschanged", llenarVoces);
+  selVoz.addEventListener("change", function () {
+    try { localStorage.setItem("voz-nombre", selVoz.value); } catch (e) {}
+    if (activo && !pausado) { turno++; voz.cancel(); leer(); }
+  });
   function reunir() {
     // Títulos y párrafos del texto; sin fuentes, gráficos ni tablas de datos.
     var sel = ".edicion .cabecera h1, .edicion h2, .edicion h3, .edicion p, .edicion li";
@@ -215,10 +252,16 @@
     var elegida = elegirVoz();
     if (elegida) u.voice = elegida;
     u.lang = elegida ? elegida.lang : "es-CO";
-    u.rate = parseFloat(velocidad.value) || 1;
+    u.rate = parseFloat(velocidad.value) || 0.9;
+    u.pitch = 0.95;
     // Cada frase lleva su turno: al pausar o cambiar la velocidad, los avisos
     // de la frase cancelada se ignoran.
-    function seguir() { if (t === turno && activo && !pausado) { i++; leer(); } }
+    // Un respiro entre párrafos, más largo después de un título.
+    var respiro = "H1 H2 H3 H4".indexOf(el.tagName) >= 0 || el.closest(".etiqueta") ? 900 : 450;
+    function seguir() {
+      if (t !== turno || !activo || pausado) return;
+      setTimeout(function () { if (t === turno && activo && !pausado) { i++; leer(); } }, respiro);
+    }
     u.onend = seguir;
     u.onerror = seguir;
     marcar(el);
@@ -246,11 +289,10 @@
   });
   detener.addEventListener("click", parar);
   velocidad.addEventListener("change", function () {
-    try { localStorage.setItem("voz-velocidad", velocidad.value); } catch (e) {}
+    try { localStorage.setItem("voz-ritmo", velocidad.value); } catch (e) {}
     if (activo && !pausado) { turno++; voz.cancel(); leer(); }
   });
   addEventListener("pagehide", function () { voz.cancel(); });
-  voz.getVoices();
 })();
 /* Cierra el menú de secciones al hacer clic fuera o con Escape. */
 (function () {

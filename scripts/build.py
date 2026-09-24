@@ -728,11 +728,13 @@ def pagina_edicion(base, e, anterior, siguiente):
 HTML_ESCUCHAR = """<div class="escuchar" role="group" aria-label="Escuchar la edición" hidden>
 <button type="button" class="escuchar-play" aria-pressed="false">▶ Escuchar</button>
 <button type="button" class="escuchar-detener" hidden>■ Detener</button>
-<label><span class="escuchar-rotulo">Velocidad</span> <select aria-label="Velocidad de lectura">
-<option value="0.85">Lenta</option>
-<option value="1" selected>Normal</option>
-<option value="1.2">Rápida</option>
+<label><span class="escuchar-rotulo">Ritmo</span> <select class="escuchar-velocidad" aria-label="Ritmo de lectura">
+<option value="0.8">Pausado</option>
+<option value="0.9" selected>Tranquilo</option>
+<option value="1">Normal</option>
+<option value="1.15">Ágil</option>
 </select></label>
+<label class="escuchar-voces" hidden><span class="escuchar-rotulo">Voz</span> <select class="escuchar-voz" aria-label="Voz"></select></label>
 <p class="escuchar-estado" role="status" aria-live="polite"></p>
 </div>"""
 
