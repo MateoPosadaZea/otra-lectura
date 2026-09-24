@@ -43,6 +43,15 @@ en orden de llegada. Los cambios de redacción se aplican tal cual; si un
 cambio altera una cifra, fecha o hecho, además se deja una entrada en
 `correcciones`.
 
+## Ajustes por voz
+
+El botón **🎤 Hablar** (solo si el navegador tiene reconocimiento de voz:
+Chrome, Edge, Safari) dicta un ajuste en `es-CO`. Tres segundos de
+silencio terminan el dictado; se muestra el texto y se envía solo a los
+cuatro segundos (con "Cancelar" y "Enviar ya"), como una nota con la
+frase seleccionada si la hay. Sin clave guardada, el texto queda en el
+panel de Notas para enviarlo desde ahí.
+
 ## Lectura más corta
 
 - "Lo que descarté" sigue en el markdown (la rutina lo usa para no

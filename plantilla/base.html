@@ -42,20 +42,15 @@ $contenido
 <form class="notas-form" method="post" action="/api/ajuste">
 <input type="hidden" name="pagina" value="$nota_pagina">
 <input type="hidden" name="titulo" value="$nota_titulo">
-<ol class="notas-pasos">
-<li>Escriba su nota: una corrección, una idea o algo que no se entiende.</li>
-<li>¿Es sobre una frase? Selecciónela primero en el texto.</li>
-<li>Toque <strong>Agregar nota</strong>. Puede agregar varias, aquí o en otras ediciones.</li>
-<li>Al terminar, ponga su nombre y la clave, y toque <strong>Enviar</strong>. Se van todas juntas.</li>
-</ol>
-<p class="notas-ayuda"><a href="${raiz}ayuda.html">Más ayuda</a></p>
+<p class="notas-ayuda">Escriba lo que quiera corregir o proponer. ¿Es sobre una frase? Selecciónela antes. <a href="${raiz}ayuda.html">Ayuda</a></p>
 <p class="notas-cita" hidden><span></span> <button type="button" aria-label="Quitar la cita">×</button></p>
-<textarea name="texto" rows="4" maxlength="4000" aria-label="Nota" placeholder="Escriba una nota…"></textarea>
+<textarea name="texto" rows="3" maxlength="4000" aria-label="Nota" placeholder="Escriba una nota…"></textarea>
 <button type="button" class="notas-agregar" hidden>Agregar nota</button>
 <ol class="notas-lista" hidden></ol>
 <div class="notas-envio">
-<label>Nombre <input name="quien" autocomplete="name"></label>
-<label>Clave <input name="clave" type="password" autocomplete="current-password" required></label>
+<p class="notas-firma" hidden>Envía <strong></strong> · <button type="button">cambiar</button></p>
+<label class="notas-cred">Nombre <input name="quien" autocomplete="name"></label>
+<label class="notas-cred">Clave <input name="clave" type="password" autocomplete="current-password" required></label>
 <label class="notas-recordar" hidden><input type="checkbox" checked> Recordar en este dispositivo</label>
 <button type="submit" class="notas-enviar">Enviar</button>
 </div>
@@ -79,8 +74,9 @@ $contenido
   function actual() { return raiz.dataset.theme || (sistema.matches ? "dark" : "light"); }
   function pintar() {
     var oscuro = actual() === "dark";
-    boton.textContent = oscuro ? "◑ Claro" : "◐ Oscuro";
-    boton.setAttribute("aria-label", oscuro ? "Cambiar a modo claro" : "Cambiar a modo oscuro");
+    boton.textContent = oscuro ? "☀ Leer de día" : "☾ Leer de noche";
+    boton.title = oscuro ? "Volver al fondo claro" : "Fondo oscuro, más cómodo para leer de noche";
+    boton.setAttribute("aria-label", oscuro ? "Leer de día: volver al fondo claro" : "Leer de noche: fondo oscuro, más cómodo para los ojos");
   }
   boton.hidden = false;
   pintar();
@@ -515,6 +511,20 @@ $contenido
   clave.value = leer("notas-clave", "");
   agregar.hidden = false;
   recordar.hidden = false;
+  // Con nombre y clave guardados, no se muestran: solo "Envía Papá · cambiar".
+  var firma = panel.querySelector(".notas-firma");
+  function pintarFirma() {
+    var guardada = !!leer("notas-clave", "");
+    firma.hidden = !guardada;
+    firma.querySelector("strong").textContent = leer("notas-quien", "") || "sin nombre";
+    panel.querySelectorAll(".notas-cred, .notas-recordar").forEach(function (el) { el.hidden = guardada; });
+  }
+  firma.querySelector("button").addEventListener("click", function () {
+    firma.hidden = true;
+    panel.querySelectorAll(".notas-cred, .notas-recordar").forEach(function (el) { el.hidden = false; });
+    quien.focus();
+  });
+  pintarFirma();
   if (matchMedia("(max-width: 1239px)").matches) detalles.open = false;
 
   function pintar() {
@@ -611,12 +621,139 @@ $contenido
         } else {
           borrar("notas-clave");
         }
+        pintarFirma();
       })
       .catch(function () { mostrar("No se pudo enviar. Las notas siguen guardadas; inténtelo de nuevo.", false); })
       .then(function () { enviar.disabled = false; pintar(); });
   });
 
   pintar();
+})();
+</script>
+<script>
+/* Dictar un ajuste: se toca el micrófono, se habla y se envía solo.
+   Usa el reconocimiento de voz del navegador (Chrome, Edge, Safari). */
+(function () {
+  var Reconocer = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var form = document.querySelector(".notas-form");
+  if (!Reconocer || !form || !window.fetch) return;
+  function leer(k) { try { return JSON.parse(localStorage.getItem(k) || '""'); } catch (e) { return ""; } }
+  var boton = document.createElement("button");
+  boton.type = "button";
+  boton.className = "dictar";
+  boton.setAttribute("aria-label", "Dictar un ajuste por voz");
+  boton.innerHTML = '<span aria-hidden="true">🎤</span> Hablar';
+  var globo = document.createElement("div");
+  globo.className = "dictar-globo";
+  globo.setAttribute("role", "status");
+  globo.setAttribute("aria-live", "polite");
+  globo.hidden = true;
+  globo.innerHTML = '<p class="dictar-estado"></p><p class="dictar-texto"></p>' +
+    '<div class="dictar-acciones"><button type="button" class="dictar-listo">Listo</button>' +
+    '<button type="button" class="dictar-ya" hidden>Enviar ya</button>' +
+    '<button type="button" class="dictar-cancelar">Cancelar</button></div>';
+  document.body.appendChild(boton);
+  document.body.appendChild(globo);
+  var estado = globo.querySelector(".dictar-estado"), textoEl = globo.querySelector(".dictar-texto");
+  var listo = globo.querySelector(".dictar-listo"), ya = globo.querySelector(".dictar-ya");
+  var cancelar = globo.querySelector(".dictar-cancelar");
+  var rec = null, final = "", cita = "", cuenta = null, silencio = null, cancelado = false;
+
+  function cerrar() {
+    clearInterval(cuenta); clearTimeout(silencio);
+    globo.hidden = true; boton.classList.remove("oyendo"); boton.disabled = false;
+  }
+  function citaActual() {
+    var sel = document.getSelection(), s = sel ? String(sel).trim() : "";
+    return s && sel.anchorNode && document.getElementById("contenido").contains(sel.anchorNode)
+      ? s.replace(/\s+/g, " ").slice(0, 600) : "";
+  }
+  function enviar(texto) {
+    clearInterval(cuenta);
+    var clave = leer("notas-clave");
+    if (!clave) {
+      // Sin clave guardada: el texto queda en el panel de notas para enviarlo desde ahí.
+      var t = form.querySelector("textarea");
+      t.value = texto;
+      var det = document.querySelector(".notas details");
+      if (det) det.open = true;
+      estado.textContent = "Su ajuste quedó en el recuadro de Notas. Ponga su nombre y la clave una vez y toque Enviar.";
+      textoEl.textContent = "";
+      listo.hidden = ya.hidden = true;
+      cancelar.textContent = "Cerrar";
+      form.elements.clave.focus();
+      return;
+    }
+    var d = new FormData();
+    d.set("quien", leer("notas-quien"));
+    d.set("clave", clave);
+    d.set("pagina", form.elements.pagina.value);
+    d.set("titulo", form.elements.titulo.value);
+    d.set("notas", JSON.stringify([{ texto: "[Dictado por voz] " + texto, cita: cita,
+      pagina: form.elements.pagina.value, titulo: form.elements.titulo.value }]));
+    estado.textContent = "Enviando…";
+    listo.hidden = ya.hidden = cancelar.hidden = true;
+    fetch(form.action, { method: "POST", body: d, headers: { Accept: "application/json" } })
+      .then(function (r) { return r.json().then(function (j) { return [r.status, j]; }); })
+      .then(function (res) {
+        estado.textContent = res[0] === 200 ? "Enviado ✓ Se aplica en la próxima hora." : res[1].mensaje;
+        setTimeout(cerrar, res[0] === 200 ? 3500 : 7000);
+      })
+      .catch(function () { estado.textContent = "No se pudo enviar. Revise la conexión."; setTimeout(cerrar, 6000); });
+  }
+  function confirmar() {
+    var texto = final.trim();
+    if (!texto) { estado.textContent = "No se oyó nada. Intente de nuevo."; listo.hidden = true; setTimeout(cerrar, 2500); return; }
+    // Unos segundos para arrepentirse; si no, se envía solo.
+    var n = 4;
+    listo.hidden = true; ya.hidden = false; cancelar.hidden = false;
+    estado.textContent = "Se envía en " + n + "…";
+    cuenta = setInterval(function () {
+      n--;
+      if (n <= 0) enviar(texto); else estado.textContent = "Se envía en " + n + "…";
+    }, 1000);
+    ya.onclick = function () { enviar(texto); };
+  }
+  boton.addEventListener("click", function () {
+    cita = citaActual();
+    final = ""; cancelado = false;
+    rec = new Reconocer();
+    rec.lang = "es-CO";
+    rec.interimResults = true;
+    rec.continuous = true;
+    rec.onresult = function (ev) {
+      var provisional = "";
+      final = "";
+      for (var i = 0; i < ev.results.length; i++) {
+        if (ev.results[i].isFinal) final += ev.results[i][0].transcript + " ";
+        else provisional += ev.results[i][0].transcript;
+      }
+      textoEl.textContent = (final + provisional).trim();
+      if (!final.trim() && provisional) final = provisional;
+      // Tres segundos de silencio terminan el dictado.
+      clearTimeout(silencio);
+      silencio = setTimeout(function () { try { rec.stop(); } catch (e) {} }, 3000);
+    };
+    rec.onerror = function (ev) {
+      if (ev.error === "not-allowed" || ev.error === "service-not-allowed") {
+        estado.textContent = "El navegador no dio permiso al micrófono. Actívelo en los ajustes del navegador para este sitio.";
+        listo.hidden = true; cancelado = true;
+      }
+    };
+    rec.onend = function () { boton.classList.remove("oyendo"); if (!cancelado) confirmar(); };
+    globo.hidden = false;
+    listo.hidden = false; ya.hidden = true; cancelar.hidden = false; cancelar.textContent = "Cancelar";
+    estado.textContent = cita ? "Escuchando… (sobre la frase que seleccionó)" : "Escuchando… diga su ajuste.";
+    textoEl.textContent = "";
+    boton.classList.add("oyendo"); boton.disabled = true;
+    try { rec.start(); } catch (e) { estado.textContent = "No se pudo usar el micrófono."; }
+  });
+  listo.addEventListener("click", function () { try { rec.stop(); } catch (e) {} });
+  cancelar.addEventListener("click", function () {
+    cancelado = true;
+    try { rec.abort(); } catch (e) {}
+    cerrar();
+  });
 })();
 </script>
 </body>

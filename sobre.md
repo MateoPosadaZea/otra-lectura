@@ -55,6 +55,10 @@ salidas posibles, sin esconder lo que no funciona.
 - Al final de cada edición puede contarnos si le pareció **liviana, justa
   o pesada**. Con eso ajustamos el largo de las siguientes.
 - El domingo no hay temas nuevos: es **la semana en limpio**.
+- **☾ Leer de noche** (arriba a la derecha) pone el fondo oscuro, más
+  cómodo con poca luz.
+- **🎤 Hablar** (abajo a la izquierda) permite dejar un ajuste de viva
+  voz, sin escribir.
 
 ## Participar
 

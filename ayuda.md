@@ -46,6 +46,23 @@ pausar, detener, cambiar el **ritmo** y elegir la **voz**. Las voces
 masculinas aparecen primero. Si no aparece ninguna, abajo del botón está
 cómo instalarlas en el celular.
 
+## Decirlo en voz alta, sin escribir
+
+Abajo a la izquierda está el botón **🎤 Hablar**. Tóquelo y diga su
+ajuste, por ejemplo: «el título de la segunda noticia está muy largo».
+Cuando deje de hablar unos segundos, el texto aparece en pantalla y se
+envía solo. Si se arrepiente, toque **Cancelar** antes de que se envíe.
+
+Si antes selecciona una frase del texto, el ajuste queda asociado a esa
+frase. La primera vez, el celular pide permiso para usar el micrófono:
+toque **Permitir**. Funciona en Chrome, Edge y Safari.
+
+## Leer de noche
+
+Arriba a la derecha está el botón **☾ Leer de noche**. Cambia el fondo a
+oscuro, que cansa menos la vista con poca luz. Para volver, toque
+**☀ Leer de día**. El sitio recuerda la elección.
+
 ## Corregir el texto directamente
 
 El texto de cada edición se puede corregir como un documento, sin abrir

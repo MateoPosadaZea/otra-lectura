@@ -896,7 +896,7 @@ footer.sitio .pie-enlaces { font-family: var(--sans); }
     left: 1.5rem;
     z-index: 3;
     width: 14rem;
-    max-height: calc(100vh - 12rem);
+    max-height: calc(100vh - 15.5rem); /* deja lugar al botón "Hablar" */
     overflow-y: auto;
     margin: 0;
     border-style: solid;
@@ -1440,4 +1440,74 @@ html:not(.js) .barra-fija { display: none; }
 @media (max-width: 600px) { .siguiente-titulo { font-size: 1.6em; } }
 @media (max-width: 1239px) {
   .hay-cambios .notas, .hay-cambios .glosario-boton, .hay-cambios .arriba { visibility: hidden; }
+}
+
+/* --- Dictar un ajuste por voz --- */
+
+.dictar {
+  position: fixed;
+  left: 7.4rem;
+  bottom: 1rem;
+  z-index: 4;
+  min-height: 2.3rem;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid var(--tinta);
+  border-radius: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font: 800 0.66rem/1 var(--sans);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+.dictar:hover { background: var(--tinta); color: var(--papel); }
+.dictar.oyendo { background: var(--rojo); border-color: var(--rojo); color: var(--papel); }
+@media (min-width: 1240px) { .dictar { left: 1.5rem; bottom: 1.5rem; } }
+.dictar-globo {
+  position: fixed;
+  left: 1rem;
+  bottom: 4rem;
+  z-index: 7;
+  width: min(22rem, calc(100vw - 2rem));
+  padding: 0.8rem 0.9rem;
+  background: var(--tinta);
+  color: var(--papel);
+  font: 500 0.88rem/1.45 var(--sans);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.25);
+}
+@media (min-width: 1240px) { .dictar-globo { left: 1.5rem; bottom: 4.5rem; } }
+.dictar-estado { margin: 0 0 0.4rem; font-weight: 800; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.dictar-texto { margin: 0 0 0.6rem; font-size: 1rem; }
+.dictar-texto:empty { display: none; }
+.dictar-acciones { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.dictar-acciones button {
+  min-height: 2.3rem;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid var(--papel);
+  border-radius: 0;
+  background: none;
+  color: var(--papel);
+  font: 700 0.66rem/1 var(--sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.dictar-acciones .dictar-listo, .dictar-acciones .dictar-ya { background: var(--papel); color: var(--tinta); }
+@media (max-width: 1239px) { .hay-cambios .dictar { visibility: hidden; } }
+@media print { .dictar, .dictar-globo { display: none !important; } }
+@media (max-width: 1239px) { .js .notas:has(details[open]) ~ .dictar { display: none; } }
+
+/* Panel de notas compacto: que quepa sin scroll. */
+.notas-ayuda { font-size: 0.78rem; line-height: 1.4; }
+.notas-firma { margin: 0; font-size: 0.78rem; color: var(--tenue); }
+.notas-firma strong { color: var(--tinta); }
+.notas-firma button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--tinta);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
 }
