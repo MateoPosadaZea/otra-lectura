@@ -11,6 +11,7 @@
 
 const REPO = "MateoPosadaZea/otra-lectura";
 const MAX_TEXTO = 4000;
+const MAX_NOTAS = 30;
 
 export default {
   async fetch(request, env) {
@@ -39,9 +40,7 @@ async function recibirAjuste(request, env) {
   }
 
   const volver = limpiarRuta(datos.get("pagina"));
-  const texto = String(datos.get("texto") || "").trim();
   const quien = String(datos.get("quien") || "").trim().slice(0, 80) || "Sin nombre";
-  const titulo = String(datos.get("titulo") || "Otra lectura").trim().slice(0, 100);
   const clave = String(datos.get("clave") || "");
 
   if (!env.CLAVE_FAMILIA || !env.GITHUB_TOKEN) {
@@ -51,22 +50,52 @@ async function recibirAjuste(request, env) {
   if (!(await igualesSeguro(clave, env.CLAVE_FAMILIA))) {
     return respuesta(401, "Clave incorrecta", "Revise la clave e inténtelo de nuevo.", volver);
   }
-  if (!texto) {
-    return respuesta(400, "Ajuste vacío", "Escriba el ajuste antes de enviarlo.", volver);
+
+  // Una tanda de notas (panel con JavaScript) o una sola (formulario sin JS).
+  let notas;
+  if (datos.get("notas")) {
+    try {
+      notas = JSON.parse(String(datos.get("notas")));
+    } catch {
+      return respuesta(400, "Notas inválidas", "No se pudieron leer las notas.", volver);
+    }
+    if (!Array.isArray(notas)) notas = [];
+  } else {
+    notas = [{ texto: datos.get("texto"), pagina: datos.get("pagina"), titulo: datos.get("titulo") }];
   }
-  if (texto.length > MAX_TEXTO) {
-    return respuesta(400, "Ajuste demasiado largo", `El máximo es de ${MAX_TEXTO} caracteres.`, volver);
+  notas = notas
+    .map((n) => ({
+      texto: String((n && n.texto) || "").trim(),
+      cita: String((n && n.cita) || "").trim().slice(0, 600),
+      pagina: limpiarRuta(n && n.pagina),
+      titulo: String((n && n.titulo) || "Otra lectura").trim().slice(0, 100),
+    }))
+    .filter((n) => n.texto);
+
+  if (!notas.length) {
+    return respuesta(400, "Nota vacía", "Escriba al menos una nota antes de enviar.", volver);
+  }
+  if (notas.length > MAX_NOTAS) {
+    return respuesta(400, "Demasiadas notas", `El máximo es de ${MAX_NOTAS} notas por envío.`, volver);
+  }
+  if (notas.some((n) => n.texto.length > MAX_TEXTO)) {
+    return respuesta(400, "Nota demasiado larga", `El máximo es de ${MAX_TEXTO} caracteres por nota.`, volver);
   }
 
-  const cuerpo = [
-    `**Página:** ${volver}`,
+  const partes = [
     `**Enviado por:** ${quien}`,
     `**Fecha:** ${new Date().toISOString()}`,
-    "",
-    "---",
-    "",
-    texto,
-  ].join("\n");
+    `**Notas:** ${notas.length}`,
+  ];
+  notas.forEach((n, i) => {
+    partes.push("", "---", "", `### Nota ${i + 1}`, `**Página:** ${n.pagina} (${n.titulo})`);
+    if (n.cita) partes.push("", n.cita.split("\n").map((l) => `> ${l}`).join("\n"));
+    partes.push("", n.texto);
+  });
+  const cuerpo = partes.join("\n");
+  const titulo = notas.length === 1
+    ? `[Ajuste] ${notas[0].titulo}`
+    : `[Ajuste] ${notas.length} notas de ${quien}`;
 
   const gh = await fetch(`https://api.github.com/repos/${REPO}/issues`, {
     method: "POST",
@@ -77,7 +106,7 @@ async function recibirAjuste(request, env) {
       "User-Agent": "otra-lectura-ajustes",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ title: `[Ajuste] ${titulo}`, body: cuerpo }),
+    body: JSON.stringify({ title: titulo, body: cuerpo }),
   });
 
   if (!gh.ok) {
@@ -86,8 +115,9 @@ async function recibirAjuste(request, env) {
       "El ajuste no quedó registrado. Inténtelo de nuevo en unos minutos.", volver);
   }
 
-  return respuesta(200, "Ajuste recibido",
-    "Quedó registrado. Se revisa en la próxima hora, entre las 6 a. m. y las 10 p. m.", volver);
+  const cuantas = notas.length === 1 ? "La nota quedó registrada" : `Las ${notas.length} notas quedaron registradas`;
+  return respuesta(200, "Recibido",
+    `${cuantas}. Se revisan en la próxima hora, entre las 6 a. m. y las 10 p. m.`, volver);
 }
 
 // Solo rutas internas del sitio, para no redirigir a otro dominio.

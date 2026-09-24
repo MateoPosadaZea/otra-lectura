@@ -129,9 +129,14 @@ Access delante del Worker; no hay que tocar el código.
 
 ## Ajustes
 
-Cada página tiene al final "Sugerir un ajuste". El formulario lo recibe el
-Worker (`src/worker.js`), que valida la clave familiar y lo guarda como
-issue `[Ajuste] …` en GitHub. Cada hora, de 6 a. m. a 10 p. m. (Colombia),
+Cada página tiene el panel **Notas**: fijo a la izquierda en pantallas
+anchas y como botón flotante abajo a la izquierda en el celular. Se escriben
+notas mientras se lee (seleccionando un fragmento del texto, la nota lo
+cita), se acumulan en ese navegador aunque se cambie de página, y se envían
+todas juntas. Nombre y clave se recuerdan en el dispositivo si se deja
+marcada la casilla. Sin JavaScript, el panel funciona como formulario de
+una sola nota. El Worker (`src/worker.js`) valida la clave familiar y guarda
+cada envío, con todas sus notas, como un issue `[Ajuste] …` en GitHub. Cada hora, de 6 a. m. a 10 p. m. (Colombia),
 Claude revisa esos issues:
 
 - corrección de contenido → se agrega en `correcciones` de la edición

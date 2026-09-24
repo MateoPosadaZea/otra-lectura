@@ -296,6 +296,7 @@ def envolver_secciones(cuerpo):
             slug = m_id.group(1) if m_id else slugificar(re.sub(r"^\s*\d+\.\s*", "", texto))
             if m_id:
                 heading = heading.replace(m_id.group(0), "", 1)
+            heading = re.sub(r"(<h3[^>]*>)\s*\d+\.\s*", r"\1", heading, count=1)
             base, n = slug, 2
             while slug in slugs:
                 slug, n = f"{base}-{n}", n + 1
@@ -596,26 +597,6 @@ def cuerpo_edicion(e):
     return cuerpo
 
 
-def form_ajuste(pagina, titulo):
-    """Formulario de ajustes (contenido, estilo o funciones del sitio); lo recibe src/worker.js."""
-    return f"""<details class="ajuste">
-<summary>Sugerir un ajuste</summary>
-<form method="post" action="/api/ajuste">
-<input type="hidden" name="pagina" value="{html.escape(pagina)}">
-<input type="hidden" name="titulo" value="{html.escape(titulo)}">
-<label>Ajuste
-<textarea name="texto" rows="5" maxlength="4000" required placeholder="Una corrección de esta edición, una regla de estilo o tono, o un cambio al sitio. Por ejemplo: «un glosario flotante a la derecha»."></textarea></label>
-<div class="ajuste-fila">
-<label>Nombre <input name="quien" autocomplete="name"></label>
-<label>Clave <input name="clave" type="password" autocomplete="current-password" required></label>
-</div>
-<button type="submit">Enviar ajuste</button>
-<p class="ajuste-estado" role="status" aria-live="polite" hidden></p>
-<p class="ajuste-nota">Correcciones de contenido, reglas de estilo y cambios de diseño o funciones del sitio. Se revisan cada hora, de 6 a. m. a 10 p. m.; los cambios grandes quedan para aprobación de Mateo.</p>
-</form>
-</details>"""
-
-
 def html_menu(raiz, seccion=None):
     """Barra de secciones: Inicio y categorías; la actual va marcada."""
     def item(clave, href, nombre):
@@ -674,7 +655,9 @@ def meta_etiquetas(titulo, descripcion, ruta, tipo, ld):
 def pagina(base, titulo, descripcion, raiz, contenido, ruta, tipo="website", ld=None, seccion=None):
     ld = ld or {"@type": "WebPage", "name": html.unescape(titulo), "description": descripcion,
                 "inLanguage": "es-CO", "isPartOf": {"@type": "WebSite", "name": NOMBRE_SITIO}}
+    nota_titulo = html.escape(re.sub(r"\s*·\s*Otra lectura$", "", html.unescape(titulo)))
     return base.substitute(titulo=titulo, raiz=raiz, contenido=contenido, menu=html_menu(raiz, seccion),
+                           nota_pagina=ruta, nota_titulo=nota_titulo,
                            meta=meta_etiquetas(titulo, descripcion, ruta, tipo, ld))
 
 
@@ -707,8 +690,7 @@ def pagina_edicion(base, e, anterior, siguiente):
 {cuerpo_edicion(e)}
 </article>
 {html_glosario_flotante(e['glosario'])}
-<nav class="entre-ediciones" aria-label="Otras ediciones">{''.join(nav)}</nav>
-{form_ajuste(f"/ediciones/{e['slug']}.html", e['titulo'])}"""
+<nav class="entre-ediciones" aria-label="Otras ediciones">{''.join(nav)}</nav>"""
     descripcion = descripcion_edicion(e)
     ld = {"@type": "Article", "headline": e["titulo"], "description": descripcion,
           "datePublished": e["fecha"], "dateModified": e["ultimo_cambio"] or e["fecha"],
@@ -757,8 +739,7 @@ def pagina_lista(base, ediciones, todas, raiz, titulo, bajada, actual=None):
     contenido = f"""{cabecera}
 <ol class="indice" reversed>
 {lista}
-</ol>
-{form_ajuste("/" if actual is None else f"/categorias/{actual}.html", titulo)}"""
+</ol>"""
     if actual is None:
         ld = {"@type": "WebSite", "name": NOMBRE_SITIO, "description": DESCRIPCION_SITIO,
               "inLanguage": "es-CO"}
@@ -790,8 +771,7 @@ def pagina_candidatas(base, candidatas):
 <p class="candidatas-resumen">{resumen or "Sin candidatas"}. El desarrollo y el estado se editan en <code>candidatas.md</code>.</p>
 <ol class="indice candidatas">
 {lista}
-</ol>
-{form_ajuste("/candidatas.html", "Candidatas")}"""
+</ol>"""
     return pagina(base, "Candidatas · Otra lectura",
                   "Ideas de cruce con Mattriz surgidas en Otra lectura: candidatas, no tareas.",
                   "", contenido, "/candidatas.html")

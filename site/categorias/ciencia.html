@@ -21,7 +21,7 @@
 <link rel="preload" href="../fuentes/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../fuentes/unifraktur.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../estilo.css">
-<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script>document.documentElement.classList.add("js");try{var t=localStorage.getItem("tema");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
 <a class="saltar" href="#contenido">Ir al contenido</a>
@@ -59,23 +59,28 @@
 
 </li>
 </ol>
-<details class="ajuste">
-<summary>Sugerir un ajuste</summary>
-<form method="post" action="/api/ajuste">
+</main>
+<aside class="notas" aria-label="Notas para ajustar el sitio">
+<details open>
+<summary>Notas <span class="notas-cuenta" hidden></span></summary>
+<form class="notas-form" method="post" action="/api/ajuste">
 <input type="hidden" name="pagina" value="/categorias/ciencia.html">
 <input type="hidden" name="titulo" value="Ciencia">
-<label>Ajuste
-<textarea name="texto" rows="5" maxlength="4000" required placeholder="Una corrección de esta edición, una regla de estilo o tono, o un cambio al sitio. Por ejemplo: «un glosario flotante a la derecha»."></textarea></label>
-<div class="ajuste-fila">
+<p class="notas-ayuda">Correcciones, ideas o comentarios mientras lee. Seleccione un fragmento del texto para citarlo.</p>
+<p class="notas-cita" hidden><span></span> <button type="button" aria-label="Quitar la cita">×</button></p>
+<textarea name="texto" rows="4" maxlength="4000" aria-label="Nota" placeholder="Escriba una nota…"></textarea>
+<button type="button" class="notas-agregar" hidden>Agregar nota</button>
+<ol class="notas-lista" hidden></ol>
+<div class="notas-envio">
 <label>Nombre <input name="quien" autocomplete="name"></label>
 <label>Clave <input name="clave" type="password" autocomplete="current-password" required></label>
+<label class="notas-recordar" hidden><input type="checkbox" checked> Recordar en este dispositivo</label>
+<button type="submit" class="notas-enviar">Enviar</button>
 </div>
-<button type="submit">Enviar ajuste</button>
-<p class="ajuste-estado" role="status" aria-live="polite" hidden></p>
-<p class="ajuste-nota">Correcciones de contenido, reglas de estilo y cambios de diseño o funciones del sitio. Se revisan cada hora, de 6 a. m. a 10 p. m.; los cambios grandes quedan para aprobación de Mateo.</p>
+<p class="notas-estado" role="status" aria-live="polite" hidden></p>
 </form>
 </details>
-</main>
+</aside>
 <footer class="sitio">
 <p><a class="cabezote" href="../index.html">Otra Lectura</a></p>
 <p>Una mirada pragmática para informarse y participar.</p>
@@ -112,32 +117,137 @@
 })();
 </script>
 <script>
-/* Envía el ajuste sin salir de la página y muestra la respuesta en el recuadro. */
-document.querySelectorAll(".ajuste form").forEach(function (form) {
-  var estado = form.querySelector(".ajuste-estado");
-  var boton = form.querySelector("button");
+/* Notas: se acumulan en este navegador (incluso entre páginas) y se envían
+   todas juntas; nombre y clave se recuerdan si el lector lo permite. */
+(function () {
+  var panel = document.querySelector(".notas");
+  if (!panel) return;
+  var detalles = panel.querySelector("details");
+  var form = panel.querySelector("form");
+  var texto = form.querySelector("textarea");
+  var lista = panel.querySelector(".notas-lista");
+  var cuenta = panel.querySelector(".notas-cuenta");
+  var citaBox = panel.querySelector(".notas-cita");
+  var agregar = panel.querySelector(".notas-agregar");
+  var enviar = panel.querySelector(".notas-enviar");
+  var estado = panel.querySelector(".notas-estado");
+  var recordar = panel.querySelector(".notas-recordar");
+  var quien = form.elements.quien, clave = form.elements.clave;
+  var aqui = { pagina: form.elements.pagina.value, titulo: form.elements.titulo.value };
+  var cita = "";
+
+  function leer(k, def) { try { var v = localStorage.getItem(k); return v === null ? def : JSON.parse(v); } catch (e) { return def; } }
+  function guardar(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  function borrar(k) { try { localStorage.removeItem(k); } catch (e) {} }
+  var notas = leer("notas", []);
+
+  quien.value = leer("notas-quien", "");
+  clave.value = leer("notas-clave", "");
+  agregar.hidden = false;
+  recordar.hidden = false;
+  if (matchMedia("(max-width: 1239px)").matches) detalles.open = false;
+
+  function pintar() {
+    lista.innerHTML = "";
+    notas.forEach(function (n, i) {
+      var li = document.createElement("li");
+      if (n.cita) {
+        var q = document.createElement("q");
+        q.textContent = n.cita.length > 90 ? n.cita.slice(0, 90) + "…" : n.cita;
+        li.appendChild(q);
+      }
+      var t = document.createElement("span");
+      t.textContent = n.texto.length > 160 ? n.texto.slice(0, 160) + "…" : n.texto;
+      li.appendChild(t);
+      if (n.pagina !== aqui.pagina) {
+        var p = document.createElement("small");
+        p.textContent = n.titulo;
+        li.appendChild(p);
+      }
+      var x = document.createElement("button");
+      x.type = "button";
+      x.textContent = "×";
+      x.setAttribute("aria-label", "Quitar esta nota");
+      x.addEventListener("click", function () { notas.splice(i, 1); guardar("notas", notas); pintar(); });
+      li.appendChild(x);
+      lista.appendChild(li);
+    });
+    lista.hidden = !notas.length;
+    cuenta.hidden = !notas.length;
+    cuenta.textContent = notas.length;
+    enviar.textContent = notas.length > 1 ? "Enviar " + notas.length + " notas" : "Enviar";
+  }
+
+  function pintarCita() {
+    citaBox.hidden = !cita;
+    citaBox.querySelector("span").textContent = cita ? "Citando: «" + (cita.length > 120 ? cita.slice(0, 120) + "…" : cita) + "»" : "";
+  }
+  citaBox.querySelector("button").addEventListener("click", function () { cita = ""; pintarCita(); });
+
+  // Guarda el último fragmento seleccionado dentro del texto de la página.
+  document.addEventListener("selectionchange", function () {
+    var sel = document.getSelection();
+    var s = sel ? String(sel).trim() : "";
+    if (s && sel.anchorNode && document.getElementById("contenido").contains(sel.anchorNode)) {
+      cita = s.replace(/\s+/g, " ").slice(0, 600);
+      pintarCita();
+    }
+  });
+
+  agregar.addEventListener("click", function () {
+    var v = texto.value.trim();
+    if (!v) { texto.focus(); return; }
+    notas.push({ texto: v, cita: cita, pagina: aqui.pagina, titulo: aqui.titulo });
+    guardar("notas", notas);
+    texto.value = "";
+    cita = "";
+    pintarCita();
+    pintar();
+    texto.focus();
+  });
+
+  function mostrar(msg, ok) {
+    estado.textContent = msg;
+    estado.className = "notas-estado " + (ok ? "ok" : "error");
+    estado.hidden = false;
+  }
+
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
-    boton.disabled = true;
-    boton.textContent = "Enviando…";
-    fetch(form.action, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } })
+    var tanda = notas.slice();
+    if (texto.value.trim()) tanda.push({ texto: texto.value.trim(), cita: cita, pagina: aqui.pagina, titulo: aqui.titulo });
+    if (!tanda.length) { mostrar("Escriba al menos una nota.", false); return; }
+    var datos = new FormData();
+    datos.append("pagina", aqui.pagina);
+    datos.append("titulo", aqui.titulo);
+    datos.append("quien", quien.value);
+    datos.append("clave", clave.value);
+    datos.append("notas", JSON.stringify(tanda));
+    enviar.disabled = true;
+    enviar.textContent = "Enviando…";
+    fetch(form.action, { method: "POST", body: datos, headers: { Accept: "application/json" } })
       .then(function (r) { return r.json(); })
       .then(function (d) {
-        estado.textContent = d.titulo + ". " + d.mensaje;
-        estado.className = "ajuste-estado " + (d.ok ? "ok" : "error");
-        if (d.ok) form.querySelector("textarea").value = "";
+        mostrar(d.titulo + ". " + d.mensaje, d.ok);
+        if (!d.ok) return;
+        notas = [];
+        borrar("notas");
+        texto.value = "";
+        cita = "";
+        pintarCita();
+        if (recordar.querySelector("input").checked) {
+          guardar("notas-quien", quien.value);
+          guardar("notas-clave", clave.value);
+        } else {
+          borrar("notas-clave");
+        }
       })
-      .catch(function () {
-        estado.textContent = "No se pudo enviar. Revise la conexión e inténtelo de nuevo.";
-        estado.className = "ajuste-estado error";
-      })
-      .then(function () {
-        estado.hidden = false;
-        boton.disabled = false;
-        boton.textContent = "Enviar ajuste";
-      });
+      .catch(function () { mostrar("No se pudo enviar. Las notas siguen guardadas; inténtelo de nuevo.", false); })
+      .then(function () { enviar.disabled = false; pintar(); });
   });
-});
+
+  pintar();
+})();
 </script>
 </body>
 </html>

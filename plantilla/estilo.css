@@ -77,6 +77,9 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
+/* Lo oculto con el atributo hidden no reaparece por un display del CSS. */
+[hidden] { display: none !important; }
+
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
 body {
@@ -738,3 +741,152 @@ footer.sitio .pie-enlaces { font-family: var(--sans); }
   text-transform: uppercase;
 }
 .candidata-detalle ol { padding-left: 1.3em; }
+
+/* --- Panel de notas: a la izquierda mientras se lee --- */
+
+/* Sin JavaScript, o por defecto: al final de la página, en la columna. */
+.notas {
+  max-width: var(--medida);
+  margin: 3rem auto 0;
+  padding: 0.9rem 1rem;
+  border: 1px dashed var(--tinta);
+  background: var(--papel);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+.notas summary {
+  cursor: pointer;
+  font: 800 0.66rem/1 var(--sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.notas-cuenta {
+  display: inline-block;
+  min-width: 1.4em;
+  margin-left: 0.3em;
+  padding: 0.15em 0.35em;
+  background: var(--rojo);
+  color: var(--papel);
+  text-align: center;
+  border-radius: 999px;
+  letter-spacing: 0;
+}
+.notas-form { display: grid; gap: 0.6rem; margin-top: 0.7rem; }
+.notas-ayuda { margin: 0; color: var(--tenue); }
+.notas textarea, .notas input:not([type="checkbox"]) {
+  width: 100%;
+  padding: 0.45rem 0.55rem;
+  border: 1px solid var(--tinta);
+  border-radius: 0;
+  background: var(--papel-claro);
+  color: var(--tinta);
+  font: 400 0.9rem/1.45 var(--sans);
+}
+.notas textarea { resize: vertical; }
+.notas label {
+  display: grid;
+  gap: 0.2rem;
+  font: 700 0.62rem/1.2 var(--sans);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.notas .notas-recordar {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  font-size: 0.72rem;
+  color: var(--tenue);
+}
+.notas-envio { display: grid; gap: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--filete); }
+.notas-agregar, .notas-enviar {
+  justify-self: start;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid var(--tinta);
+  background: none;
+  color: var(--tinta);
+  font: 800 0.62rem/1 var(--sans);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.notas-enviar { background: var(--tinta); color: var(--papel); }
+.notas-agregar:hover, .notas-enviar:hover { background: var(--rojo); border-color: var(--rojo); color: var(--papel); }
+.notas-enviar:disabled { opacity: 0.6; cursor: wait; }
+
+.notas-cita {
+  display: flex;
+  gap: 0.4rem;
+  align-items: start;
+  margin: 0;
+  padding: 0.4rem 0.5rem;
+  border-left: 3px solid var(--rojo);
+  background: var(--papel-claro);
+  font-style: italic;
+}
+.notas-cita button, .notas-lista button {
+  flex: none;
+  margin-left: auto;
+  padding: 0 0.3rem;
+  border: 0;
+  background: none;
+  color: var(--tenue);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.notas-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; }
+.notas-lista li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.15rem 0.3rem;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--filete);
+}
+.notas-lista li > * { grid-column: 1; }
+.notas-lista li > button { grid-column: 2; grid-row: 1; }
+.notas-lista q { color: var(--tenue); font-style: italic; }
+.notas-lista small { color: var(--tenue); font-size: 0.7rem; }
+.notas-estado { margin: 0; padding: 0.4rem 0.5rem; border-left: 3px solid var(--tinta); }
+.notas-estado.error { border-left-color: var(--rojo); color: var(--rojo); }
+
+/* Con JavaScript en pantallas angostas: botón flotante abajo a la izquierda. */
+@media (max-width: 1239px) {
+  .js .notas {
+    position: fixed;
+    left: 1rem;
+    bottom: 1rem;
+    z-index: 4;
+    width: min(22rem, calc(100vw - 2rem));
+    max-height: 75vh;
+    overflow-y: auto;
+    margin: 0;
+    border-style: solid;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+  }
+  .js .notas:not(:has(details[open])) {
+    width: auto;
+    padding: 0.5rem 0.8rem;
+    background: var(--tinta);
+    color: var(--papel);
+  }
+}
+
+/* Pantallas anchas: fijo a la izquierda, simétrico al glosario. */
+@media (min-width: 1240px) {
+  .notas {
+    position: fixed;
+    top: 10.5rem;
+    left: 1.5rem;
+    z-index: 3;
+    width: 14rem;
+    max-height: calc(100vh - 12rem);
+    overflow-y: auto;
+    margin: 0;
+    border-style: solid;
+  }
+}
+
+@media print { .notas { display: none !important; } }
