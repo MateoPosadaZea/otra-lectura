@@ -646,7 +646,7 @@ def meta_etiquetas(titulo, descripcion, ruta, tipo, ld):
               f'<meta property="og:image" content="{SITIO_URL}/og.png">',
               '<meta property="og:image:width" content="1200">',
               '<meta property="og:image:height" content="630">',
-              f'<meta property="og:image:alt" content="{NOMBRE_SITIO}: otra manera de leer las noticias">',
+              f'<meta property="og:image:alt" content="{NOMBRE_SITIO}: una mirada pragmática para informarse y participar">',
               f'<meta name="twitter:image" content="{SITIO_URL}/og.png">']
         ld = {**ld, "url": url}
     # "<\/" evita que un "</script>" dentro de los datos cierre el bloque.
@@ -747,7 +747,7 @@ def pagina_lista(base, ediciones, todas, raiz, titulo, bajada, actual=None):
     if actual is None:
         ld = {"@type": "WebSite", "name": NOMBRE_SITIO, "description": DESCRIPCION_SITIO,
               "inLanguage": "es-CO"}
-        return pagina(base, "Otra lectura · Otra manera de leer noticias", DESCRIPCION_SITIO,
+        return pagina(base, "Otra lectura", DESCRIPCION_SITIO,
                       raiz, contenido, "/", "website", ld, seccion="inicio")
     descripcion = (f"{titulo}: ediciones de Otra lectura con contexto, soluciones y contrapeso. "
                    f"{bajada}.")
