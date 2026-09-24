@@ -1,5 +1,6 @@
 // Worker de Otra lectura.
-// Sirve site/ como estáticos y recibe los ajustes de estilo y tono en
+// Sirve site/ como estáticos y recibe los ajustes (contenido, estilo o
+// funciones del sitio) en
 // POST /api/ajuste. Cada ajuste queda como issue "[Ajuste] …" en GitHub;
 // la revisión horaria de Claude los aplica y los cierra.
 //
@@ -80,7 +81,7 @@ async function recibirAjuste(request, env) {
   }
 
   return respuesta(200, "Ajuste recibido",
-    "Quedó registrado. Se aplica en la próxima revisión, cada hora entre las 6 a. m. y las 10 p. m.", volver);
+    "Quedó registrado. Se revisa en la próxima hora, entre las 6 a. m. y las 10 p. m.", volver);
 }
 
 // Solo rutas internas del sitio, para no redirigir a otro dominio.

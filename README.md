@@ -67,18 +67,25 @@ generado.
 El sitio es público. Si algún día se quiere privado, se pone Cloudflare
 Access delante del Worker; no hay que tocar el código.
 
-## Ajustes de estilo y tono
+## Ajustes
 
-Cada página tiene al final "Sugerir un ajuste de estilo o tono". El
-formulario lo recibe el Worker (`src/worker.js`), que valida la clave
-familiar y lo guarda como issue `[Ajuste] …` en GitHub. Cada hora, de 6 a. m.
-a 10 p. m. (Colombia), Claude revisa esos issues:
+Cada página tiene al final "Sugerir un ajuste". El formulario lo recibe el
+Worker (`src/worker.js`), que valida la clave familiar y lo guarda como
+issue `[Ajuste] …` en GitHub. Cada hora, de 6 a. m. a 10 p. m. (Colombia),
+Claude revisa esos issues:
 
-- una corrección puntual se aplica a la edición indicada;
-- una indicación general se agrega como regla en `AJUSTES.md`, que la
-  rutina diaria aplica a las ediciones siguientes;
+- corrección de contenido → se aplica a la edición indicada;
+- regla de estilo o tono → se agrega a `AJUSTES.md` y rige desde la
+  edición siguiente;
+- cambio de diseño o funciones del sitio → se implementa en la plantilla,
+  el CSS o el build, se prueba y se publica, siempre que sea acotado y
+  respete los principios (costo cero, sin frameworks, contenido en
+  markdown).
 
-y luego reconstruye, publica, comenta en el issue y lo cierra.
+Los cambios grandes o riesgosos (secretos, despliegue, rutinas, borrar
+contenido, servicios externos) no se aplican solos: quedan abiertos con
+una propuesta para que Mateo decida. Tras cada ajuste aplicado, Claude
+comenta en el issue qué cambió y lo cierra.
 
 Configuración, una sola vez, en Cloudflare → Worker `otra-lectura` →
 Settings → Variables and Secrets (tipo Secret):
