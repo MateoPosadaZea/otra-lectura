@@ -44,9 +44,10 @@ CANDIDATAS = RAIZ / "candidatas.md"
 SITIO_URL = ""
 
 NOMBRE_SITIO = "Otra lectura"
-FRASE_SITIO = "Otra manera de leer noticias. Con contexto, soluciones y contrapeso. Una mirada pragmática para informarse y participar."
+FRASE_SITIO = "Una mirada pragmática para informarse y participar."
 DESCRIPCION_SITIO = (
-    "Otra manera de leer noticias. Con contexto, soluciones y contrapeso. Una mirada pragmática para informarse y participar. Cada día, los problemas que se repiten en Colombia, América Latina "
+    "Otra manera de leer noticias, con contexto, soluciones y contrapeso. Cada "
+    "día, los problemas que se repiten en Colombia, América Latina "
     "y el mundo, con su contexto histórico, las soluciones que ya funcionan en "
     "otros lugares y sus críticas.")
 
