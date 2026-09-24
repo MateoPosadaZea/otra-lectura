@@ -1,32 +1,46 @@
 #!/usr/bin/env python3
-"""Genera site/ a partir de ediciones/*.md.
+"""Genera site/ a partir de ediciones/*.md y candidatas.md.
 
 El markdown es la fuente; todo lo que hay en site/ es salida y se puede
 borrar y regenerar. Única dependencia externa: Python-Markdown (ver
-requirements.txt).
+requirements.txt). El frontmatter lo lee scripts/frontmatter.py.
 
-Convenciones de las ediciones (ver prompt.md):
-  # Radar · fecha            → antetítulo
-  ## Carril 1: Radar         → carril (divisor de sección)
-  ### 1. Nombre de fricción  → fricción
-  **Qué pasó.** texto        → subtítulo de la fricción (etiqueta en negrita)
-  *(Conocimiento general…)*  → marca de "no verificado"
+Convenciones del cuerpo de las ediciones (ver prompt.md y RUTINA.md):
+  # Radar · fecha              → antetítulo (se omite; la cabecera sale del frontmatter)
+  ## Carril 1: Radar           → carril (divisor de sección)
+  ### 1. Fricción {#slug}      → fricción; el slug es opcional (si falta, sale del título)
+  **Qué ocurrió.** texto       → subtítulo de la fricción (etiqueta en negrita)
+  *(Conocimiento general.)*    → marca de "no verificado"
+
+El build falla con un mensaje claro si una edición tiene frontmatter
+inválido, si una fuente no tiene url o si un slug de seguimiento no
+resuelve a ninguna edición anterior.
 """
 
 import html
 import re
 import shutil
 import sys
+import unicodedata
 from datetime import date
 from pathlib import Path
 from string import Template
 
 import markdown
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from frontmatter import ErrorFrontmatter, parsear  # noqa: E402
+
 RAIZ = Path(__file__).resolve().parent.parent
 EDICIONES = RAIZ / "ediciones"
 PLANTILLA = RAIZ / "plantilla"
 SITE = RAIZ / "site"
+CANDIDATAS = RAIZ / "candidatas.md"
+
+# Mientras el proyecto está en calibración, el sitio pide no ser indexado
+# (robots.txt con Disallow total y meta noindex). Para abrirlo a buscadores,
+# basta con cambiar esto a True y volver a publicar.
+INDEXAR = False
 
 MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
          "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
@@ -45,6 +59,12 @@ CATEGORIAS = {
     "ciencia": "Ciencia y tecnología",
 }
 
+ESTADOS_CANDIDATA = ["pendiente", "evaluada", "descartada", "activa"]
+
+CAMPOS_LISTA = ["temas", "categorias", "lugares", "cruce_mattriz", "seguimiento"]
+CAMPOS_CONOCIDOS = {"fecha", "edicion", "titulo", "slug", "nota",
+                    "actualizaciones", "correcciones", "fuentes", *CAMPOS_LISTA}
+
 RE_NO_VERIFICADO = re.compile(r"conocimiento\s+general|no\s+verificad[oa]s?", re.I)
 
 # Etiqueta en negrita → clase del párrafo que la lleva.
@@ -56,57 +76,11 @@ TIPOS_ETIQUETA = [
 ]
 
 
-# --- Frontmatter -----------------------------------------------------------
-
-def _valor(crudo):
-    crudo = crudo.strip()
-    if crudo.startswith("[") and crudo.endswith("]"):
-        return [_valor(x) for x in crudo[1:-1].split(",") if x.strip()]
-    if len(crudo) >= 2 and crudo[0] == crudo[-1] and crudo[0] in "\"'":
-        return crudo[1:-1]
-    return crudo
+class ErrorEdicion(Exception):
+    pass
 
 
-def parsear_frontmatter(texto):
-    """Subconjunto de YAML: `clave: valor`, listas `[a, b]` y listas con `- item`."""
-    if not texto.startswith("---"):
-        return {}, texto
-    lineas = texto.split("\n")
-    try:
-        fin = next(i for i, l in enumerate(lineas[1:], 1) if l.strip() in ("---", "..."))
-    except StopIteration:
-        return {}, texto
-    meta, clave = {}, None
-    for linea in lineas[1:fin]:
-        if not linea.strip() or linea.lstrip().startswith("#"):
-            continue
-        m = re.match(r"^\s+-\s+(.*)$", linea)
-        if m and clave:
-            if not isinstance(meta.get(clave), list):
-                meta[clave] = []
-            meta[clave].append(_valor(m.group(1)))
-            continue
-        m = re.match(r"^([A-Za-z_][\w-]*)\s*:\s*(.*?)(?:\s+#.*)?$", linea)
-        if m:
-            clave = m.group(1).lower()
-            meta[clave] = _valor(m.group(2)) if m.group(2) else []
-    return meta, "\n".join(lineas[fin + 1:])
-
-
-def primero(meta, *claves, defecto=None):
-    for c in claves:
-        if meta.get(c) not in (None, "", []):
-            return meta[c]
-    return defecto
-
-
-def como_lista(v):
-    if v is None:
-        return []
-    if isinstance(v, list):
-        return [str(x) for x in v if str(x).strip()]
-    return [x.strip() for x in str(v).split(",") if x.strip()]
-
+# --- Utilidades --------------------------------------------------------------
 
 def fecha_legible(iso):
     try:
@@ -116,13 +90,123 @@ def fecha_legible(iso):
     return f"{d.day} de {MESES[d.month - 1]} de {d.year}"
 
 
-# --- Marcado de bloques ------------------------------------------------------
+def slugificar(texto):
+    t = unicodedata.normalize("NFKD", texto).encode("ascii", "ignore").decode()
+    return re.sub(r"[^a-z0-9]+", "-", t.lower()).strip("-")
 
-RE_HEADING = re.compile(r"<h([1-6])([^>]*)>(.*?)</h\1>", re.S)
+
+def normalizar(texto):
+    return re.sub(r"\s+", " ", texto).strip().lower()
 
 
 def texto_plano(fragmento):
     return html.unescape(re.sub(r"<[^>]+>", "", fragmento))
+
+
+def convertir(md_texto):
+    return markdown.markdown(md_texto, extensions=["extra", "sane_lists"], output_format="html")
+
+
+def convertir_linea(md_texto):
+    """Markdown de una sola línea (texto de una actualización o fuente), sin <p>."""
+    h = convertir(md_texto).strip()
+    return h[3:-4] if h.startswith("<p>") and h.endswith("</p>") and h.count("<p>") == 1 else h
+
+
+# --- Validación del frontmatter ----------------------------------------------
+
+def _fecha(valor, donde):
+    if not isinstance(valor, str) or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", valor):
+        raise ErrorEdicion(f"{donde}: fecha inválida «{valor}» (formato AAAA-MM-DD)")
+    try:
+        date.fromisoformat(valor)
+    except ValueError:
+        raise ErrorEdicion(f"{donde}: la fecha «{valor}» no existe")
+    return valor
+
+
+def _texto(valor, donde, requerido=True):
+    if valor is None or valor == "":
+        if requerido:
+            raise ErrorEdicion(f"{donde}: falta")
+        return ""
+    if not isinstance(valor, str):
+        raise ErrorEdicion(f"{donde}: debe ser texto")
+    return valor.strip()
+
+
+def _lista_textos(valor, donde):
+    if valor is None:
+        return []
+    if isinstance(valor, str):
+        return [x.strip() for x in valor.split(",") if x.strip()]
+    if not isinstance(valor, list) or not all(isinstance(x, str) for x in valor):
+        raise ErrorEdicion(f"{donde}: debe ser una lista de textos")
+    return [x.strip() for x in valor if x.strip()]
+
+
+def _lista_mapas(valor, donde, campos):
+    if valor is None:
+        return []
+    if not isinstance(valor, list) or not all(isinstance(x, dict) for x in valor):
+        raise ErrorEdicion(f"{donde}: debe ser una lista de elementos con {', '.join(campos)}")
+    for i, item in enumerate(valor, 1):
+        sobran = set(item) - set(campos)
+        if sobran:
+            raise ErrorEdicion(f"{donde}[{i}]: campo desconocido «{', '.join(sorted(sobran))}» "
+                               f"(válidos: {', '.join(campos)})")
+    return valor
+
+
+def validar(meta, ruta):
+    desconocidos = set(meta) - CAMPOS_CONOCIDOS
+    if desconocidos:
+        raise ErrorEdicion(f"campo desconocido «{', '.join(sorted(desconocidos))}» "
+                           f"(válidos: {', '.join(sorted(CAMPOS_CONOCIDOS))})")
+    fecha = _fecha(meta.get("fecha"), "fecha")
+    edicion = _texto(meta.get("edicion"), "edicion")
+    if not edicion.isdigit():
+        raise ErrorEdicion(f"edicion: debe ser un número entero, no «{edicion}»")
+    datos = {
+        "slug": _texto(meta.get("slug"), "slug", requerido=False) or ruta.stem,
+        "titulo": _texto(meta.get("titulo"), "titulo"),
+        "fecha": fecha,
+        "edicion": edicion,
+        "orden": int(edicion),
+        "nota": _texto(meta.get("nota"), "nota", requerido=False),
+    }
+    for campo in CAMPOS_LISTA:
+        datos[campo] = _lista_textos(meta.get(campo), campo)
+    malas = [c for c in datos["categorias"] if c not in CATEGORIAS]
+    if malas:
+        raise ErrorEdicion(f"categorias: «{', '.join(malas)}» no existe (válidas: {', '.join(CATEGORIAS)})")
+
+    datos["actualizaciones"] = [
+        {"fecha": _fecha(a.get("fecha"), f"actualizaciones[{i}].fecha"),
+         "texto": _texto(a.get("texto"), f"actualizaciones[{i}].texto"),
+         "friccion": _texto(a.get("friccion"), f"actualizaciones[{i}].friccion", requerido=False)}
+        for i, a in enumerate(_lista_mapas(meta.get("actualizaciones"), "actualizaciones",
+                                           ["fecha", "friccion", "texto"]), 1)]
+    datos["correcciones"] = [
+        {"fecha": _fecha(c.get("fecha"), f"correcciones[{i}].fecha"),
+         "texto": _texto(c.get("texto"), f"correcciones[{i}].texto")}
+        for i, c in enumerate(_lista_mapas(meta.get("correcciones"), "correcciones",
+                                           ["fecha", "texto"]), 1)]
+    fuentes = []
+    for i, f in enumerate(_lista_mapas(meta.get("fuentes"), "fuentes", ["titulo", "medio", "url"]), 1):
+        url = _texto(f.get("url"), f"fuentes[{i}].url")
+        if not re.match(r"^https?://\S+$", url):
+            raise ErrorEdicion(f"fuentes[{i}].url: «{url}» no es una url http(s) válida")
+        fuentes.append({"titulo": _texto(f.get("titulo"), f"fuentes[{i}].titulo"),
+                        "medio": _texto(f.get("medio"), f"fuentes[{i}].medio", requerido=False),
+                        "url": url})
+    datos["fuentes"] = fuentes
+    return datos
+
+
+# --- Marcado del cuerpo -------------------------------------------------------
+
+RE_HEADING = re.compile(r"<h([1-6])([^>]*)>(.*?)</h\1>", re.S)
 
 
 def clases_heading(nivel, texto):
@@ -144,26 +228,54 @@ def clases_heading(nivel, texto):
 
 
 def envolver_secciones(cuerpo):
-    """<h2> abre un carril (<section>) y <h3> una fricción (<article>).
+    """<h2> abre un carril (<section>) y <h3> una fricción (<article id=slug>).
 
-    Cada bloque va hasta el siguiente título de nivel igual o superior.
+    Cada bloque va hasta el siguiente título de nivel igual o superior. Deja
+    marcas <!--fin:slug--> al cierre de cada fricción (para sus
+    actualizaciones) y <!--antes-glosario--> antes del glosario (para las
+    fuentes). Devuelve (html, slugs_de_fricciones).
     """
-    salida, pila, pos = [], [], 0
+    salida, pila, pos, slugs = [], [], 0, []
+
+    def cerrar():
+        nivel, tag, slug = pila.pop()
+        if slug:
+            salida.append(f"<!--fin:{slug}-->\n")
+        salida.append(f"</{tag}>\n")
+
     for m in RE_HEADING.finditer(cuerpo):
-        nivel = int(m.group(1))
+        nivel, attrs, interior = int(m.group(1)), m.group(2), m.group(3)
+        texto = texto_plano(interior)
         salida.append(cuerpo[pos:m.start()])
         while pila and pila[-1][0] >= nivel:
-            salida.append(f"</{pila.pop()[1]}>\n")
-        clases = clases_heading(nivel, texto_plano(m.group(3)))
-        if clases:
-            tag = "section" if nivel == 2 else "article"
-            salida.append(f'<{tag} class="{" ".join(clases)}">\n')
-            pila.append((nivel, tag))
-        salida.append(m.group(0))
+            cerrar()
+        clases = clases_heading(nivel, texto)
+        heading = m.group(0)
+        if nivel == 2 and clases:
+            if texto.strip().lower().startswith("glosario"):
+                salida.append("<!--antes-glosario-->\n")
+                salida.append(f'<section class="{" ".join(clases)}" id="glosario">\n')
+            else:
+                salida.append(f'<section class="{" ".join(clases)}">\n')
+            pila.append((nivel, "section", None))
+        elif nivel == 3 and clases:
+            # Slug explícito con {#slug} (attr_list) o derivado del título sin número.
+            m_id = re.search(r'\sid="([^"]+)"', attrs)
+            slug = m_id.group(1) if m_id else slugificar(re.sub(r"^\s*\d+\.\s*", "", texto))
+            if m_id:
+                heading = heading.replace(m_id.group(0), "", 1)
+            base, n = slug, 2
+            while slug in slugs:
+                slug, n = f"{base}-{n}", n + 1
+            slugs.append(slug)
+            salida.append(f'<article class="{" ".join(clases)}" id="{slug}">\n')
+            pila.append((nivel, "article", slug))
+        salida.append(heading)
         pos = m.end()
     salida.append(cuerpo[pos:])
-    salida.extend(f"</{tag}>\n" for _, tag in reversed(pila))
-    return "".join(salida)
+    while pila:
+        cerrar()
+    return "".join(salida), slugs
 
 
 def _marcar_em_nv(fragmento):
@@ -216,49 +328,109 @@ def marcar_bloques(cuerpo):
     return re.sub(r"(<li>)(.*?)(</li>)", marcar_items, cuerpo, flags=re.S)
 
 
-# --- Build -------------------------------------------------------------------
+def extraer_glosario(cuerpo):
+    """Términos de la sección Glosario: [(término, definición_html)]."""
+    m = re.search(r'<section[^>]*id="glosario">(.*?)</section>', cuerpo, re.S)
+    if not m:
+        return []
+    terminos = []
+    for li in re.findall(r"<li>(.*?)</li>", m.group(1), re.S):
+        t = re.match(r"\s*<strong>(.*?)</strong>\s*(.*)", li, re.S)
+        if t:
+            termino = texto_plano(t.group(1)).strip().rstrip(":").strip()
+            definicion = re.sub(r"^\s*:\s*", "", t.group(2)).strip()
+            terminos.append((termino, definicion))
+    return terminos
 
-def convertir(md_texto):
-    return markdown.markdown(md_texto, extensions=["extra", "sane_lists"], output_format="html")
 
+# --- Lectura de ediciones -----------------------------------------------------
 
 def leer_edicion(ruta):
-    meta, cuerpo_md = parsear_frontmatter(ruta.read_text(encoding="utf-8"))
+    try:
+        meta, cuerpo_md = parsear(ruta.read_text(encoding="utf-8"))
+    except ErrorFrontmatter as err:
+        raise ErrorEdicion(f"frontmatter inválido: {err}")
+    e = validar(meta, ruta)
     cuerpo = convertir(cuerpo_md).strip()
 
-    # El "# Radar · fecha" del cuerpo pasa a ser el antetítulo de la cabecera.
-    antetitulo = ""
+    # El "# Radar · fecha" del cuerpo se omite: la cabecera sale del frontmatter.
+    e["antetitulo"] = ""
     m = re.match(r"<h1[^>]*>(.*?)</h1>\s*", cuerpo, re.S)
     if m:
-        antetitulo = texto_plano(m.group(1)).strip()
+        e["antetitulo"] = texto_plano(m.group(1)).strip()
         cuerpo = cuerpo[m.end():]
 
-    m_fecha = re.match(r"(\d{4}-\d{2}-\d{2})", ruta.stem)
-    fecha = str(primero(meta, "fecha", "date", defecto=m_fecha.group(1) if m_fecha else ""))
-    edicion = str(primero(meta, "edicion", "edición", defecto=""))
+    cuerpo, e["fricciones"] = envolver_secciones(cuerpo)
+    e["cuerpo"] = marcar_bloques(cuerpo)
+    e["glosario"] = extraer_glosario(e["cuerpo"])
 
-    categorias = []
-    for c in como_lista(primero(meta, "categorias", "categorías")):
-        if c in CATEGORIAS:
-            categorias.append(c)
-        else:
-            print(f"aviso: {ruta.name}: categoría desconocida '{c}' "
-                  f"(válidas: {', '.join(CATEGORIAS)})", file=sys.stderr)
+    for i, a in enumerate(e["actualizaciones"], 1):
+        if a["friccion"] and a["friccion"] not in e["fricciones"]:
+            raise ErrorEdicion(
+                f"actualizaciones[{i}].friccion: «{a['friccion']}» no es una fricción de esta "
+                f"edición (disponibles: {', '.join(e['fricciones']) or 'ninguna'})")
+    cambios = [a["fecha"] for a in e["actualizaciones"]] + [c["fecha"] for c in e["correcciones"]]
+    e["ultimo_cambio"] = max(cambios) if cambios else ""
+    return e
 
-    return {
-        "slug": str(primero(meta, "slug", defecto=ruta.stem)),
-        "titulo": str(primero(meta, "titulo", "título", "title", defecto=antetitulo or ruta.stem)),
-        "antetitulo": antetitulo,
-        "fecha": fecha,
-        "edicion": edicion,
-        "orden": int(edicion) if edicion.isdigit() else 0,
-        "temas": como_lista(primero(meta, "temas", "tags")),
-        "categorias": categorias,
-        "lugares": como_lista(meta.get("lugares")),
-        "nota": str(primero(meta, "nota", defecto="")),
-        "cuerpo": marcar_bloques(envolver_secciones(cuerpo)),
-    }
 
+def resolver_seguimientos(ediciones):
+    """Cada slug de `seguimiento` debe aparecer en `temas` de una edición anterior."""
+    errores = []
+    for e in ediciones:
+        e["seguimiento_enlaces"] = []
+        for tema in e["seguimiento"]:
+            previas = [o for o in ediciones
+                       if o is not e and tema in o["temas"]
+                       and (o["fecha"], o["orden"]) < (e["fecha"], e["orden"])]
+            if not previas:
+                errores.append(f"ediciones/{e['archivo']}: seguimiento «{tema}» no resuelve: ninguna "
+                               f"edición anterior lo tiene en `temas`")
+                continue
+            previas.sort(key=lambda o: (o["fecha"], o["orden"]))
+            e["seguimiento_enlaces"].append((tema, previas))
+    return errores
+
+
+# --- Candidatas ---------------------------------------------------------------
+
+def leer_candidatas():
+    """Estados de candidatas.md: {idea_normalizada: estado}."""
+    if not CANDIDATAS.exists():
+        return {}
+    estados = {}
+    for n, linea in enumerate(CANDIDATAS.read_text(encoding="utf-8").split("\n"), 1):
+        celdas = [c.strip() for c in linea.strip().strip("|").split("|")] if linea.strip().startswith("|") else []
+        if len(celdas) != 2 or set(celdas[1]) <= set("-: ") or celdas[0].lower() == "candidata":
+            continue
+        idea, estado = celdas[0], celdas[1].lower()
+        if estado not in ESTADOS_CANDIDATA:
+            raise ErrorEdicion(f"candidatas.md, línea {n}: estado «{celdas[1]}» inválido "
+                               f"(válidos: {' | '.join(ESTADOS_CANDIDATA)})")
+        estados[normalizar(idea)] = estado
+    return estados
+
+
+def reunir_candidatas(ediciones, estados):
+    grupos = {}
+    for e in ediciones:
+        for idea in e["cruce_mattriz"]:
+            g = grupos.setdefault(normalizar(idea), {"idea": idea, "origenes": []})
+            g["origenes"].append(e)
+    for clave in estados:
+        if clave not in grupos:
+            print(f"aviso: candidatas.md menciona «{clave}», que no aparece en ninguna edición",
+                  file=sys.stderr)
+    candidatas = []
+    for clave, g in grupos.items():
+        g["origenes"].sort(key=lambda o: (o["fecha"], o["orden"]))
+        g["estado"] = estados.get(clave, "pendiente")
+        candidatas.append(g)
+    candidatas.sort(key=lambda g: (g["origenes"][-1]["fecha"], g["origenes"][-1]["orden"]), reverse=True)
+    return candidatas
+
+
+# --- HTML ---------------------------------------------------------------------
 
 def html_categorias(categorias, raiz):
     if not categorias:
@@ -289,6 +461,103 @@ def linea_fecha(e):
     return " · ".join(partes)
 
 
+def enlace_edicion(o, raiz):
+    return (f'<a href="{raiz}ediciones/{o["slug"]}.html">Edición {html.escape(o["edicion"])}'
+            f' · {fecha_legible(o["fecha"])}</a>')
+
+
+def aviso_cambios(e, raiz=None):
+    """Aviso de actualizaciones o correcciones posteriores a la publicación.
+
+    Con `raiz` enlaza a la edición (índice); sin ella, a los bloques de la
+    misma página (cabecera de la edición).
+    """
+    if not e["ultimo_cambio"]:
+        return ""
+    n_a, n_c = len(e["actualizaciones"]), len(e["correcciones"])
+    partes = []
+    if n_a:
+        partes.append(f"{n_a} actualización" if n_a == 1 else f"{n_a} actualizaciones")
+    if n_c:
+        partes.append(f"{n_c} corrección" if n_c == 1 else f"{n_c} correcciones")
+    detalle = " y ".join(partes)
+    fecha = f'<time datetime="{e["ultimo_cambio"]}">{fecha_legible(e["ultimo_cambio"])}</time>'
+    if raiz is None:
+        destino = "#actualizacion-1" if n_a else "#correcciones"
+        return (f'<p class="aviso-cambios">Revisada el {fecha} · '
+                f'<a href="{destino}">{detalle} posteriores a la publicación</a></p>')
+    return (f'<p class="aviso-cambios"><a href="{raiz}ediciones/{e["slug"]}.html#'
+            f'{"actualizacion-1" if n_a else "correcciones"}">Revisada el {fecha}</a> · {detalle}</p>')
+
+
+def html_actualizacion(a, n):
+    return (f'<aside class="actualizacion" id="actualizacion-{n}">\n'
+            f'<p class="aviso-etiqueta">Actualización · <time datetime="{a["fecha"]}">'
+            f'{fecha_legible(a["fecha"])}</time></p>\n'
+            f'<p>{convertir_linea(a["texto"])}</p>\n</aside>\n')
+
+
+def html_fuentes(fuentes):
+    if not fuentes:
+        return ""
+    items = []
+    for f in fuentes:
+        medio = f'<span class="medio">{html.escape(f["medio"])}</span>. ' if f["medio"] else ""
+        items.append(f'<li>{medio}<a href="{html.escape(f["url"])}">{html.escape(f["titulo"])}</a></li>')
+    return (f'<section class="carril cierre fuentes" id="fuentes">\n<h2>Fuentes</h2>\n'
+            f'<ol>\n{chr(10).join(items)}\n</ol>\n</section>\n')
+
+
+def html_glosario_flotante(terminos):
+    """Glosario fijo a la derecha en pantallas anchas; en móviles, un botón al glosario."""
+    if not terminos:
+        return ""
+    items = "\n".join(f"<dt>{html.escape(t)}</dt><dd>{d}</dd>" for t, d in terminos)
+    return f"""<aside class="glosario-flotante" aria-label="Glosario de la edición">
+<details open>
+<summary>Glosario</summary>
+<dl>
+{items}
+</dl>
+</details>
+</aside>
+<a class="glosario-boton" href="#glosario">Glosario</a>"""
+
+
+def cuerpo_edicion(e):
+    """Cuerpo con actualizaciones, fuentes y correcciones en su lugar."""
+    cuerpo, n = e["cuerpo"], 0
+    generales = []
+    for a in e["actualizaciones"]:
+        n += 1
+        bloque = html_actualizacion(a, n)
+        if a["friccion"]:
+            marca = f"<!--fin:{a['friccion']}-->"
+            cuerpo = cuerpo.replace(marca, bloque + marca, 1)
+        else:
+            generales.append(bloque)
+    cuerpo = re.sub(r"<!--fin:[^>]*-->\n?", "", cuerpo)
+
+    fuentes = html_fuentes(e["fuentes"])
+    if "<!--antes-glosario-->" in cuerpo:
+        cuerpo = cuerpo.replace("<!--antes-glosario-->", fuentes, 1)
+    else:
+        cuerpo += fuentes
+
+    if generales:
+        cuerpo += ('<section class="carril cierre avisos" id="actualizaciones">\n'
+                   '<h2>Actualizaciones</h2>\n' + "".join(generales) + "</section>\n")
+    if e["correcciones"]:
+        items = "".join(
+            f'<li><p class="aviso-etiqueta">Corrección · <time datetime="{c["fecha"]}">'
+            f'{fecha_legible(c["fecha"])}</time></p>{convertir_linea(c["texto"])}</li>\n'
+            for c in e["correcciones"])
+        cuerpo += ('<section class="carril cierre avisos" id="correcciones">\n<h2>Correcciones</h2>\n'
+                   '<p class="aviso-nota">El texto original no se modifica; las correcciones se '
+                   f'agregan aquí.</p>\n<ol class="correcciones">\n{items}</ol>\n</section>\n')
+    return cuerpo
+
+
 def form_ajuste(pagina, titulo):
     """Formulario de ajustes (contenido, estilo o funciones del sitio); lo recibe src/worker.js."""
     return f"""<details class="ajuste">
@@ -309,6 +578,12 @@ def form_ajuste(pagina, titulo):
 </details>"""
 
 
+def pagina(base, titulo, descripcion, raiz, contenido):
+    robots = "" if INDEXAR else '<meta name="robots" content="noindex, nofollow">'
+    return base.substitute(titulo=titulo, descripcion=descripcion, raiz=raiz,
+                           contenido=contenido, robots=robots)
+
+
 def pagina_edicion(base, e, anterior, siguiente):
     nav = []
     if anterior:
@@ -318,6 +593,13 @@ def pagina_edicion(base, e, anterior, siguiente):
     lugares = (f'<p class="lugares">{" · ".join(html.escape(l) for l in e["lugares"])}</p>'
                if e["lugares"] else "")
     nota = f'<p class="nota">{html.escape(e["nota"])}</p>' if e["nota"] else ""
+    seguimiento = ""
+    if e["seguimiento_enlaces"]:
+        filas = "".join(
+            f'<li><span>{html.escape(tema.replace("-", " "))}</span>: '
+            f'{", ".join(enlace_edicion(o, "../") for o in previas)}</li>'
+            for tema, previas in e["seguimiento_enlaces"])
+        seguimiento = f'<div class="seguimiento-de"><p>Seguimiento de temas anteriores</p><ul>{filas}</ul></div>'
     contenido = f"""<article class="edicion">
 <header class="cabecera">
 <p class="fecha">{linea_fecha(e)}</p>
@@ -325,17 +607,16 @@ def pagina_edicion(base, e, anterior, siguiente):
 {lugares}
 {html_categorias(e['categorias'], '../')}
 {nota}
+{aviso_cambios(e)}
+{seguimiento}
 </header>
-{e['cuerpo']}
+{cuerpo_edicion(e)}
 </article>
+{html_glosario_flotante(e['glosario'])}
 <nav class="entre-ediciones" aria-label="Otras ediciones">{''.join(nav)}</nav>
 {form_ajuste(f"/ediciones/{e['slug']}.html", e['titulo'])}"""
-    return base.substitute(
-        titulo=html.escape(f"{e['titulo']} · Otra lectura"),
-        descripcion=html.escape(e["antetitulo"] or e["titulo"]),
-        raiz="../",
-        contenido=contenido,
-    )
+    return pagina(base, html.escape(f"{e['titulo']} · Otra lectura"),
+                  html.escape(e["antetitulo"] or e["titulo"]), "../", contenido)
 
 
 def pagina_lista(base, ediciones, todas, raiz, titulo, bajada, actual=None):
@@ -343,14 +624,11 @@ def pagina_lista(base, ediciones, todas, raiz, titulo, bajada, actual=None):
     filas = [f"""<li>
 <p class="fecha">{linea_fecha(e)}</p>
 <a href="{raiz}ediciones/{e['slug']}.html">{html.escape(e['titulo'])}</a>
+{aviso_cambios(e, raiz)}
 {html_categorias(e['categorias'], raiz)}
 </li>""" for e in ediciones]
     lista = "\n".join(filas) if filas else "<li>Todavía no hay ediciones.</li>"
-    return base.substitute(
-        titulo=html.escape(titulo if actual is None else f"{titulo} · Otra lectura"),
-        descripcion=html.escape(bajada),
-        raiz=raiz,
-        contenido=f"""<header class="cabecera">
+    contenido = f"""<header class="cabecera">
 <h1>{html.escape(titulo)}</h1>
 <p class="bajada">{html.escape(bajada)}</p>
 </header>
@@ -358,18 +636,64 @@ def pagina_lista(base, ediciones, todas, raiz, titulo, bajada, actual=None):
 <ol class="indice" reversed>
 {lista}
 </ol>
-{form_ajuste("/" if actual is None else f"/categorias/{actual}.html", titulo)}""",
-    )
+{form_ajuste("/" if actual is None else f"/categorias/{actual}.html", titulo)}"""
+    return pagina(base, html.escape(titulo if actual is None else f"{titulo} · Otra lectura"),
+                  html.escape(bajada), raiz, contenido)
 
+
+def pagina_candidatas(base, candidatas):
+    conteo = {s: sum(c["estado"] == s for c in candidatas) for s in ESTADOS_CANDIDATA}
+    resumen = " · ".join(f"{n} {s}" + ("s" if n != 1 else "") for s, n in conteo.items() if n)
+    filas = []
+    for c in candidatas:
+        origenes = ", ".join(enlace_edicion(o, "") for o in c["origenes"])
+        filas.append(f"""<li>
+<p class="fecha"><span class="estado estado-{c['estado']}">{c['estado']}</span></p>
+<p class="idea">{html.escape(c['idea'])}</p>
+<p class="origen">Surgió en {origenes}</p>
+</li>""")
+    lista = "\n".join(filas) if filas else "<li>Todavía no hay candidatas.</li>"
+    contenido = f"""<header class="cabecera">
+<h1>Candidatas</h1>
+<p class="bajada">Cruces con Mattriz surgidos en el radar. Candidatas, no tareas.</p>
+</header>
+<p class="candidatas-resumen">{resumen or "Sin candidatas"}. El estado se edita a mano en <code>candidatas.md</code>.</p>
+<ol class="indice candidatas">
+{lista}
+</ol>
+{form_ajuste("/candidatas.html", "Candidatas")}"""
+    return pagina(base, "Candidatas · Otra lectura",
+                  "Cruces con Mattriz surgidos en el radar.", "", contenido)
+
+
+# --- Principal -----------------------------------------------------------------
 
 def main():
     base = Template((PLANTILLA / "base.html").read_text(encoding="utf-8"))
-    ediciones = [leer_edicion(p) for p in sorted(EDICIONES.glob("*.md"))]
+
+    ediciones, errores = [], []
+    for ruta in sorted(EDICIONES.glob("*.md")):
+        try:
+            e = leer_edicion(ruta)
+            e["archivo"] = ruta.name
+            ediciones.append(e)
+        except ErrorEdicion as err:
+            errores.append(f"ediciones/{ruta.name}: {err}")
 
     slugs = [e["slug"] for e in ediciones]
     repetidos = {s for s in slugs if slugs.count(s) > 1}
     if repetidos:
-        sys.exit(f"error: slugs repetidos: {', '.join(sorted(repetidos))}")
+        errores.append(f"slugs de edición repetidos: {', '.join(sorted(repetidos))}")
+    errores += resolver_seguimientos(ediciones)
+    try:
+        estados = leer_candidatas()
+    except ErrorEdicion as err:
+        errores.append(str(err))
+    if errores:
+        print("El build se detuvo. Corrija esto y vuelva a ejecutar ./build.sh:", file=sys.stderr)
+        for err in errores:
+            print(f"  error: {err}", file=sys.stderr)
+        sys.exit(1)
 
     # Cronológico inverso; a igual fecha, la edición de número mayor primero.
     ediciones.sort(key=lambda e: (e["fecha"], e["orden"], e["slug"]), reverse=True)
@@ -380,6 +704,8 @@ def main():
     (SITE / "ediciones").mkdir(parents=True)
     shutil.copy(PLANTILLA / "estilo.css", SITE / "estilo.css")
     shutil.copytree(PLANTILLA / "fuentes", SITE / "fuentes")
+    (SITE / "robots.txt").write_text(
+        "User-agent: *\n" + ("Allow: /\n" if INDEXAR else "Disallow: /\n"), encoding="utf-8")
 
     for i, e in enumerate(ediciones):
         anterior = ediciones[i + 1] if i + 1 < len(ediciones) else None
@@ -399,7 +725,12 @@ def main():
         bajada = f"{n} edición" if n == 1 else f"{n} ediciones"
         (SITE / "categorias" / f"{c}.html").write_text(pagina_lista(
             base, de_categoria, ediciones, "../", nombre, bajada, actual=c), encoding="utf-8")
-    print(f"{len(ediciones)} ediciones → {SITE.relative_to(RAIZ)}/")
+
+    candidatas = reunir_candidatas(ediciones, estados)
+    (SITE / "candidatas.html").write_text(pagina_candidatas(base, candidatas), encoding="utf-8")
+
+    print(f"{len(ediciones)} ediciones, {len(candidatas)} candidatas → {SITE.relative_to(RAIZ)}/"
+          + ("" if INDEXAR else " (sin indexación)"))
 
 
 if __name__ == "__main__":

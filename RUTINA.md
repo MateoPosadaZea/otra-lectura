@@ -57,6 +57,10 @@ categorias: [economia, salud]
 lugares: [Colombia, ...]
 cruce_mattriz: []
 seguimiento: []
+fuentes:
+  - medio: "Institución o medio"
+    titulo: "Título del documento o artículo"
+    url: "https://…"
 ---
 ```
 
@@ -84,7 +88,7 @@ Cuerpo, en este orden (ver `prompt.md` 2.0 para el contenido de cada parte):
 
 ## Carril 1: Radar
 
-### 1. Título de la fricción (lugar → lugar de la intervención)
+### 1. Título de la fricción (lugar → lugar de la intervención) {#tema-uno}
 
 **Qué ocurrió.** …
 **Quién lo está abordando.** …
@@ -95,18 +99,14 @@ Cuerpo, en este orden (ver `prompt.md` 2.0 para el contenido de cada parte):
 
 ### Seguimiento: tema   ← solo si hay novedad sin cambio sustantivo
 
-Nota breve, con enlace a la edición donde se trató:
-[edición 3](2026-09-23-radar.html).
+Nota breve. El enlace a la edición donde se trató lo pone la plantilla a
+partir del campo `seguimiento`.
 
 ## Carril 2: Asombro
 
 **Titular corrido.** texto…
 
 ## Descartes
-
-## Fuentes
-
-1. Medio o institución, "Título", [enlace](https://…).
 
 ## Glosario
 
@@ -123,8 +123,19 @@ Nota breve, con enlace a la edición donde se trató:
   cursiva y entre paréntesis: *(Conocimiento general.)* o
   *(Fuente única; no verificado.)*. Así la plantilla lo muestra con el
   sello de no verificado.
-- "Fuentes": listado numerado con medio o institución, título y enlace.
+- Fuentes: van en el campo `fuentes` del frontmatter (medio, título y
+  url obligatoria), no en el cuerpo; la plantilla las numera al cierre.
   Toda cifra del cuerpo debe poder rastrearse ahí.
+- Cada fricción lleva un slug `{#…}` al final del título, igual a su
+  entrada en `temas`. Así las ediciones siguientes pueden hacerle
+  seguimiento y agregarle actualizaciones.
+- `seguimiento` solo admite slugs que estén en `temas` de una edición
+  anterior (el build falla si no). Cuando una fricción ya tratada tiene
+  novedad: nota breve en `### Seguimiento: …` de la edición de hoy, su
+  slug en `seguimiento` y, además, una entrada en `actualizaciones` de la
+  edición original (`fecha`, `friccion` con su slug y `texto` de una o dos
+  frases). Nunca se edita el texto de una edición ya publicada; los
+  errores detectados se agregan en su campo `correcciones`.
 - "Nota metodológica": número aproximado de consultas, criterios de
   priorización, qué quedó como no verificado y si la red permitió abrir
   los artículos.
@@ -137,9 +148,12 @@ Nota breve, con enlace a la edición donde se trató:
 ## 5. Publicar
 
 1. `./build.sh` debe terminar sin error y crear
-   `site/ediciones/<fecha>-radar.html`. Revisar que el HTML tenga los
-   carriles y las fricciones.
-2. Commit solo de `ediciones/` y `site/`, con el mensaje
+   `site/ediciones/<fecha>-radar.html`. Si el build se detiene, leer el
+   mensaje (archivo, campo y motivo), corregir el frontmatter y repetir;
+   no publicar nunca con el build fallando. Revisar que el HTML tenga los
+   carriles, las fricciones y las fuentes numeradas.
+2. Commit solo de `ediciones/`, `site/` y, si cambiaron, `candidatas.md`
+   y `AJUSTES.md`, con el mensaje
    `Edición N · <fecha>`.
 3. `git push origin main`. Si falla por red, reintentar hasta cuatro veces
    con espera creciente (2, 4, 8 y 16 segundos).
