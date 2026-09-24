@@ -9,13 +9,17 @@
 <link rel="preload" href="../fuentes/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../fuentes/unifraktur.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../estilo.css">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
 <a class="saltar" href="#contenido">Ir al contenido</a>
 <header class="sitio">
 <p class="lado">Radar de fricciones</p>
 <a class="cabezote" href="../index.html">Otra Lectura</a>
-<p class="lado lado-der">Colombia · mundo</p>
+<div class="lado-der">
+<p class="lado">Colombia · mundo</p>
+<button class="tema" type="button" hidden>Oscuro</button>
+</div>
 </header>
 <main id="contenido">
 <article class="edicion">
@@ -185,5 +189,28 @@ sistema dura menos que un bloque de trabajo.</p>
 <p><a class="cabezote" href="../index.html">Otra Lectura</a></p>
 <p>Qué se traba, quién lo está resolviendo y con qué contrapeso. <a href="../index.html">Todas las ediciones</a></p>
 </footer>
+<script>
+/* Cambio claro/oscuro. Sin elección guardada, sigue al sistema. */
+(function () {
+  var boton = document.querySelector(".tema");
+  var raiz = document.documentElement;
+  var sistema = matchMedia("(prefers-color-scheme: dark)");
+  function actual() { return raiz.dataset.theme || (sistema.matches ? "dark" : "light"); }
+  function pintar() {
+    var oscuro = actual() === "dark";
+    boton.textContent = oscuro ? "◑ Claro" : "◐ Oscuro";
+    boton.setAttribute("aria-label", oscuro ? "Cambiar a modo claro" : "Cambiar a modo oscuro");
+  }
+  boton.hidden = false;
+  pintar();
+  boton.addEventListener("click", function () {
+    var nuevo = actual() === "dark" ? "light" : "dark";
+    raiz.dataset.theme = nuevo;
+    try { localStorage.setItem("tema", nuevo); } catch (e) {}
+    pintar();
+  });
+  sistema.addEventListener("change", pintar);
+})();
+</script>
 </body>
 </html>
