@@ -457,6 +457,33 @@ def resolver_seguimientos(ediciones):
     return errores
 
 
+def reunir_hilos(ediciones):
+    """Temas con historia: donde se trató por primera vez, sus seguimientos y
+    sus actualizaciones, en orden. Solo los que tienen más de una entrada."""
+    hilos = {}
+    for e in sorted(ediciones, key=lambda o: (o["fecha"], o["orden"])):
+        titulos = dict(e["indice_fricciones"])
+        for slug in e["temas"]:
+            if slug not in e["fricciones"]:
+                continue
+            h = hilos.setdefault(slug, {"slug": slug, "titulo": titulos.get(slug, slug.replace("-", " ")),
+                                        "entradas": []})
+            h["entradas"].append({"fecha": e["fecha"], "tipo": "Primera vez", "e": e,
+                                  "href": f"../ediciones/{e['slug']}.html#{slug}"})
+            for a in e["actualizaciones"]:
+                if a["friccion"] == slug:
+                    h["entradas"].append({"fecha": a["fecha"], "tipo": "Actualización", "e": e,
+                                          "texto": a["texto"],
+                                          "href": f"../ediciones/{e['slug']}.html#{slug}"})
+        for slug in e["seguimiento"]:
+            if slug in hilos:
+                hilos[slug]["entradas"].append({"fecha": e["fecha"], "tipo": "Seguimiento", "e": e,
+                                                "href": f"../ediciones/{e['slug']}.html"})
+    for h in hilos.values():
+        h["entradas"].sort(key=lambda x: (x["fecha"], x["e"]["orden"]))
+    return {k: h for k, h in hilos.items() if len(h["entradas"]) > 1}
+
+
 # --- Candidatas ---------------------------------------------------------------
 
 def leer_candidatas():
@@ -609,6 +636,10 @@ def cuerpo_edicion(e):
         else:
             generales.append(bloque)
     cuerpo = re.sub(r"<!--fin:[^>]*-->\n?", "", cuerpo)
+    for slug in e.get("hilos", ()):
+        cuerpo = re.sub(rf'(<article class="[^"]*" id="{re.escape(slug)}">\s*<h3[^>]*>.*?</h3>)',
+                        rf'\1\n<p class="hilo-enlace"><a href="../temas/{slug}.html">Ver todo el tema, '
+                        rf'de principio a fin →</a></p>', cuerpo, count=1, flags=re.S)
 
     fuentes = html_fuentes(e["fuentes"])
     if "<!--antes-glosario-->" in cuerpo:
@@ -708,7 +739,9 @@ def pagina_edicion(base, e, anterior, siguiente):
     if e["seguimiento_enlaces"]:
         filas = "".join(
             f'<li><span>{html.escape(tema.replace("-", " "))}</span>: '
-            f'{", ".join(enlace_edicion(o, "../") for o in previas)}</li>'
+            f'{", ".join(enlace_edicion(o, "../") for o in previas)}'
+            + (f' · <a href="../temas/{tema}.html">todo el tema</a>' if tema in e.get("hilos_todos", ()) else "")
+            + '</li>'
             for tema, previas in e["seguimiento_enlaces"])
         seguimiento = f'<div class="seguimiento-de"><p>Seguimiento de temas anteriores</p><ul>{filas}</ul></div>'
     contenido = f"""<article class="edicion">
@@ -724,6 +757,7 @@ def pagina_edicion(base, e, anterior, siguiente):
 </header>
 {cuerpo_edicion(e)}
 </article>
+{html_pulso(e)}
 {html_glosario_flotante(e['glosario'])}
 <nav class="entre-ediciones" aria-label="Otras ediciones">{''.join(nav)}</nav>"""
     descripcion = descripcion_edicion(e)
@@ -746,14 +780,36 @@ HTML_ESCUCHAR = """<div class="escuchar" role="group" aria-label="Escuchar la ed
 <button type="button" class="escuchar-play" aria-pressed="false">▶ Escuchar</button>
 <button type="button" class="escuchar-detener" hidden>■ Detener</button>
 <label><span class="escuchar-rotulo">Ritmo</span> <select class="escuchar-velocidad" aria-label="Ritmo de lectura">
-<option value="0.8">Pausado</option>
-<option value="0.9" selected>Tranquilo</option>
-<option value="1">Normal</option>
-<option value="1.15">Ágil</option>
+<option value="0.92">Tranquilo</option>
+<option value="1" selected>Normal</option>
+<option value="1.12">Ágil</option>
 </select></label>
 <label class="escuchar-voces" hidden><span class="escuchar-rotulo">Voz</span> <select class="escuchar-voz" aria-label="Voz"></select></label>
+<p class="escuchar-pista" hidden>¿Quiere una voz masculina o más natural? En iPhone: Ajustes → Accesibilidad → Contenido leído → Voces → Español, y descargue Jorge, Juan o Diego (versión «mejorada»). En Android: Ajustes → Texto a voz. En computador, el navegador Edge trae voces naturales como Gonzalo (Colombia) o Jorge (México).</p>
 <p class="escuchar-estado" role="status" aria-live="polite"></p>
 </div>"""
+
+
+def html_pulso(e):
+    """¿Cómo le quedó esta edición? Liviana / Justa / Pesada. Sin JS es un
+    formulario normal; con JS se envía de un toque si ya hay nombre y clave."""
+    titulo = html.escape(f"Edición {e['edicion']} · {fecha_legible(e['fecha'])}")
+    botones = "".join(f'<button type="submit" name="pulso" value="{v}">{n}</button>'
+                      for v, n in [("liviana", "Liviana"), ("justa", "Justa"), ("pesada", "Pesada")])
+    return f"""<form class="pulso" method="post" action="/api/ajuste">
+<input type="hidden" name="pagina" value="/ediciones/{e['slug']}.html">
+<input type="hidden" name="titulo" value="{titulo}">
+<fieldset>
+<legend>¿Cómo le quedó esta edición?</legend>
+<p class="pulso-ayuda">Un toque nos ayuda a calibrar el largo y la carga de las próximas.</p>
+<div class="pulso-cred">
+<label>Nombre <input name="quien" autocomplete="name"></label>
+<label>Clave <input name="clave" type="password" autocomplete="current-password" required></label>
+</div>
+<div class="pulso-opciones">{botones}</div>
+<p class="pulso-estado" role="status" aria-live="polite" hidden></p>
+</fieldset>
+</form>"""
 
 
 # Epígrafe de la portada: cita, autor y obra.
@@ -838,7 +894,19 @@ def pagina_dia(base, fecha, del_dia, anterior, siguiente):
                   f"/dias/{fecha}.html")
 
 
-def pagina_archivo(base, dias):
+def html_temas_seguidos(hilos):
+    if not hilos:
+        return ""
+    orden = sorted(hilos.values(), key=lambda h: h["entradas"][-1]["fecha"], reverse=True)
+    filas = "".join(
+        f'<li><a href="temas/{h["slug"]}.html">{html.escape(h["titulo"])}</a> '
+        f'<span>{len(h["entradas"])} entradas · última: {fecha_legible(h["entradas"][-1]["fecha"])}</span></li>'
+        for h in orden)
+    return (f'<section class="temas-seguidos" id="temas">\n<h2>Temas que seguimos</h2>\n'
+            f'<ul>{filas}</ul>\n</section>')
+
+
+def pagina_archivo(base, dias, hilos=None):
     """archivo.html: todos los días, agrupados por mes, con sus temas."""
     meses, bloques = {}, []
     for fecha, del_dia in dias:
@@ -883,10 +951,35 @@ def pagina_archivo(base, dias):
 <p class="bajada">{n} {"día" if n == 1 else "días"} con edición. Elija una fecha para ver qué se publicó.</p>
 </header>
 {buscador}
+{html_temas_seguidos(hilos or {})}
 {"".join(bloques) or "<p>Todavía no hay ediciones.</p>"}"""
     return pagina(base, "Días anteriores · Otra lectura",
                   "Archivo de Otra lectura por fechas: qué temas se trataron cada día.", "",
                   contenido, "/archivo.html", seccion="archivo")
+
+
+def pagina_hilo(base, h):
+    """temas/<slug>.html: la historia de un tema a lo largo de las ediciones."""
+    filas = []
+    for x in h["entradas"]:
+        e = x["e"]
+        texto = (convertir_linea(x["texto"]) if x.get("texto")
+                 else f'<a href="{x["href"]}">{html.escape(e["titulo"])}</a>')
+        filas.append(f"""<li class="hilo-{slugificar(x['tipo'])}">
+<p class="fecha"><time datetime="{x['fecha']}">{fecha_legible(x['fecha'])}</time> · {x['tipo']}</p>
+<p>{texto}</p>
+</li>""")
+    contenido = f"""<header class="cabecera">
+<p class="fecha"><a href="../archivo.html#temas">Temas que seguimos</a></p>
+<h1>{html.escape(h['titulo'])}</h1>
+<p class="bajada">Cómo ha evolucionado este tema, de la primera vez que se trató a hoy.</p>
+</header>
+<ol class="hilo">
+{"".join(filas)}
+</ol>"""
+    return pagina(base, html.escape(f"{h['titulo']} · Otra lectura"),
+                  f"{h['titulo']}: la historia completa del tema en Otra lectura.", "../",
+                  contenido, f"/temas/{h['slug']}.html")
 
 
 def pagina_categoria(base, ediciones, clave):
@@ -1003,6 +1096,15 @@ def main():
         robots += f"Sitemap: {SITIO_URL}/sitemap.xml\n"
     (SITE / "robots.txt").write_text(robots, encoding="utf-8")
 
+    hilos = reunir_hilos(ediciones)
+    for e in ediciones:
+        e["hilos"] = [slug for slug in hilos if slug in e["fricciones"] and slug in e["temas"]]
+        e["hilos_todos"] = set(hilos)
+    if hilos:
+        (SITE / "temas").mkdir()
+        for h in hilos.values():
+            (SITE / "temas" / f"{h['slug']}.html").write_text(pagina_hilo(base, h), encoding="utf-8")
+
     for i, e in enumerate(ediciones):
         anterior = ediciones[i + 1] if i + 1 < len(ediciones) else None
         siguiente = ediciones[i - 1] if i > 0 else None
@@ -1011,7 +1113,7 @@ def main():
 
     dias = por_dia(ediciones)
     (SITE / "index.html").write_text(pagina_portada(base, dias), encoding="utf-8")
-    (SITE / "archivo.html").write_text(pagina_archivo(base, dias), encoding="utf-8")
+    (SITE / "archivo.html").write_text(pagina_archivo(base, dias, hilos), encoding="utf-8")
     (SITE / "dias").mkdir()
     for i, (fecha, del_dia) in enumerate(dias):
         anterior = dias[i + 1][0] if i + 1 < len(dias) else None
@@ -1031,6 +1133,7 @@ def main():
         urls += [(f"/dias/{f}.html", "") for f, _ in dias]
         urls += [(f"/categorias/{c}.html", "") for c in CATEGORIAS_ACTIVAS]
         urls += [("/archivo.html", ""), ("/sobre.html", "")]
+        urls += [(f"/temas/{slug}.html", "") for slug in hilos]
         filas = "".join(f"<url><loc>{SITIO_URL}{u}</loc>" + (f"<lastmod>{f}</lastmod>" if f else "")
                         + "</url>\n" for u, f in urls)
         (SITE / "sitemap.xml").write_text(

@@ -28,6 +28,24 @@ la clave quedan guardados y no tendrá que escribirlos la próxima vez.
 
 Para borrar una nota antes de enviarla, toque la **×** que tiene al lado.
 
+## Contarnos cómo le quedó la edición
+
+Al final de cada edición está la pregunta **«¿Cómo le quedó esta
+edición?»** con tres botones: **Liviana**, **Justa** y **Pesada**. Toque
+uno y listo. Si el nombre y la clave ya están guardados, se envía de una
+vez; si no, se los pide una sola vez.
+
+Con esas respuestas ajustamos el largo de las ediciones siguientes: si
+varias salen «Pesada», las próximas serán más cortas.
+
+## Escuchar en vez de leer
+
+Arriba de cada edición está el botón **▶ Escuchar**. El texto se lee en
+voz alta, párrafo por párrafo, y el que está sonando se resalta. Puede
+pausar, detener, cambiar el **ritmo** y elegir la **voz**. Las voces
+masculinas aparecen primero. Si no aparece ninguna, abajo del botón está
+cómo instalarlas en el celular.
+
 ## Qué pasa después
 
 - Las notas se revisan **cada hora, entre las 6 de la mañana y las 10 de

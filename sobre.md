@@ -44,9 +44,17 @@ salidas posibles, sin esconder lo que no funciona.
 - La **portada** muestra solo lo del día.
 - En **Días anteriores** están todas las fechas, agrupadas por mes, con
   sus temas principales. Sirve para buscar "¿qué pasó el día tal?".
+- Los **temas que seguimos** tienen su propia página, con su historia de
+  principio a fin: cuándo se trató, qué seguimientos tuvo y qué cambió.
 - Las **categorías** de arriba (Economía, Salud, Ambiente…) reúnen las
   ediciones por área.
-- En cada edición, el botón **Escuchar** lee el texto en voz alta.
+- En cada edición, el botón **Escuchar** lee el texto en voz alta. Se
+  puede elegir la voz y el ritmo.
+- Cada edición abre con **En tres minutos**, para quien tenga poco tiempo,
+  y cierra con **Para conversar**: una pregunta para discutir en casa.
+- Al final de cada edición puede contarnos si le pareció **liviana, justa
+  o pesada**. Con eso ajustamos el largo de las siguientes.
+- El domingo no hay temas nuevos: es **la semana en limpio**.
 
 ## Participar
 

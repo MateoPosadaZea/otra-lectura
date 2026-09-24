@@ -2,7 +2,9 @@
 // Sirve site/ como estáticos y recibe los ajustes (contenido, estilo o
 // funciones del sitio) en
 // POST /api/ajuste. Cada ajuste queda como issue "[Ajuste] …" en GitHub;
-// la revisión horaria de Claude los aplica y los cierra.
+// la revisión horaria de Claude los aplica y los cierra. Con el campo
+// `pulso` (liviana, justa, pesada) queda como issue "[Pulso] …" y se
+// anota en PULSO.md para calibrar el largo de las ediciones.
 //
 // Secretos (Cloudflare → Worker → Settings → Variables and Secrets):
 //   GITHUB_TOKEN   token fine-grained con permiso Issues: Read and write
@@ -12,6 +14,7 @@
 const REPO = "MateoPosadaZea/otra-lectura";
 const MAX_TEXTO = 4000;
 const MAX_NOTAS = 30;
+const PULSOS = { liviana: "Liviana", justa: "Justa", pesada: "Pesada" };
 
 export default {
   async fetch(request, env) {
@@ -50,6 +53,25 @@ async function recibirAjuste(request, env) {
   if (!(await igualesSeguro(clave, env.CLAVE_FAMILIA))) {
     return respuesta(401, "Clave incorrecta",
       "Revise mayúsculas y minúsculas e inténtelo de nuevo. Sus notas siguen guardadas.", volver);
+  }
+
+  // Pulso: una valoración de un toque sobre el largo y la carga de la edición.
+  const pulso = String(datos.get("pulso") || "");
+  if (pulso) {
+    if (!PULSOS[pulso]) return respuesta(400, "Valoración inválida", "Elija Liviana, Justa o Pesada.", volver);
+    const titulo = String(datos.get("titulo") || "Otra lectura").trim().slice(0, 100);
+    const ok = await crearIssue(env, `[Pulso] ${titulo}: ${PULSOS[pulso]}`, [
+      `**Enviado por:** ${quien}`,
+      `**Fecha:** ${new Date().toISOString()}`,
+      `**Página:** ${volver} (${titulo})`,
+      `**Valoración:** ${PULSOS[pulso]}`,
+    ].join("\n"));
+    if (!ok) {
+      return respuesta(502, "No se pudo guardar",
+        "La valoración no quedó registrada. Inténtelo de nuevo en unos minutos.", volver);
+    }
+    return respuesta(200, "¡Gracias!",
+      `Anotamos que esta edición le pareció ${PULSOS[pulso].toLowerCase()}. Con eso calibramos las próximas.`, volver);
   }
 
   // Una tanda de notas (panel con JavaScript) o una sola (formulario sin JS).
@@ -98,6 +120,17 @@ async function recibirAjuste(request, env) {
     ? `[Ajuste] ${notas[0].titulo}`
     : `[Ajuste] ${notas.length} notas de ${quien}`;
 
+  if (!(await crearIssue(env, titulo, cuerpo))) {
+    return respuesta(502, "No se pudo guardar",
+      "El ajuste no quedó registrado. Inténtelo de nuevo en unos minutos.", volver);
+  }
+
+  const cuantas = notas.length === 1 ? "Recibimos su nota" : `Recibimos sus ${notas.length} notas`;
+  return respuesta(200, "¡Gracias!",
+    `${cuantas}. Se revisan en la próxima hora (entre las 6 a. m. y las 10 p. m.) y los cambios aparecerán publicados en el sitio.`, volver);
+}
+
+async function crearIssue(env, titulo, cuerpo) {
   const gh = await fetch(`https://api.github.com/repos/${REPO}/issues`, {
     method: "POST",
     headers: {
@@ -109,16 +142,8 @@ async function recibirAjuste(request, env) {
     },
     body: JSON.stringify({ title: titulo, body: cuerpo }),
   });
-
-  if (!gh.ok) {
-    console.error("GitHub respondió", gh.status, await gh.text());
-    return respuesta(502, "No se pudo guardar",
-      "El ajuste no quedó registrado. Inténtelo de nuevo en unos minutos.", volver);
-  }
-
-  const cuantas = notas.length === 1 ? "Recibimos su nota" : `Recibimos sus ${notas.length} notas`;
-  return respuesta(200, "¡Gracias!",
-    `${cuantas}. Se revisan en la próxima hora (entre las 6 a. m. y las 10 p. m.) y los cambios aparecerán publicados en el sitio.`, volver);
+  if (!gh.ok) console.error("GitHub respondió", gh.status, await gh.text());
+  return gh.ok;
 }
 
 // Solo rutas internas del sitio, para no redirigir a otro dominio.

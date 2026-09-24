@@ -16,6 +16,18 @@ qué puede hacer un ciudadano) → `## Descartes` → `## Glosario` →
 palabras por minuto, sin el cierre) y avisa, sin detenerse, si una edición
 pasa de `LARGO_MAXIMO` (1.500 palabras). Detalle en `RUTINA.md`.
 
+## Temas que seguimos y pulso
+
+- **Hilos** (`temas/<slug>.html`): un tema con más de una entrada (primera
+  vez, seguimientos, actualizaciones) tiene su página con la línea de
+  tiempo. La fricción original enlaza a su hilo y "Días anteriores" los
+  lista. Se generan solos a partir de `temas`, `seguimiento` y
+  `actualizaciones`.
+- **Pulso**: al final de cada edición, "¿Cómo le quedó? Liviana / Justa /
+  Pesada". Usa el mismo endpoint (`POST /api/ajuste` con `pulso`) y la
+  misma clave que las notas; crea un issue `[Pulso] …` que la revisión
+  horaria anota en `PULSO.md`. La rutina diaria lo lee para calibrar.
+
 ## Navegación
 
 - **Portada** (`index.html`): el epígrafe y solo las ediciones del día más
@@ -232,6 +244,7 @@ scripts/frontmatter.py  lector del frontmatter (subconjunto de YAML, sin depende
 scripts/graficos.py bloques ```grafico → gráficos HTML/SVG
 ayuda.md            página "Cómo participar" (instrucciones para lectores)
 sobre.md            página "¿Qué es esto?"
+PULSO.md            registro de valoraciones Liviana / Justa / Pesada
 candidatas.md       estado de las candidatas (editable a mano)
 build.sh            prepara .venv y ejecuta el build
 deploy.sh           build + commit + push

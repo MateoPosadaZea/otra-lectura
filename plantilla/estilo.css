@@ -1263,3 +1263,82 @@ html:not(.js) .barra-fija { display: none; }
 @media (max-width: 600px) {
   .edicion .en-breve, .edicion .conversar { padding: 1rem 1rem 0.8rem; margin-inline: -0.25rem; }
 }
+
+/* --- Temas que seguimos (hilos) --- */
+
+.hilo-enlace { margin: -0.3rem 0 1rem; font: 700 0.72rem/1.4 var(--sans); letter-spacing: 0.06em; }
+.hilo-enlace a { color: var(--rojo); text-decoration: none; }
+.hilo-enlace a:hover { text-decoration: underline; }
+.hilo { list-style: none; margin: 0; padding: 0 0 0 1.4rem; border-left: 2px solid var(--tinta); }
+.hilo li { position: relative; margin: 0 0 1.8rem; }
+.hilo li::before {
+  content: "";
+  position: absolute;
+  left: calc(-1.4rem - 6px);
+  top: 0.3rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--papel);
+  border: 2px solid var(--tinta);
+}
+.hilo li.hilo-primera-vez::before { background: var(--tinta); }
+.hilo .fecha {
+  margin: 0 0 0.3rem;
+  font: 700 0.66rem/1.4 var(--sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tenue);
+}
+.hilo p { margin: 0; }
+.hilo li > p:last-child a { font-family: var(--serif); font-size: 1.35em; line-height: 1.15; text-decoration: none; }
+.temas-seguidos { margin: 0 0 2.8rem; }
+.temas-seguidos h2 {
+  margin: 0 0 0.6rem;
+  font: 800 0.72rem/1.3 var(--sans);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--rojo);
+}
+.temas-seguidos ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--tinta); }
+.temas-seguidos li { padding: 0.8rem 0; border-bottom: 1px solid var(--filete); text-align: center; }
+.temas-seguidos a { font-family: var(--serif); font-size: 1.3em; text-decoration: none; }
+.temas-seguidos span { display: block; color: var(--tenue); font-size: 0.8em; }
+
+/* --- Pulso: ¿cómo le quedó esta edición? --- */
+
+.pulso { max-width: var(--medida); margin: 3.5rem auto 0; }
+.pulso fieldset { margin: 0; padding: 1.2rem 1.2rem 1rem; border: 1px solid var(--tinta); text-align: center; }
+.pulso legend { padding: 0 0.6rem; font: 400 1.4em/1.2 var(--serif); }
+.pulso-ayuda { margin: 0 0 1rem; color: var(--tenue); font-size: 0.85em; }
+.pulso-opciones { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.6rem; }
+.pulso-opciones button {
+  min-width: 6.5rem;
+  min-height: 2.8rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--tinta);
+  border-radius: 0;
+  background: none;
+  color: var(--tinta);
+  font: 700 0.75rem/1 var(--sans);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.pulso-opciones button:hover, .pulso-opciones button[aria-pressed="true"] { background: var(--tinta); color: var(--papel); }
+.pulso-opciones button:disabled:not([aria-pressed="true"]) { opacity: 0.45; cursor: default; }
+.pulso-cred { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1rem; font-size: 0.8rem; text-align: left; }
+.pulso-cred label { display: grid; gap: 0.2rem; color: var(--tenue); }
+.pulso-cred input {
+  min-height: 2.4rem;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--tinta);
+  border-radius: 0;
+  background: var(--papel-claro);
+  color: var(--tinta);
+  font: 1rem var(--sans);
+}
+.pulso-estado { margin: 1rem 0 0; font-size: 0.9em; }
+.escuchar-pista { flex-basis: 100%; max-width: 30em; margin: 0.2rem auto 0; color: var(--tenue); font-size: 0.8em; text-align: center; }
+@media print { .pulso, .hilo-enlace { display: none; } }

@@ -59,12 +59,12 @@
 <button type="button" class="escuchar-play" aria-pressed="false">▶ Escuchar</button>
 <button type="button" class="escuchar-detener" hidden>■ Detener</button>
 <label><span class="escuchar-rotulo">Ritmo</span> <select class="escuchar-velocidad" aria-label="Ritmo de lectura">
-<option value="0.8">Pausado</option>
-<option value="0.9" selected>Tranquilo</option>
-<option value="1">Normal</option>
-<option value="1.15">Ágil</option>
+<option value="0.92">Tranquilo</option>
+<option value="1" selected>Normal</option>
+<option value="1.12">Ágil</option>
 </select></label>
 <label class="escuchar-voces" hidden><span class="escuchar-rotulo">Voz</span> <select class="escuchar-voz" aria-label="Voz"></select></label>
+<p class="escuchar-pista" hidden>¿Quiere una voz masculina o más natural? En iPhone: Ajustes → Accesibilidad → Contenido leído → Voces → Español, y descargue Jorge, Juan o Diego (versión «mejorada»). En Android: Ajustes → Texto a voz. En computador, el navegador Edge trae voces naturales como Gonzalo (Colombia) o Jorge (México).</p>
 <p class="escuchar-estado" role="status" aria-live="polite"></p>
 </div>
 </header>
@@ -73,6 +73,7 @@
 <p class="carril-bajada">Problemas que se repiten, quién los está abordando, con qué resultados y con qué críticas.</p>
 <article class="item" id="presupuesto-2027">
 <h3>El presupuesto que recorta donde más duele (Colombia → Brasil)</h3>
+<p class="hilo-enlace"><a href="../temas/presupuesto-2027.html">Ver todo el tema, de principio a fin →</a></p>
 <p class="con-etiqueta"><strong class="etiqueta">Qué pasó.</strong> Gobierno y Congreso acordaron reducir recursos de la
 justicia transicional en el Presupuesto 2027. El Ejecutivo rechazó más de
 600 proposiciones y advirtió que podría expedir el presupuesto por
@@ -237,6 +238,20 @@ sistema dura menos que un bloque de trabajo.</p>
 </ul></section>
 
 </article>
+<form class="pulso" method="post" action="/api/ajuste">
+<input type="hidden" name="pagina" value="/ediciones/2026-09-23-radar.html">
+<input type="hidden" name="titulo" value="Edición 3 · 23 de septiembre de 2026">
+<fieldset>
+<legend>¿Cómo le quedó esta edición?</legend>
+<p class="pulso-ayuda">Un toque nos ayuda a calibrar el largo y la carga de las próximas.</p>
+<div class="pulso-cred">
+<label>Nombre <input name="quien" autocomplete="name"></label>
+<label>Clave <input name="clave" type="password" autocomplete="current-password" required></label>
+</div>
+<div class="pulso-opciones"><button type="submit" name="pulso" value="liviana">Liviana</button><button type="submit" name="pulso" value="justa">Justa</button><button type="submit" name="pulso" value="pesada">Pesada</button></div>
+<p class="pulso-estado" role="status" aria-live="polite" hidden></p>
+</fieldset>
+</form>
 <aside class="glosario-flotante" aria-label="Glosario de la edición">
 <details open>
 <summary>Glosario</summary>
@@ -377,21 +392,31 @@ sistema dura menos que un bloque de trabajo.</p>
   // Voces en español, de la más cálida y natural a la más robótica: primero
   // las "naturales" o mejoradas (Edge, Apple), luego voces masculinas
   // conocidas, luego el acento más cercano. Las de Google van al final.
-  var MASCULINAS = /gonzalo|jorge|juan|diego|carlos|pablo|raul|raúl|alvaro|álvaro|andr[eé]s|enrique|jaime|tom[aá]s|lorenzo|alonso|gerardo|lucas|dario|darío/i;
+  // Nombres de voces masculinas conocidas: Microsoft/Edge (naturales),
+  // Apple (iPhone, Mac) y Windows. La API no dice el género de la voz.
+  var MASCULINAS = /gonzalo|jorge|juan|diego|carlos|pablo|ra[uú]l|[aá]lvaro|tom[aá]s|lorenzo|alonso|sebasti[aá]n|luis|mateo|marcelo|roberto|mario|emilio|rodrigo|andr[eé]s|federico|v[ií]ctor|manuel|javier|alex\b|eddy|reed|enrique|jaime|dar[ií]o|gerardo|lucas/i;
+  var NOVEDAD = /grandpa|grandma|rocko|shelley|flo\b|sandy|superstar|bubbles|bad news|good news|jester|organ|trinoids|whisper|zarvox|albert|bahh|bells|boing|cellos|wobble|compact/i;
+  function esMasculina(v) { return MASCULINAS.test(v.name) && !NOVEDAD.test(v.name); }
   function puntaje(v) {
     var n = v.name, l = v.lang.replace("_", "-"), p = 0;
     if (/natural|neural|premium|enhanced|mejorad|online/i.test(n)) p += 100;
-    if (MASCULINAS.test(n)) p += 50;
+    if (esMasculina(v)) p += 50;
     if (/^es-CO/i.test(l)) p += 30;
     else if (/^es-(419|MX|US|AR|CL|PE|VE|EC)/i.test(l)) p += 20;
     else if (/^es-ES/i.test(l)) p += 10;
     if (/google/i.test(n)) p -= 40;
-    if (/compact|eloquence|grandpa|grandma|abuel|rocko|shelley|flo|reed|sandy/i.test(n)) p -= 60;
+    if (NOVEDAD.test(n)) p -= 200;
     return p;
   }
   function vocesEs() {
     return voz.getVoices().filter(function (v) { return /^es/i.test(v.lang); })
       .sort(function (a, b) { return puntaje(b) - puntaje(a); });
+  }
+  function opcion(v) {
+    var o = document.createElement("option");
+    o.value = v.name;
+    o.textContent = v.name.replace(/^(Microsoft|Google)\s+/, "").split(" (")[0].split(" - ")[0] + " · " + v.lang;
+    return o;
   }
   function llenarVoces() {
     var lista = vocesEs();
@@ -399,14 +424,20 @@ sistema dura menos que un bloque de trabajo.</p>
     var guardada = "";
     try { guardada = localStorage.getItem("voz-nombre") || ""; } catch (e) {}
     selVoz.innerHTML = "";
-    lista.forEach(function (v) {
-      var o = document.createElement("option");
-      o.value = v.name;
-      o.textContent = v.name.replace(/^(Microsoft|Google)\s+/, "").split(" (")[0] + " · " + v.lang;
-      selVoz.appendChild(o);
+    // Primero las masculinas, en su propio grupo; luego las demás.
+    var grupos = [["Voces masculinas", lista.filter(esMasculina)],
+                  ["Otras voces", lista.filter(function (v) { return !esMasculina(v) && !NOVEDAD.test(v.name); })]];
+    grupos.forEach(function (g) {
+      if (!g[1].length) return;
+      var og = document.createElement("optgroup");
+      og.label = g[0];
+      g[1].forEach(function (v) { og.appendChild(opcion(v)); });
+      selVoz.appendChild(og);
     });
     if (guardada && lista.some(function (v) { return v.name === guardada; })) selVoz.value = guardada;
-    selVoz.closest("label").hidden = lista.length < 2;
+    selVoz.closest("label").hidden = selVoz.options.length < 2;
+    // Sin voces masculinas en el aparato: cómo instalarlas.
+    caja.querySelector(".escuchar-pista").hidden = grupos[0][1].length > 0;
   }
   function elegirVoz() {
     var lista = vocesEs();
@@ -451,12 +482,12 @@ sistema dura menos que un bloque de trabajo.</p>
     var elegida = elegirVoz();
     if (elegida) u.voice = elegida;
     u.lang = elegida ? elegida.lang : "es-CO";
-    u.rate = parseFloat(velocidad.value) || 0.9;
-    u.pitch = 0.95;
+    u.rate = parseFloat(velocidad.value) || 1;
+    u.pitch = 0.97;
     // Cada frase lleva su turno: al pausar o cambiar la velocidad, los avisos
     // de la frase cancelada se ignoran.
     // Un respiro entre párrafos, más largo después de un título.
-    var respiro = "H1 H2 H3 H4".indexOf(el.tagName) >= 0 || el.closest(".etiqueta") ? 900 : 450;
+    var respiro = "H1 H2 H3 H4".indexOf(el.tagName) >= 0 || el.closest(".etiqueta") ? 600 : 250;
     function seguir() {
       if (t !== turno || !activo || pausado) return;
       setTimeout(function () { if (t === turno && activo && !pausado) { i++; leer(); } }, respiro);
@@ -492,6 +523,51 @@ sistema dura menos que un bloque de trabajo.</p>
     if (activo && !pausado) { turno++; voz.cancel(); leer(); }
   });
   addEventListener("pagehide", function () { voz.cancel(); });
+})();
+/* Pulso: envía la valoración sin salir de la página; usa el nombre y la
+   clave guardados por el panel de notas, si los hay. */
+(function () {
+  var f = document.querySelector(".pulso");
+  if (!f || !window.fetch) return;
+  var cred = f.querySelector(".pulso-cred");
+  var estado = f.querySelector(".pulso-estado");
+  f.noValidate = true;
+  function leer(k) { try { return JSON.parse(localStorage.getItem(k) || '""'); } catch (e) { return ""; } }
+  f.elements.quien.value = leer("notas-quien");
+  f.elements.clave.value = leer("notas-clave");
+  if (f.elements.clave.value) cred.hidden = true;
+  f.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var boton = ev.submitter;
+    if (!f.elements.clave.value) {
+      cred.hidden = false;
+      estado.hidden = false;
+      estado.textContent = "Escriba su nombre y la clave, y vuelva a tocar su respuesta.";
+      f.elements.clave.focus();
+      return;
+    }
+    var datos = new FormData(f);
+    datos.set("pulso", boton ? boton.value : "");
+    f.querySelectorAll("button").forEach(function (b) { b.disabled = true; b.removeAttribute("aria-pressed"); });
+    if (boton) boton.setAttribute("aria-pressed", "true");
+    estado.hidden = false;
+    estado.textContent = "Enviando…";
+    fetch(f.action, { method: "POST", body: datos, headers: { Accept: "application/json" } })
+      .then(function (r) { return r.json().then(function (j) { return [r.status, j]; }); })
+      .then(function (res) {
+        estado.textContent = res[1].mensaje;
+        if (res[0] === 200) {
+          cred.hidden = true;
+        } else {
+          if (res[0] === 401) cred.hidden = false;
+          f.querySelectorAll("button").forEach(function (b) { b.disabled = false; });
+        }
+      })
+      .catch(function () {
+        estado.textContent = "No se pudo enviar. Revise la conexión e inténtelo de nuevo.";
+        f.querySelectorAll("button").forEach(function (b) { b.disabled = false; });
+      });
+  });
 })();
 /* Cierra el menú de secciones al hacer clic fuera o con Escape. */
 (function () {

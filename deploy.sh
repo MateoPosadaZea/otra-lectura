@@ -5,7 +5,7 @@ cd "$(dirname "$0")"
 
 ./build.sh
 
-git add -A ediciones site candidatas.md AJUSTES.md
+git add -A ediciones site candidatas.md AJUSTES.md PULSO.md
 if git diff --cached --quiet; then
   echo "Sin cambios que publicar."
   exit 0

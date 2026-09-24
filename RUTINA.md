@@ -25,9 +25,34 @@ con qué contrapeso y qué patrón histórico ayuda a entenderlo.
 - `AJUSTES.md`: reglas de estilo y tono acumuladas a partir de los ajustes
   enviados desde el sitio. Tienen prioridad sobre `prompt.md` si chocan.
 - `README.md`: tabla de convenciones de markdown que entiende la plantilla.
+- `PULSO.md`: las valoraciones (Liviana / Justa / Pesada) que los lectores
+  dejan al final de cada edición. Si las últimas dicen "Pesada", hacer la
+  de hoy más corta (menos fricciones, menos palabras); si dicen "Liviana"
+  de forma sostenida, se puede profundizar un poco, sin pasar el techo.
 - Las cinco ediciones más recientes: sus `temas`, `seguimiento`,
   `cruce_mattriz` y "Lo que descarté", para no repetir temas (salvo como
   seguimiento) y mantener diversidad geográfica.
+
+### Días livianos y domingo
+
+- **Días livianos.** Si no hay novedades de fondo, se permite una edición
+  corta: una sola fricción, o solo seguimientos de temas ya tratados, o
+  incluso solo el carril de Asombro. Decirlo con franqueza en "En tres
+  minutos" ("Hoy no hubo cambios de fondo; esto es lo que vale la pena").
+  No inventar urgencia.
+- **Domingo** (`TZ=America/Bogota date +%u` da 7): no se abren temas
+  nuevos. La edición es **"La semana en limpio"**:
+  - `titulo: "La semana en limpio · <fechas>"`; en `temas` y
+    `seguimiento` van los slugs de la semana que se repasan (en `temas`
+    solo si se escribe una fricción nueva sobre ellos; lo normal es
+    `seguimiento`).
+  - "En tres minutos": lo más importante de la semana, en cuatro o cinco
+    viñetas.
+  - Carril Radar con `### Seguimiento: …` por cada tema que tuvo
+    movimiento: qué cambió desde que se trató y qué sigue abierto.
+  - "Para conversar": una pregunta de fondo que conecte dos o más temas
+    de la semana.
+  - Máximo unas 1.000 palabras. Sin Asombro nuevo si no hace falta.
 
 ## 3. Investigar
 
