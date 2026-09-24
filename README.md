@@ -86,6 +86,12 @@ JavaScript simplemente no aparece sin él):
   pagos). Lee párrafo por párrafo, resalta el que suena, permite pausar,
   detener y cambiar la velocidad, y omite fuentes, gráficos y tablas. La
   calidad de la voz depende del teléfono o computador.
+- Lectura para el oído: se lee frase por frase, con respiros entre
+  frases, párrafos y títulos. Antes de hablar se limpia el texto: sin
+  "punto centrado", flechas, comillas ni paréntesis; °C se dice
+  "grados", las cifras en pesos y dólares se dicen completas, y la fecha
+  se dice como frase ("Edición 4, del 24 de septiembre"). No se leen
+  lugares, categorías, fuentes, glosario ni nota metodológica.
 - Respeta `prefers-reduced-motion` y el modo claro/oscuro.
 
 ## Agregar una edición

@@ -829,9 +829,9 @@ HTML_ESCUCHAR = """<div class="escuchar" role="group" aria-label="Escuchar la ed
 <button type="button" class="escuchar-play" aria-pressed="false">▶ Escuchar</button>
 <button type="button" class="escuchar-detener" hidden>■ Detener</button>
 <label><span class="escuchar-rotulo">Ritmo</span> <select class="escuchar-velocidad" aria-label="Ritmo de lectura">
-<option value="0.92">Tranquilo</option>
-<option value="1" selected>Normal</option>
-<option value="1.12">Ágil</option>
+<option value="0.9">Pausado</option>
+<option value="0.97" selected>Normal</option>
+<option value="1.1">Ágil</option>
 </select></label>
 <label class="escuchar-voces" hidden><span class="escuchar-rotulo">Voz</span> <select class="escuchar-voz" aria-label="Voz"></select></label>
 <p class="escuchar-pista" hidden>¿Quiere una voz masculina o más natural? En iPhone: Ajustes → Accesibilidad → Contenido leído → Voces → Español, y descargue Jorge, Juan o Diego (versión «mejorada»). En Android: Ajustes → Texto a voz. En computador, el navegador Edge trae voces naturales como Gonzalo (Colombia) o Jorge (México).</p>

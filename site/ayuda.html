@@ -325,13 +325,69 @@ Todos los días, antes de las 6 de la mañana (hora de Colombia).</p>
     try { localStorage.setItem("voz-nombre", selVoz.value); } catch (e) {}
     if (activo && !pausado) { turno++; voz.cancel(); leer(); }
   });
+  // Lo que se lee: título, fecha dicha como frase, y el texto; sin lugares,
+  // etiquetas de categoría, fuentes, gráficos, tablas ni glosario.
   function reunir() {
-    // Títulos y párrafos del texto; sin fuentes, gráficos ni tablas de datos.
-    var sel = ".edicion .cabecera h1, .edicion h2, .edicion h3, .edicion p, .edicion li";
+    var sel = ".edicion .cabecera h1, .edicion .cabecera .fecha, .edicion h2, .edicion h3, .edicion p, .edicion li";
     return Array.prototype.filter.call(document.querySelectorAll(sel), function (el) {
-      return !el.closest(".fuentes, figure, table, .escuchar, .temas, nav, .glosario-flotante") &&
+      return !el.closest(".fuentes, figure, table, .escuchar, .temas, nav, .glosario-flotante, #glosario, " +
+        ".plegable, .lugares, .nota, .seguimiento-de, .hilo-enlace, .aviso-cambios, .dia-temas") &&
         !el.querySelector("p, li") && el.textContent.trim();
     });
+  }
+  // Texto para el oído: sin signos que la voz deletrea ("punto centrado",
+  // flechas, comillas, paréntesis), con cifras y monedas dichas en palabras.
+  var DINERO = /\u0024\s?([\d.,]+)(\s(?:mil millones|millones|billones|mil))?/g;
+  function limpiar(t) {
+    t = t.replace(/\s+/g, " ").trim()
+      .replace(/US\u0024\s?([\d.,]+)(\s(?:mil millones|millones|billones|mil))?/g, function (m, n, u) {
+        return n + (u ? u + " de dólares" : " dólares"); })
+      // Rangos: "entre (pesos)6.000 y (pesos)7.000 millones" → "entre 6.000 y 7.000 millones de pesos"
+      .replace(/\u0024\s?([\d.,]+)\s+(y|a)\s+\u0024\s?([\d.,]+)(\s(?:mil millones|millones|billones|mil))?/g,
+        function (m, a, y, b, u) { return a + " " + y + " " + b + (u ? u + " de pesos" : " pesos"); })
+      .replace(DINERO, function (m, n, u) { return n + (u ? u + " de pesos" : " pesos"); })
+      .replace(/\s*·\s*/g, ", ")
+      .replace(/\s*[→⟶➝]\s*/g, " hacia ")
+      .replace(/\s+[—–-]\s+/g, ", ")
+      .replace(/°\s?C\b/g, " grados")
+      .replace(/~\s?/g, "cerca de ")
+      .replace(/[«»“”"*_#]/g, "")
+      .replace(/\s*\(\s*/g, ", ").replace(/\s*\)\s*/g, ", ")
+      .replace(/\s*;\s*/g, ", ")
+      .replace(/\s\/\s/g, " o ")
+      .replace(/(,\s*)+/g, ", ")
+      .replace(/,\s*([.:!?])/g, function (m, p) { return p; })
+      .replace(/([.:!?])\s*,/g, function (m, p) { return p; })
+      .replace(/^,\s*/, "").replace(/\s{2,}/g, " ").trim();
+    while (t.slice(-1) === ",") t = t.slice(0, -1).trim();
+    return t;
+  }
+  // Una frase por turno, para poder respirar entre frases.
+  function frases(t) {
+    return t.replace(/([.!?…])\s+(?=[A-ZÁÉÍÓÚÑ¿¡0-9])/g, function (m, p) { return p + "\n"; })
+      .split("\n").filter(function (f) { return f.trim(); });
+  }
+  function preparar(elementos) {
+    var cola = [];
+    elementos.forEach(function (el) {
+      var t;
+      if (el.classList.contains("fecha") && el.closest(".cabecera")) {
+        // "24 de septiembre · Edición 4 · 14 min de lectura" → "Edición 4, del 24 de septiembre."
+        var partes = el.textContent.split("·").map(function (x) { return x.trim(); });
+        var ed = partes.filter(function (x) { return /^Edición/.test(x); })[0];
+        t = (ed ? ed + ", del " : "") + partes[0] + ".";
+      } else {
+        t = limpiar(el.textContent);
+      }
+      var titulo = "H1 H2 H3 H4".indexOf(el.tagName) >= 0;
+      if (titulo && ".!?:".indexOf(t.slice(-1)) < 0) t += ".";
+      var fs = frases(t);
+      fs.forEach(function (f, k) {
+        var ultima = k === fs.length - 1;
+        cola.push({ el: el, texto: f, pausa: !ultima ? 350 : (titulo ? 1100 : 750) });
+      });
+    });
+    return cola;
   }
   function marcar(el) {
     if (actual) actual.classList.remove("leyendo");
@@ -352,24 +408,23 @@ Todos los días, antes de las 6 de la mañana (hora de Colombia).</p>
   }
   function leer() {
     if (i >= bloques.length) { parar(); estado.textContent = "Fin de la edición."; return; }
-    var el = bloques[i], t = ++turno;
-    var u = new SpeechSynthesisUtterance(el.textContent.replace(/\s+/g, " ").trim());
+    var item = bloques[i], t = ++turno;
+    var u = new SpeechSynthesisUtterance(item.texto);
     var elegida = elegirVoz();
     if (elegida) u.voice = elegida;
     u.lang = elegida ? elegida.lang : "es-CO";
-    u.rate = parseFloat(velocidad.value) || 1;
+    u.rate = parseFloat(velocidad.value) || 0.97;
     u.pitch = 0.97;
     // Cada frase lleva su turno: al pausar o cambiar la velocidad, los avisos
-    // de la frase cancelada se ignoran.
-    // Un respiro entre párrafos, más largo después de un título.
-    var respiro = "H1 H2 H3 H4".indexOf(el.tagName) >= 0 || el.closest(".etiqueta") ? 600 : 250;
+    // de la frase cancelada se ignoran. Entre frases, un respiro; entre
+    // párrafos, uno más largo; después de un título, más aún.
     function seguir() {
       if (t !== turno || !activo || pausado) return;
-      setTimeout(function () { if (t === turno && activo && !pausado) { i++; leer(); } }, respiro);
+      setTimeout(function () { if (t === turno && activo && !pausado) { i++; leer(); } }, item.pausa);
     }
     u.onend = seguir;
     u.onerror = seguir;
-    marcar(el);
+    if (actual !== item.el) marcar(item.el);
     voz.speak(u);
   }
   function parar() {
@@ -378,11 +433,14 @@ Todos los días, antes de las 6 de la mañana (hora de Colombia).</p>
   boton.addEventListener("click", function () {
     estado.textContent = "";
     if (!activo) {
-      bloques = reunir();
-      // Si el lector seleccionó o está viendo un párrafo, empieza desde ahí.
+      var elementos = reunir();
+      bloques = preparar(elementos);
+      // Si el lector ya bajó, empieza por el primer párrafo que está viendo.
       i = 0;
-      for (var k = 0; k < bloques.length; k++) {
-        if (bloques[k].getBoundingClientRect().top > 70) { i = window.scrollY > 300 ? k : 0; break; }
+      if (window.scrollY > 300) {
+        for (var k = 0; k < bloques.length; k++) {
+          if (bloques[k].el.getBoundingClientRect().top > 70) { i = k; break; }
+        }
       }
       activo = true; pausado = false; turno++; voz.cancel(); leer();
     } else if (!pausado) {
