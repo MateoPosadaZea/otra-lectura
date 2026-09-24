@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Economía · Otra lectura</title>
+<meta name="description" content="2 ediciones">
+<link rel="preload" href="../fuentes/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fuentes/unifraktur.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../estilo.css">
+<script>try{var t=localStorage.getItem("tema");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<a class="saltar" href="#contenido">Ir al contenido</a>
+<header class="sitio">
+<p class="lado">Radar de fricciones</p>
+<a class="cabezote" href="../index.html">Otra Lectura</a>
+<div class="lado-der">
+<p class="lado">Colombia · mundo</p>
+<button class="tema" type="button" hidden>Oscuro</button>
+</div>
+</header>
+<main id="contenido">
+<header class="cabecera">
+<h1>Economía</h1>
+<p class="bajada">2 ediciones</p>
+</header>
+<nav class="categorias" aria-label="Categorías"><ul><li><a href="../index.html">Todas</a></li><li><a href="../categorias/economia.html" aria-current="page">Economía <span>2</span></a></li><li><a href="../categorias/salud.html">Salud <span>1</span></a></li><li><a href="../categorias/ambiente.html">Ambiente y clima <span>3</span></a></li><li><a href="../categorias/energia.html">Energía <span>1</span></a></li><li><a href="../categorias/justicia.html">Justicia y Estado <span>1</span></a></li><li><a href="../categorias/territorio.html">Ciudades y territorio <span>2</span></a></li><li><a href="../categorias/ciencia.html">Ciencia y tecnología <span>1</span></a></li></ul></nav>
+<ol class="indice" reversed>
+<li>
+<p class="fecha"><time datetime="2026-09-23">23 de septiembre de 2026</time> · Edición 3</p>
+<a href="../ediciones/2026-09-23-radar.html">El presupuesto que recorta donde duele y la ONU admite el sobrepaso</a>
+<ul class="temas" aria-label="Categorías"><li><a href="../categorias/economia.html">Economía</a></li><li><a href="../categorias/justicia.html">Justicia y Estado</a></li><li><a href="../categorias/ambiente.html">Ambiente y clima</a></li><li><a href="../categorias/territorio.html">Ciudades y territorio</a></li></ul>
+</li>
+<li>
+<p class="fecha"><time datetime="2026-09-22">22 de septiembre de 2026</time> · Edición 1</p>
+<a href="../ediciones/2026-09-22-radar-01.html">Deuda, reconstrucción, páramos y quién se queda con el crédito</a>
+<ul class="temas" aria-label="Categorías"><li><a href="../categorias/economia.html">Economía</a></li><li><a href="../categorias/territorio.html">Ciudades y territorio</a></li><li><a href="../categorias/ambiente.html">Ambiente y clima</a></li><li><a href="../categorias/energia.html">Energía</a></li><li><a href="../categorias/ciencia.html">Ciencia y tecnología</a></li></ul>
+</li>
+</ol>
+</main>
+<footer class="sitio">
+<p><a class="cabezote" href="../index.html">Otra Lectura</a></p>
+<p>Qué se traba, quién lo está resolviendo y con qué contrapeso. <a href="../index.html">Todas las ediciones</a></p>
+</footer>
+<script>
+/* Cambio claro/oscuro. Sin elección guardada, sigue al sistema. */
+(function () {
+  var boton = document.querySelector(".tema");
+  var raiz = document.documentElement;
+  var sistema = matchMedia("(prefers-color-scheme: dark)");
+  function actual() { return raiz.dataset.theme || (sistema.matches ? "dark" : "light"); }
+  function pintar() {
+    var oscuro = actual() === "dark";
+    boton.textContent = oscuro ? "◑ Claro" : "◐ Oscuro";
+    boton.setAttribute("aria-label", oscuro ? "Cambiar a modo claro" : "Cambiar a modo oscuro");
+  }
+  boton.hidden = false;
+  pintar();
+  boton.addEventListener("click", function () {
+    var nuevo = actual() === "dark" ? "light" : "dark";
+    raiz.dataset.theme = nuevo;
+    try { localStorage.setItem("tema", nuevo); } catch (e) {}
+    pintar();
+  });
+  sistema.addEventListener("change", pintar);
+})();
+</script>
+</body>
+</html>

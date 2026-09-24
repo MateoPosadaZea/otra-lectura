@@ -51,11 +51,29 @@ fecha: AAAA-MM-DD
 edicion: N
 titulo: "Titular que resuma las fricciones del día"
 temas: [tema-uno, tema-dos]
+categorias: [economia, salud]
 lugares: [Colombia, ...]
 cruce_mattriz: []
 seguimiento: []
 ---
 ```
+
+`categorias` usa solo estas claves (una o varias por edición, según las
+fricciones y el carril de Asombro):
+
+| Clave | Categoría |
+|---|---|
+| `economia` | Economía |
+| `salud` | Salud |
+| `ambiente` | Ambiente y clima |
+| `energia` | Energía |
+| `justicia` | Justicia y Estado |
+| `territorio` | Ciudades y territorio |
+| `sociedad` | Sociedad |
+| `ciencia` | Ciencia y tecnología |
+
+`temas` sigue siendo libre y específico (sirve para no repetir); las
+categorías son para navegar el archivo.
 
 Cuerpo, en este orden (ver `prompt.md` para el contenido de cada parte):
 

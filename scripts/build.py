@@ -31,6 +31,20 @@ SITE = RAIZ / "site"
 MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
          "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
 
+# Categorías amplias y fijas para navegar el archivo. Cada edición declara las
+# suyas en el frontmatter (`categorias: [economia, salud]`). Para agregar una,
+# se añade aquí y en RUTINA.md.
+CATEGORIAS = {
+    "economia": "Economía",
+    "salud": "Salud",
+    "ambiente": "Ambiente y clima",
+    "energia": "Energía",
+    "justicia": "Justicia y Estado",
+    "territorio": "Ciudades y territorio",
+    "sociedad": "Sociedad",
+    "ciencia": "Ciencia y tecnología",
+}
+
 RE_NO_VERIFICADO = re.compile(r"conocimiento general|no\s+verificad[oa]s?", re.I)
 
 # Etiqueta en negrita → clase del párrafo que la lleva.
@@ -223,6 +237,14 @@ def leer_edicion(ruta):
     fecha = str(primero(meta, "fecha", "date", defecto=m_fecha.group(1) if m_fecha else ""))
     edicion = str(primero(meta, "edicion", "edición", defecto=""))
 
+    categorias = []
+    for c in como_lista(primero(meta, "categorias", "categorías")):
+        if c in CATEGORIAS:
+            categorias.append(c)
+        else:
+            print(f"aviso: {ruta.name}: categoría desconocida '{c}' "
+                  f"(válidas: {', '.join(CATEGORIAS)})", file=sys.stderr)
+
     return {
         "slug": str(primero(meta, "slug", defecto=ruta.stem)),
         "titulo": str(primero(meta, "titulo", "título", "title", defecto=antetitulo or ruta.stem)),
@@ -231,17 +253,33 @@ def leer_edicion(ruta):
         "edicion": edicion,
         "orden": int(edicion) if edicion.isdigit() else 0,
         "temas": como_lista(primero(meta, "temas", "tags")),
+        "categorias": categorias,
         "lugares": como_lista(meta.get("lugares")),
         "nota": str(primero(meta, "nota", defecto="")),
         "cuerpo": marcar_bloques(envolver_secciones(cuerpo)),
     }
 
 
-def html_temas(temas):
-    if not temas:
+def html_categorias(categorias, raiz):
+    if not categorias:
         return ""
-    items = "".join(f"<li>{html.escape(t)}</li>" for t in temas)
-    return f'<ul class="temas" aria-label="Temas">{items}</ul>'
+    items = "".join(f'<li><a href="{raiz}categorias/{c}.html">{html.escape(CATEGORIAS[c])}</a></li>'
+                    for c in categorias)
+    return f'<ul class="temas" aria-label="Categorías">{items}</ul>'
+
+
+def nav_categorias(ediciones, raiz, actual=None):
+    """Barra de categorías con cuántas ediciones tiene cada una."""
+    conteo = {c: sum(c in e["categorias"] for e in ediciones) for c in CATEGORIAS}
+    marca = ' aria-current="page"' if actual is None else ""
+    items = [f'<li><a href="{raiz}index.html"{marca}>Todas</a></li>']
+    for c, nombre in CATEGORIAS.items():
+        if not conteo[c]:
+            continue
+        marca = ' aria-current="page"' if c == actual else ""
+        items.append(f'<li><a href="{raiz}categorias/{c}.html"{marca}>{html.escape(nombre)}'
+                     f' <span>{conteo[c]}</span></a></li>')
+    return f'<nav class="categorias" aria-label="Categorías"><ul>{"".join(items)}</ul></nav>'
 
 
 def linea_fecha(e):
@@ -265,7 +303,7 @@ def pagina_edicion(base, e, anterior, siguiente):
 <p class="fecha">{linea_fecha(e)}</p>
 <h1>{html.escape(e['titulo'])}</h1>
 {lugares}
-{html_temas(e['temas'])}
+{html_categorias(e['categorias'], '../')}
 {nota}
 </header>
 {e['cuerpo']}
@@ -279,21 +317,23 @@ def pagina_edicion(base, e, anterior, siguiente):
     )
 
 
-def pagina_indice(base, ediciones):
+def pagina_lista(base, ediciones, todas, raiz, titulo, bajada, actual=None):
+    """Portada (todas las ediciones) o página de una categoría."""
     filas = [f"""<li>
 <p class="fecha">{linea_fecha(e)}</p>
-<a href="ediciones/{e['slug']}.html">{html.escape(e['titulo'])}</a>
-{html_temas(e['temas'])}
+<a href="{raiz}ediciones/{e['slug']}.html">{html.escape(e['titulo'])}</a>
+{html_categorias(e['categorias'], raiz)}
 </li>""" for e in ediciones]
     lista = "\n".join(filas) if filas else "<li>Todavía no hay ediciones.</li>"
     return base.substitute(
-        titulo="Otra lectura",
-        descripcion="Archivo de ediciones del radar de noticias.",
-        raiz="",
+        titulo=html.escape(titulo if actual is None else f"{titulo} · Otra lectura"),
+        descripcion=html.escape(bajada),
+        raiz=raiz,
         contenido=f"""<header class="cabecera">
-<h1>Archivo</h1>
-<p class="bajada">Un hábito de lectura, no un noticiero: qué se traba, quién lo está resolviendo y con qué contrapeso.</p>
+<h1>{html.escape(titulo)}</h1>
+<p class="bajada">{html.escape(bajada)}</p>
 </header>
+{nav_categorias(todas, raiz, actual)}
 <ol class="indice" reversed>
 {lista}
 </ol>""",
@@ -325,7 +365,18 @@ def main():
         (SITE / "ediciones" / f"{e['slug']}.html").write_text(
             pagina_edicion(base, e, anterior, siguiente), encoding="utf-8")
 
-    (SITE / "index.html").write_text(pagina_indice(base, ediciones), encoding="utf-8")
+    (SITE / "index.html").write_text(pagina_lista(
+        base, ediciones, ediciones, "", "Archivo",
+        "Un hábito de lectura, no un noticiero: qué se traba, quién lo está "
+        "resolviendo y con qué contrapeso."), encoding="utf-8")
+
+    (SITE / "categorias").mkdir()
+    for c, nombre in CATEGORIAS.items():
+        de_categoria = [e for e in ediciones if c in e["categorias"]]
+        n = len(de_categoria)
+        bajada = f"{n} edición" if n == 1 else f"{n} ediciones"
+        (SITE / "categorias" / f"{c}.html").write_text(pagina_lista(
+            base, de_categoria, ediciones, "../", nombre, bajada, actual=c), encoding="utf-8")
     print(f"{len(ediciones)} ediciones → {SITE.relative_to(RAIZ)}/")
 
 

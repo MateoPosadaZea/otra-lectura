@@ -20,12 +20,17 @@ El formato editorial está en `prompt.md` y el técnico en `ESPECIFICACION.md`.
    edicion: 3
    titulo: "..."
    temas: [fiscal-subsidios, clima-adaptacion]
+   categorias: [economia, ambiente]
    lugares: [Colombia, Bangladés]
    cruce_mattriz: []
    seguimiento: [chaparral]
    nota: "opcional, se muestra bajo el título"
    ---
    ```
+
+   `categorias` agrupa las ediciones en páginas navegables. Las claves
+   válidas están en `CATEGORIAS` (`scripts/build.py`) y en `RUTINA.md`;
+   `temas` es libre y más específico.
 
 2. En el cuerpo, la plantilla reconoce estas marcas:
 
@@ -36,10 +41,10 @@ El formato editorial está en `prompt.md` y el técnico en `ESPECIFICACION.md`.
    | `### 1. Nombre de la fricción` | título de fricción |
    | `### Seguimiento: tema` | nota corta de seguimiento |
    | `**Qué pasó.** texto` | subtítulo de la fricción |
-   | `**Contrapeso.**` o `**Resultados y contrapeso.**` | recuadro azul |
-   | `**Qué dice la historia.** *(Conocimiento general.)* …` | recuadro ámbar punteado (todo el párrafo) |
+   | `**Contrapeso.**` o `**Resultados y contrapeso.**` | tarjeta con doble borde |
+   | `**Qué dice la historia.** *(Conocimiento general.)* …` | sello rojo y fondo rayado (todo el párrafo) |
    | `… *(Conocimiento general:* texto *)*` a mitad de párrafo | solo ese tramo resaltado |
-   | `**Sin salida conocida.**` | etiqueta roja |
+   | `**Sin salida conocida.**` | etiqueta en rojo |
    | `**Conflicto de interés declarado:**` | nota enmarcada |
 
    Una etiqueta es una negrita al inicio del párrafo que termina en punto o
