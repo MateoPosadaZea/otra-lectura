@@ -1204,3 +1204,25 @@ html:not(.js) .barra-fija { display: none; }
   .sonando .escuchar-rotulo { display: none; }
   .sonando .escuchar button, .sonando .escuchar select { padding-inline: 0.6rem; }
 }
+
+/* --- Celular: letra más contenida (lectura cómoda, titulares que no gritan) --- */
+@media (max-width: 600px) {
+  body { font-size: 0.9375rem; line-height: 1.6; }
+  .edicion > p { font-size: 1em; }
+  .cabecera { margin: 2rem 0; }
+  .cabecera h1 { font-size: 1.75rem; line-height: 1.1; }
+  .cabecera .bajada { font-size: 1.2em; }
+  .epigrafe blockquote p { font-size: 1.3rem; }
+  .indice > li { padding: 1.6rem 0 1.7rem; }
+  .indice > li > a { font-size: 1.75em; line-height: 1.1; }
+  .dia-temas { font-size: 0.9em; }
+  .dias-anteriores { font-size: 1.2em; }
+  .edicion h2 { font-size: 1.7rem; margin-top: 3rem; }
+  .edicion h3 { font-size: 1.8em; line-height: 1.08; }
+  .edicion h4, .edicion h5, .edicion h6 { font-size: 1.2em; }
+  .carril-asombro .etiqueta { font-size: 1.4em; }
+  .archivo-mes h2 { font-size: 1.6em; }
+  .archivo-dias > li > a { font-size: 1.2em; }
+  .candidatas .idea { font-size: 1.4em; }
+  .entre-ediciones { font-size: 1.05em; }
+}
