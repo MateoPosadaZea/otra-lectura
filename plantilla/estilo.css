@@ -1005,8 +1005,6 @@ footer.sitio .pie-enlaces { font-family: var(--sans); }
 }
 
 /* Pasos del panel de notas. */
-.notas-pasos { margin: 0; padding-left: 1.2em; display: grid; gap: 0.3rem; color: var(--tenue); }
-.notas-pasos strong { color: var(--tinta); font-weight: 700; }
 .notas-ayuda a { font-weight: 700; }
 
 /* Páginas de texto (Cómo participar). */
