@@ -487,3 +487,12 @@ nav.categorias span { color: var(--tenue); font-weight: 500; }
 .ajuste button:hover { background: var(--rojo); }
 .ajuste-nota { margin: 0; color: var(--tenue); font-size: 0.85em; }
 @media print { .ajuste { display: none; } }
+.ajuste-estado {
+  margin: 0;
+  padding: 0.55rem 0.75rem;
+  border-left: 3px solid var(--tinta);
+  font-family: var(--sans);
+  font-size: 0.85em;
+}
+.ajuste-estado.error { border-left-color: var(--rojo); color: var(--rojo); }
+.ajuste button:disabled { opacity: 0.6; cursor: wait; }

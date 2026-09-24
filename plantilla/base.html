@@ -51,5 +51,33 @@ $contenido
   sistema.addEventListener("change", pintar);
 })();
 </script>
+<script>
+/* Envía el ajuste sin salir de la página y muestra la respuesta en el recuadro. */
+document.querySelectorAll(".ajuste form").forEach(function (form) {
+  var estado = form.querySelector(".ajuste-estado");
+  var boton = form.querySelector("button");
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    boton.disabled = true;
+    boton.textContent = "Enviando…";
+    fetch(form.action, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        estado.textContent = d.titulo + ". " + d.mensaje;
+        estado.className = "ajuste-estado " + (d.ok ? "ok" : "error");
+        if (d.ok) form.querySelector("textarea").value = "";
+      })
+      .catch(function () {
+        estado.textContent = "No se pudo enviar. Revise la conexión e inténtelo de nuevo.";
+        estado.className = "ajuste-estado error";
+      })
+      .then(function () {
+        estado.hidden = false;
+        boton.disabled = false;
+        boton.textContent = "Enviar ajuste";
+      });
+  });
+});
+</script>
 </body>
 </html>

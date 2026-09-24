@@ -137,6 +137,7 @@ llega lejos, solo que más lento.</p></section>
 <label>Clave <input name="clave" type="password" autocomplete="current-password" required></label>
 </div>
 <button type="submit">Enviar ajuste</button>
+<p class="ajuste-estado" role="status" aria-live="polite" hidden></p>
 <p class="ajuste-nota">Correcciones de contenido, reglas de estilo y cambios de diseño o funciones del sitio. Se revisan cada hora, de 6 a. m. a 10 p. m.; los cambios grandes quedan para aprobación de Mateo.</p>
 </form>
 </details>
@@ -167,6 +168,34 @@ llega lejos, solo que más lento.</p></section>
   });
   sistema.addEventListener("change", pintar);
 })();
+</script>
+<script>
+/* Envía el ajuste sin salir de la página y muestra la respuesta en el recuadro. */
+document.querySelectorAll(".ajuste form").forEach(function (form) {
+  var estado = form.querySelector(".ajuste-estado");
+  var boton = form.querySelector("button");
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    boton.disabled = true;
+    boton.textContent = "Enviando…";
+    fetch(form.action, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        estado.textContent = d.titulo + ". " + d.mensaje;
+        estado.className = "ajuste-estado " + (d.ok ? "ok" : "error");
+        if (d.ok) form.querySelector("textarea").value = "";
+      })
+      .catch(function () {
+        estado.textContent = "No se pudo enviar. Revise la conexión e inténtelo de nuevo.";
+        estado.className = "ajuste-estado error";
+      })
+      .then(function () {
+        estado.hidden = false;
+        boton.disabled = false;
+        boton.textContent = "Enviar ajuste";
+      });
+  });
+});
 </script>
 </body>
 </html>

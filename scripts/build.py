@@ -303,6 +303,7 @@ def form_ajuste(pagina, titulo):
 <label>Clave <input name="clave" type="password" autocomplete="current-password" required></label>
 </div>
 <button type="submit">Enviar ajuste</button>
+<p class="ajuste-estado" role="status" aria-live="polite" hidden></p>
 <p class="ajuste-nota">Correcciones de contenido, reglas de estilo y cambios de diseño o funciones del sitio. Se revisan cada hora, de 6 a. m. a 10 p. m.; los cambios grandes quedan para aprobación de Mateo.</p>
 </form>
 </details>"""

@@ -21,6 +21,12 @@ export default {
 };
 
 async function recibirAjuste(request, env) {
+  // El formulario con JavaScript pide JSON y muestra el mensaje en la misma
+  // página; sin JavaScript se responde con una página HTML.
+  const json = (request.headers.get("Accept") || "").includes("application/json");
+  const respuesta = (estado, titulo, mensaje, volver) =>
+    json ? respuestaJson(estado, titulo, mensaje) : respuestaHtml(estado, titulo, mensaje, volver);
+
   if (request.method !== "POST") {
     return respuesta(405, "Método no permitido", "Este enlace solo recibe el formulario de ajustes.", "/");
   }
@@ -108,7 +114,14 @@ function escapar(s) {
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 }
 
-function respuesta(estado, titulo, mensaje, volver) {
+function respuestaJson(estado, titulo, mensaje) {
+  return new Response(JSON.stringify({ ok: estado === 200, titulo, mensaje }), {
+    status: estado,
+    headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" },
+  });
+}
+
+function respuestaHtml(estado, titulo, mensaje, volver) {
   const html = `<!doctype html>
 <html lang="es">
 <head>
