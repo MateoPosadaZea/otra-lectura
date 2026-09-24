@@ -454,7 +454,13 @@ Guinea, Uganda).</p>
 <form class="notas-form" method="post" action="/api/ajuste">
 <input type="hidden" name="pagina" value="/ediciones/2026-09-24-radar.html">
 <input type="hidden" name="titulo" value="El calor que no se cuenta, la extorsión que no se va con tropas y la vacuna que nadie fabricó">
-<p class="notas-ayuda">Correcciones, ideas o comentarios mientras lee. Seleccione un fragmento del texto para citarlo.</p>
+<ol class="notas-pasos">
+<li>Escriba su nota: una corrección, una idea o algo que no se entiende.</li>
+<li>¿Es sobre una frase? Selecciónela primero en el texto.</li>
+<li>Toque <strong>Agregar nota</strong>. Puede agregar varias, aquí o en otras ediciones.</li>
+<li>Al terminar, ponga su nombre y la clave, y toque <strong>Enviar</strong>. Se van todas juntas.</li>
+</ol>
+<p class="notas-ayuda"><a href="../ayuda.html">Más ayuda</a></p>
 <p class="notas-cita" hidden><span></span> <button type="button" aria-label="Quitar la cita">×</button></p>
 <textarea name="texto" rows="4" maxlength="4000" aria-label="Nota" placeholder="Escriba una nota…"></textarea>
 <button type="button" class="notas-agregar" hidden>Agregar nota</button>
@@ -472,7 +478,7 @@ Guinea, Uganda).</p>
 <footer class="sitio">
 <p><a class="cabezote" href="../index.html">Otra Lectura</a></p>
 <p>Una mirada pragmática para informarse y participar.</p>
-<p class="pie-enlaces"><a href="../index.html">Todas las ediciones</a> · <a href="../candidatas.html">Candidatas</a></p>
+<p class="pie-enlaces"><a href="../index.html">Todas las ediciones</a> · <a href="../candidatas.html">Candidatas</a> · <a href="../ayuda.html">Cómo participar</a></p>
 </footer>
 <script>
 /* Cambio claro/oscuro. Sin elección guardada, sigue al sistema. */
@@ -495,6 +501,29 @@ Guinea, Uganda).</p>
     pintar();
   });
   sistema.addEventListener("change", pintar);
+})();
+/* Tooltip de los gráficos: el valor primero, la categoría después. */
+(function () {
+  var marcas = document.querySelectorAll(".grafico [data-tip]");
+  if (!marcas.length) return;
+  var tip = document.createElement("div");
+  tip.className = "g-tip";
+  tip.hidden = true;
+  document.body.appendChild(tip);
+  function mostrar(el, x, y) {
+    tip.textContent = el.getAttribute("data-tip");
+    tip.hidden = false;
+    var w = tip.offsetWidth, h = tip.offsetHeight;
+    tip.style.left = Math.min(x + 14, innerWidth - w - 8) + "px";
+    tip.style.top = Math.max(8, y - h - 12) + "px";
+  }
+  marcas.forEach(function (el) {
+    el.addEventListener("pointermove", function (ev) { mostrar(el, ev.clientX, ev.clientY); });
+    el.addEventListener("pointerleave", function () { tip.hidden = true; });
+    el.addEventListener("focus", function () { var r = el.getBoundingClientRect(); mostrar(el, r.left + r.width / 2, r.top); });
+    el.addEventListener("blur", function () { tip.hidden = true; });
+  });
+  addEventListener("scroll", function () { tip.hidden = true; }, { passive: true });
 })();
 /* Cierra el menú de secciones al hacer clic fuera o con Escape. */
 (function () {

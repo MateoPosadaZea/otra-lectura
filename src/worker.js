@@ -48,7 +48,8 @@ async function recibirAjuste(request, env) {
       "Faltan los secretos GITHUB_TOKEN o CLAVE_FAMILIA en Cloudflare.", volver);
   }
   if (!(await igualesSeguro(clave, env.CLAVE_FAMILIA))) {
-    return respuesta(401, "Clave incorrecta", "Revise la clave e inténtelo de nuevo.", volver);
+    return respuesta(401, "Clave incorrecta",
+      "Revise mayúsculas y minúsculas e inténtelo de nuevo. Sus notas siguen guardadas.", volver);
   }
 
   // Una tanda de notas (panel con JavaScript) o una sola (formulario sin JS).
@@ -115,9 +116,9 @@ async function recibirAjuste(request, env) {
       "El ajuste no quedó registrado. Inténtelo de nuevo en unos minutos.", volver);
   }
 
-  const cuantas = notas.length === 1 ? "La nota quedó registrada" : `Las ${notas.length} notas quedaron registradas`;
-  return respuesta(200, "Recibido",
-    `${cuantas}. Se revisan en la próxima hora, entre las 6 a. m. y las 10 p. m.`, volver);
+  const cuantas = notas.length === 1 ? "Recibimos su nota" : `Recibimos sus ${notas.length} notas`;
+  return respuesta(200, "¡Gracias!",
+    `${cuantas}. Se revisan en la próxima hora (entre las 6 a. m. y las 10 p. m.) y los cambios aparecerán publicados en el sitio.`, volver);
 }
 
 // Solo rutas internas del sitio, para no redirigir a otro dominio.

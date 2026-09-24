@@ -141,6 +141,13 @@ partir del campo `seguimiento`.
   evidencia nombrado y lenguaje calibrado ante la incertidumbre. El cierre
   y el glosario van en registro directo.
 - Aplicar además las reglas vigentes de `AJUSTES.md`.
+- Gráficos: cuando una comparación o una evolución se entiende mejor
+  viéndola (no por decorar), agregar un bloque ` ```grafico ` justo después
+  del párrafo que da las cifras. Solo con cifras que estén en el texto y en
+  `fuentes`; como máximo uno por fricción. Tipos: `barras` (comparar
+  magnitudes), `columnas` (pocos periodos), `lineas` (tendencia, hasta 3
+  series), `puntos` con `escala: log` (magnitudes muy distintas). Formato
+  y ejemplo en `scripts/graficos.py`; el build falla si el bloque está mal.
 - Cada idea nueva en `cruce_mattriz` se agrega también a `candidatas.md`
   como sección `## Idea` (mismo texto), con `Estado: pendiente` y cuatro
   bloques breves: **Qué resolvería.**, **Cómo.**, **Por dónde empezar.**

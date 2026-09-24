@@ -31,12 +31,14 @@ import markdown
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from frontmatter import ErrorFrontmatter, parsear  # noqa: E402
+import graficos  # noqa: E402
 
 RAIZ = Path(__file__).resolve().parent.parent
 EDICIONES = RAIZ / "ediciones"
 PLANTILLA = RAIZ / "plantilla"
 SITE = RAIZ / "site"
 CANDIDATAS = RAIZ / "candidatas.md"
+AYUDA = RAIZ / "ayuda.md"
 
 # Dirección pública del sitio, sin barra final (p. ej. "https://otra-lectura.xxx.workers.dev").
 # Hace falta para las vistas previas al compartir (og:image y og:url deben ser
@@ -384,6 +386,10 @@ def leer_edicion(ruta):
     except ErrorFrontmatter as err:
         raise ErrorEdicion(f"frontmatter inválido: {err}")
     e = validar(meta, ruta)
+    try:
+        cuerpo_md, figuras = graficos.extraer(cuerpo_md)
+    except graficos.ErrorGrafico as err:
+        raise ErrorEdicion(str(err))
     cuerpo = convertir(cuerpo_md).strip()
 
     # El "# Radar · fecha" del cuerpo se omite: la cabecera sale del frontmatter.
@@ -398,7 +404,7 @@ def leer_edicion(ruta):
     e["titulos_fricciones"] = [
         re.sub(r"\s*\([^)]*\)\s*$", "", re.sub(r"^\s*\d+\.\s*", "", texto_plano(t))).strip()
         for t in re.findall(r'<article class="item(?! seguimiento)[^"]*"[^>]*>\s*<h3[^>]*>(.*?)</h3>', cuerpo, re.S)]
-    e["cuerpo"] = marcar_bloques(cuerpo)
+    e["cuerpo"] = graficos.insertar(marcar_bloques(cuerpo), figuras)
     e["glosario"] = extraer_glosario(e["cuerpo"])
 
     for i, a in enumerate(e["actualizaciones"], 1):
@@ -777,6 +783,24 @@ def pagina_candidatas(base, candidatas):
                   "", contenido, "/candidatas.html")
 
 
+def pagina_ayuda(base):
+    """ayuda.md → ayuda.html: cómo participar y cómo leer una edición."""
+    cuerpo = convertir(AYUDA.read_text(encoding="utf-8")).strip()
+    titulo = "Cómo participar"
+    m = re.match(r"<h1[^>]*>(.*?)</h1>\s*", cuerpo, re.S)
+    if m:
+        titulo, cuerpo = texto_plano(m.group(1)).strip(), cuerpo[m.end():]
+    contenido = f"""<header class="cabecera">
+<h1>{html.escape(titulo)}</h1>
+</header>
+<article class="texto">
+{cuerpo}
+</article>"""
+    return pagina(base, f"{html.escape(titulo)} · Otra lectura",
+                  "Cómo dejar notas y comentarios en Otra lectura, y cómo leer una edición.",
+                  "", contenido, "/ayuda.html")
+
+
 # --- Principal -----------------------------------------------------------------
 
 def main():
@@ -850,6 +874,9 @@ def main():
             '<?xml version="1.0" encoding="UTF-8"?>\n'
             f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{filas}</urlset>\n',
             encoding="utf-8")
+
+    if AYUDA.exists():
+        (SITE / "ayuda.html").write_text(pagina_ayuda(base), encoding="utf-8")
 
     candidatas = reunir_candidatas(ediciones, estados)
     (SITE / "candidatas.html").write_text(pagina_candidatas(base, candidatas), encoding="utf-8")

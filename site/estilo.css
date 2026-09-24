@@ -38,6 +38,12 @@
   --rayado: rgba(28, 27, 25, 0.1);
   --rojo: #b3401f;           /* etiqueta "NEW" del referente */
 
+  /* Series de gráficos: validadas para daltonismo (todos los pares) sobre el papel. */
+  --s1: #2a6ac4;
+  --s2: #c2451c;
+  --s3: #1c8a6a;
+  --gris-dato: #a39c92;
+
   --serif: "Instrument Serif", "Times New Roman", Georgia, serif;
   --gotica: "UnifrakturMaguntia", "Old English Text MT", serif;
   --sans: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -59,6 +65,10 @@
     --filete: rgba(228, 221, 210, 0.25);
     --rayado: rgba(228, 221, 210, 0.08);
     --rojo: #e27a57;
+    --s1: #5b92e0;
+    --s2: #e0663a;
+    --s3: #27a07d;
+    --gris-dato: #5d5850;
     --grano: none;
   }
 }
@@ -71,6 +81,10 @@
   --filete: rgba(228, 221, 210, 0.25);
   --rayado: rgba(228, 221, 210, 0.08);
   --rojo: #e27a57;
+  --s1: #5b92e0;
+  --s2: #e0663a;
+  --s3: #27a07d;
+  --gris-dato: #5d5850;
   --grano: none;
 }
 :root[data-theme="light"] { color-scheme: light; }
@@ -890,3 +904,120 @@ footer.sitio .pie-enlaces { font-family: var(--sans); }
 }
 
 @media print { .notas { display: none !important; } }
+
+/* --- Gráficos (scripts/graficos.py) --- */
+
+.grafico { margin: 2.2rem 0; padding: 1.1rem 0 0.4rem; border-top: 1px solid var(--tinta); }
+.grafico figcaption { margin-bottom: 1rem; }
+.grafico figcaption strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 1.35em; line-height: 1.15; }
+.grafico .g-sub { display: block; margin-top: 0.2rem; color: var(--tenue); font-size: 0.85em; }
+.g-fuente, .g-nota { margin: 0.8rem 0 0.4rem; color: var(--tenue); font-size: 0.78em; }
+.g-nota { margin-top: 0.4rem; }
+
+/* Colores por serie: la marca lleva el color; el texto, nunca. */
+.g-s1 { --c: var(--s1); }
+.g-s2 { --c: var(--s2); }
+.g-s3 { --c: var(--s3); }
+.g-gris { --c: var(--gris-dato); }
+
+/* Barras y puntos: filas en HTML. */
+.g-filas { display: grid; gap: 0.35rem; }
+.g-fila {
+  display: grid;
+  grid-template-columns: minmax(6rem, 30%) 1fr auto;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.15rem 0;
+  font-size: 0.85em;
+  outline-offset: 2px;
+}
+.g-etq { text-align: right; line-height: 1.25; }
+.g-val { min-width: 4.5em; font-variant-numeric: tabular-nums; color: var(--tenue); }
+.g-pista { position: relative; height: 24px; display: flex; align-items: center; }
+.g-barra { height: 14px; background: var(--c); border-radius: 0 4px 4px 0; min-width: 2px; }
+.g-fila:hover .g-barra, .g-fila:focus .g-barra { filter: brightness(1.12); }
+.g-regla { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--filete); }
+.g-punto {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  border-radius: 50%;
+  background: var(--c);
+  box-shadow: 0 0 0 2px var(--papel);
+}
+.g-fila:hover .g-punto, .g-fila:focus .g-punto { transform: scale(1.25); }
+.g-eje { font-size: 0.72em; color: var(--tenue); }
+.g-eje .g-pista { height: 1.2em; }
+.g-eje .g-pista span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+@media (max-width: 560px) {
+  .g-fila { grid-template-columns: 1fr auto; gap: 0.1rem 0.6rem; }
+  .g-etq { grid-column: 1 / -1; text-align: left; }
+  .g-eje .g-etq, .g-eje > span:first-child { display: none; }
+}
+
+/* Columnas y líneas: SVG. */
+.g-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.g-svg text { font-family: var(--sans); font-size: 11px; fill: var(--tinta); }
+.g-svg .g-tick { fill: var(--tenue); font-size: 10px; }
+.g-svg .g-cap { font-weight: 700; }
+.g-grid { stroke: var(--filete); stroke-width: 1; }
+.g-svg path { fill: var(--c); }
+.g-linea { fill: none; stroke: var(--c); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.g-fin { fill: var(--c); stroke: var(--papel); stroke-width: 2; }
+.g-guia { stroke: var(--tenue); stroke-width: 0.75; }
+.g-hit { fill: transparent; }
+.g-cruz { stroke: var(--tinta); stroke-width: 1; opacity: 0; }
+.g-marca:hover .g-cruz, .g-marca:focus .g-cruz { opacity: 0.5; }
+.g-marca:hover path, .g-marca:focus path { filter: brightness(1.12); }
+.g-marca:focus { outline: none; }
+
+.g-leyenda { list-style: none; display: flex; flex-wrap: wrap; gap: 0.3rem 1.2rem; margin: 0 0 0.6rem; padding: 0; font-size: 0.8em; }
+.g-leyenda li { display: flex; align-items: center; gap: 0.4rem; }
+.g-clave { width: 16px; height: 2px; background: var(--c); }
+
+/* Tabla de datos. */
+.g-tabla { margin-top: 0.3rem; font-size: 0.8em; }
+.g-tabla summary { cursor: pointer; color: var(--tenue); font-family: var(--sans); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.85em; }
+.g-tabla table { display: table; margin-top: 0.6rem; font-variant-numeric: tabular-nums; }
+
+/* Tooltip (lo agrega el JavaScript de la plantilla). */
+.g-tip {
+  position: fixed;
+  z-index: 20;
+  max-width: 16rem;
+  padding: 0.45rem 0.6rem;
+  background: var(--tinta);
+  color: var(--papel);
+  font: 400 0.78rem/1.4 var(--sans);
+  white-space: pre-line;
+  pointer-events: none;
+}
+.g-tip::first-line { font-weight: 800; font-size: 1.1em; }
+@media print { .g-tabla { display: none; } }
+/* Primera y última marca del eje, hacia adentro para no salirse. */
+.g-eje .g-pista span:first-child { transform: none; }
+.g-eje .g-pista span:last-child { transform: translateX(-100%); }
+@media (max-width: 560px) {
+  .g-svg text { font-size: 15px; }
+  .g-svg .g-tick { font-size: 13px; }
+  .g-svg .g-nombre { display: none; }
+}
+
+/* Pasos del panel de notas. */
+.notas-pasos { margin: 0; padding-left: 1.2em; display: grid; gap: 0.3rem; color: var(--tenue); }
+.notas-pasos strong { color: var(--tinta); font-weight: 700; }
+.notas-ayuda a { font-weight: 700; }
+
+/* Páginas de texto (Cómo participar). */
+.texto h2 {
+  margin: 2.6rem 0 0.9rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--tinta);
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.7em;
+  line-height: 1.1;
+}
+.texto p, .texto ul, .texto ol { margin: 0 0 0.9em; }
+.texto li + li { margin-top: 0.45em; }

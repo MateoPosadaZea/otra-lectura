@@ -74,6 +74,31 @@ El formato editorial está en `prompt.md` y el técnico en `ESPECIFICACION.md`.
 
 3. Revisa el resultado con `./build.sh` y abre `site/index.html`.
 
+## Gráficos
+
+Un bloque ` ```grafico ` en el cuerpo de una edición se convierte en un
+gráfico interactivo, dibujado en el build: se ve sin JavaScript, sigue el
+modo claro u oscuro, muestra el valor al pasar el mouse o tocar, y trae su
+tabla en "Ver datos". Tipos: `barras`, `columnas`, `lineas` (hasta 3
+series) y `puntos` (admite `escala: log`). Los colores de las series
+(`--s1` a `--s3` en `estilo.css`) están validados para daltonismo en ambos
+modos. Formato completo en `scripts/graficos.py`:
+
+````markdown
+```grafico
+tipo: barras
+titulo: "Gasto por principio activo"
+unidad: "miles de millones"
+destacar: "Pembrolizumab"
+fuente: "Ministerio de Salud, 2025"
+datos:
+  - etiqueta: "Pembrolizumab"
+    valor: 919
+  - etiqueta: "Nivolumab"
+    valor: 300
+```
+````
+
 ## Verificación
 
 `./build.sh` se detiene, sin publicar nada, y dice archivo, campo y motivo si:
@@ -85,6 +110,7 @@ El formato editorial está en `prompt.md` y el técnico en `ESPECIFICACION.md`.
 - un slug de `seguimiento` no aparece en `temas` de ninguna edición
   anterior;
 - una actualización apunta a una fricción que no existe en esa edición;
+- un bloque `grafico` está mal escrito (tipo, campos o números);
 - en `candidatas.md` una candidata no empieza con `Estado:` o tiene un
   estado inválido.
 
@@ -171,6 +197,8 @@ ESPECIFICACION.md   especificación técnica
 plantilla/          base.html, estilo.css y fuentes/ (Instrument Serif, UnifrakturMaguntia y Manrope, OFL)
 scripts/build.py    markdown → HTML, verificación, candidatas
 scripts/frontmatter.py  lector del frontmatter (subconjunto de YAML, sin dependencias)
+scripts/graficos.py bloques ```grafico → gráficos HTML/SVG
+ayuda.md            página "Cómo participar" (instrucciones para lectores)
 candidatas.md       estado de las candidatas (editable a mano)
 build.sh            prepara .venv y ejecuta el build
 deploy.sh           build + commit + push
