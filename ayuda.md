@@ -46,6 +46,18 @@ pausar, detener, cambiar el **ritmo** y elegir la **voz**. Las voces
 masculinas aparecen primero. Si no aparece ninguna, abajo del botón está
 cómo instalarlas en el celular.
 
+## Editar el texto directamente
+
+Si prefiere corregir sobre el texto mismo, como en un documento:
+
+1. Toque **✎ Editar el texto**, arriba de la edición.
+2. Toque cualquier palabra y cámbiela. Para quitar una frase,
+   selecciónela y bórrela. Lo que cambió queda marcado con un borde verde.
+3. Abajo aparece una barra con **Enviar cambios**. Tóquela cuando
+   termine. Si se equivocó, **Deshacer todo** vuelve al texto original.
+
+Los cambios se aplican en la próxima hora y quedan publicados para todos.
+
 ## Qué pasa después
 
 - Las notas se revisan **cada hora, entre las 6 de la mañana y las 10 de

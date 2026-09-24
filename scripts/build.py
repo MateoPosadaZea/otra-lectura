@@ -658,7 +658,26 @@ def cuerpo_edicion(e):
         cuerpo += ('<section class="carril cierre avisos" id="correcciones">\n<h2>Correcciones</h2>\n'
                    '<p class="aviso-nota">El texto original no se modifica; las correcciones se '
                    f'agregan aquí.</p>\n<ol class="correcciones">\n{items}</ol>\n</section>\n')
-    return cuerpo
+    return plegar_cierre(cuerpo)
+
+
+# "Lo que descarté" queda en el markdown (la rutina lo usa para no repetir
+# temas) pero no se muestra. Fuentes y nota metodológica van plegadas.
+RE_SECCION_CIERRE = re.compile(
+    r'<section class="(carril cierre[^"]*)"([^>]*)>\s*(<h2[^>]*>(.*?)</h2>)(.*?)</section>\n?', re.S)
+
+
+def plegar_cierre(cuerpo):
+    def cambiar(m):
+        clases, attrs, h2, titulo, resto = m.groups()
+        t = texto_plano(titulo).lower()
+        if "descart" in t:
+            return ""
+        if "fuentes" in t or "metodol" in t or "lo que hice" in t:
+            return (f'<section class="{clases} plegable"{attrs}>\n<details>\n<summary>{h2}</summary>'
+                    f'{resto}</details>\n</section>\n')
+        return m.group(0)
+    return RE_SECCION_CIERRE.sub(cambiar, cuerpo)
 
 
 def html_menu(raiz, seccion=None):
@@ -726,12 +745,42 @@ def pagina(base, titulo, descripcion, raiz, contenido, ruta, tipo="website", ld=
                            meta=meta_etiquetas(titulo, descripcion, ruta, tipo, ld))
 
 
-def pagina_edicion(base, e, anterior, siguiente):
-    nav = []
-    if anterior:
-        nav.append(f'<a rel="prev" href="{anterior["slug"]}.html">← {html.escape(anterior["titulo"])}</a>')
-    if siguiente:
-        nav.append(f'<a rel="next" href="{siguiente["slug"]}.html">{html.escape(siguiente["titulo"])} →</a>')
+def recomendar(e, ediciones):
+    """Ediciones para leer después: primero las que comparten temas (o les
+    hacen seguimiento), luego las de la misma categoría; a igualdad, la
+    más cercana en el tiempo, prefiriendo la más nueva."""
+    propios = set(e["temas"]) | set(e["seguimiento"])
+    def puntaje(o):
+        comunes = len(propios & (set(o["temas"]) | set(o["seguimiento"])))
+        cats = len(set(e["categorias"]) & set(o["categorias"]))
+        dias = abs((date.fromisoformat(o["fecha"]) - date.fromisoformat(e["fecha"])).days)
+        mas_nueva = (o["fecha"], o["orden"]) > (e["fecha"], e["orden"])
+        return (comunes * 3 + cats, mas_nueva, -dias)
+    otras = [o for o in ediciones if o is not e]
+    return sorted(otras, key=puntaje, reverse=True)
+
+
+def html_siguiente(e, ediciones):
+    recomendadas = recomendar(e, ediciones)
+    if not recomendadas:
+        return ""
+    s, resto = recomendadas[0], recomendadas[1:3]
+    temas = "".join(f"<li>{html.escape(t)}</li>" for t in s["titulos_fricciones"][:3])
+    otras = "".join(
+        f'<li><a href="{o["slug"]}.html">{html.escape(o["titulo"])}</a> '
+        f'<span>{fecha_legible(o["fecha"])} · {minutos_lectura(o)}</span></li>' for o in resto)
+    otras = (f'<div class="tambien"><p class="siguiente-rotulo">También le puede interesar</p>'
+             f'<ul>{otras}</ul></div>') if otras else ""
+    return f"""<aside class="siguiente" aria-label="Siguiente lectura">
+<p class="siguiente-rotulo">Siguiente lectura</p>
+<a class="siguiente-titulo" href="{s['slug']}.html">{html.escape(s['titulo'])}</a>
+<p class="fecha">{fecha_legible(s['fecha'])} · {minutos_lectura(s)}</p>
+{f'<ul class="dia-temas">{temas}</ul>' if temas else ''}
+{otras}
+</aside>"""
+
+
+def pagina_edicion(base, e, ediciones):
     lugares = (f'<p class="lugares">{" · ".join(html.escape(l) for l in e["lugares"])}</p>'
                if e["lugares"] else "")
     nota = f'<p class="nota">{html.escape(e["nota"])}</p>' if e["nota"] else ""
@@ -754,12 +803,13 @@ def pagina_edicion(base, e, anterior, siguiente):
 {aviso_cambios(e)}
 {seguimiento}
 {HTML_ESCUCHAR}
+{HTML_EDITAR}
 </header>
 {cuerpo_edicion(e)}
 </article>
 {html_pulso(e)}
 {html_glosario_flotante(e['glosario'])}
-<nav class="entre-ediciones" aria-label="Otras ediciones">{''.join(nav)}</nav>"""
+{html_siguiente(e, ediciones)}"""
     descripcion = descripcion_edicion(e)
     ld = {"@type": "Article", "headline": e["titulo"], "description": descripcion,
           "datePublished": e["fecha"], "dateModified": e["ultimo_cambio"] or e["fecha"],
@@ -810,6 +860,13 @@ def html_pulso(e):
 <p class="pulso-estado" role="status" aria-live="polite" hidden></p>
 </fieldset>
 </form>"""
+
+
+# Modo edición: el texto se edita como un documento (solo con JavaScript) y
+# los cambios se envían juntos; la revisión horaria los aplica al markdown.
+HTML_EDITAR = """<div class="editar-caja" hidden>
+<button type="button" class="editar-boton" aria-pressed="false">✎ Editar el texto</button>
+</div>"""
 
 
 # Epígrafe de la portada: cita, autor y obra.
@@ -982,14 +1039,18 @@ def pagina_hilo(base, h):
                   contenido, f"/temas/{h['slug']}.html")
 
 
+CATEGORIA_RECIENTES = 6
+
+
 def pagina_categoria(base, ediciones, clave):
+    todas, ediciones = ediciones, ediciones[:CATEGORIA_RECIENTES]
     filas = [f"""<li>
 <p class="fecha">{linea_fecha(e)}</p>
 <a href="../ediciones/{e['slug']}.html">{html.escape(e['titulo'])}</a>
 {aviso_cambios(e, "../")}
 </li>""" for e in ediciones]
     titulo = CATEGORIAS[clave]
-    n = len(ediciones)
+    n = len(todas)
     bajada = f"{n} edición" if n == 1 else f"{n} ediciones"
     contenido = f"""<header class="cabecera">
 <h1>{html.escape(titulo)}</h1>
@@ -997,7 +1058,8 @@ def pagina_categoria(base, ediciones, clave):
 </header>
 <ol class="indice" reversed>
 {"".join(filas) or "<li>Todavía no hay ediciones.</li>"}
-</ol>"""
+</ol>
+{'<p class="dias-anteriores"><a href="../archivo.html">Las anteriores, por fecha →</a></p>' if n > len(ediciones) else ''}"""
     descripcion = f"{titulo}: ediciones de Otra lectura con contexto, soluciones y contrapeso. {bajada}."
     return pagina(base, html.escape(f"{titulo} · Otra lectura"), descripcion, "../", contenido,
                   f"/categorias/{clave}.html", seccion=clave)
@@ -1106,10 +1168,8 @@ def main():
             (SITE / "temas" / f"{h['slug']}.html").write_text(pagina_hilo(base, h), encoding="utf-8")
 
     for i, e in enumerate(ediciones):
-        anterior = ediciones[i + 1] if i + 1 < len(ediciones) else None
-        siguiente = ediciones[i - 1] if i > 0 else None
         (SITE / "ediciones" / f"{e['slug']}.html").write_text(
-            pagina_edicion(base, e, anterior, siguiente), encoding="utf-8")
+            pagina_edicion(base, e, ediciones), encoding="utf-8")
 
     dias = por_dia(ediciones)
     (SITE / "index.html").write_text(pagina_portada(base, dias), encoding="utf-8")

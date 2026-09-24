@@ -4,7 +4,8 @@
 // POST /api/ajuste. Cada ajuste queda como issue "[Ajuste] …" en GitHub;
 // la revisión horaria de Claude los aplica y los cierra. Con el campo
 // `pulso` (liviana, justa, pesada) queda como issue "[Pulso] …" y se
-// anota en PULSO.md para calibrar el largo de las ediciones.
+// anota en PULSO.md para calibrar el largo de las ediciones. Con `cambios`
+// (modo edición) queda como "[Edición] …" y se aplica al markdown.
 //
 // Secretos (Cloudflare → Worker → Settings → Variables and Secrets):
 //   GITHUB_TOKEN   token fine-grained con permiso Issues: Read and write
@@ -14,6 +15,7 @@
 const REPO = "MateoPosadaZea/otra-lectura";
 const MAX_TEXTO = 4000;
 const MAX_NOTAS = 30;
+const MAX_CAMBIOS = 60;
 const PULSOS = { liviana: "Liviana", justa: "Justa", pesada: "Pesada" };
 
 export default {
@@ -72,6 +74,47 @@ async function recibirAjuste(request, env) {
     }
     return respuesta(200, "¡Gracias!",
       `Anotamos que esta edición le pareció ${PULSOS[pulso].toLowerCase()}. Con eso calibramos las próximas.`, volver);
+  }
+
+  // Cambios hechos en el modo edición: fragmento antes → después, con contexto.
+  if (datos.get("cambios")) {
+    let cambios;
+    try {
+      cambios = JSON.parse(String(datos.get("cambios")));
+    } catch {
+      return respuesta(400, "Cambios inválidos", "No se pudieron leer los cambios.", volver);
+    }
+    if (!Array.isArray(cambios)) cambios = [];
+    const corto = (v, n) => String(v || "").slice(0, n);
+    cambios = cambios.map((c) => ({
+      antes: corto(c && c.antes, MAX_TEXTO), despues: corto(c && c.despues, MAX_TEXTO),
+      izq: corto(c && c.izq, 200), der: corto(c && c.der, 200), parrafo: corto(c && c.parrafo, MAX_TEXTO),
+    })).filter((c) => c.antes !== c.despues);
+    if (!cambios.length) return respuesta(400, "Sin cambios", "No hay cambios para enviar.", volver);
+    if (cambios.length > MAX_CAMBIOS) {
+      return respuesta(400, "Demasiados cambios", `El máximo es de ${MAX_CAMBIOS} cambios por envío.`, volver);
+    }
+    const titulo = String(datos.get("titulo") || "Otra lectura").trim().slice(0, 100);
+    const cita = (t) => t ? t.split("\n").map((l) => `> ${l}`).join("\n") : "> _(nada)_";
+    const partes = [
+      `**Enviado por:** ${quien}`,
+      `**Fecha:** ${new Date().toISOString()}`,
+      `**Página:** ${volver} (${titulo})`,
+      `**Cambios:** ${cambios.length}`,
+    ];
+    cambios.forEach((c, i) => {
+      partes.push("", "---", "", `### Cambio ${i + 1}`,
+        `**Contexto:** …${c.izq} ⟦${c.antes}⟧ ${c.der}…`,
+        "", "**Quitar:**", cita(c.antes), "", "**Poner:**", cita(c.despues),
+        "", "<details><summary>Párrafo original</summary>", "", cita(c.parrafo), "", "</details>");
+    });
+    const n = cambios.length;
+    if (!(await crearIssue(env, `[Edición] ${titulo}: ${n} ${n === 1 ? "cambio" : "cambios"}`, partes.join("\n")))) {
+      return respuesta(502, "No se pudo guardar",
+        "Los cambios no quedaron registrados. Inténtelo de nuevo en unos minutos.", volver);
+    }
+    return respuesta(200, "¡Gracias!",
+      `Recibimos ${n === 1 ? "su cambio" : `sus ${n} cambios`}. Se aplican en la próxima hora y aparecerán publicados en el sitio.`, volver);
   }
 
   // Una tanda de notas (panel con JavaScript) o una sola (formulario sin JS).

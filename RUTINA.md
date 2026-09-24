@@ -141,7 +141,7 @@ discutir en la sobremesa.
 **Qué puede hacer usted.** Solo si hay algo concreto, posible y
 cercano (preguntar, participar, votar, revisar). Si no lo hay, se omite.
 
-## Descartes
+## Descartes          ← no se muestra en el sitio; sirve para no repetir temas
 
 ## Glosario
 
@@ -180,7 +180,9 @@ cercano (preguntar, participar, votar, revisar). Si no lo hay, se omite.
   slug en `seguimiento` y, además, una entrada en `actualizaciones` de la
   edición original (`fecha`, `friccion` con su slug y `texto` de una o dos
   frases). Nunca se edita el texto de una edición ya publicada; los
-  errores detectados se agregan en su campo `correcciones`.
+  errores detectados se agregan en su campo `correcciones`. (La excepción
+  son los cambios que los editores hacen con "Editar el texto" en el
+  sitio; esos los aplica la revisión horaria.)
 - "Nota metodológica": número aproximado de consultas, criterios de
   priorización, qué quedó como no verificado y si la red permitió abrir
   los artículos.

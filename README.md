@@ -28,6 +28,29 @@ pasa de `LARGO_MAXIMO` (1.500 palabras). Detalle en `RUTINA.md`.
   misma clave que las notas; crea un issue `[Pulso] …` que la revisión
   horaria anota en `PULSO.md`. La rutina diaria lo lee para calibrar.
 
+## Editar el texto
+
+En cada edición, **✎ Editar el texto** (solo con JavaScript) vuelve
+editables los párrafos, títulos y viñetas: se toca una palabra para
+cambiarla y se selecciona y borra para quitar frases. Enter no crea
+párrafos y lo pegado entra como texto plano. **Enviar cambios** manda,
+por cada párrafo tocado, el fragmento "quitar → poner" con unas palabras
+de contexto (`POST /api/ajuste` con `cambios`, misma clave). El Worker
+crea un issue `[Edición] …` y la revisión horaria lo aplica al markdown.
+Los cambios de redacción se aplican tal cual; si un cambio altera una
+cifra, fecha o hecho, además se deja una entrada en `correcciones`.
+
+## Lectura más corta
+
+- "Lo que descarté" sigue en el markdown (la rutina lo usa para no
+  repetir temas) pero no se muestra.
+- Fuentes y nota metodológica aparecen plegadas; se abren con un toque.
+- Al final de cada edición, en lugar de la lista de ediciones, hay una
+  **Siguiente lectura** (la que comparte más temas o categorías, prefiriendo
+  la más reciente) y hasta dos "También le puede interesar".
+- Las categorías muestran solo las 6 ediciones más recientes y enlazan al
+  archivo por fechas.
+
 ## Navegación
 
 - **Portada** (`index.html`): el epígrafe y solo las ediciones del día más
