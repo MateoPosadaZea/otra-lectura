@@ -291,8 +291,8 @@ def pagina_indice(base, ediciones):
         descripcion="Archivo de ediciones del radar de noticias.",
         raiz="",
         contenido=f"""<header class="cabecera">
-<h1>Otra lectura</h1>
-<p class="bajada">Qué se traba, quién lo está resolviendo y con qué contrapeso.</p>
+<h1>Archivo</h1>
+<p class="bajada">Un hábito de lectura, no un noticiero: qué se traba, quién lo está resolviendo y con qué contrapeso.</p>
 </header>
 <ol class="indice" reversed>
 {lista}

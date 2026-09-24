@@ -68,7 +68,7 @@ Access delante del Worker; no hay que tocar el código.
 ediciones/          fuente: una edición por archivo .md
 prompt.md           formato editorial del radar
 ESPECIFICACION.md   especificación técnica
-plantilla/          base.html, estilo.css y fuentes/ (Fraunces y Manrope, OFL)
+plantilla/          base.html, estilo.css y fuentes/ (Instrument Serif, UnifrakturMaguntia y Manrope, OFL)
 scripts/build.py    frontmatter + markdown → HTML
 build.sh            prepara .venv y ejecuta el build
 deploy.sh           build + commit + push
