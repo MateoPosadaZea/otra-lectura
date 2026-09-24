@@ -116,8 +116,10 @@ Cuerpo, en este orden (ver `prompt.md` para el contenido de cada parte):
   marcado como no verificado y si la red permitió abrir los artículos.
 - "Fuentes": lista de enlaces markdown a las fuentes usadas, agrupadas por
   fricción.
-- Español colombiano, sin voseo, frases cortas. Cerrar con una decisión o
-  una pregunta abierta, nunca con un llamado a la acción.
+- Tono profesional y académico según la sección "Tono" de `prompt.md`:
+  registro formal, redacción impersonal, atribución explícita de fuentes y
+  cifras con unidad, periodo y fuente. Cerrar con una decisión o una
+  pregunta analítica abierta, nunca con un llamado a la acción.
 
 ## 5. Publicar
 

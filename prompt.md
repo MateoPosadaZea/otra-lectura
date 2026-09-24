@@ -1,6 +1,6 @@
 # Otra lectura — especificación del radar
 
-Versión: 1.0 · 23 de septiembre de 2026
+Versión: 1.1 · 24 de septiembre de 2026 (tono profesional y académico)
 
 Este archivo es la fuente de verdad del formato. Sirve para dos cosas:
 como prompt cuando la generación es manual y como parte del input del
@@ -109,7 +109,27 @@ hacia dónde va.
 
 ## Tono
 
-- Español colombiano, sin voseo.
-- Frases cortas y directas. Sin adornos ni fórmulas de relleno.
-- Cerrar devolviendo una decisión o una pregunta abierta, nunca con un
-  llamado a la acción.
+Registro profesional y académico, como un buen análisis de revista de
+políticas públicas: riguroso, sobrio y legible para un lector culto que no
+es especialista.
+
+- Español colombiano formal, sin voseo ni coloquialismos ("recursos" o
+  "financiación", no "plata"; "afecta", no "pega").
+- Redacción impersonal o en primera persona del plural, nunca en primera
+  persona del singular ("No se encontró un caso documentado", no "No
+  encontré").
+- Distinguir siempre entre hecho, cifra oficial, estimación e
+  interpretación. Atribuir en el texto: "según el Dane", "un estudio de
+  *The Lancet* (2017) estima".
+- Toda cifra con unidad, periodo y fuente. Preferir magnitudes
+  comparables (por habitante, porcentaje del PIB, variación anual).
+- Párrafos articulados con conectores lógicos (sin embargo, en
+  consecuencia, a diferencia de); frases claras y completas, no
+  telegráficas. Sin adornos, adjetivos valorativos ni metáforas fáciles.
+- En "Qué dice la historia": periodos, casos y autores concretos cuando
+  existan; distinguir patrón de causalidad y señalar los límites de la
+  comparación.
+- Definir los conceptos técnicos la primera vez que aparecen, además del
+  glosario.
+- Cerrar devolviendo una decisión o una pregunta analítica abierta, nunca
+  con un llamado a la acción.
