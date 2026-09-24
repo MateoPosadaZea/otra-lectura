@@ -30,15 +30,18 @@ pasa de `LARGO_MAXIMO` (1.500 palabras). Detalle en `RUTINA.md`.
 
 ## Editar el texto
 
-En cada edición, **✎ Editar el texto** (solo con JavaScript) vuelve
-editables los párrafos, títulos y viñetas: se toca una palabra para
-cambiarla y se selecciona y borra para quitar frases. Enter no crea
-párrafos y lo pegado entra como texto plano. **Enviar cambios** manda,
-por cada párrafo tocado, el fragmento "quitar → poner" con unas palabras
-de contexto (`POST /api/ajuste` con `cambios`, misma clave). El Worker
-crea un issue `[Edición] …` y la revisión horaria lo aplica al markdown.
-Los cambios de redacción se aplican tal cual; si un cambio altera una
-cifra, fecha o hecho, además se deja una entrada en `correcciones`.
+El texto de cada edición es editable directamente (contenteditable, solo
+con JavaScript), sin botones ni modos: se toca y se escribe encima, o se
+selecciona y se borra. Enter no crea párrafos (guarda) y lo pegado entra
+como texto plano. Los párrafos tocados se guardan solos 12 segundos
+después de dejar de escribir, con Enter o al salir de la página
+(`sendBeacon`): por cada párrafo se envía el fragmento "quitar → poner"
+con unas palabras de contexto (`POST /api/ajuste` con `cambios`, misma
+clave que las notas; la pide una vez en la barra inferior). El Worker
+crea un issue `[Edición] …` y la revisión horaria lo aplica al markdown,
+en orden de llegada. Los cambios de redacción se aplican tal cual; si un
+cambio altera una cifra, fecha o hecho, además se deja una entrada en
+`correcciones`.
 
 ## Lectura más corta
 

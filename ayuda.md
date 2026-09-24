@@ -46,17 +46,19 @@ pausar, detener, cambiar el **ritmo** y elegir la **voz**. Las voces
 masculinas aparecen primero. Si no aparece ninguna, abajo del botón está
 cómo instalarlas en el celular.
 
-## Editar el texto directamente
+## Corregir el texto directamente
 
-Si prefiere corregir sobre el texto mismo, como en un documento:
+El texto de cada edición se puede corregir como un documento, sin abrir
+nada:
 
-1. Toque **✎ Editar el texto**, arriba de la edición.
-2. Toque cualquier palabra y cámbiela. Para quitar una frase,
-   selecciónela y bórrela. Lo que cambió queda marcado con un borde verde.
-3. Abajo aparece una barra con **Enviar cambios**. Tóquela cuando
-   termine. Si se equivocó, **Deshacer todo** vuelve al texto original.
+1. Toque la palabra o frase que quiere cambiar y escriba encima.
+2. Para quitar una frase, selecciónela y bórrela.
+3. Listo. Se guarda sola unos segundos después de dejar de escribir (o al
+   tocar Enter, o al salir de la página). Abajo aparece «Guardado ✓».
 
-Los cambios se aplican en la próxima hora y quedan publicados para todos.
+La primera vez le pide su nombre y la clave; después ya no. Si se
+equivocó antes de que se guarde, toque **Deshacer**. Los cambios quedan
+publicados para todos en la próxima hora.
 
 ## Qué pasa después
 

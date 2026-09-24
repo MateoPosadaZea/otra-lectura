@@ -803,7 +803,6 @@ def pagina_edicion(base, e, ediciones):
 {aviso_cambios(e)}
 {seguimiento}
 {HTML_ESCUCHAR}
-{HTML_EDITAR}
 </header>
 {cuerpo_edicion(e)}
 </article>
@@ -860,13 +859,6 @@ def html_pulso(e):
 <p class="pulso-estado" role="status" aria-live="polite" hidden></p>
 </fieldset>
 </form>"""
-
-
-# Modo edición: el texto se edita como un documento (solo con JavaScript) y
-# los cambios se envían juntos; la revisión horaria los aplica al markdown.
-HTML_EDITAR = """<div class="editar-caja" hidden>
-<button type="button" class="editar-boton" aria-pressed="false">✎ Editar el texto</button>
-</div>"""
 
 
 # Epígrafe de la portada: cita, autor y obra.

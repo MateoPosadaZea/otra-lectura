@@ -1343,76 +1343,57 @@ html:not(.js) .barra-fija { display: none; }
 .escuchar-pista { flex-basis: 100%; max-width: 30em; margin: 0.2rem auto 0; color: var(--tenue); font-size: 0.8em; text-align: center; }
 @media print { .pulso, .hilo-enlace { display: none; } }
 
-/* --- Modo edición --- */
+/* --- Edición directa: el texto se corrige como un documento --- */
 
-.editar-caja { margin: 0.8rem 0 0; text-align: center; }
-.editar-boton {
-  min-height: 2.4rem;
-  padding: 0.4rem 0.9rem;
-  border: 1px dashed var(--tinta);
-  border-radius: 0;
-  background: none;
-  color: var(--tinta);
-  font: 700 0.7rem/1 var(--sans);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-.editar-boton[aria-pressed="true"] { background: var(--rojo); border: 1px solid var(--rojo); color: var(--papel); }
-.editando [contenteditable="true"] {
-  outline: 1px dashed var(--filete);
-  outline-offset: 0.25rem;
-  cursor: text;
-  caret-color: var(--rojo);
-}
-.editando [contenteditable="true"]:focus { outline: 2px solid var(--rojo); background: var(--papel-claro); }
-.editando .editado { outline: 2px solid var(--s3); }
-.editando .edicion { padding-bottom: 9rem; }
-.editando .notas, .editando .glosario-boton, .editando .arriba, .editando .glosario-flotante { display: none !important; }
-.editar-barra {
+.editable { cursor: text; border-radius: 2px; }
+.editable:focus { outline: none; background: var(--papel-claro); box-shadow: 0 0 0 0.3rem var(--papel-claro); }
+.editable::selection, .editable *::selection { background: rgba(179, 64, 31, 0.25); }
+.editado { box-shadow: -0.6rem 0 0 -0.4rem var(--s3); }
+.editado:focus { box-shadow: 0 0 0 0.3rem var(--papel-claro), -0.6rem 0 0 -0.4rem var(--s3); }
+.guardado {
   position: fixed;
   left: 50%;
   bottom: 0.8rem;
   z-index: 6;
   transform: translateX(-50%);
-  width: min(40rem, calc(100vw - 1.2rem));
-  padding: 0.7rem 0.8rem;
-  background: var(--papel);
-  border: 1px solid var(--tinta);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.22);
-  font-family: var(--sans);
-  font-size: 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem 0.6rem;
+  width: max-content;
+  max-width: calc(100vw - 1.2rem);
+  padding: 0.45rem 0.7rem;
+  background: var(--tinta);
+  color: var(--papel);
+  font: 600 0.78rem/1.3 var(--sans);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
-.editar-ayuda { margin: 0 0 0.5rem; color: var(--tenue); }
-.editar-acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; }
-.editar-cuenta { flex: 1 1 8rem; font-weight: 700; }
-.editar-acciones button {
-  min-height: 2.5rem;
-  padding: 0.4rem 0.7rem;
-  border: 1px solid var(--tinta);
+.guardado button {
+  min-height: 2.2rem;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--papel);
   border-radius: 0;
   background: none;
-  color: var(--tinta);
-  font: 700 0.68rem/1 var(--sans);
+  color: var(--papel);
+  font: 700 0.66rem/1 var(--sans);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
 }
-.editar-acciones .editar-enviar { background: var(--tinta); color: var(--papel); }
-.editar-acciones button:disabled { opacity: 0.4; cursor: default; }
-.editar-cred { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 0 0.5rem; }
-.editar-cred label { display: grid; gap: 0.2rem; color: var(--tenue); flex: 1 1 9rem; }
-.editar-cred input {
-  min-height: 2.3rem;
-  padding: 0.3rem 0.5rem;
-  border: 1px solid var(--tinta);
+.guardado .guardado-ya { background: var(--papel); color: var(--tinta); }
+.guardado-cred { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.guardado-cred input {
+  width: 8.5rem;
+  min-height: 2.2rem;
+  padding: 0.25rem 0.5rem;
+  border: 0;
   border-radius: 0;
-  background: var(--papel-claro);
+  background: var(--papel);
   color: var(--tinta);
   font: 1rem var(--sans);
 }
-.editar-estado { margin: 0.5rem 0 0; }
-@media print { .editar-caja, .editar-barra { display: none !important; } }
+@media print { .guardado { display: none !important; } }
 
 /* --- Cierre plegado (fuentes, nota metodológica) --- */
 
@@ -1457,3 +1438,6 @@ html:not(.js) .barra-fija { display: none; }
 .tambien a { font-family: var(--serif); font-size: 1.2em; text-decoration: none; }
 .tambien span { display: block; color: var(--tenue); font-size: 0.78em; }
 @media (max-width: 600px) { .siguiente-titulo { font-size: 1.6em; } }
+@media (max-width: 1239px) {
+  .hay-cambios .notas, .hay-cambios .glosario-boton, .hay-cambios .arriba { visibility: hidden; }
+}
