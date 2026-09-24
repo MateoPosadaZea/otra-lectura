@@ -21,6 +21,37 @@
 <link rel="preload" href="../fuentes/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../fuentes/unifraktur.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../estilo.css">
+<script>
+/* Configuración de comentarios y verificación compartida por todos los
+   formularios: con la clave familiar guardada se envía con ella; si el sitio
+   está abierto al público y no hay clave, se verifica con Turnstile. */
+window.OL = {"abierto": false, "sitekey": ""};
+OL.clave = function () { try { return JSON.parse(localStorage.getItem("notas-clave") || '""'); } catch (e) { return ""; } };
+OL.quien = function () { try { return JSON.parse(localStorage.getItem("notas-quien") || '""'); } catch (e) { return ""; } };
+OL.verificar = function (contenedor) {
+  var c = OL.clave();
+  if (c) return Promise.resolve({ clave: c });
+  if (!OL.abierto || !OL.sitekey) return Promise.reject("clave");
+  return new Promise(function (listo, fallo) {
+    function pintar() {
+      var div = document.createElement("div");
+      div.className = "ol-verificacion";
+      contenedor.appendChild(div);
+      window.turnstile.render(div, {
+        sitekey: OL.sitekey, language: "es", appearance: "interaction-only",
+        callback: function (t) { listo({ turnstile: t }); setTimeout(function () { div.remove(); }, 800); },
+        "error-callback": function () { fallo("verificacion"); }
+      });
+    }
+    if (window.turnstile) return pintar();
+    var s = document.createElement("script");
+    s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+    s.onload = pintar;
+    s.onerror = function () { fallo("verificacion"); };
+    document.head.appendChild(s);
+  });
+};
+</script>
 <script>document.documentElement.classList.add("js");try{var t=localStorage.getItem("tema");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
@@ -390,7 +421,7 @@
   f.addEventListener("submit", function (ev) {
     ev.preventDefault();
     var boton = ev.submitter;
-    if (!f.elements.clave.value) {
+    if (!f.elements.clave.value && !OL.abierto) {
       cred.hidden = false;
       estado.hidden = false;
       estado.textContent = "Escriba su nombre y la clave, y vuelva a tocar su respuesta.";
@@ -403,7 +434,8 @@
     if (boton) boton.setAttribute("aria-pressed", "true");
     estado.hidden = false;
     estado.textContent = "Enviando…";
-    fetch(f.action, { method: "POST", body: datos, headers: { Accept: "application/json" } })
+    var previo = !f.elements.clave.value ? OL.verificar(f).then(function (x) { datos.set("turnstile", x.turnstile); }) : Promise.resolve();
+    previo.then(function () { return fetch(f.action, { method: "POST", body: datos, headers: { Accept: "application/json" } }); })
       .then(function (r) { return r.json().then(function (j) { return [r.status, j]; }); })
       .then(function (res) {
         estado.textContent = res[1].mensaje;
@@ -427,6 +459,8 @@
 (function () {
   var edicion = document.querySelector(".edicion");
   if (!edicion || !window.fetch) return;
+  // Abierto al público, corregir el texto queda solo para los editores.
+  if (OL.abierto && !OL.clave()) return;
   var ESPERA = 12000;  // ms sin escribir antes de guardar
   var bloques = [], reloj = null, enviando = false;
 
@@ -616,6 +650,11 @@
   clave.value = leer("notas-clave", "");
   agregar.hidden = false;
   recordar.hidden = false;
+  if (OL.abierto) {
+    // Abierto al público: la clave es solo para los editores.
+    clave.required = false;
+    clave.closest("label").firstChild.textContent = "Clave (solo editores) ";
+  }
   // Con nombre y clave guardados, no se muestran: solo "Envía Papá · cambiar".
   var firma = panel.querySelector(".notas-firma");
   function pintarFirma() {
@@ -710,7 +749,13 @@
     datos.append("notas", JSON.stringify(tanda));
     enviar.disabled = true;
     enviar.textContent = "Enviando…";
-    fetch(form.action, { method: "POST", body: datos, headers: { Accept: "application/json" } })
+    // Sitio abierto y sin clave: primero la verificación de Turnstile.
+    var previo = !clave.value && OL.abierto
+      ? OL.verificar(form).then(function (x) { datos.append("turnstile", x.turnstile); })
+      : Promise.resolve();
+    previo.then(function () {
+      return fetch(form.action, { method: "POST", body: datos, headers: { Accept: "application/json" } });
+    })
       .then(function (r) { return r.json(); })
       .then(function (d) {
         mostrar(d.titulo + ". " + d.mensaje, d.ok);
@@ -776,7 +821,7 @@
   function enviar(texto) {
     clearInterval(cuenta);
     var clave = leer("notas-clave");
-    if (!clave) {
+    if (!clave && !OL.abierto) {
       // Sin clave guardada: el texto queda en el panel de notas para enviarlo desde ahí.
       var t = form.querySelector("textarea");
       t.value = texto;
@@ -798,7 +843,8 @@
       pagina: form.elements.pagina.value, titulo: form.elements.titulo.value }]));
     estado.textContent = "Enviando…";
     listo.hidden = ya.hidden = cancelar.hidden = true;
-    fetch(form.action, { method: "POST", body: d, headers: { Accept: "application/json" } })
+    var previo = !clave ? OL.verificar(globo).then(function (x) { d.set("turnstile", x.turnstile); }) : Promise.resolve();
+    previo.then(function () { return fetch(form.action, { method: "POST", body: d, headers: { Accept: "application/json" } }); })
       .then(function (r) { return r.json().then(function (j) { return [r.status, j]; }); })
       .then(function (res) {
         estado.textContent = res[0] === 200 ? "Enviado ✓ Se aplica en la próxima hora." : res[1].mensaje;
@@ -912,9 +958,9 @@
 
   function enviar(caja, texto) {
     var estado = caja.querySelector(".comentario-estado");
-    var quien = caja.querySelector("[name=quien]"), clave = caja.querySelector("[name=clave]");
+    var quien = caja.querySelector("[name=quien]"), clave = caja.querySelector("[name=clave]") || { value: "" };
     var q = quien.value || leer("notas-quien"), c = clave.value || leer("notas-clave");
-    if (!c) {
+    if (!c && !OL.abierto) {
       caja.querySelector(".comentario-cred").hidden = false;
       estado.textContent = "Escriba su nombre y la clave (solo esta vez).";
       clave.focus();
@@ -926,7 +972,8 @@
     d.set("notas", JSON.stringify([{ texto: texto, cita: caja.dataset.cita,
       pagina: form.elements.pagina.value, titulo: form.elements.titulo.value }]));
     estado.textContent = "Enviando…";
-    fetch(form.action, { method: "POST", body: d, headers: { Accept: "application/json" } })
+    var previo = !c ? OL.verificar(caja).then(function (x) { d.set("turnstile", x.turnstile); }) : Promise.resolve();
+    previo.then(function () { return fetch(form.action, { method: "POST", body: d, headers: { Accept: "application/json" } }); })
       .then(function (r) { return r.json().then(function (j) { return [r.status, j]; }); })
       .then(function (res) {
         if (res[0] === 200) {
@@ -953,8 +1000,8 @@
     caja.setAttribute("contenteditable", "false");
     caja.innerHTML = '<p class="comentario-cita"></p>' +
       '<textarea rows="2" aria-label="Su comentario" placeholder="Escriba su comentario…"></textarea>' +
-      '<div class="comentario-cred" hidden><input name="quien" placeholder="Nombre" aria-label="Nombre" autocomplete="name">' +
-      '<input name="clave" type="password" placeholder="Clave" aria-label="Clave" autocomplete="current-password"></div>' +
+      '<div class="comentario-cred"' + (OL.abierto && !OL.clave() ? "" : " hidden") + '><input name="quien" placeholder="Su nombre" aria-label="Su nombre" autocomplete="name">' +
+      (OL.abierto ? "" : '<input name="clave" type="password" placeholder="Clave" aria-label="Clave" autocomplete="current-password">') + '</div>' +
       '<div class="comentario-acciones"><button type="button" class="comentario-enviar">Enviar</button>' +
       '<button type="button" class="comentario-cancelar">Cancelar</button><span class="comentario-estado" role="status" aria-live="polite"></span></div>';
     caja.querySelector(".comentario-cita").textContent = "«" + (cita.length > 140 ? cita.slice(0, 140) + "…" : cita) + "»";

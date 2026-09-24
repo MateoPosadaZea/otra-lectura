@@ -11,11 +11,16 @@
 //   GITHUB_TOKEN   token fine-grained con permiso Issues: Read and write
 //                  sobre el repo otra-lectura.
 //   CLAVE_FAMILIA  clave que se escribe en el formulario.
+//   TURNSTILE_SECRET  (opcional) al crearlo, el sitio queda abierto a
+//                  comentarios de lectores sin clave, verificados con
+//                  Turnstile. Ver APERTURA.md.
 
 const REPO = "MateoPosadaZea/otra-lectura";
 const MAX_TEXTO = 4000;
 const MAX_NOTAS = 30;
 const MAX_CAMBIOS = 60;
+const MAX_NOTAS_LECTOR = 5;
+const MAX_TEXTO_LECTOR = 1500;
 const PULSOS = { liviana: "Liviana", justa: "Justa", pesada: "Pesada" };
 
 export default {
@@ -52,10 +57,24 @@ async function recibirAjuste(request, env) {
     return respuesta(503, "Formulario sin configurar",
       "Faltan los secretos GITHUB_TOKEN o CLAVE_FAMILIA en Cloudflare.", volver);
   }
-  if (!(await igualesSeguro(clave, env.CLAVE_FAMILIA))) {
-    return respuesta(401, "Clave incorrecta",
-      "Revise mayúsculas y minúsculas e inténtelo de nuevo. Sus notas siguen guardadas.", volver);
+  // Editores: la clave familiar. Lectores (solo si el sitio está abierto, es
+  // decir, si existe TURNSTILE_SECRET): verificación de Turnstile, sin clave.
+  const editor = clave !== "" && (await igualesSeguro(clave, env.CLAVE_FAMILIA));
+  let lector = false;
+  if (!editor) {
+    const token = String(datos.get("turnstile") || "");
+    if (clave === "" && env.TURNSTILE_SECRET && token) {
+      lector = await verificarTurnstile(env.TURNSTILE_SECRET, token, request.headers.get("CF-Connecting-IP"));
+      if (!lector) {
+        return respuesta(403, "No pudimos verificar el envío",
+          "Recargue la página e inténtelo de nuevo. Su comentario sigue escrito.", volver);
+      }
+    } else {
+      return respuesta(401, "Clave incorrecta",
+        "Revise mayúsculas y minúsculas e inténtelo de nuevo. Sus notas siguen guardadas.", volver);
+    }
   }
+  const quienFirma = lector ? `${quien} (lector)` : quien;
 
   // Pulso: una valoración de un toque sobre el largo y la carga de la edición.
   const pulso = String(datos.get("pulso") || "");
@@ -63,7 +82,7 @@ async function recibirAjuste(request, env) {
     if (!PULSOS[pulso]) return respuesta(400, "Valoración inválida", "Elija Liviana, Justa o Pesada.", volver);
     const titulo = String(datos.get("titulo") || "Otra lectura").trim().slice(0, 100);
     const ok = await crearIssue(env, `[Pulso] ${titulo}: ${PULSOS[pulso]}`, [
-      `**Enviado por:** ${quien}`,
+      `**Enviado por:** ${quienFirma}`,
       `**Fecha:** ${new Date().toISOString()}`,
       `**Página:** ${volver} (${titulo})`,
       `**Valoración:** ${PULSOS[pulso]}`,
@@ -78,6 +97,7 @@ async function recibirAjuste(request, env) {
 
   // Cambios hechos en el modo edición: fragmento antes → después, con contexto.
   if (datos.get("cambios")) {
+    if (!editor) return respuesta(403, "Solo editores", "Corregir el texto directamente es solo para los editores.", volver);
     let cambios;
     try {
       cambios = JSON.parse(String(datos.get("cambios")));
@@ -141,6 +161,10 @@ async function recibirAjuste(request, env) {
   if (!notas.length) {
     return respuesta(400, "Nota vacía", "Escriba al menos una nota antes de enviar.", volver);
   }
+  if (lector && (notas.length > MAX_NOTAS_LECTOR || notas.some((n) => n.texto.length > MAX_TEXTO_LECTOR))) {
+    return respuesta(400, "Comentario demasiado largo",
+      `Hasta ${MAX_NOTAS_LECTOR} comentarios de ${MAX_TEXTO_LECTOR} caracteres por envío.`, volver);
+  }
   if (notas.length > MAX_NOTAS) {
     return respuesta(400, "Demasiadas notas", `El máximo es de ${MAX_NOTAS} notas por envío.`, volver);
   }
@@ -149,7 +173,7 @@ async function recibirAjuste(request, env) {
   }
 
   const partes = [
-    `**Enviado por:** ${quien}`,
+    `**Enviado por:** ${quienFirma}`,
     `**Fecha:** ${new Date().toISOString()}`,
     `**Notas:** ${notas.length}`,
   ];
@@ -159,18 +183,40 @@ async function recibirAjuste(request, env) {
     partes.push("", n.texto);
   });
   const cuerpo = partes.join("\n");
+  // Los comentarios de lectores no se aplican solos: quedan como "[Lector]"
+  // para que los editores decidan.
+  const prefijo = lector ? "[Lector]" : "[Ajuste]";
   const titulo = notas.length === 1
-    ? `[Ajuste] ${notas[0].titulo}`
-    : `[Ajuste] ${notas.length} notas de ${quien}`;
+    ? `${prefijo} ${notas[0].titulo}`
+    : `${prefijo} ${notas.length} notas de ${quienFirma}`;
 
   if (!(await crearIssue(env, titulo, cuerpo))) {
     return respuesta(502, "No se pudo guardar",
       "El ajuste no quedó registrado. Inténtelo de nuevo en unos minutos.", volver);
   }
 
+  if (lector) {
+    return respuesta(200, "¡Gracias!",
+      "Su comentario llegó. Lo leemos con calma y, si ayuda a mejorar el sitio, lo verá reflejado.", volver);
+  }
   const cuantas = notas.length === 1 ? "Recibimos su nota" : `Recibimos sus ${notas.length} notas`;
   return respuesta(200, "¡Gracias!",
     `${cuantas}. Se revisan en la próxima hora (entre las 6 a. m. y las 10 p. m.) y los cambios aparecerán publicados en el sitio.`, volver);
+}
+
+// Verifica el token de Turnstile con Cloudflare.
+async function verificarTurnstile(secreto, token, ip) {
+  const cuerpo = new FormData();
+  cuerpo.set("secret", secreto);
+  cuerpo.set("response", token);
+  if (ip) cuerpo.set("remoteip", ip);
+  try {
+    const r = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body: cuerpo });
+    const d = await r.json();
+    return d.success === true;
+  } catch {
+    return false;
+  }
 }
 
 async function crearIssue(env, titulo, cuerpo) {

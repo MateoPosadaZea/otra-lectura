@@ -59,6 +59,13 @@ DESCRIPCION_SITIO = (
 # basta con cambiar esto a True y volver a publicar.
 INDEXAR = False
 
+# Comentarios abiertos al público. Mientras esté en False, comentar y
+# corregir exige la clave familiar (como hasta ahora). Para abrir: poner
+# True, pegar aquí la "site key" pública de Turnstile y guardar la clave
+# secreta como TURNSTILE_SECRET en el Worker. Pasos en APERTURA.md.
+COMENTARIOS_ABIERTOS = False
+TURNSTILE_SITEKEY = ""
+
 DIAS_SEMANA = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
 
 MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
@@ -752,8 +759,10 @@ def pagina(base, titulo, descripcion, raiz, contenido, ruta, tipo="website", ld=
     ld = ld or {"@type": "WebPage", "name": html.unescape(titulo), "description": descripcion,
                 "inLanguage": "es-CO", "isPartOf": {"@type": "WebSite", "name": NOMBRE_SITIO}}
     nota_titulo = html.escape(re.sub(r"\s*·\s*Otra lectura$", "", html.unescape(titulo)))
+    abierto = COMENTARIOS_ABIERTOS and bool(TURNSTILE_SITEKEY)
+    config = json.dumps({"abierto": abierto, "sitekey": TURNSTILE_SITEKEY if abierto else ""})
     return base.substitute(titulo=titulo, raiz=raiz, contenido=contenido, menu=html_menu(raiz, seccion),
-                           nota_pagina=ruta, nota_titulo=nota_titulo,
+                           nota_pagina=ruta, nota_titulo=nota_titulo, config=config,
                            meta=meta_etiquetas(titulo, descripcion, ruta, tipo, ld))
 
 

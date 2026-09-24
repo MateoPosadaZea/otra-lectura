@@ -45,6 +45,14 @@ en orden de llegada. Los cambios de redacción se aplican tal cual; si un
 cambio altera una cifra, fecha o hecho, además se deja una entrada en
 `correcciones`.
 
+## Comentarios abiertos al público (listo, apagado)
+
+`COMENTARIOS_ABIERTOS` y `TURNSTILE_SITEKEY` en `scripts/build.py` (hoy
+`False` y vacío) y el secreto `TURNSTILE_SECRET` en el Worker. Con los tres,
+los lectores comentan sin clave tras una verificación de Turnstile; sus
+comentarios llegan como `[Lector] …` y no se aplican solos; corregir el
+texto queda para quien tiene la clave. Pasos en `APERTURA.md`.
+
 ## Ajustes por voz
 
 El botón **🎤 Hablar** (solo si el navegador tiene reconocimiento de voz:
@@ -288,6 +296,7 @@ scripts/graficos.py bloques ```grafico → gráficos HTML/SVG
 ayuda.md            página "Cómo participar" (instrucciones para lectores)
 sobre.md            página "¿Qué es esto?"
 PULSO.md            registro de valoraciones Liviana / Justa / Pesada
+APERTURA.md         pasos para abrir el sitio al público (Turnstile, indexación)
 candidatas.md       estado de las candidatas (editable a mano)
 build.sh            prepara .venv y ejecuta el build
 deploy.sh           build + commit + push
