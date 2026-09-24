@@ -44,11 +44,11 @@ CANDIDATAS = RAIZ / "candidatas.md"
 SITIO_URL = ""
 
 NOMBRE_SITIO = "Otra lectura"
+FRASE_SITIO = "Otra manera de leer noticias. Con contexto, soluciones y contrapeso. Una mirada pragmática para informarse y participar."
 DESCRIPCION_SITIO = (
-    "Otra manera de leer las noticias. Cada día, los problemas que se repiten "
-    "en Colombia, América Latina y el mundo, con su contexto histórico, las "
-    "soluciones que ya funcionan en otros lugares y sus críticas. Menos "
-    "ansiedad, más criterio para participar.")
+    "Otra manera de leer noticias. Con contexto, soluciones y contrapeso. Una mirada pragmática para informarse y participar. Cada día, los problemas que se repiten en Colombia, América Latina "
+    "y el mundo, con su contexto histórico, las soluciones que ya funcionan en "
+    "otros lugares y sus críticas.")
 
 # Mientras el proyecto está en calibración, el sitio pide no ser indexado
 # (robots.txt con Disallow total y meta noindex). Para abrirlo a buscadores,
@@ -61,15 +61,18 @@ MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
 # Categorías amplias y fijas para navegar el archivo. Cada edición declara las
 # suyas en el frontmatter (`categorias: [economia, salud]`). Para agregar una,
 # se añade aquí y en RUTINA.md.
+# Pocas y amplias, porque van en la barra de la cabecera:
+#   economia  → economía, finanzas públicas, trabajo
+#   salud     → salud pública, medicamentos, sistemas de salud
+#   ambiente  → clima, agua, energía, minería, biodiversidad
+#   sociedad  → justicia, seguridad, Estado, ciudades, territorio, educación
+#   ciencia   → ciencia, tecnología, inteligencia artificial, descubrimientos
 CATEGORIAS = {
     "economia": "Economía",
     "salud": "Salud",
-    "ambiente": "Ambiente y clima",
-    "energia": "Energía",
-    "justicia": "Justicia y Estado",
-    "territorio": "Ciudades y territorio",
+    "ambiente": "Ambiente",
     "sociedad": "Sociedad",
-    "ciencia": "Ciencia y tecnología",
+    "ciencia": "Ciencia",
 }
 
 # Explicación corta bajo la banda de cada carril (el markdown dice "Carril 1: Radar";
@@ -472,20 +475,6 @@ def html_categorias(categorias, raiz):
     return f'<ul class="temas" aria-label="Categorías">{items}</ul>'
 
 
-def nav_categorias(ediciones, raiz, actual=None):
-    """Barra de categorías con cuántas ediciones tiene cada una."""
-    conteo = {c: sum(c in e["categorias"] for e in ediciones) for c in CATEGORIAS}
-    marca = ' aria-current="page"' if actual is None else ""
-    items = [f'<li><a href="{raiz}index.html"{marca}>Todas</a></li>']
-    for c, nombre in CATEGORIAS.items():
-        if not conteo[c]:
-            continue
-        marca = ' aria-current="page"' if c == actual else ""
-        items.append(f'<li><a href="{raiz}categorias/{c}.html"{marca}>{html.escape(nombre)}'
-                     f' <span>{conteo[c]}</span></a></li>')
-    return f'<nav class="categorias" aria-label="Categorías"><ul>{"".join(items)}</ul></nav>'
-
-
 def linea_fecha(e):
     partes = [f'<time datetime="{html.escape(e["fecha"])}">{fecha_legible(e["fecha"])}</time>']
     if e["edicion"]:
@@ -610,12 +599,13 @@ def form_ajuste(pagina, titulo):
 </details>"""
 
 
-def html_menu(raiz):
-    """Menú de secciones de la cabecera: archivo, categorías y candidatas."""
-    items = [f'<li><a href="{raiz}index.html">Todas las ediciones</a></li>']
-    items += [f'<li><a href="{raiz}categorias/{c}.html">{html.escape(CATEGORIAS[c])}</a></li>'
-              for c in CATEGORIAS_ACTIVAS]
-    items.append(f'<li class="menu-aparte"><a href="{raiz}candidatas.html">Candidatas</a></li>')
+def html_menu(raiz, seccion=None):
+    """Barra de secciones: Inicio y categorías; la actual va marcada."""
+    def item(clave, href, nombre):
+        marca = ' aria-current="page"' if clave == seccion else ""
+        return f'<li><a href="{href}"{marca}>{html.escape(nombre)}</a></li>'
+    items = [item("inicio", f"{raiz}index.html", "Inicio")]
+    items += [item(c, f"{raiz}categorias/{c}.html", CATEGORIAS[c]) for c in CATEGORIAS_ACTIVAS]
     return "<ul>" + "".join(items) + "</ul>"
 
 
@@ -664,10 +654,10 @@ def meta_etiquetas(titulo, descripcion, ruta, tipo, ld):
     return "\n".join(m)
 
 
-def pagina(base, titulo, descripcion, raiz, contenido, ruta, tipo="website", ld=None):
+def pagina(base, titulo, descripcion, raiz, contenido, ruta, tipo="website", ld=None, seccion=None):
     ld = ld or {"@type": "WebPage", "name": html.unescape(titulo), "description": descripcion,
                 "inLanguage": "es-CO", "isPartOf": {"@type": "WebSite", "name": NOMBRE_SITIO}}
-    return base.substitute(titulo=titulo, raiz=raiz, contenido=contenido, menu=html_menu(raiz),
+    return base.substitute(titulo=titulo, raiz=raiz, contenido=contenido, menu=html_menu(raiz, seccion),
                            meta=meta_etiquetas(titulo, descripcion, ruta, tipo, ld))
 
 
@@ -716,20 +706,39 @@ def pagina_edicion(base, e, anterior, siguiente):
                   contenido, f"/ediciones/{e['slug']}.html", "article", ld)
 
 
+# Epígrafe de la portada: cita, autor y obra.
+EPIGRAFE = {
+    "cita": "He procurado con esmero no ridiculizar ni lamentar ni detestar las acciones "
+            "humanas, sino entenderlas.",
+    "autor": "Baruch Spinoza",
+    "obra": "Tratado político",
+    "anio": "1677",
+}
+
+
 def pagina_lista(base, ediciones, todas, raiz, titulo, bajada, actual=None):
     """Portada (todas las ediciones) o página de una categoría."""
     filas = [f"""<li>
 <p class="fecha">{linea_fecha(e)}</p>
 <a href="{raiz}ediciones/{e['slug']}.html">{html.escape(e['titulo'])}</a>
 {aviso_cambios(e, raiz)}
-{html_categorias(e['categorias'], raiz)}
 </li>""" for e in ediciones]
     lista = "\n".join(filas) if filas else "<li>Todavía no hay ediciones.</li>"
-    contenido = f"""<header class="cabecera">
+    if actual is None:
+        cabecera = f"""<header class="cabecera portada">
+<h1 class="solo-lectores">Otra lectura</h1>
+<figure class="epigrafe">
+<blockquote><p>«{html.escape(EPIGRAFE['cita'])}»</p></blockquote>
+<figcaption>{html.escape(EPIGRAFE['autor'])} <cite>{html.escape(EPIGRAFE['obra'])}</cite>, {EPIGRAFE['anio']}</figcaption>
+</figure>
+<p class="frase-sitio">{html.escape(FRASE_SITIO)}</p>
+</header>"""
+    else:
+        cabecera = f"""<header class="cabecera">
 <h1>{html.escape(titulo)}</h1>
 <p class="bajada">{html.escape(bajada)}</p>
-</header>
-{nav_categorias(todas, raiz, actual)}
+</header>"""
+    contenido = f"""{cabecera}
 <ol class="indice" reversed>
 {lista}
 </ol>
@@ -737,12 +746,12 @@ def pagina_lista(base, ediciones, todas, raiz, titulo, bajada, actual=None):
     if actual is None:
         ld = {"@type": "WebSite", "name": NOMBRE_SITIO, "description": DESCRIPCION_SITIO,
               "inLanguage": "es-CO"}
-        return pagina(base, "Otra lectura · Otra manera de leer las noticias", DESCRIPCION_SITIO,
-                      raiz, contenido, "/", "website", ld)
+        return pagina(base, "Otra lectura · Otra manera de leer noticias", DESCRIPCION_SITIO,
+                      raiz, contenido, "/", "website", ld, seccion="inicio")
     descripcion = (f"{titulo}: ediciones de Otra lectura con contexto, soluciones y contrapeso. "
                    f"{bajada}.")
     return pagina(base, html.escape(f"{titulo} · Otra lectura"), descripcion, raiz, contenido,
-                  f"/categorias/{actual}.html")
+                  f"/categorias/{actual}.html", seccion=actual)
 
 
 def pagina_candidatas(base, candidatas):
@@ -824,8 +833,7 @@ def main():
 
     (SITE / "index.html").write_text(pagina_lista(
         base, ediciones, ediciones, "", "Archivo",
-        "Otra manera de leer las noticias: con contexto, con soluciones y con "
-        "contrapeso. Una mirada pragmática para informarse y participar."), encoding="utf-8")
+        FRASE_SITIO), encoding="utf-8")
 
     (SITE / "categorias").mkdir()
     for c, nombre in CATEGORIAS.items():

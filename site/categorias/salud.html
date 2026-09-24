@@ -26,14 +26,20 @@
 <body>
 <a class="saltar" href="#contenido">Ir al contenido</a>
 <header class="sitio">
+<div class="marca">
+<a class="cabezote" href="../index.html">Otra Lectura</a>
+<p class="lema">Otra manera de leer noticias</p>
+</div>
+<div class="barra">
+<nav class="principal" aria-label="Secciones">
+<ul><li><a href="../index.html">Inicio</a></li><li><a href="../categorias/economia.html">Economía</a></li><li><a href="../categorias/salud.html" aria-current="page">Salud</a></li><li><a href="../categorias/ambiente.html">Ambiente</a></li><li><a href="../categorias/sociedad.html">Sociedad</a></li><li><a href="../categorias/ciencia.html">Ciencia</a></li></ul>
+</nav>
 <details class="menu">
-<summary><span aria-hidden="true">☰</span> <span class="menu-texto">Secciones</span></summary>
+<summary><span aria-hidden="true">☰</span> Secciones</summary>
 <nav aria-label="Secciones">
-<ul><li><a href="../index.html">Todas las ediciones</a></li><li><a href="../categorias/economia.html">Economía</a></li><li><a href="../categorias/salud.html">Salud</a></li><li><a href="../categorias/ambiente.html">Ambiente y clima</a></li><li><a href="../categorias/energia.html">Energía</a></li><li><a href="../categorias/justicia.html">Justicia y Estado</a></li><li><a href="../categorias/territorio.html">Ciudades y territorio</a></li><li><a href="../categorias/ciencia.html">Ciencia y tecnología</a></li><li class="menu-aparte"><a href="../candidatas.html">Candidatas</a></li></ul>
+<ul><li><a href="../index.html">Inicio</a></li><li><a href="../categorias/economia.html">Economía</a></li><li><a href="../categorias/salud.html" aria-current="page">Salud</a></li><li><a href="../categorias/ambiente.html">Ambiente</a></li><li><a href="../categorias/sociedad.html">Sociedad</a></li><li><a href="../categorias/ciencia.html">Ciencia</a></li></ul>
 </nav>
 </details>
-<a class="cabezote" href="../index.html">Otra Lectura</a>
-<div class="lado-der">
 <button class="tema" type="button" hidden>Oscuro</button>
 </div>
 </header>
@@ -42,19 +48,16 @@
 <h1>Salud</h1>
 <p class="bajada">2 ediciones</p>
 </header>
-<nav class="categorias" aria-label="Categorías"><ul><li><a href="../index.html">Todas</a></li><li><a href="../categorias/economia.html">Economía <span>3</span></a></li><li><a href="../categorias/salud.html" aria-current="page">Salud <span>2</span></a></li><li><a href="../categorias/ambiente.html">Ambiente y clima <span>4</span></a></li><li><a href="../categorias/energia.html">Energía <span>1</span></a></li><li><a href="../categorias/justicia.html">Justicia y Estado <span>2</span></a></li><li><a href="../categorias/territorio.html">Ciudades y territorio <span>3</span></a></li><li><a href="../categorias/ciencia.html">Ciencia y tecnología <span>2</span></a></li></ul></nav>
 <ol class="indice" reversed>
 <li>
 <p class="fecha"><time datetime="2026-09-24">24 de septiembre de 2026</time> · Edición 4</p>
 <a href="../ediciones/2026-09-24-radar.html">El calor que no se cuenta, la extorsión que no se va con tropas y la vacuna que nadie fabricó</a>
 
-<ul class="temas" aria-label="Categorías"><li><a href="../categorias/salud.html">Salud</a></li><li><a href="../categorias/ambiente.html">Ambiente y clima</a></li><li><a href="../categorias/justicia.html">Justicia y Estado</a></li><li><a href="../categorias/territorio.html">Ciudades y territorio</a></li><li><a href="../categorias/ciencia.html">Ciencia y tecnología</a></li><li><a href="../categorias/economia.html">Economía</a></li></ul>
 </li>
 <li>
 <p class="fecha"><time datetime="2026-09-22">22 de septiembre de 2026</time> · Edición 2</p>
 <a href="../ediciones/2026-09-22-radar-02.html">Un medicamento de casi un billón y una isla sin lluvia</a>
 
-<ul class="temas" aria-label="Categorías"><li><a href="../categorias/salud.html">Salud</a></li><li><a href="../categorias/ambiente.html">Ambiente y clima</a></li></ul>
 </li>
 </ol>
 <details class="ajuste">
@@ -76,7 +79,7 @@
 </main>
 <footer class="sitio">
 <p><a class="cabezote" href="../index.html">Otra Lectura</a></p>
-<p>Otra manera de leer las noticias: con contexto, soluciones y contrapeso.</p>
+<p>Otra manera de leer noticias. Con contexto, soluciones y contrapeso. Una mirada pragmática para informarse y participar.</p>
 <p class="pie-enlaces"><a href="../index.html">Todas las ediciones</a> · <a href="../candidatas.html">Candidatas</a></p>
 </footer>
 <script>
@@ -104,6 +107,7 @@
 /* Cierra el menú de secciones al hacer clic fuera o con Escape. */
 (function () {
   var menu = document.querySelector("details.menu");
+  if (!menu) return;
   document.addEventListener("click", function (ev) { if (!menu.contains(ev.target)) menu.open = false; });
   document.addEventListener("keydown", function (ev) { if (ev.key === "Escape") menu.open = false; });
 })();

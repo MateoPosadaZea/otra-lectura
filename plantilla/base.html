@@ -14,14 +14,20 @@ $meta
 <body>
 <a class="saltar" href="#contenido">Ir al contenido</a>
 <header class="sitio">
+<div class="marca">
+<a class="cabezote" href="${raiz}index.html">Otra Lectura</a>
+<p class="lema">Otra manera de leer noticias</p>
+</div>
+<div class="barra">
+<nav class="principal" aria-label="Secciones">
+$menu
+</nav>
 <details class="menu">
-<summary><span aria-hidden="true">☰</span> <span class="menu-texto">Secciones</span></summary>
+<summary><span aria-hidden="true">☰</span> Secciones</summary>
 <nav aria-label="Secciones">
 $menu
 </nav>
 </details>
-<a class="cabezote" href="${raiz}index.html">Otra Lectura</a>
-<div class="lado-der">
 <button class="tema" type="button" hidden>Oscuro</button>
 </div>
 </header>
@@ -30,7 +36,7 @@ $contenido
 </main>
 <footer class="sitio">
 <p><a class="cabezote" href="${raiz}index.html">Otra Lectura</a></p>
-<p>Otra manera de leer las noticias: con contexto, soluciones y contrapeso.</p>
+<p>Otra manera de leer noticias. Con contexto, soluciones y contrapeso. Una mirada pragmática para informarse y participar.</p>
 <p class="pie-enlaces"><a href="${raiz}index.html">Todas las ediciones</a> · <a href="${raiz}candidatas.html">Candidatas</a></p>
 </footer>
 <script>
@@ -58,6 +64,7 @@ $contenido
 /* Cierra el menú de secciones al hacer clic fuera o con Escape. */
 (function () {
   var menu = document.querySelector("details.menu");
+  if (!menu) return;
   document.addEventListener("click", function (ev) { if (!menu.contains(ev.target)) menu.open = false; });
   document.addEventListener("keydown", function (ev) { if (ev.key === "Escape") menu.open = false; });
 })();

@@ -67,16 +67,13 @@ fuentes:
 `categorias` usa solo estas claves (una o varias por edición, según las
 fricciones y el carril de Asombro):
 
-| Clave | Categoría |
-|---|---|
-| `economia` | Economía |
-| `salud` | Salud |
-| `ambiente` | Ambiente y clima |
-| `energia` | Energía |
-| `justicia` | Justicia y Estado |
-| `territorio` | Ciudades y territorio |
-| `sociedad` | Sociedad |
-| `ciencia` | Ciencia y tecnología |
+| Clave | Categoría | Incluye |
+|---|---|---|
+| `economia` | Economía | economía, finanzas públicas, trabajo |
+| `salud` | Salud | salud pública, medicamentos, sistemas de salud |
+| `ambiente` | Ambiente | clima, agua, energía, minería, biodiversidad |
+| `sociedad` | Sociedad | justicia, seguridad, Estado, ciudades, territorio, educación |
+| `ciencia` | Ciencia | ciencia, tecnología, inteligencia artificial, descubrimientos |
 
 `temas` sigue siendo libre y específico (sirve para no repetir); las
 categorías son para navegar el archivo.

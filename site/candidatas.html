@@ -26,14 +26,20 @@
 <body>
 <a class="saltar" href="#contenido">Ir al contenido</a>
 <header class="sitio">
+<div class="marca">
+<a class="cabezote" href="index.html">Otra Lectura</a>
+<p class="lema">Otra manera de leer noticias</p>
+</div>
+<div class="barra">
+<nav class="principal" aria-label="Secciones">
+<ul><li><a href="index.html">Inicio</a></li><li><a href="categorias/economia.html">Economía</a></li><li><a href="categorias/salud.html">Salud</a></li><li><a href="categorias/ambiente.html">Ambiente</a></li><li><a href="categorias/sociedad.html">Sociedad</a></li><li><a href="categorias/ciencia.html">Ciencia</a></li></ul>
+</nav>
 <details class="menu">
-<summary><span aria-hidden="true">☰</span> <span class="menu-texto">Secciones</span></summary>
+<summary><span aria-hidden="true">☰</span> Secciones</summary>
 <nav aria-label="Secciones">
-<ul><li><a href="index.html">Todas las ediciones</a></li><li><a href="categorias/economia.html">Economía</a></li><li><a href="categorias/salud.html">Salud</a></li><li><a href="categorias/ambiente.html">Ambiente y clima</a></li><li><a href="categorias/energia.html">Energía</a></li><li><a href="categorias/justicia.html">Justicia y Estado</a></li><li><a href="categorias/territorio.html">Ciudades y territorio</a></li><li><a href="categorias/ciencia.html">Ciencia y tecnología</a></li><li class="menu-aparte"><a href="candidatas.html">Candidatas</a></li></ul>
+<ul><li><a href="index.html">Inicio</a></li><li><a href="categorias/economia.html">Economía</a></li><li><a href="categorias/salud.html">Salud</a></li><li><a href="categorias/ambiente.html">Ambiente</a></li><li><a href="categorias/sociedad.html">Sociedad</a></li><li><a href="categorias/ciencia.html">Ciencia</a></li></ul>
 </nav>
 </details>
-<a class="cabezote" href="index.html">Otra Lectura</a>
-<div class="lado-der">
 <button class="tema" type="button" hidden>Oscuro</button>
 </div>
 </header>
@@ -79,7 +85,7 @@
 </main>
 <footer class="sitio">
 <p><a class="cabezote" href="index.html">Otra Lectura</a></p>
-<p>Otra manera de leer las noticias: con contexto, soluciones y contrapeso.</p>
+<p>Otra manera de leer noticias. Con contexto, soluciones y contrapeso. Una mirada pragmática para informarse y participar.</p>
 <p class="pie-enlaces"><a href="index.html">Todas las ediciones</a> · <a href="candidatas.html">Candidatas</a></p>
 </footer>
 <script>
@@ -107,6 +113,7 @@
 /* Cierra el menú de secciones al hacer clic fuera o con Escape. */
 (function () {
   var menu = document.querySelector("details.menu");
+  if (!menu) return;
   document.addEventListener("click", function (ev) { if (!menu.contains(ev.target)) menu.open = false; });
   document.addEventListener("keydown", function (ev) { if (ev.key === "Escape") menu.open = false; });
 })();
