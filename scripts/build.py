@@ -732,7 +732,6 @@ def pagina_lista(base, ediciones, todas, raiz, titulo, bajada, actual=None):
 <blockquote><p>«{html.escape(EPIGRAFE['cita'])}»</p></blockquote>
 <figcaption>{html.escape(EPIGRAFE['autor'])} <cite>{html.escape(EPIGRAFE['obra'])}</cite>, {EPIGRAFE['anio']}</figcaption>
 </figure>
-<p class="frase-sitio">{html.escape(FRASE_SITIO)}</p>
 </header>"""
     else:
         cabecera = f"""<header class="cabecera">
