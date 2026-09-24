@@ -45,7 +45,7 @@ CATEGORIAS = {
     "ciencia": "Ciencia y tecnología",
 }
 
-RE_NO_VERIFICADO = re.compile(r"conocimiento general|no\s+verificad[oa]s?", re.I)
+RE_NO_VERIFICADO = re.compile(r"conocimiento\s+general|no\s+verificad[oa]s?", re.I)
 
 # Etiqueta en negrita → clase del párrafo que la lleva.
 TIPOS_ETIQUETA = [
@@ -170,12 +170,12 @@ def _marcar_em_nv(fragmento):
     """Marca las cursivas "(Conocimiento general…)" y el tramo que cubren."""
     # Tramo partido: *(Conocimiento general:* texto *)*
     fragmento = re.sub(
-        r"<em>(\([^<)]*?conocimiento general[^<)]*)</em>(.*?)<em>\)</em>",
+        r"<em>(\([^<)]*?conocimiento\s+general[^<)]*)</em>(.*?)<em>\)</em>",
         r'<span class="nv-tramo"><em class="marca-nv">\1</em>\2<em class="marca-nv">)</em></span>',
         fragmento, flags=re.I | re.S)
     # Marca completa: *(Conocimiento general, no verificado.)*
     return re.sub(
-        r"<em>(\([^<]*?(?:conocimiento general|no verificad)[^<]*\))</em>",
+        r"<em>(\([^<]*?(?:conocimiento\s+general|no\s+verificad)[^<]*\))</em>",
         r'<em class="marca-nv">\1</em>',
         fragmento, flags=re.I)
 
@@ -195,7 +195,7 @@ def marcar_parrafo(m):
         interior = interior[e.end():]
 
     # Si la marca abre el párrafo (tras la etiqueta), todo el párrafo es no verificado.
-    if re.match(r"\s*<em>\([^<]*?(?:conocimiento general|no verificad)", interior, re.I):
+    if re.match(r"\s*<em>\([^<]*?(?:conocimiento\s+general|no\s+verificad)", interior, re.I):
         clases.append("no-verificado")
     interior = _marcar_em_nv(interior)
 
