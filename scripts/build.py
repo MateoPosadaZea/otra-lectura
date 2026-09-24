@@ -640,6 +640,14 @@ def cuerpo_edicion(e):
         else:
             generales.append(bloque)
     cuerpo = re.sub(r"<!--fin:[^>]*-->\n?", "", cuerpo)
+    # Cada "### Seguimiento: …" enlaza a la historia completa del tema (o a la
+    # edición donde se trató, si todavía no hay hilo).
+    for tema, previas in e.get("seguimiento_enlaces", ()):
+        destino = (f"../temas/{tema}.html" if tema in e.get("hilos_todos", ())
+                   else f"../ediciones/{previas[-1]['slug']}.html")
+        cuerpo = re.sub(rf'(<article class="item seguimiento[^"]*" id="[^"]*{re.escape(tema)}[^"]*">\s*<h3[^>]*>.*?</h3>)',
+                        rf'\1\n<p class="hilo-enlace"><a href="{destino}">Ver cómo empezó este tema →</a></p>',
+                        cuerpo, count=1, flags=re.S)
     for slug in e.get("hilos", ()):
         cuerpo = re.sub(rf'(<article class="[^"]*" id="{re.escape(slug)}">\s*<h3[^>]*>.*?</h3>)',
                         rf'\1\n<p class="hilo-enlace"><a href="../temas/{slug}.html">Ver todo el tema, '
@@ -805,7 +813,6 @@ def pagina_edicion(base, e, ediciones):
 {html_categorias(e['categorias'], '../')}
 {nota}
 {aviso_cambios(e)}
-{seguimiento}
 {html_atajos(e)}
 {HTML_ESCUCHAR}
 </header>
