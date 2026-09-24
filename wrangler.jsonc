@@ -1,9 +1,13 @@
-// Cloudflare Workers: sirve site/ como archivos estáticos, sin código.
-// Cloudflare ejecuta `npx wrangler deploy` en cada push; no hay build.
+// Cloudflare Workers: sirve site/ como estáticos y recibe los ajustes del
+// formulario en /api/ajuste (src/worker.js). Cloudflare ejecuta
+// `npx wrangler deploy` en cada push a main; no hay build en Cloudflare.
 {
   "name": "otra-lectura",
+  "main": "src/worker.js",
   "compatibility_date": "2025-09-01",
   "assets": {
-    "directory": "./site"
+    "directory": "./site",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
   }
 }

@@ -49,6 +49,21 @@
 <ul class="temas" aria-label="Categorías"><li><a href="categorias/economia.html">Economía</a></li><li><a href="categorias/territorio.html">Ciudades y territorio</a></li><li><a href="categorias/ambiente.html">Ambiente y clima</a></li><li><a href="categorias/energia.html">Energía</a></li><li><a href="categorias/ciencia.html">Ciencia y tecnología</a></li></ul>
 </li>
 </ol>
+<details class="ajuste">
+<summary>Sugerir un ajuste de estilo o tono</summary>
+<form method="post" action="/api/ajuste">
+<input type="hidden" name="pagina" value="/">
+<input type="hidden" name="titulo" value="Archivo">
+<label>Ajuste
+<textarea name="texto" rows="5" maxlength="4000" required placeholder="Por ejemplo: en la fricción 2, «plata» debería decir «recursos». En general, menos frases cortas."></textarea></label>
+<div class="ajuste-fila">
+<label>Nombre <input name="quien" autocomplete="name"></label>
+<label>Clave <input name="clave" type="password" autocomplete="current-password" required></label>
+</div>
+<button type="submit">Enviar ajuste</button>
+<p class="ajuste-nota">Los ajustes puntuales corrigen esta edición; los generales se vuelven regla para las siguientes. Se aplican cada hora, de 6 a. m. a 10 p. m.</p>
+</form>
+</details>
 </main>
 <footer class="sitio">
 <p><a class="cabezote" href="index.html">Otra Lectura</a></p>

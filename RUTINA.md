@@ -22,6 +22,8 @@ con qué contrapeso y qué patrón histórico ayuda a entenderlo.
 ## 2. Leer antes de escribir
 
 - `prompt.md`: formato editorial completo. Es obligatorio.
+- `AJUSTES.md`: reglas de estilo y tono acumuladas a partir de los ajustes
+  enviados desde el sitio. Tienen prioridad sobre `prompt.md` si chocan.
 - `README.md`: tabla de convenciones de markdown que entiende la plantilla.
 - Las cinco ediciones más recientes: sus `temas`, `seguimiento`,
   `cruce_mattriz` y "Lo que descarté", para no repetir temas (salvo como
@@ -75,51 +77,62 @@ fricciones y el carril de Asombro):
 `temas` sigue siendo libre y específico (sirve para no repetir); las
 categorías son para navegar el archivo.
 
-Cuerpo, en este orden (ver `prompt.md` para el contenido de cada parte):
+Cuerpo, en este orden (ver `prompt.md` 2.0 para el contenido de cada parte):
 
 ```markdown
-# Radar · 24 de septiembre de 2026
+# Radar · 25 de septiembre de 2026
 
 ## Carril 1: Radar
 
-### 1. Título de la fricción (lugar → lugar de la solución)
+### 1. Título de la fricción (lugar → lugar de la intervención)
 
-**Qué pasó.** …
-**Quién lo está resolviendo.** …
-**El cómo, en corto.** …
+**Qué ocurrió.** …
+**Quién lo está abordando.** …
+**Mecanismo en versión breve.** …
 **Contrapeso.** …
-**Qué dice la historia.** *(Conocimiento general.)* …
+**Antecedente histórico.** *(Conocimiento general.)* …
 **Cruce con Mattriz.** …
 
-### Seguimiento: tema   ← solo si hay novedad sin cambio de fondo
+### Seguimiento: tema   ← solo si hay novedad sin cambio sustantivo
+
+Nota breve, con enlace a la edición donde se trató:
+[edición 3](2026-09-23-radar.html).
 
 ## Carril 2: Asombro
 
 **Titular corrido.** texto…
 
-## Lo que descarté
+## Descartes
+
+## Fuentes
+
+1. Medio o institución, "Título", [enlace](https://…).
 
 ## Glosario
 
-## Lo que hice y para qué
-
-## Fuentes
+## Nota metodológica
 ```
 
 - De dos a cuatro fricciones. Cada subtítulo es una negrita al inicio del
   párrafo que termina en punto; así lo reconoce la plantilla.
-- Si no hay solución documentada, usar **Sin salida conocida.** (máximo una
-  o dos por edición, nunca todas).
-- Conflicto de interés (noticias sobre Anthropic, sus competidores o la IA
-  en general): **Conflicto de interés declarado:** al inicio del ítem.
-- "Lo que hice y para qué": cuántas búsquedas, qué se priorizó, qué quedó
-  marcado como no verificado y si la red permitió abrir los artículos.
-- "Fuentes": lista de enlaces markdown a las fuentes usadas, agrupadas por
-  fricción.
-- Tono profesional y académico según la sección "Tono" de `prompt.md`:
-  registro formal, redacción impersonal, atribución explícita de fuentes y
-  cifras con unidad, periodo y fuente. Cerrar con una decisión o una
-  pregunta analítica abierta, nunca con un llamado a la acción.
+- Si no hay intervención documentada, usar **Sin salida conocida.**
+  (máximo una o dos por edición, nunca todas).
+- Conflicto de interés (en particular en inteligencia artificial):
+  **Conflicto de interés declarado:** al inicio del ítem.
+- Lo que no provenga de una fuente verificada en la edición se marca en
+  cursiva y entre paréntesis: *(Conocimiento general.)* o
+  *(Fuente única; no verificado.)*. Así la plantilla lo muestra con el
+  sello de no verificado.
+- "Fuentes": listado numerado con medio o institución, título y enlace.
+  Toda cifra del cuerpo debe poder rastrearse ahí.
+- "Nota metodológica": número aproximado de consultas, criterios de
+  priorización, qué quedó como no verificado y si la red permitió abrir
+  los artículos.
+- Registro y estilo según `prompt.md`: formal, tercera persona,
+  atribución con institución, fecha y tipo de documento, diseño de la
+  evidencia nombrado y lenguaje calibrado ante la incertidumbre. El cierre
+  y el glosario van en registro directo.
+- Aplicar además las reglas vigentes de `AJUSTES.md`.
 
 ## 5. Publicar
 

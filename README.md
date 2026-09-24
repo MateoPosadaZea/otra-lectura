@@ -67,6 +67,26 @@ generado.
 El sitio es público. Si algún día se quiere privado, se pone Cloudflare
 Access delante del Worker; no hay que tocar el código.
 
+## Ajustes de estilo y tono
+
+Cada página tiene al final "Sugerir un ajuste de estilo o tono". El
+formulario lo recibe el Worker (`src/worker.js`), que valida la clave
+familiar y lo guarda como issue `[Ajuste] …` en GitHub. Cada hora, de 6 a. m.
+a 10 p. m. (Colombia), Claude revisa esos issues:
+
+- una corrección puntual se aplica a la edición indicada;
+- una indicación general se agrega como regla en `AJUSTES.md`, que la
+  rutina diaria aplica a las ediciones siguientes;
+
+y luego reconstruye, publica, comenta en el issue y lo cierra.
+
+Configuración, una sola vez, en Cloudflare → Worker `otra-lectura` →
+Settings → Variables and Secrets (tipo Secret):
+
+- `GITHUB_TOKEN`: token fine-grained de GitHub, solo para este repo, con
+  permiso *Issues: Read and write*.
+- `CLAVE_FAMILIA`: la clave que se escribe en el formulario.
+
 ## Estructura
 
 ```
@@ -79,5 +99,7 @@ scripts/build.py    frontmatter + markdown → HTML
 build.sh            prepara .venv y ejecuta el build
 deploy.sh           build + commit + push
 site/               salida generada (se publica tal cual)
-wrangler.jsonc      Cloudflare Workers sirve site/ como estáticos
+wrangler.jsonc      Cloudflare Workers: site/ como estáticos y /api/* al Worker
+src/worker.js       recibe el formulario de ajustes y crea el issue en GitHub
+AJUSTES.md          reglas de estilo acumuladas a partir de los ajustes
 ```

@@ -289,6 +289,25 @@ def linea_fecha(e):
     return " · ".join(partes)
 
 
+def form_ajuste(pagina, titulo):
+    """Formulario de ajustes de estilo y tono; lo recibe src/worker.js."""
+    return f"""<details class="ajuste">
+<summary>Sugerir un ajuste de estilo o tono</summary>
+<form method="post" action="/api/ajuste">
+<input type="hidden" name="pagina" value="{html.escape(pagina)}">
+<input type="hidden" name="titulo" value="{html.escape(titulo)}">
+<label>Ajuste
+<textarea name="texto" rows="5" maxlength="4000" required placeholder="Por ejemplo: en la fricción 2, «plata» debería decir «recursos». En general, menos frases cortas."></textarea></label>
+<div class="ajuste-fila">
+<label>Nombre <input name="quien" autocomplete="name"></label>
+<label>Clave <input name="clave" type="password" autocomplete="current-password" required></label>
+</div>
+<button type="submit">Enviar ajuste</button>
+<p class="ajuste-nota">Los ajustes puntuales corrigen esta edición; los generales se vuelven regla para las siguientes. Se aplican cada hora, de 6 a. m. a 10 p. m.</p>
+</form>
+</details>"""
+
+
 def pagina_edicion(base, e, anterior, siguiente):
     nav = []
     if anterior:
@@ -308,7 +327,8 @@ def pagina_edicion(base, e, anterior, siguiente):
 </header>
 {e['cuerpo']}
 </article>
-<nav class="entre-ediciones" aria-label="Otras ediciones">{''.join(nav)}</nav>"""
+<nav class="entre-ediciones" aria-label="Otras ediciones">{''.join(nav)}</nav>
+{form_ajuste(f"/ediciones/{e['slug']}.html", e['titulo'])}"""
     return base.substitute(
         titulo=html.escape(f"{e['titulo']} · Otra lectura"),
         descripcion=html.escape(e["antetitulo"] or e["titulo"]),
@@ -336,7 +356,8 @@ def pagina_lista(base, ediciones, todas, raiz, titulo, bajada, actual=None):
 {nav_categorias(todas, raiz, actual)}
 <ol class="indice" reversed>
 {lista}
-</ol>""",
+</ol>
+{form_ajuste("/" if actual is None else f"/categorias/{actual}.html", titulo)}""",
     )
 
 
