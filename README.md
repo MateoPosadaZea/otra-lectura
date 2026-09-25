@@ -20,7 +20,7 @@ pasa de `LARGO_MAXIMO` (1.500 palabras). Detalle en `RUTINA.md`.
 
 - **Hilos** (`temas/<slug>.html`): un tema con más de una entrada (primera
   vez, seguimientos, actualizaciones) tiene su página con la línea de
-  tiempo. La fricción original enlaza a su hilo y "Días anteriores" los
+  tiempo. El nudo original enlaza a su hilo y "Días anteriores" los
   lista. Se generan solos a partir de `temas`, `seguimiento` y
   `actualizaciones`.
 - **Pulso**: al final de cada edición, "¿Cómo le quedó? Liviana / Justa /
@@ -84,7 +84,7 @@ OMS, CEPAL → oficial; etc.). Al final de cada edición se muestra el conteo
 ## Navegación
 
 - **Portada** (`index.html`): el epígrafe y solo las ediciones del día más
-  reciente, cada una con sus fricciones principales (enlazan a su ancla).
+  reciente, cada una con sus nudos principales (enlazan a su ancla).
 - **Días anteriores** (`archivo.html`): todas las fechas agrupadas por mes,
   con sus temas; con JavaScript, además, un selector "Ir a una fecha".
 - **Un día** (`dias/AAAA-MM-DD.html`): las ediciones de esa fecha, con
@@ -134,7 +134,7 @@ El formato editorial está en `prompt.md` y el técnico en `ESPECIFICACION.md`.
        url: "https://..."            # obligatoria
    actualizaciones:                  # se agregan después de publicar
      - fecha: 2026-10-02
-       friccion: "presupuesto-2027"  # opcional: slug de la fricción
+       nudo: "presupuesto-2027"      # opcional: slug del nudo
        texto: "El Congreso aprobó el presupuesto el 1 de octubre..."
    correcciones:                     # se agregan después de publicar
      - fecha: 2026-09-30
@@ -147,8 +147,8 @@ El formato editorial está en `prompt.md` y el técnico en `ESPECIFICACION.md`.
    - `seguimiento` se muestra como enlaces a las ediciones anteriores que
      tienen ese slug en `temas`.
    - `fuentes` sale como lista numerada al cierre (antes del glosario).
-   - `actualizaciones` con `friccion` aparece al pie de esa fricción; sin
-     `friccion`, al final de la edición. `correcciones` va siempre al final.
+   - `actualizaciones` con `nudo` aparece al pie de ese nudo; sin
+     `nudo`, al final de la edición. `correcciones` va siempre al final.
      **El texto original nunca se edita: la corrección se agrega.** El
      índice y la cabecera marcan las ediciones revisadas con la fecha del
      cambio más reciente.
@@ -161,9 +161,9 @@ El formato editorial está en `prompt.md` y el técnico en `ESPECIFICACION.md`.
    |---|---|
    | `# Radar · 24 de septiembre de 2026` | se omite (la cabecera sale del frontmatter) |
    | `## Carril 1: Radar`, `## Carril 2: Asombro`, `## Descartes`, `## Glosario` | divisor de carril |
-   | `### 1. Nombre de la fricción {#slug}` | fricción; `{#slug}` es opcional y es lo que usa `actualizaciones.friccion` (sin él, el slug sale del título) |
+   | `### 1. Nombre del nudo {#slug}` | nudo; `{#slug}` es opcional y es lo que usa `actualizaciones.nudo` (sin él, el slug sale del título) |
    | `### Seguimiento: tema` | nota corta de seguimiento |
-   | `**Qué ocurrió.** texto` | subtítulo de la fricción |
+   | `**Qué ocurrió.** texto` | subtítulo del nudo |
    | `**Contrapeso.**` | tarjeta con doble borde |
    | `**Antecedente histórico.** *(Conocimiento general.)* …` | sello rojo y fondo rayado (todo el párrafo) |
    | `… *(Conocimiento general:* texto *)*` a mitad de párrafo | solo ese tramo resaltado |
@@ -212,7 +212,7 @@ datos:
 - una fuente no tiene `url` (o no es http/https);
 - un slug de `seguimiento` no aparece en `temas` de ninguna edición
   anterior;
-- una actualización apunta a una fricción que no existe en esa edición;
+- una actualización apunta a un nudo que no existe en esa edición;
 - un bloque `grafico` está mal escrito (tipo, campos o números);
 - en `candidatas.md` una candidata no empieza con `Estado:` o tiene un
   estado inválido.

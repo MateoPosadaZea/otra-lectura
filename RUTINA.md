@@ -27,7 +27,7 @@ con qué contrapeso y qué patrón histórico ayuda a entenderlo.
 - `README.md`: tabla de convenciones de markdown que entiende la plantilla.
 - `PULSO.md`: las valoraciones (Liviana / Justa / Pesada) que los lectores
   dejan al final de cada edición. Si las últimas dicen "Pesada", hacer la
-  de hoy más corta (menos fricciones, menos palabras); si dicen "Liviana"
+  de hoy más corta (menos nudos, menos palabras); si dicen "Liviana"
   de forma sostenida, se puede profundizar un poco, sin pasar el techo.
 - Las cinco ediciones más recientes: sus `temas`, `seguimiento`,
   `cruce_mattriz` y "Lo que descarté", para no repetir temas (salvo como
@@ -36,7 +36,7 @@ con qué contrapeso y qué patrón histórico ayuda a entenderlo.
 ### Días livianos y domingo
 
 - **Días livianos.** Si no hay novedades de fondo, se permite una edición
-  corta: una sola fricción, o solo seguimientos de temas ya tratados, o
+  corta: un solo nudo, o solo seguimientos de temas ya tratados, o
   incluso solo el carril de Asombro. Decirlo con franqueza en "En tres
   minutos" ("Hoy no hubo cambios de fondo; esto es lo que vale la pena").
   No inventar urgencia.
@@ -44,7 +44,7 @@ con qué contrapeso y qué patrón histórico ayuda a entenderlo.
   nuevos. La edición es **"La semana en limpio"**:
   - `titulo: "La semana en limpio · <fechas>"`; en `temas` y
     `seguimiento` van los slugs de la semana que se repasan (en `temas`
-    solo si se escribe una fricción nueva sobre ellos; lo normal es
+    solo si se escribe un nudo nuevo sobre ellos; lo normal es
     `seguimiento`).
   - Carril Radar con `### Seguimiento: …` por cada tema que tuvo
     movimiento: qué cambió desde que se trató y qué sigue abierto.
@@ -55,9 +55,10 @@ con qué contrapeso y qué patrón histórico ayuda a entenderlo.
 ## 2b. Elegir los temas: los de mayor impacto en la sociedad
 
 El sitio trata **los temas de mayor impacto en la sociedad**, no los más
-comentados del día. Antes de escribir, reunir de 6 a 10 candidatos (que
-cumplan la definición de fricción de prompt.md) y puntuar cada uno de 1 a 3
-en cinco criterios:
+comentados del día. Antes de escribir, reunir de 6 a 10 candidatos que
+cumplan las **cuatro condiciones de nudo** de prompt.md (el que falle una
+queda fuera, sin importar su puntaje) y puntuar cada uno de 1 a 3 en cinco
+criterios:
 
 | Criterio | Pregunta | 1 | 3 |
 |---|---|---|---|
@@ -117,7 +118,7 @@ para el hecho puntual, no para interpretarlo.
    citan, decir quiénes son y, si aplica, su orientación.
 
 Metas por edición (guía, no excusa para rellenar):
-- Cada fricción con al menos **una fuente académica** y **una oficial o de
+- Cada nudo con al menos **una fuente académica** y **una oficial o de
   datos**, además de la prensa.
 - Al menos la **mitad de las fuentes no son de prensa**. Si para un tema
   solo hay prensa, se dice en la nota metodológica ("para este tema no se
@@ -142,7 +143,7 @@ Frontmatter:
 ---
 fecha: AAAA-MM-DD
 edicion: N
-titulo: "Titular que resuma las fricciones del día"
+titulo: "Titular que resuma los nudos del día"
 temas: [tema-uno, tema-dos]
 categorias: [economia, salud]
 lugares: [Colombia, ...]
@@ -156,8 +157,8 @@ fuentes:
 ---
 ```
 
-`categorias` usa solo estas claves (una o varias por edición, según las
-fricciones y el carril de Asombro):
+`categorias` usa solo estas claves (una o varias por edición, según los
+nudos y el carril de Asombro):
 
 | Clave | Categoría | Incluye |
 |---|---|---|
@@ -177,7 +178,7 @@ Cuerpo, en este orden (ver `prompt.md` 2.0 para el contenido de cada parte):
 
 ## Carril 1: Radar
 
-### 1. Título de la fricción (lugar → lugar de la intervención) {#tema-uno}
+### 1. Título del nudo (lugar → lugar de la intervención) {#tema-uno}
 
 **Qué ocurrió.** …
 **Quién lo está abordando.** …
@@ -214,14 +215,14 @@ cercano (preguntar, participar, votar, revisar). Si no lo hay, se omite.
   Glosario ni Nota metodológica, no pasa de unas 1.500 palabras (unos 7
   minutos de lectura). El build avisa si se pasa: en ese caso recortar,
   no justificar. Mejor tres temas bien entendidos que cinco a medias. Un
-  día sin novedades de fondo puede tener una sola fricción, o solo
+  día sin novedades de fondo puede tener un solo nudo, o solo
   seguimientos.
 - Sin resúmenes rápidos al comienzo ("En tres minutos" ya no existe): el
   sitio apuesta por la profundidad. El índice de la edición lo genera la
-  plantilla a partir de los títulos de las fricciones.
+  plantilla a partir de los títulos de los nudos.
 - **Para conversar** cierra la parte de lectura: una pregunta que invite a
   pensar (no a indignarse) y, cuando exista, una acción ciudadana concreta.
-- Hasta tres fricciones (dos es un buen número). Cada subtítulo es una negrita al inicio del
+- Hasta tres nudos (dos es un buen número). Cada subtítulo es una negrita al inicio del
   párrafo que termina en punto; así lo reconoce la plantilla.
 - Si no hay intervención documentada, usar **Sin salida conocida.**
   (máximo una o dos por edición, nunca todas).
@@ -236,14 +237,14 @@ cercano (preguntar, participar, votar, revisar). Si no lo hay, se omite.
   cierre y muestra cuántas son académicas, oficiales, de datos, de
   organizaciones y de prensa.
   Toda cifra del cuerpo debe poder rastrearse ahí.
-- Cada fricción lleva un slug `{#…}` al final del título, igual a su
+- Cada nudo lleva un slug `{#…}` al final del título, igual a su
   entrada en `temas`. Así las ediciones siguientes pueden hacerle
   seguimiento y agregarle actualizaciones.
 - `seguimiento` solo admite slugs que estén en `temas` de una edición
-  anterior (el build falla si no). Cuando una fricción ya tratada tiene
+  anterior (el build falla si no). Cuando un nudo ya tratado tiene
   novedad: nota breve en `### Seguimiento: …` de la edición de hoy, su
   slug en `seguimiento` y, además, una entrada en `actualizaciones` de la
-  edición original (`fecha`, `friccion` con su slug y `texto` de una o dos
+  edición original (`fecha`, `nudo` con su slug y `texto` de una o dos
   frases). Nunca se edita el texto de una edición ya publicada; los
   errores detectados se agregan en su campo `correcciones`. (La excepción
   son los cambios que los editores hacen con "Editar el texto" en el
@@ -259,7 +260,7 @@ cercano (preguntar, participar, votar, revisar). Si no lo hay, se omite.
 - Gráficos (ver también AJUSTES.md): cuando una comparación o una evolución se entiende mejor
   viéndola (no por decorar), agregar un bloque ` ```grafico ` justo después
   del párrafo que da las cifras. Solo con cifras que estén en el texto y en
-  `fuentes`; como máximo uno por fricción. Tipos: `barras` (comparar
+  `fuentes`; como máximo uno por nudo. Tipos: `barras` (comparar
   magnitudes), `columnas` (pocos periodos), `lineas` (tendencia, hasta 3
   series), `puntos` con `escala: log` (magnitudes muy distintas). Formato
   y ejemplo en `scripts/graficos.py`; el build falla si el bloque está mal.
@@ -276,7 +277,7 @@ cercano (preguntar, participar, votar, revisar). Si no lo hay, se omite.
    `site/ediciones/<fecha>-radar.html`. Si el build se detiene, leer el
    mensaje (archivo, campo y motivo), corregir el frontmatter y repetir;
    no publicar nunca con el build fallando. Revisar que el HTML tenga los
-   carriles, las fricciones y las fuentes numeradas.
+   carriles, los nudos y las fuentes numeradas.
 2. Commit solo de `ediciones/`, `site/` y, si cambiaron, `candidatas.md`
    y `AJUSTES.md`, con el mensaje
    `Edición N · <fecha>`.

@@ -8,8 +8,8 @@ requirements.txt). El frontmatter lo lee scripts/frontmatter.py.
 Convenciones del cuerpo de las ediciones (ver prompt.md y RUTINA.md):
   # Radar · fecha              → antetítulo (se omite; la cabecera sale del frontmatter)
   ## Carril 1: Radar           → carril (divisor de sección)
-  ### 1. Fricción {#slug}      → fricción; el slug es opcional (si falta, sale del título)
-  **Qué ocurrió.** texto       → subtítulo de la fricción (etiqueta en negrita)
+  ### 1. Nudo {#slug}      → nudo; el slug es opcional (si falta, sale del título)
+  **Qué ocurrió.** texto       → subtítulo del nudo (etiqueta en negrita)
   *(Conocimiento general.)*    → marca de "no verificado"
 
 El build falla con un mensaje claro si una edición tiene frontmatter
@@ -261,9 +261,10 @@ def validar(meta, ruta):
     datos["actualizaciones"] = [
         {"fecha": _fecha(a.get("fecha"), f"actualizaciones[{i}].fecha"),
          "texto": _texto(a.get("texto"), f"actualizaciones[{i}].texto"),
-         "friccion": _texto(a.get("friccion"), f"actualizaciones[{i}].friccion", requerido=False)}
+         # "nudo"; "friccion" es el nombre anterior y se sigue aceptando.
+         "nudo": _texto(a.get("nudo", a.get("friccion")), f"actualizaciones[{i}].nudo", requerido=False)}
         for i, a in enumerate(_lista_mapas(meta.get("actualizaciones"), "actualizaciones",
-                                           ["fecha", "friccion", "texto"]), 1)]
+                                           ["fecha", "nudo", "friccion", "texto"]), 1)]
     datos["correcciones"] = [
         {"fecha": _fecha(c.get("fecha"), f"correcciones[{i}].fecha"),
          "texto": _texto(c.get("texto"), f"correcciones[{i}].texto")}
@@ -310,12 +311,12 @@ def clases_heading(nivel, texto):
 
 
 def envolver_secciones(cuerpo):
-    """<h2> abre un carril (<section>) y <h3> una fricción (<article id=slug>).
+    """<h2> abre un carril (<section>) y <h3> un nudo (<article id=slug>).
 
     Cada bloque va hasta el siguiente título de nivel igual o superior. Deja
-    marcas <!--fin:slug--> al cierre de cada fricción (para sus
+    marcas <!--fin:slug--> al cierre de cada nudo (para sus
     actualizaciones) y <!--antes-glosario--> antes del glosario (para las
-    fuentes). Devuelve (html, slugs_de_fricciones).
+    fuentes). Devuelve (html, slugs_de_nudos).
     """
     salida, pila, pos, slugs = [], [], 0, []
 
@@ -451,27 +452,27 @@ def leer_edicion(ruta):
         e["antetitulo"] = texto_plano(m.group(1)).strip()
         cuerpo = cuerpo[m.end():]
 
-    cuerpo, e["fricciones"] = envolver_secciones(cuerpo)
-    # Títulos de las fricciones (sin número ni lugares) para la descripción.
-    e["indice_fricciones"] = [
+    cuerpo, e["nudos"] = envolver_secciones(cuerpo)
+    # Títulos de los nudos (sin número ni lugares) para la descripción.
+    e["indice_nudos"] = [
         (slug, re.sub(r"\s*\([^)]*\)\s*$", "", re.sub(r"^\s*\d+\.\s*", "", texto_plano(t))).strip())
         for slug, t in re.findall(
             r'<article class="item(?! seguimiento)[^"]*" id="([^"]+)">\s*<h3[^>]*>(.*?)</h3>', cuerpo, re.S)]
-    e["titulos_fricciones"] = [t for _, t in e["indice_fricciones"]]
+    e["titulos_nudos"] = [t for _, t in e["indice_nudos"]]
     # Tiempo de lectura: ~200 palabras por minuto, sin contar descartes,
     # glosario ni nota metodológica (van al cierre y son de consulta).
     lectura = re.split(r'<section class="carril cierre"', cuerpo)[0]
     e["palabras"] = len(texto_plano(lectura).split())
     e["minutos"] = max(1, round(e["palabras"] / 200))
     e["cuerpo"] = graficos.insertar(marcar_bloques(cuerpo), figuras)
-    e["cuerpo"], e["cruces"] = sacar_cruces(e["cuerpo"], dict(e["indice_fricciones"]))
+    e["cuerpo"], e["cruces"] = sacar_cruces(e["cuerpo"], dict(e["indice_nudos"]))
     e["glosario"] = extraer_glosario(e["cuerpo"])
 
     for i, a in enumerate(e["actualizaciones"], 1):
-        if a["friccion"] and a["friccion"] not in e["fricciones"]:
+        if a["nudo"] and a["nudo"] not in e["nudos"]:
             raise ErrorEdicion(
-                f"actualizaciones[{i}].friccion: «{a['friccion']}» no es una fricción de esta "
-                f"edición (disponibles: {', '.join(e['fricciones']) or 'ninguna'})")
+                f"actualizaciones[{i}].nudo: «{a['nudo']}» no es un nudo de esta "
+                f"edición (disponibles: {', '.join(e['nudos']) or 'ninguno'})")
     cambios = [a["fecha"] for a in e["actualizaciones"]] + [c["fecha"] for c in e["correcciones"]]
     e["ultimo_cambio"] = max(cambios) if cambios else ""
     return e
@@ -482,14 +483,14 @@ RE_CRUCE = re.compile(r'<p class="con-etiqueta cruce[^"]*">\s*<strong class="eti
 
 def sacar_cruces(cuerpo, titulos):
     """El "Cruce con Mattriz" no se muestra en la edición: se guarda para la
-    página de Candidatas (con la fricción de donde salió). Los "No hay." se
+    página de Candidatas (con el nudo de donde salió). Los "No hay." se
     descartan."""
     cruces = []
     for m in re.finditer(r'<article class="item[^"]*" id="([^"]+)">(.*?)<!--fin:\1-->', cuerpo, re.S):
         for c in RE_CRUCE.finditer(m.group(2)):
             texto = c.group(1).strip()
             if not re.fullmatch(r"no hay\.?", texto_plano(texto).strip(), re.I):
-                cruces.append({"slug": m.group(1), "friccion": titulos.get(m.group(1), ""), "html": texto})
+                cruces.append({"slug": m.group(1), "nudo": titulos.get(m.group(1), ""), "html": texto})
     return RE_CRUCE.sub("", cuerpo), cruces
 
 
@@ -516,16 +517,16 @@ def reunir_hilos(ediciones):
     sus actualizaciones, en orden. Solo los que tienen más de una entrada."""
     hilos = {}
     for e in sorted(ediciones, key=lambda o: (o["fecha"], o["orden"])):
-        titulos = dict(e["indice_fricciones"])
+        titulos = dict(e["indice_nudos"])
         for slug in e["temas"]:
-            if slug not in e["fricciones"]:
+            if slug not in e["nudos"]:
                 continue
             h = hilos.setdefault(slug, {"slug": slug, "titulo": titulos.get(slug, slug.replace("-", " ")),
                                         "entradas": []})
             h["entradas"].append({"fecha": e["fecha"], "tipo": "Primera vez", "e": e,
                                   "href": f"../ediciones/{e['slug']}.html#{slug}"})
             for a in e["actualizaciones"]:
-                if a["friccion"] == slug:
+                if a["nudo"] == slug:
                     h["entradas"].append({"fecha": a["fecha"], "tipo": "Actualización", "e": e,
                                           "texto": a["texto"],
                                           "href": f"../ediciones/{e['slug']}.html#{slug}"})
@@ -694,8 +695,8 @@ def cuerpo_edicion(e):
     for a in e["actualizaciones"]:
         n += 1
         bloque = html_actualizacion(a, n)
-        if a["friccion"]:
-            marca = f"<!--fin:{a['friccion']}-->"
+        if a["nudo"]:
+            marca = f"<!--fin:{a['nudo']}-->"
             cuerpo = cuerpo.replace(marca, bloque + marca, 1)
         else:
             generales.append(bloque)
@@ -770,7 +771,7 @@ def recortar(texto, limite):
 
 
 def descripcion_edicion(e):
-    temas = "; ".join(e["titulos_fricciones"])
+    temas = "; ".join(e["titulos_nudos"])
     inicio = f"Edición {e['edicion']}, {fecha_legible(e['fecha'])}"
     cuerpo = f"{inicio}: {temas}." if temas else f"{inicio}: {e['titulo']}."
     return f"{cuerpo} Contexto, soluciones y contrapeso."
@@ -887,7 +888,7 @@ def pagina_edicion(base, e, ediciones):
 
 def html_atajos(e):
     """Índice de la edición: sus temas y la pregunta del final, para orientarse."""
-    items = [f'<li><a href="#{slug}">{html.escape(t)}</a></li>' for slug, t in e["indice_fricciones"]]
+    items = [f'<li><a href="#{slug}">{html.escape(t)}</a></li>' for slug, t in e["indice_nudos"]]
     if 'id="para-conversar"' in e["cuerpo"]:
         items.append('<li><a href="#para-conversar">Para conversar</a></li>')
     if len(items) < 2:
@@ -953,12 +954,12 @@ def por_dia(ediciones):
 
 
 def html_ediciones_dia(ediciones, raiz):
-    """Las ediciones de un día con sus fricciones principales."""
+    """Las ediciones de un día con sus nudos principales."""
     bloques = []
     for e in ediciones:
         href = f"{raiz}ediciones/{e['slug']}.html"
         temas = "".join(f'<li><a href="{href}#{slug}">{html.escape(t)}</a></li>'
-                        for slug, t in e["indice_fricciones"])
+                        for slug, t in e["indice_nudos"])
         temas = f'<ul class="dia-temas" aria-label="Temas principales">{temas}</ul>' if temas else ""
         edicion = " · ".join(([f"Edición {html.escape(e['edicion'])}"] if e["edicion"] else [])
                              + [minutos_lectura(e)])
@@ -1010,7 +1011,7 @@ def pagina_dia(base, fecha, del_dia, anterior, siguiente):
 </header>
 {html_ediciones_dia(del_dia, "../")}
 <nav class="entre-ediciones" aria-label="Otros días">{''.join(nav)}</nav>"""
-    temas = "; ".join(t for e in del_dia for t in e["titulos_fricciones"])
+    temas = "; ".join(t for e in del_dia for t in e["titulos_nudos"])
     descripcion = f"Otra lectura del {fecha_legible(fecha)}: {temas}." if temas else f"Otra lectura del {fecha_legible(fecha)}."
     return pagina(base, html.escape(f"{titulo} · Otra lectura"), descripcion, "../", contenido,
                   f"/dias/{fecha}.html")
@@ -1037,7 +1038,7 @@ def pagina_archivo(base, dias, hilos=None):
         anio, m = mes.split("-")
         filas = []
         for fecha, del_dia in lista:
-            temas = " · ".join(html.escape(t) for e in del_dia for t in e["titulos_fricciones"])
+            temas = " · ".join(html.escape(t) for e in del_dia for t in e["titulos_nudos"])
             filas.append(f"""<li>
 <a href="dias/{fecha}.html"><time datetime="{fecha}">{fecha_con_dia(fecha).capitalize()}</time></a>
 <p class="archivo-temas">{temas}</p>
@@ -1136,7 +1137,7 @@ def html_cruces(ediciones):
     for e in ediciones:
         for c in e["cruces"]:
             filas.append(f"""<li>
-<p class="origen"><a href="ediciones/{e['slug']}.html#{c['slug']}">{html.escape(c['friccion'] or e['titulo'])}</a> · {enlace_edicion(e, "")}</p>
+<p class="origen"><a href="ediciones/{e['slug']}.html#{c['slug']}">{html.escape(c['nudo'] or e['titulo'])}</a> · {enlace_edicion(e, "")}</p>
 <p>{c['html']}</p>
 </li>""")
     if not filas:
@@ -1243,7 +1244,7 @@ def main():
 
     hilos = reunir_hilos(ediciones)
     for e in ediciones:
-        e["hilos"] = [slug for slug in hilos if slug in e["fricciones"] and slug in e["temas"]]
+        e["hilos"] = [slug for slug in hilos if slug in e["nudos"] and slug in e["temas"]]
         e["hilos_todos"] = set(hilos)
     if hilos:
         (SITE / "temas").mkdir()

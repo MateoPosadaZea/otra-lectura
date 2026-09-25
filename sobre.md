@@ -9,7 +9,12 @@ detiene en ellos.
 
 ## Cómo se lee una edición
 
-Cada tema del **Radar** se cuenta en el mismo orden:
+Cada tema del **Radar** es un **nudo**: un problema que se repite porque
+algo lo sostiene, y que alguien podría desatar. Para entrar debe cumplir
+cuatro condiciones: se repite o persiste, tiene una causa identificable,
+alguien lo puede cambiar y causa un daño comprobable.
+
+Cada nudo se cuenta en el mismo orden:
 
 - **Qué pasó.** El hecho, con sus cifras y sus fuentes.
 - **Por qué se repite.** Lo que hace que el problema vuelva.

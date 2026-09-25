@@ -307,7 +307,7 @@ footer.sitio .cabezote { font-size: 1.6rem; color: var(--tinta); }
   text-align: center;
 }
 
-/* Fricción: titular de diario. */
+/* Nudo: titular de diario. */
 .edicion h3 {
   margin: 0 0 0.9rem;
   padding-top: 2rem;
@@ -322,7 +322,7 @@ footer.sitio .cabezote { font-size: 1.6rem; color: var(--tinta); }
 .item + .item { margin-top: 2rem; border-top: 1px solid var(--tinta); }
 .edicion h4, .edicion h5, .edicion h6 { font-family: var(--serif); font-weight: 400; font-size: 1.4em; margin: 1.5rem 0 0.25rem; }
 
-/* Subtítulos de la fricción (Qué pasó, Contrapeso…): versalitas sans, al estilo National Geographic. */
+/* Subtítulos del nudo (Qué pasó, Contrapeso…): versalitas sans, al estilo National Geographic. */
 .carril-radar .etiqueta {
   display: block;
   margin: 1.5rem 0 0.3rem;

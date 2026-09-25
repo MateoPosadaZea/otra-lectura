@@ -1,6 +1,6 @@
 # Otra lectura — especificación del radar
 
-Versión: 2.0 · 24 de septiembre de 2026
+Versión: 2.1 · 25 de septiembre de 2026
 
 Fuente de verdad del formato. Sirve como prompt en la generación manual
 y como parte del input del script cuando se automatice.
@@ -19,31 +19,40 @@ constituyen el límite.
 
 ---
 
-## Definición de fricción
+## Definición de nudo
 
-Un punto donde algo se traba de forma recurrente. Tres criterios:
+Un **nudo** es un problema que se repite porque algo lo sostiene, y que
+alguien podría desatar. (Antes se llamaba "fricción".) Un tema entra al
+Radar solo si cumple las **cuatro condiciones**; si falla una, no entra.
 
-1. Recurrencia. Un terremoto es un evento; que la reconstrucción se
-   contrate con controles reducidos en cada emergencia es una fricción.
-2. Estructura de incentivos. Algún actor obtiene beneficio, o al menos no
-   asume costo, de que la situación persista; o el costo de corregirla
-   recae sobre quien decide y el beneficio sobre terceros.
-3. Intervenibilidad. Si ningún actor puede modificar el curso, se trata
-   de una tragedia, no de una fricción.
+| Condición | Prueba | No cumple si… |
+|---|---|---|
+| 1. Se repite o persiste | Al menos dos casos documentados, o una serie de datos que lo muestre en el tiempo | Es un hecho aislado |
+| 2. Tiene un mecanismo | Se completa la frase "esto se repite porque…" con una causa concreta: una regla, un incentivo, falta de capacidad o falta de información | Solo se puede decir "esto pasó" |
+| 3. Alguien lo puede cambiar | Se nombra al menos un actor con poder para cambiarlo: gobierno, empresa, comunidad o institución | Nadie puede modificar el curso: es una tragedia, no un nudo |
+| 4. Causa daño comprobable | Hay cifras de quién sale perjudicado y cuánto | Solo genera indignación, o es una pelea política por el poder |
 
-Criterio operativo: si puede completarse la proposición "esto ocurre de
-forma recurrente porque…", es fricción. Si solo puede afirmarse "esto
-ocurrió", no lo es.
+Sobre el mecanismo: lo típico es que alguien se beneficie, o al menos no
+pague costo, de que la situación siga; o que el costo de corregirla caiga
+sobre quien decide y el beneficio sobre otros.
 
-No constituyen fricción: un hecho adverso sin mecanismo subyacente, la
-competencia política por el poder, un dato de coyuntura, o una noticia
-que genera indignación sin señalar un punto de intervención.
+Ejemplo: un terremoto es un hecho; que la reconstrucción se contrate con
+controles reducidos en cada emergencia es un nudo.
+
+No son nudos: un hecho adverso sin mecanismo, la competencia política por
+el poder, un dato de coyuntura, o una noticia que indigna sin señalar
+dónde intervenir.
+
+**Dos pasos distintos.** Primero el filtro (¿es un nudo? las cuatro
+condiciones). Después el orden (¿qué tan importante? el puntaje de
+impacto de RUTINA.md, sección 2b). El puntaje nunca rescata un tema que
+no pasó el filtro.
 
 ---
 
 ## Carril 1: Radar
 
-Entre dos y cuatro fricciones por edición. Estructura de cada una:
+Entre dos y cuatro nudos por edición. Estructura de cada uno:
 
 1. **Qué ocurrió.** Exposición breve de los hechos, con fecha y fuente.
 2. **Quién lo está abordando.** Intervenciones documentadas, en cualquier
@@ -51,7 +60,7 @@ Entre dos y cuatro fricciones por edición. Estructura de cada una:
    - Incluir el **mecanismo en versión breve** (dos o tres líneas):
      procedimiento concreto, instrumentos, costos cuando estén
      disponibles.
-   - Si no existe intervención documentada, clasificar la fricción como
+   - Si no existe intervención documentada, clasificar el nudo como
      **sin salida conocida** y exponer qué se ha intentado y por qué no
      ha prosperado. Máximo una o dos por edición; nunca la totalidad.
 3. **Contrapeso.** Críticas, limitaciones o resultados mixtos de esa
@@ -63,7 +72,7 @@ Entre dos y cuatro fricciones por edición. Estructura de cada una:
 5. **Cruce con Mattriz.** Únicamente cuando sea efectivo. Si no existe,
    consignarlo. Máximo una o dos candidatas por edición.
 
-**Seguimiento.** Cuando una fricción ya tratada presenta novedad sin
+**Seguimiento.** Cuando un nudo ya tratado presenta novedad sin
 cambio sustantivo, se consigna como nota breve, con enlace a la edición
 donde se trató, y no como análisis completo.
 
