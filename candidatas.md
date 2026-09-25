@@ -97,3 +97,32 @@ contratistas.
 semana, con la lista de contratos, las alertas y la comparación de
 precios, más una nota metodológica que explique qué significa cada
 alerta y qué no significa.
+
+## Recordatorio de vacunación por mensaje de texto
+
+Estado: pendiente
+
+**Qué resolvería.** En Colombia, la cobertura de la triple viral está en
+93,5% para los niños nacidos desde 2019, por debajo del 95% que impide que
+el sarampión circule. Parte de la brecha no es rechazo, sino olvido o
+atraso: dosis que nadie recuerda a tiempo.
+
+**Cómo.** Un mensaje de texto a las familias cuando se acerca una dosis o
+cuando ya se atrasó, con la vacuna pendiente y el punto de vacunación más
+cercano. Una revisión Cochrane de 2018 (75 estudios) encontró que los
+recordatorios por mensaje de texto, postal o llamada automática
+probablemente aumentan en 28% la proporción de personas vacunadas.
+
+**Por dónde empezar.**
+
+1. Revisar qué datos del registro nominal de vacunación (PAIWEB) pueden
+   usar las secretarías de salud y con qué reglas de privacidad (a
+   verificar).
+2. Buscar una secretaría municipal con cobertura baja dispuesta a un
+   piloto y a medir el resultado.
+3. Diseñar el mensaje con pocas palabras, la dosis pendiente y el lugar,
+   y compararlo contra un grupo que no lo recibe.
+
+**Entregable posible.** Piloto de tres meses en un municipio: envío
+automático de recordatorios, tablero simple de dosis recuperadas frente a
+un grupo de comparación y una nota de una página con lo aprendido.

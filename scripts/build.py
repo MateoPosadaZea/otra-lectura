@@ -662,7 +662,9 @@ def html_fuentes(fuentes):
         items.append(f'<li><span class="tipo-fuente tipo-{f["tipo"]}">{tipo}</span> '
                      f'{medio}<a href="{html.escape(f["url"])}">{html.escape(f["titulo"])}</a></li>')
     conteo = [(t, sum(f["tipo"] == t for f in fuentes)) for t in TIPOS_FUENTE]
-    partes = [f"{n} {TIPOS_FUENTE[t][1].lower() if n != 1 else TIPOS_FUENTE[t][0].lower()}" for t, n in conteo if n]
+    singular = {"academica": "académica", "oficial": "oficial", "datos": "de datos",
+                "organizacion": "de una organización", "prensa": "de prensa", "referencia": "de referencia"}
+    partes = [f"{n} {TIPOS_FUENTE[t][1].lower() if n != 1 else singular[t]}" for t, n in conteo if n]
     resumen = f'<p class="fuentes-resumen">{len(fuentes)} fuentes: {", ".join(partes)}.</p>'
     return (f'<section class="carril cierre fuentes" id="fuentes">\n<h2>Fuentes</h2>\n{resumen}\n'
             f'<ol>\n{chr(10).join(items)}\n</ol>\n</section>\n')
