@@ -52,15 +52,50 @@ con qué contrapeso y qué patrón histórico ayuda a entenderlo.
     de la semana.
   - Máximo unas 1.000 palabras. Sin Asombro nuevo si no hace falta.
 
-## 3. Investigar
+## 3. Investigar (sin prisa: la calidad de las fuentes es lo que distingue al sitio)
 
-- Buscar con WebSearch, en español y en inglés, noticias de las últimas
-  24 a 48 horas: mundo, América Latina y Colombia.
-- Intentar abrir los artículos con WebFetch. Si la red lo bloquea,
-  trabajar con los resultados de búsqueda y cruzar cada cifra clave con al
-  menos dos resultados distintos.
-- Para "Quién lo está resolviendo", buscar casos documentados con
-  resultados medibles, en cualquier país.
+El barrido puede tomar el tiempo que haga falta. La prensa sirve para
+saber **qué pasó**; el análisis, las cifras de fondo, los casos de
+solución y el contrapeso deben venir, siempre que existan, de fuentes
+primarias y académicas. Muchos medios tienen posturas e intereses: se usan
+para el hecho puntual, no para interpretarlo.
+
+1. **El hecho (prensa).** Buscar con WebSearch, en español y en inglés,
+   noticias de las últimas 24 a 48 horas: mundo, América Latina y
+   Colombia. Cruzar cada dato con al menos dos medios de líneas
+   editoriales distintas; si solo hay uno, decirlo.
+2. **El documento de origen (oficial).** Ir a la fuente primaria que la
+   noticia cita: el informe, la ley, el proyecto de presupuesto, la
+   sentencia, el boletín epidemiológico, el comunicado de la entidad
+   (DANE, Banco de la República, Minhacienda, INS, Ideam, OMS, CEPAL, Banco
+   Mundial…).
+3. **El conocimiento (academia).** Para "Por qué se repite", "Quién lo está
+   resolviendo", "El cómo" y "Contrapeso", buscar estudios: revistas
+   revisadas por pares, evaluaciones de impacto, revisiones sistemáticas,
+   documentos de trabajo de universidades y centros serios (PubMed/PMC,
+   SciELO, Redalyc, NBER, SSRN, J-PAL, 3ie, Cochrane, Google Académico vía
+   WebSearch con "site:", "pdf", "systematic review", "impact evaluation",
+   "evaluación de impacto", "revisión sistemática"). Preferir evidencia de
+   diseño fuerte (ensayos, cuasi-experimentos, revisiones) y decir el
+   diseño en el texto.
+4. **Los datos.** Cuando una cifra se pueda tomar de una base de datos
+   (DANE, datos.gov.co, Our World in Data, Banco Mundial), tomarla de ahí.
+5. **Centros de pensamiento y ONG**: útiles, pero con postura; si se
+   citan, decir quiénes son y, si aplica, su orientación.
+
+Metas por edición (guía, no excusa para rellenar):
+- Cada fricción con al menos **una fuente académica** y **una oficial o de
+  datos**, además de la prensa.
+- Al menos la **mitad de las fuentes no son de prensa**. Si para un tema
+  solo hay prensa, se dice en la nota metodológica ("para este tema no se
+  encontró evidencia académica").
+- Wikipedia y enciclopedias solo para orientarse, nunca como fuente de una
+  cifra.
+
+- Intentar abrir los documentos con WebFetch. Si la red lo bloquea,
+  trabajar con los resultados de búsqueda (resúmenes, abstracts) y decirlo
+  en la nota metodológica; no atribuir a un estudio más de lo que dice su
+  resumen.
 - Buscar activamente críticas y resultados mixtos para "Contrapeso".
 - Lo que no se pueda confirmar en fuentes va marcado
   *(Conocimiento general.)* o *(Conocimiento general, no verificado.)*.
@@ -81,9 +116,10 @@ lugares: [Colombia, ...]
 cruce_mattriz: []
 seguimiento: []
 fuentes:
-  - medio: "Institución o medio"
+  - medio: "Institución, revista o medio"
     titulo: "Título del documento o artículo"
     url: "https://…"
+    tipo: academica   # academica | oficial | datos | organizacion | prensa | referencia
 ---
 ```
 
@@ -162,8 +198,10 @@ cercano (preguntar, participar, votar, revisar). Si no lo hay, se omite.
   cursiva y entre paréntesis: *(Conocimiento general.)* o
   *(Fuente única; no verificado.)*. Así la plantilla lo muestra con el
   sello de no verificado.
-- Fuentes: van en el campo `fuentes` del frontmatter (medio, título y
-  url obligatoria), no en el cuerpo; la plantilla las numera al cierre.
+- Fuentes: van en el campo `fuentes` del frontmatter (medio, título, url
+  obligatoria y `tipo`), no en el cuerpo; la plantilla las numera al
+  cierre y muestra cuántas son académicas, oficiales, de datos, de
+  organizaciones y de prensa.
   Toda cifra del cuerpo debe poder rastrearse ahí.
 - Cada fricción lleva un slug `{#…}` al final del título, igual a su
   entrada en `temas`. Así las ediciones siguientes pueden hacerle

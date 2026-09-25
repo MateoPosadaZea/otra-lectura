@@ -62,6 +62,14 @@ cuatro segundos (con "Cancelar" y "Enviar ya"), como una nota con la
 frase seleccionada si la hay. Sin clave guardada, el texto queda en el
 panel de Notas para enviarlo desde ahí.
 
+## Tipos de fuente
+
+Cada fuente del frontmatter puede llevar `tipo`: `academica`, `oficial`,
+`datos`, `organizacion`, `prensa` o `referencia`. Si falta, el build lo
+deduce del dominio (doi.org, PubMed, SciELO, revistas → académica; .gov,
+OMS, CEPAL → oficial; etc.). Al final de cada edición se muestra el conteo
+("68 fuentes: 20 académicas, 5 oficiales…") y una marca por fuente.
+
 ## Lectura más corta
 
 - "Lo que descarté" sigue en el markdown (la rutina lo usa para no

@@ -107,6 +107,36 @@ CAMPOS_CONOCIDOS = {"fecha", "edicion", "titulo", "slug", "nota",
 # Techo editorial de una edición (palabras de lectura, sin el cierre).
 LARGO_MAXIMO = 1500
 
+# Tipos de fuente (campo `tipo` en `fuentes`). Si falta, se deduce del dominio.
+TIPOS_FUENTE = {
+    "academica": ("Académica", "Académicas"),       # artículos revisados por pares, universidades, preprints
+    "oficial": ("Oficial", "Oficiales"),           # Estado, organismos multilaterales, tribunales, leyes
+    "datos": ("Datos", "De datos"),                # estadísticas y bases de datos
+    "organizacion": ("Organización", "De organizaciones"),  # ONG, centros de pensamiento
+    "prensa": ("Prensa", "De prensa"),
+    "referencia": ("Referencia", "De referencia"),  # enciclopedias (solo para contexto, nunca para cifras)
+}
+DOMINIOS_TIPO = [
+    ("referencia", r"wikipedia\.org|britannica\.com"),
+    ("academica", r"index\.php/[^/]+/article|revistabiomedica|doi\.org|pubmed|ncbi\.nlm|scielo|redalyc|jstor|sciencedirect|springer|wiley|nature\.com|science\.org|"
+                  r"thelancet|nejm|bmj|plos|frontiersin|mdpi|arxiv|ssrn|nber\.org|academic\.oup|cambridge\.org|tandfonline|"
+                  r"sagepub|\.edu(\.|/|$)|uniandes|unal\.edu|javeriana|researchgate|revistas?\.|journals?\."),
+    ("datos", r"dane\.gov|datos\.gov|data\.|ourworldindata|statista|datosmacro"),
+    ("oficial", r"\.gov(\.|/|$)|\.gob\.|who\.int|unesco\.org|preventionweb|undrr|paho\.org|worldbank|imf\.org|cepal|un\.org|unicef|undp|oecd|"
+                "europa\.eu|banrep|minhacienda|minsalud|ideam|corteconstitucional|jep\.gov|senado|camara\.gov|"
+                "funcionpublica|ins\.gov"),
+    ("organizacion", r"dejusticia|fedesarrollo|ideaspaz|crisisgroup|brookings|cepr|oxfam|msf\.org|medicosinfronteras|"
+                     r"gavi\.org|cepi\.net|ashden|addiopizzo|hrw\.org|amnesty|\.org(/|$)"),
+]
+
+
+def tipo_por_url(url):
+    for tipo, patron in DOMINIOS_TIPO:
+        if re.search(patron, url, re.I):
+            return tipo
+    return "prensa"
+
+
 RE_NO_VERIFICADO = re.compile(r"conocimiento\s+general|no\s+verificad[oa]s?", re.I)
 
 # Etiqueta en negrita → clase del párrafo que la lleva.
@@ -240,13 +270,16 @@ def validar(meta, ruta):
         for i, c in enumerate(_lista_mapas(meta.get("correcciones"), "correcciones",
                                            ["fecha", "texto"]), 1)]
     fuentes = []
-    for i, f in enumerate(_lista_mapas(meta.get("fuentes"), "fuentes", ["titulo", "medio", "url"]), 1):
+    for i, f in enumerate(_lista_mapas(meta.get("fuentes"), "fuentes", ["titulo", "medio", "url", "tipo"]), 1):
         url = _texto(f.get("url"), f"fuentes[{i}].url")
         if not re.match(r"^https?://\S+$", url):
             raise ErrorEdicion(f"fuentes[{i}].url: «{url}» no es una url http(s) válida")
+        tipo = _texto(f.get("tipo"), f"fuentes[{i}].tipo", requerido=False)
+        if tipo and tipo not in TIPOS_FUENTE:
+            raise ErrorEdicion(f"fuentes[{i}].tipo: «{tipo}» no existe (válidos: {', '.join(TIPOS_FUENTE)})")
         fuentes.append({"titulo": _texto(f.get("titulo"), f"fuentes[{i}].titulo"),
                         "medio": _texto(f.get("medio"), f"fuentes[{i}].medio", requerido=False),
-                        "url": url})
+                        "url": url, "tipo": tipo or tipo_por_url(url)})
     datos["fuentes"] = fuentes
     return datos
 
@@ -618,13 +651,20 @@ def html_actualizacion(a, n):
 
 
 def html_fuentes(fuentes):
+    """Fuentes numeradas, cada una con su tipo, y un conteo arriba para ver
+    de un vistazo cuánto viene de la academia, del Estado o de la prensa."""
     if not fuentes:
         return ""
     items = []
     for f in fuentes:
         medio = f'<span class="medio">{html.escape(f["medio"])}</span>. ' if f["medio"] else ""
-        items.append(f'<li>{medio}<a href="{html.escape(f["url"])}">{html.escape(f["titulo"])}</a></li>')
-    return (f'<section class="carril cierre fuentes" id="fuentes">\n<h2>Fuentes</h2>\n'
+        tipo = TIPOS_FUENTE[f["tipo"]][0]
+        items.append(f'<li><span class="tipo-fuente tipo-{f["tipo"]}">{tipo}</span> '
+                     f'{medio}<a href="{html.escape(f["url"])}">{html.escape(f["titulo"])}</a></li>')
+    conteo = [(t, sum(f["tipo"] == t for f in fuentes)) for t in TIPOS_FUENTE]
+    partes = [f"{n} {TIPOS_FUENTE[t][1].lower() if n != 1 else TIPOS_FUENTE[t][0].lower()}" for t, n in conteo if n]
+    resumen = f'<p class="fuentes-resumen">{len(fuentes)} fuentes: {", ".join(partes)}.</p>'
+    return (f'<section class="carril cierre fuentes" id="fuentes">\n<h2>Fuentes</h2>\n{resumen}\n'
             f'<ol>\n{chr(10).join(items)}\n</ol>\n</section>\n')
 
 

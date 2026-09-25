@@ -1680,3 +1680,18 @@ html:not(.sonando) .escuchar label, html:not(.sonando) .escuchar-pista { display
 .cruces-lista li { padding: 1rem 0; border-bottom: 1px solid var(--filete); }
 .cruces-lista .origen { margin: 0 0 0.3rem; font-size: 0.85em; color: var(--tenue); }
 .cruces-lista p { margin: 0; }
+
+/* Tipo de cada fuente */
+.fuentes-resumen { margin: 1rem 0 0.4rem; font-size: 0.85em; color: var(--tenue); }
+.tipo-fuente {
+  display: inline-block;
+  margin-right: 0.3em;
+  padding: 0 0.35em;
+  border: 1px solid var(--filete);
+  font: 700 0.62rem/1.6 var(--sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tenue);
+  vertical-align: 0.1em;
+}
+.tipo-academica, .tipo-datos { border-color: var(--tinta); color: var(--tinta); }

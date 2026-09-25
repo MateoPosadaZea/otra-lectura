@@ -44,3 +44,11 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   `cruce_mattriz` y `candidatas.md`), pero la plantilla lo quita del
   artículo y lo archiva en la página de Candidatas. Si no hay cruce, basta
   omitirlo.
+- 2026-09-25 · Pedido de Mateo ("fuentes de académicos, de papers
+  científicos… que la mayoría no sean de la prensa de acá; muchas tienen
+  sus posturas e ideologías; ir más allá"): el barrido puede tomar más
+  tiempo. Prensa solo para el hecho; análisis, cifras de fondo, soluciones
+  y contrapeso desde estudios revisados por pares, evaluaciones de impacto,
+  documentos oficiales y bases de datos. Meta: cada fricción con al menos
+  una fuente académica y una oficial o de datos, y al menos la mitad de las
+  fuentes no de prensa. Cada fuente lleva `tipo`. Ver RUTINA.md, sección 3.
