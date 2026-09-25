@@ -52,6 +52,35 @@ con qué contrapeso y qué patrón histórico ayuda a entenderlo.
     de la semana.
   - Máximo unas 1.000 palabras. Sin Asombro nuevo si no hace falta.
 
+## 2b. Elegir los temas: los de mayor impacto en la sociedad
+
+El sitio trata **los temas de mayor impacto en la sociedad**, no los más
+comentados del día. Antes de escribir, reunir de 6 a 10 candidatos (que
+cumplan la definición de fricción de prompt.md) y puntuar cada uno de 1 a 3
+en cinco criterios:
+
+| Criterio | Pregunta | 1 | 3 |
+|---|---|---|---|
+| Alcance | ¿A cuántas personas afecta? | miles | millones / todo un país |
+| Gravedad | ¿Toca vida, salud, ingreso, derechos o seguridad? | molestia | vida o salud |
+| Duración | ¿Es reversible o deja efectos por años? | pasajero | generaciones |
+| Cercanía | ¿Qué tanto toca a Colombia o América Latina? | lejano | directo |
+| Decisión | ¿Se está decidiendo algo ahora (ley, presupuesto, fallo, elección)? | nada en curso | decisión inminente |
+
+Se eligen los de mayor puntaje (máximo 15). Reglas:
+- Al menos **un tema colombiano de alto impacto** por edición (si no hay
+  novedad, un seguimiento de uno ya tratado).
+- El tema puede ser **estructural y de largo plazo** (pensiones, salud,
+  seguridad, empleo, clima, educación, agua, alimentación…): basta un
+  **hecho reciente** que lo reactive (informe, cifra, votación, fallo,
+  anuncio). No hace falta que sea "la noticia del día"; tampoco elegir un
+  tema menor solo porque es reciente.
+- La diversidad geográfica se busca entre temas de impacto comparable, no
+  a costa del impacto.
+- En la **Nota metodológica** va una tabla corta con el puntaje de los
+  temas elegidos y de los principales descartados, para que el criterio se
+  pueda discutir y calibrar.
+
 ## 3. Investigar (sin prisa: la calidad de las fuentes es lo que distingue al sitio)
 
 El barrido puede tomar el tiempo que haga falta. La prensa sirve para
@@ -61,8 +90,9 @@ primarias y académicas. Muchos medios tienen posturas e intereses: se usan
 para el hecho puntual, no para interpretarlo.
 
 1. **El hecho (prensa).** Buscar con WebSearch, en español y en inglés,
-   noticias de las últimas 24 a 48 horas: mundo, América Latina y
-   Colombia. Cruzar cada dato con al menos dos medios de líneas
+   los hechos recientes (idealmente de las últimas 48 horas, o de la
+   última semana si reactivan un tema estructural de alto impacto): mundo,
+   América Latina y Colombia. Cruzar cada dato con al menos dos medios de líneas
    editoriales distintas; si solo hay uno, decirlo.
 2. **El documento de origen (oficial).** Ir a la fuente primaria que la
    noticia cita: el informe, la ley, el proyecto de presupuesto, la
