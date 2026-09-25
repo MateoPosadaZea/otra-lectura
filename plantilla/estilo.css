@@ -1624,3 +1624,23 @@ html:not(.js) .barra-fija { display: none; }
 .comentario-estado { font-size: 0.82rem; color: var(--tenue); }
 .comentario-gracias { margin: 0; font-weight: 700; }
 @media print { .comentar-pop, .comentario-caja, .atajos { display: none !important; } }
+
+/* --- Cerrar recuadros (comentarios, glosario) --- */
+.cerrar-panel {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.35rem;
+  z-index: 1;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 1px solid var(--tinta);
+  border-radius: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font: 400 1.3rem/1 var(--sans);
+  cursor: pointer;
+}
+.cerrar-panel:hover { background: var(--tinta); color: var(--papel); }
+.notas:not(:has(details[open])) .cerrar-panel,
+.glosario-flotante:not(:has(details[open])) .cerrar-panel { display: none; }

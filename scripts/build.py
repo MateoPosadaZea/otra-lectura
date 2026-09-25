@@ -624,6 +624,7 @@ def html_glosario_flotante(terminos):
         return ""
     items = "\n".join(f"<dt>{html.escape(t)}</dt><dd>{d}</dd>" for t, d in terminos)
     return f"""<aside class="glosario-flotante" aria-label="Glosario de la edición">
+<button type="button" class="cerrar-panel" aria-label="Cerrar el glosario" hidden>×</button>
 <details open>
 <summary>Glosario</summary>
 <dl>

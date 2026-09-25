@@ -93,6 +93,7 @@ OL.verificar = function (contenedor) {
 <nav class="entre-ediciones" aria-label="Otros días"><a rel="prev" href="2026-09-22.html">← 22 de septiembre de 2026</a><a rel="next" href="2026-09-24.html">24 de septiembre de 2026 →</a></nav>
 </main>
 <aside class="notas" aria-label="Comentarios y ajustes">
+<button type="button" class="cerrar-panel" aria-label="Cerrar el recuadro de comentarios" hidden>×</button>
 <details open>
 <summary>💬 Comentar <span class="notas-cuenta" hidden></span></summary>
 <form class="notas-form" method="post" action="/api/ajuste">
@@ -600,6 +601,16 @@ OL.verificar = function (contenedor) {
       navigator.sendBeacon("/api/ajuste", datosEnvio(lista));
       lista.forEach(function (el) { el.dataset.orig = texto(el); el.dataset.html = el.innerHTML; });
     }
+  });
+})();
+/* Botones "×" para cerrar los recuadros de comentarios y glosario. */
+(function () {
+  document.querySelectorAll(".cerrar-panel").forEach(function (b) {
+    var det = b.parentElement.querySelector("details");
+    if (!det) return;
+    b.hidden = false;
+    b.addEventListener("click", function () { det.open = false; det.querySelector("summary").focus(); });
+    document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && det.open && det.contains(document.activeElement)) det.open = false; });
   });
 })();
 /* Cierra el menú de secciones al hacer clic fuera o con Escape. */
