@@ -30,3 +30,5 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   tiene cifras comparables (misma magnitud y misma base) o una evolución en
   el tiempo; nunca con cifras de bases distintas ni inventadas. Si no hay
   cifras que lo justifiquen, no se pone. Nombres de barras cortos.
+- 2026-09-25 · Sin emojis ni iconos de ese tipo (💬, 🎤, ⏱, ▶, ✓…) ni en las
+  ediciones ni en el sitio: solo texto.
