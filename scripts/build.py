@@ -690,7 +690,7 @@ def plegar_cierre(cuerpo):
         t = texto_plano(titulo).lower()
         if "descart" in t:
             return ""
-        if "fuentes" in t or "metodol" in t or "lo que hice" in t:
+        if "fuentes" in t or "metodol" in t or "lo que hice" in t or "glosario" in t:
             return (f'<section class="{clases} plegable"{attrs}>\n<details>\n<summary>{h2}</summary>'
                     f'{resto}</details>\n</section>\n')
         return m.group(0)
@@ -779,23 +779,24 @@ def recomendar(e, ediciones):
     return sorted(otras, key=puntaje, reverse=True)
 
 
+def html_fin(e, ediciones):
+    ultima = e["fecha"] == ediciones[0]["fecha"]
+    return f'<p class="fin-edicion">{"Eso es todo por hoy." if ultima else "Eso es todo en esta edición."}</p>'
+
+
 def html_siguiente(e, ediciones):
+    """Cierre de la edición: "Eso es todo", una sola lectura sugerida y el
+    camino a los demás temas. Sin listas largas."""
     recomendadas = recomendar(e, ediciones)
-    if not recomendadas:
-        return ""
-    s, resto = recomendadas[0], recomendadas[1:3]
-    temas = "".join(f"<li>{html.escape(t)}</li>" for t in s["titulos_fricciones"][:3])
-    otras = "".join(
-        f'<li><a href="{o["slug"]}.html">{html.escape(o["titulo"])}</a> '
-        f'<span>{fecha_legible(o["fecha"])} · {minutos_lectura(o)}</span></li>' for o in resto)
-    otras = (f'<div class="tambien"><p class="siguiente-rotulo">También le puede interesar</p>'
-             f'<ul>{otras}</ul></div>') if otras else ""
-    return f"""<aside class="siguiente" aria-label="Siguiente lectura">
-<p class="siguiente-rotulo">Siguiente lectura</p>
+    sugerida = ""
+    if recomendadas:
+        s = recomendadas[0]
+        sugerida = f"""<p class="siguiente-rotulo">Siguiente lectura</p>
 <a class="siguiente-titulo" href="{s['slug']}.html">{html.escape(s['titulo'])}</a>
-<p class="fecha">{fecha_legible(s['fecha'])} · {minutos_lectura(s)}</p>
-{f'<ul class="dia-temas">{temas}</ul>' if temas else ''}
-{otras}
+<p class="fecha">{fecha_legible(s['fecha'])} · {minutos_lectura(s)}</p>"""
+    return f"""<aside class="siguiente" aria-label="Siguiente lectura">
+{sugerida}
+<p class="otros-temas"><a href="../archivo.html">Ver otros temas →</a></p>
 </aside>"""
 
 
@@ -811,6 +812,7 @@ def pagina_edicion(base, e, ediciones):
 </header>
 {cuerpo_edicion(e)}
 </article>
+{html_fin(e, ediciones)}
 {html_pulso(e)}
 {html_glosario_flotante(e['glosario'])}
 {html_siguiente(e, ediciones)}"""

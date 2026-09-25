@@ -267,8 +267,9 @@ en poco más de seis minutos. Un año en ese sistema dura menos que un
 bloque de trabajo.</p>
 </section>
 
-<section class="carril cierre" id="glosario">
-<h2>Glosario</h2>
+<section class="carril cierre plegable" id="glosario">
+<details>
+<summary><h2>Glosario</h2></summary>
 <ul>
 <li><strong>Commodity:</strong> materia prima estandarizada cuyo precio lo fija el
   mercado mundial, no el productor.</li>
@@ -284,9 +285,11 @@ bloque de trabajo.</p>
   Estado deja de recibir.</li>
 <li><strong>Focalización:</strong> decidir a quién le llega un subsidio; lo contrario es
   universal.</li>
-</ul></section>
+</ul></details>
+</section>
 
 </article>
+<p class="fin-edicion">Eso es todo en esta edición.</p>
 <form class="pulso" method="post" action="/api/ajuste">
 <input type="hidden" name="pagina" value="/ediciones/2026-09-23-radar.html">
 <input type="hidden" name="titulo" value="Edición 3 · 23 de septiembre de 2026">
@@ -327,9 +330,8 @@ bloque de trabajo.</p>
 <aside class="siguiente" aria-label="Siguiente lectura">
 <p class="siguiente-rotulo">Siguiente lectura</p>
 <a class="siguiente-titulo" href="2026-09-24-radar.html">El calor que no se cuenta, la extorsión que no se va con tropas y la vacuna que nadie fabricó</a>
-<p class="fecha">24 de septiembre de 2026 · 14 min de lectura</p>
-<ul class="dia-temas"><li>El calor que enferma y no se cuenta</li><li>Militarizar recupera la calle, no la renta</li><li>La vacuna que nadie fabricó porque no había mercado</li></ul>
-<div class="tambien"><p class="siguiente-rotulo">También le puede interesar</p><ul><li><a href="2026-09-22-radar-01.html">Deuda, reconstrucción, páramos y quién se queda con el crédito</a> <span>22 de septiembre de 2026 · 5 min de lectura</span></li><li><a href="2026-09-22-radar-02.html">Un medicamento de casi un billón y una isla sin lluvia</a> <span>22 de septiembre de 2026 · 5 min de lectura</span></li></ul></div>
+<p class="fecha">24 de septiembre de 2026 · 8 min de lectura</p>
+<p class="otros-temas"><a href="../archivo.html">Ver otros temas →</a></p>
 </aside>
 </main>
 <aside class="notas" aria-label="Comentarios y ajustes">
@@ -842,6 +844,16 @@ bloque de trabajo.</p>
       lista.forEach(function (el) { el.dataset.orig = texto(el); el.dataset.html = el.innerHTML; });
     }
   });
+})();
+/* El glosario del final está plegado: se abre al ir a él (botón del celular o enlace). */
+(function () {
+  function abrir() {
+    if (location.hash !== "#glosario") return;
+    var d = document.querySelector("#glosario details");
+    if (d) d.open = true;
+  }
+  addEventListener("hashchange", abrir);
+  abrir();
 })();
 /* Botones "×" para cerrar los recuadros de comentarios y glosario. */
 (function () {

@@ -675,6 +675,16 @@ alerta y qué no significa.</p></div>
     }
   });
 })();
+/* El glosario del final está plegado: se abre al ir a él (botón del celular o enlace). */
+(function () {
+  function abrir() {
+    if (location.hash !== "#glosario") return;
+    var d = document.querySelector("#glosario details");
+    if (d) d.open = true;
+  }
+  addEventListener("hashchange", abrir);
+  abrir();
+})();
 /* Botones "×" para cerrar los recuadros de comentarios y glosario. */
 (function () {
   document.querySelectorAll(".cerrar-panel").forEach(function (b) {

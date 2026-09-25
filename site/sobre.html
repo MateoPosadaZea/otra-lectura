@@ -644,6 +644,16 @@ mejoras. Los pasos están en <a href="ayuda.html">Cómo participar</a>.</p>
     }
   });
 })();
+/* El glosario del final está plegado: se abre al ir a él (botón del celular o enlace). */
+(function () {
+  function abrir() {
+    if (location.hash !== "#glosario") return;
+    var d = document.querySelector("#glosario details");
+    if (d) d.open = true;
+  }
+  addEventListener("hashchange", abrir);
+  abrir();
+})();
 /* Botones "×" para cerrar los recuadros de comentarios y glosario. */
 (function () {
   document.querySelectorAll(".cerrar-panel").forEach(function (b) {
