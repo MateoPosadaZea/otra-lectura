@@ -32,3 +32,5 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   cifras que lo justifiquen, no se pone. Nombres de barras cortos.
 - 2026-09-25 · Sin emojis ni iconos de ese tipo (💬, 🎤, ⏱, ▶, ✓…) ni en las
   ediciones ni en el sitio: solo texto.
+- 2026-09-25 · Pedido de Mateo: la etiqueta del mecanismo se llama
+  **El cómo, en síntesis.** (no "El cómo, en corto").

@@ -15,7 +15,7 @@ Cada tema del **Radar** se cuenta en el mismo orden:
 - **Por qué se repite.** Lo que hace que el problema vuelva.
 - **Quién lo está resolviendo.** Casos documentados, en Colombia o en otro
   país, y sus resultados.
-- **El cómo, en corto.** Por qué funciona lo que funciona.
+- **El cómo, en síntesis.** Por qué funciona lo que funciona.
 - **Contrapeso.** Las críticas, los límites y los resultados mixtos. Una
   solución sin contrapeso es propaganda.
 - **Qué dice la historia.** Cuándo pasó algo parecido y qué se aprendió.
