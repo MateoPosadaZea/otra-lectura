@@ -15,3 +15,18 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   tres fricciones; abrir con "En tres minutos"; cerrar con "Para
   conversar" (una pregunta y, si aplica, qué puede hacer un ciudadano).
   El objetivo es entender y conversar, no acumular información.
+- 2026-09-25 · Pedido de Mateo ("quitar términos como descabezados, mucho
+  cuidado con eso, ese tipo de términos no usarlos"): lenguaje sobrio y
+  preciso, nunca bélico, crudo, despectivo ni de jerga policial o militar.
+  No usar "descabezar/descabezamiento", "kingpin", "capo", "abatir", "dar de
+  baja", "neutralizar", "golpe" (en sentido militar), "guerra contra…",
+  "sicario" si hay alternativa descriptiva, ni coloquialismos como "plata".
+  Decir, por ejemplo, "estrategia centrada en los jefes de los grupos
+  criminales"; las muertes se nombran como hechos, sin dramatizar.
+- 2026-09-25 · Mayúsculas según la RAE: títulos y subtítulos con mayúscula
+  solo inicial (y nombres propios); meses, días y cargos en minúscula
+  ("el presidente"); instituciones con mayúscula (Gobierno, Congreso, JEP).
+- 2026-09-25 · Gráficos: cada fricción lleva un gráfico cuando el texto
+  tiene cifras comparables (misma magnitud y misma base) o una evolución en
+  el tiempo; nunca con cifras de bases distintas ni inventadas. Si no hay
+  cifras que lo justifiquen, no se pone. Nombres de barras cortos.

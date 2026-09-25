@@ -191,7 +191,7 @@ cercano (preguntar, participar, votar, revisar). Si no lo hay, se omite.
   evidencia nombrado y lenguaje calibrado ante la incertidumbre. El cierre
   y el glosario van en registro directo.
 - Aplicar además las reglas vigentes de `AJUSTES.md`.
-- Gráficos: cuando una comparación o una evolución se entiende mejor
+- Gráficos (ver también AJUSTES.md): cuando una comparación o una evolución se entiende mejor
   viéndola (no por decorar), agregar un bloque ` ```grafico ` justo después
   del párrafo que da las cifras. Solo con cifras que estén en el texto y en
   `fuentes`; como máximo uno por fricción. Tipos: `barras` (comparar

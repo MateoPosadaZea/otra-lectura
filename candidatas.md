@@ -1,15 +1,15 @@
 # Candidatas
 
-Ideas de cruce con Mattriz que aparecen en el campo `cruce_mattriz` de las
-ediciones. `./build.sh` genera `site/candidatas.html` a partir de este
-archivo. Candidatas, no tareas.
+Ideas de proyectos para Mattriz que surgen de las ediciones (campo
+`cruce_mattriz`). `./build.sh` genera `site/candidatas.html` a partir de
+este archivo. Son candidatas, no tareas.
 
 Cómo se edita:
 
 - Una sección `## Idea` por candidata, con el mismo texto que en el
   frontmatter (no importan mayúsculas ni espacios extra).
 - Primera línea: `Estado: pendiente`, `evaluada`, `descartada` o `activa`.
-- Después, en markdown: **Qué resolvería.**, **Cómo.**, **Por dónde
+- Después, en Markdown: **Qué resolvería.**, **Cómo.**, **Por dónde
   empezar.** y **Entregable posible.**
 - Una candidata que aparezca en una edición y no esté aquí se muestra como
   `pendiente`, sin desarrollo.
@@ -81,7 +81,7 @@ traduce a algo legible, y la vigilancia llega tarde.
 
 **Cómo.** Tomar los contratos del régimen especial de la reconstrucción
 desde los datos abiertos de compras públicas (SECOP II), compararlos
-contra precios de referencia de ítems similares y señalar alertas simples:
+con precios de referencia de ítems similares y señalar alertas simples:
 contratación directa, adiciones, plazos atípicos, concentración en pocos
 contratistas.
 
@@ -90,7 +90,7 @@ contratistas.
 1. Identificar en datos.gov.co el conjunto de SECOP II y cómo distinguir
    los contratos del régimen especial (a verificar).
 2. Hacer un prototipo con un solo departamento afectado.
-3. Definir cinco a diez alertas, apoyándose en metodologías existentes de
+3. Definir entre cinco y diez alertas, apoyándose en metodologías existentes de
    indicadores de riesgo en contratación.
 
 **Entregable posible.** Tablero público de una página, actualizado cada

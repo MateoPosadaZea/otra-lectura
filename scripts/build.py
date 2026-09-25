@@ -673,8 +673,8 @@ def cuerpo_edicion(e):
             f'{fecha_legible(c["fecha"])}</time></p>{convertir_linea(c["texto"])}</li>\n'
             for c in e["correcciones"])
         cuerpo += ('<section class="carril cierre avisos" id="correcciones">\n<h2>Correcciones</h2>\n'
-                   '<p class="aviso-nota">El texto original no se modifica; las correcciones se '
-                   f'agregan aquí.</p>\n<ol class="correcciones">\n{items}</ol>\n</section>\n')
+                   '<p class="aviso-nota">Datos corregidos después de publicar; '
+                   f'cada corrección lleva su fecha.</p>\n<ol class="correcciones">\n{items}</ol>\n</section>\n')
     return plegar_cierre(cuerpo)
 
 

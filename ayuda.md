@@ -4,139 +4,131 @@ Otra lectura se construye entre quienes la leen. Sus comentarios cambian
 el sitio: corrigen datos, ajustan el tono y proponen mejoras. Aquí está,
 paso a paso, cómo hacerlo.
 
-## La forma más fácil: seleccionar y comentar
+## Comentar una frase
 
-1. Seleccione una frase del texto (en el celular, deje el dedo presionado
-   sobre una palabra y arrastre).
-2. Aparece un botón negro: **💬 Comentar**. Tóquelo.
-3. Debajo del párrafo se abre un espacio para escribir. Escriba su
-   comentario y toque **Enviar**. Listo.
+Es la forma más fácil.
 
-Si prefiere hablar, toque **🎤 Decirlo** en vez de Comentar.
+1. Seleccione una frase del texto. Con el mouse, arrastre sobre ella; en
+   el celular, deje el dedo presionado sobre una palabra y arrastre.
+2. Aparece el botón **💬 Comentar**. Tóquelo.
+3. Debajo del párrafo se abre un espacio. Escriba su comentario y toque
+   **Enviar**. Listo.
 
-## El resumen en tres minutos
+Si prefiere hablar, toque **🎤 Decirlo** en lugar de **💬 Comentar**.
 
-Cada edición empieza con **⏱ En tres minutos**: lo esencial del día. Está
-en la portada, apenas entra, y dentro de cada edición hay un botón
-**⏱ Resumen en 3 minutos** arriba. Cuando baje leyendo, en la barra de
-arriba aparece **⏱ Resumen** para volver a él.
+## Dejar varios comentarios y enviarlos juntos
 
-## Dejar notas mientras lee
+Al lado izquierdo de la pantalla está el recuadro **💬 Comentar**. En el
+celular es un botón abajo a la izquierda que dice **Comentar**: tóquelo
+para abrirlo.
 
-Al lado izquierdo de la pantalla está el recuadro **Notas**. En el celular
-es un botón que dice **Notas**, abajo a la izquierda: tóquelo para abrirlo.
+1. Escriba su comentario. Puede ser una corrección («esta cifra no
+   cuadra»), una idea («sería bueno comparar con Chile»), una duda
+   («¿qué significa focalización?») o una opinión sobre el tono.
+2. Si es sobre una frase, selecciónela antes en el texto. Arriba de su
+   comentario aparecerá «Citando: …».
+3. Toque **Agregar nota**. El comentario queda en una lista. Puede agregar
+   los que quiera, en esta edición o en otras: se guardan aunque cambie de
+   página o cierre el navegador.
+4. Cuando termine de leer, escriba su nombre y la clave, y toque
+   **Enviar**. Todos se envían juntos.
 
-1. **Escriba su nota** en el recuadro. Puede ser una corrección ("esta
-   cifra no cuadra"), una idea ("sería bueno comparar con Chile"), algo que
-   no se entiende ("¿qué significa focalización?") o una opinión sobre el
-   tono.
-2. **Si quiere comentar una frase concreta**, selecciónela primero en el
-   texto: con el mouse, arrastrando sobre ella; en el celular, dejando el
-   dedo presionado sobre una palabra. Arriba de su nota aparecerá
-   «Citando: …». Así sabemos exactamente de qué habla.
-3. **Toque «Agregar nota».** La nota queda en la lista, debajo del
-   recuadro. Puede agregar todas las que quiera, en esta edición o en
-   otras: no se pierden aunque cambie de página o cierre el navegador.
-4. **Cuando termine de leer**, escriba su nombre y la clave, y toque
-   **«Enviar»**. Todas las notas se van juntas, de una sola vez.
+Si deja marcada la casilla **Recordar en este dispositivo**, no tendrá que
+escribir el nombre ni la clave la próxima vez. Para quitar un comentario
+antes de enviarlo, toque la **×** que tiene al lado.
 
-Si deja marcada la casilla **«Recordar en este dispositivo»**, el nombre y
-la clave quedan guardados y no tendrá que escribirlos la próxima vez.
+## Corregir el texto directamente
 
-Para borrar una nota antes de enviarla, toque la **×** que tiene al lado.
+El texto de cada edición se puede corregir como un documento:
+
+1. Toque la palabra o la frase que quiere cambiar y escriba encima. Para
+   quitar una frase, selecciónela y bórrela.
+2. El cambio se guarda solo unos segundos después de dejar de escribir.
+   Abajo aparece «Guardado ✓».
+
+La primera vez le pide su nombre y la clave; después, ya no. Si se
+equivocó, toque **Deshacer** antes de que se guarde. Los cambios quedan
+publicados para todos en la próxima hora.
+
+## Decirlo en voz alta
+
+Abajo a la izquierda está el botón **🎤 Hablar**. Tóquelo y diga lo que
+quiere cambiar, por ejemplo: «el título de la segunda noticia está muy
+largo». Cuando deje de hablar unos segundos, el texto aparece en pantalla
+y se envía solo. Si se arrepiente, toque **Cancelar** antes.
+
+La primera vez, el celular pide permiso para usar el micrófono: toque
+**Permitir**. Funciona en Chrome, Edge y Safari.
 
 ## Contarnos cómo le quedó la edición
 
-Al final de cada edición está la pregunta **«¿Cómo le quedó esta
-edición?»** con tres botones: **Liviana**, **Justa** y **Pesada**. Toque
-uno y listo. Si el nombre y la clave ya están guardados, se envía de una
-vez; si no, se los pide una sola vez.
-
-Con esas respuestas ajustamos el largo de las ediciones siguientes: si
-varias salen «Pesada», las próximas serán más cortas.
+Al final de cada edición está la pregunta **¿Cómo le quedó esta
+edición?**, con tres botones: **Liviana**, **Justa** y **Pesada**. Toque
+uno y listo. Con esas respuestas ajustamos el largo de las ediciones
+siguientes.
 
 ## Escuchar en vez de leer
 
 Arriba de cada edición está el botón **▶ Escuchar**. El texto se lee en
 voz alta, párrafo por párrafo, y el que está sonando se resalta. Puede
-pausar, detener, cambiar el **ritmo** y elegir la **voz**. Las voces
-masculinas aparecen primero. Si no aparece ninguna, abajo del botón está
-cómo instalarlas en el celular.
-
-## Decirlo en voz alta, sin escribir
-
-Abajo a la izquierda está el botón **🎤 Hablar**. Tóquelo y diga su
-ajuste, por ejemplo: «el título de la segunda noticia está muy largo».
-Cuando deje de hablar unos segundos, el texto aparece en pantalla y se
-envía solo. Si se arrepiente, toque **Cancelar** antes de que se envíe.
-
-Si antes selecciona una frase del texto, el ajuste queda asociado a esa
-frase. La primera vez, el celular pide permiso para usar el micrófono:
-toque **Permitir**. Funciona en Chrome, Edge y Safari.
+pausar, cambiar el **ritmo** y elegir la **voz**. Si no aparece ninguna
+voz, debajo del botón se explica cómo instalarlas en el celular.
 
 ## Leer de noche
 
-Arriba a la derecha está el botón **☾ Leer de noche**. Cambia el fondo a
-oscuro, que cansa menos la vista con poca luz. Para volver, toque
-**☀ Leer de día**. El sitio recuerda la elección.
+Arriba a la derecha está el botón **☾ Leer de noche**. Pone el fondo
+oscuro, que cansa menos la vista. Para volver, toque **☀ Leer de día**.
+El sitio recuerda su elección.
 
-## Corregir el texto directamente
+## El resumen en tres minutos
 
-El texto de cada edición se puede corregir como un documento, sin abrir
-nada:
-
-1. Toque la palabra o frase que quiere cambiar y escriba encima.
-2. Para quitar una frase, selecciónela y bórrela.
-3. Listo. Se guarda sola unos segundos después de dejar de escribir (o al
-   tocar Enter, o al salir de la página). Abajo aparece «Guardado ✓».
-
-La primera vez le pide su nombre y la clave; después ya no. Si se
-equivocó antes de que se guarde, toque **Deshacer**. Los cambios quedan
-publicados para todos en la próxima hora.
+Cada edición empieza con **⏱ En tres minutos**: lo esencial del día.
+Mientras baja leyendo, en la barra de arriba aparece **⏱ Resumen** para
+volver a él.
 
 ## Qué pasa después
 
-- Las notas se revisan **cada hora, entre las 6 de la mañana y las 10 de
-  la noche**.
-- Si la nota corrige un dato de una edición ya publicada, el texto original
-  no se borra: al final de la edición aparece un recuadro de
-  **Correcciones** con la fecha. Así queda claro qué cambió y cuándo.
-- Si la nota es sobre el estilo o el tono ("menos frases técnicas", por
-  ejemplo), se vuelve una regla para las ediciones siguientes.
-- Si la nota propone un cambio en el sitio (un botón, una sección, un
-  diseño), se hace si es sencillo; si es grande, Mateo decide.
+- Los comentarios se revisan **cada hora, entre las 6 de la mañana y las
+  10 de la noche**.
+- Si un comentario corrige un dato, al final de la edición aparece el
+  recuadro **Correcciones**, con la fecha. Así queda claro qué cambió y
+  cuándo.
+- Si es sobre el estilo o el tono («menos frases técnicas», por ejemplo),
+  se vuelve una regla para las ediciones siguientes.
+- Si propone un cambio en el sitio (un botón, una sección, un diseño), se
+  hace si es sencillo; si es grande, lo decide Mateo.
 
 ## Preguntas frecuentes
 
-**¿Se pierden las notas si cierro la página antes de enviarlas?**
-No. Quedan guardadas en ese navegador hasta que las envíe o las borre.
-Ojo: si cambia de computador o de celular, allá no aparecerán.
+**¿Se pierden los comentarios si cierro la página antes de enviarlos?**
+No. Quedan guardados en ese navegador hasta que los envíe o los quite. Si
+cambia de computador o de celular, allá no aparecerán.
 
 **Me salió «Clave incorrecta». ¿Qué hago?**
 Revise que la escribió igual, con mayúsculas y minúsculas. Si sigue
-fallando, pídasela de nuevo a Mateo. Sus notas siguen guardadas: no hay
-que volver a escribirlas.
+fallando, pídasela de nuevo a Mateo. Sus comentarios siguen guardados.
 
 **Me salió «No se pudo enviar».**
-Seguramente fue la conexión. Espere un momento y toque «Enviar» otra vez.
-Las notas no se pierden.
+Seguramente fue la conexión. Espere un momento y toque **Enviar** otra
+vez. No se pierde nada.
 
 **¿Cuándo sale una edición nueva?**
 Todos los días, antes de las 6 de la mañana (hora de Colombia).
 
-## Cómo leer una edición
+## Qué hay en cada edición
 
-- **Radar**: problemas que se repiten. Cada uno trae qué ocurrió, quién lo
-  está abordando en el mundo, con qué resultados, las críticas
-  (**Contrapeso**, en un recuadro) y lo que enseña la historia.
+- **Radar**: problemas que se repiten, con quién los está resolviendo y
+  con qué resultados. Las críticas van en un recuadro, **Contrapeso**.
 - **Asombro**: hallazgos e historias que amplían la mirada.
-- El sello rojo **«Conocimiento general»** marca lo que no se pudo
-  verificar con una fuente en esa edición. Léalo con cautela.
-- **«Revisada el…»**, junto al título, avisa que la edición tuvo
+- El sello rojo **Conocimiento general** marca lo que no se pudo
+  confirmar con una fuente. Léalo con cautela.
+- **Revisada el…**, junto al título, avisa que la edición tuvo
   correcciones o actualizaciones después de publicarse.
-- Los **gráficos** muestran el valor exacto al pasar el mouse (o tocar)
-  sobre ellos, y debajo tienen **«Ver datos»** con la tabla completa.
-- El **Glosario**, a la derecha (o en el botón del celular), explica los
-  términos técnicos sin tener que ir hasta el final.
-- **Candidatas**, en el pie de página, reúne ideas de proyectos que
+- En los **gráficos**, al pasar el mouse o tocar, se ve el valor exacto.
+  Debajo, **Ver datos** muestra la tabla completa.
+- El **Glosario** explica los términos difíciles. Está a la derecha; en el
+  celular, en un botón.
+- **Candidatas**, al pie de la página, reúne ideas de proyectos que
   surgieron de las ediciones.
+
+Más detalles en [¿Qué es esto?](sobre.html).
