@@ -58,7 +58,7 @@ OL.verificar = function (contenedor) {
 <a class="saltar" href="#contenido">Ir al contenido</a>
 <div class="barra-fija">
 <a class="cabezote" href="index.html" tabindex="-1" aria-hidden="true">Otra Lectura</a>
-<a class="barra-resumen" href="#en-tres-minutos" hidden>⏱ Resumen</a>
+<a class="barra-resumen" href="#en-tres-minutos" hidden>Resumen</a>
 </div>
 <header class="sitio">
 <div class="marca">
@@ -92,7 +92,7 @@ OL.verificar = function (contenedor) {
 <p class="fecha">Edición 4 · 8 min de lectura</p>
 <a class="dia-titulo" href="ediciones/2026-09-24-radar.html">El calor que no se cuenta, la extorsión que no se va con tropas y la vacuna que nadie fabricó</a>
 
-<div class="breve-portada"><p class="breve-rotulo">⏱ En tres minutos</p><ul>
+<div class="breve-portada"><p class="breve-rotulo">En tres minutos</p><ul>
 <li><strong>El calor que no se cuenta.</strong> Rige la alerta roja en la costa Caribe,
   con sensación térmica superior a 55 °C y hasta 25% más consultas. La
   alerta indica cuánto calor hace, no a quién atender. Ahmedabad (India) y
@@ -116,7 +116,7 @@ OL.verificar = function (contenedor) {
 <aside class="notas" aria-label="Comentarios y ajustes">
 <button type="button" class="cerrar-panel" aria-label="Cerrar el recuadro de comentarios" hidden>×</button>
 <details open>
-<summary>💬 Comentar <span class="notas-cuenta" hidden></span></summary>
+<summary>Comentar <span class="notas-cuenta" hidden></span></summary>
 <form class="notas-form" method="post" action="/api/ajuste">
 <input type="hidden" name="pagina" value="/">
 <input type="hidden" name="titulo" value="Otra lectura">
@@ -152,7 +152,7 @@ OL.verificar = function (contenedor) {
   function actual() { return raiz.dataset.theme || (sistema.matches ? "dark" : "light"); }
   function pintar() {
     var oscuro = actual() === "dark";
-    boton.textContent = oscuro ? "☀ Leer de día" : "☾ Leer de noche";
+    boton.textContent = oscuro ? "Leer de día" : "Leer de noche";
     boton.title = oscuro ? "Volver al fondo claro" : "Fondo oscuro, más cómodo para leer de noche";
     boton.setAttribute("aria-label", oscuro ? "Leer de día: volver al fondo claro" : "Leer de noche: fondo oscuro, más cómodo para los ojos");
   }
@@ -359,7 +359,7 @@ OL.verificar = function (contenedor) {
     }
   }
   function pintar() {
-    boton.textContent = activo && !pausado ? "❚❚ Pausa" : (pausado ? "▶ Seguir" : "▶ Escuchar");
+    boton.textContent = activo && !pausado ? "Pausa" : (pausado ? "Seguir" : "Escuchar");
     boton.setAttribute("aria-pressed", activo && !pausado ? "true" : "false");
     detener.hidden = !activo;
     // Mientras suena, los controles quedan a mano en la parte superior.
@@ -576,7 +576,7 @@ OL.verificar = function (contenedor) {
           lista.forEach(function (el) { el.dataset.html = el.innerHTML; });
           if (clave.value) guardarCred(quien.value, clave.value);
           cred.hidden = true;
-          pintar("Guardado ✓ Queda publicado en la próxima hora.");
+          pintar("Guardado. Queda publicado en la próxima hora.");
           setTimeout(function () { if (!cambiados().length && !enviando) pintar(); }, 5000);
         } else {
           lista.forEach(function (el, k) { el.dataset.orig = previos[k]; });
@@ -823,7 +823,7 @@ OL.verificar = function (contenedor) {
   boton.type = "button";
   boton.className = "dictar";
   boton.setAttribute("aria-label", "Dictar un ajuste por voz");
-  boton.innerHTML = '<span aria-hidden="true">🎤</span> Hablar';
+  boton.innerHTML = 'Hablar';
   var globo = document.createElement("div");
   globo.className = "dictar-globo";
   globo.setAttribute("role", "status");
@@ -878,7 +878,7 @@ OL.verificar = function (contenedor) {
     previo.then(function () { return fetch(form.action, { method: "POST", body: d, headers: { Accept: "application/json" } }); })
       .then(function (r) { return r.json().then(function (j) { return [r.status, j]; }); })
       .then(function (res) {
-        estado.textContent = res[0] === 200 ? "Enviado ✓ Se aplica en la próxima hora." : res[1].mensaje;
+        estado.textContent = res[0] === 200 ? "Enviado. Se aplica en la próxima hora." : res[1].mensaje;
         setTimeout(cerrar, res[0] === 200 ? 3500 : 7000);
       })
       .catch(function () { estado.textContent = "No se pudo enviar. Revise la conexión."; setTimeout(cerrar, 6000); });
@@ -940,8 +940,8 @@ OL.verificar = function (contenedor) {
 })();
 </script>
 <script>
-/* Comentar una frase: al seleccionar texto aparece "💬 Comentar" (y "🎤
-   Decirlo"); el comentario se escribe ahí mismo, debajo del párrafo, y se
+/* Comentar una frase: al seleccionar texto aparece "Comentar" (y "Decirlo en
+   voz alta"); el comentario se escribe ahí mismo, debajo del párrafo, y se
    envía con un toque. También: acceso al resumen desde la barra fija. */
 (function () {
   var resumen = document.getElementById("en-tres-minutos");
@@ -955,9 +955,9 @@ OL.verificar = function (contenedor) {
   var pop = document.createElement("div");
   pop.className = "comentar-pop";
   pop.hidden = true;
-  pop.innerHTML = '<button type="button" class="comentar-si">💬 Comentar</button>' +
+  pop.innerHTML = '<button type="button" class="comentar-si">Comentar</button>' +
     (document.querySelector(".dictar") || window.SpeechRecognition || window.webkitSpeechRecognition
-      ? '<button type="button" class="comentar-voz">🎤 Decirlo</button>' : "");
+      ? '<button type="button" class="comentar-voz">Decirlo en voz alta</button>' : "");
   document.body.appendChild(pop);
   var cita = "", ancla = null;
 
@@ -1011,7 +1011,7 @@ OL.verificar = function (contenedor) {
           if (clave.value) {
             try { localStorage.setItem("notas-quien", JSON.stringify(q)); localStorage.setItem("notas-clave", JSON.stringify(c)); } catch (e) {}
           }
-          caja.innerHTML = '<p class="comentario-gracias">¡Gracias! Su comentario llegó ✓</p>';
+          caja.innerHTML = '<p class="comentario-gracias">¡Gracias! Su comentario llegó.</p>';
           setTimeout(function () { caja.remove(); }, 3500);
         } else {
           if (res[0] === 401) caja.querySelector(".comentario-cred").hidden = false;

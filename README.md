@@ -55,7 +55,7 @@ texto queda para quien tiene la clave. Pasos en `APERTURA.md`.
 
 ## Ajustes por voz
 
-El botón **🎤 Hablar** (solo si el navegador tiene reconocimiento de voz:
+El botón **Hablar** (solo si el navegador tiene reconocimiento de voz:
 Chrome, Edge, Safari) dicta un ajuste en `es-CO`. Tres segundos de
 silencio terminan el dictado; se muestra el texto y se envía solo a los
 cuatro segundos (con "Cancelar" y "Enviar ya"), como una nota con la

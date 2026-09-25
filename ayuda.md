@@ -10,15 +10,15 @@ Es la forma más fácil.
 
 1. Seleccione una frase del texto. Con el mouse, arrastre sobre ella; en
    el celular, deje el dedo presionado sobre una palabra y arrastre.
-2. Aparece el botón **💬 Comentar**. Tóquelo.
+2. Aparece el botón **Comentar**. Tóquelo.
 3. Debajo del párrafo se abre un espacio. Escriba su comentario y toque
    **Enviar**. Listo.
 
-Si prefiere hablar, toque **🎤 Decirlo** en lugar de **💬 Comentar**.
+Si prefiere hablar, toque **Decirlo en voz alta** en lugar de **Comentar**.
 
 ## Dejar varios comentarios y enviarlos juntos
 
-Al lado izquierdo de la pantalla está el recuadro **💬 Comentar**. En el
+Al lado izquierdo de la pantalla está el recuadro **Comentar**. En el
 celular es un botón abajo a la izquierda que dice **Comentar**: tóquelo
 para abrirlo.
 
@@ -44,7 +44,7 @@ El texto de cada edición se puede corregir como un documento:
 1. Toque la palabra o la frase que quiere cambiar y escriba encima. Para
    quitar una frase, selecciónela y bórrela.
 2. El cambio se guarda solo unos segundos después de dejar de escribir.
-   Abajo aparece «Guardado ✓».
+   Abajo aparece «Guardado».
 
 La primera vez le pide su nombre y la clave; después, ya no. Si se
 equivocó, toque **Deshacer** antes de que se guarde. Los cambios quedan
@@ -52,7 +52,7 @@ publicados para todos en la próxima hora.
 
 ## Decirlo en voz alta
 
-Abajo a la izquierda está el botón **🎤 Hablar**. Tóquelo y diga lo que
+Abajo a la izquierda está el botón **Hablar**. Tóquelo y diga lo que
 quiere cambiar, por ejemplo: «el título de la segunda noticia está muy
 largo». Cuando deje de hablar unos segundos, el texto aparece en pantalla
 y se envía solo. Si se arrepiente, toque **Cancelar** antes.
@@ -69,21 +69,21 @@ siguientes.
 
 ## Escuchar en vez de leer
 
-Arriba de cada edición está el botón **▶ Escuchar**. El texto se lee en
+Arriba de cada edición está el botón **Escuchar**. El texto se lee en
 voz alta, párrafo por párrafo, y el que está sonando se resalta. Puede
 pausar, cambiar el **ritmo** y elegir la **voz**. Si no aparece ninguna
 voz, debajo del botón se explica cómo instalarlas en el celular.
 
 ## Leer de noche
 
-Arriba a la derecha está el botón **☾ Leer de noche**. Pone el fondo
-oscuro, que cansa menos la vista. Para volver, toque **☀ Leer de día**.
+Arriba a la derecha está el botón **Leer de noche**. Pone el fondo
+oscuro, que cansa menos la vista. Para volver, toque **Leer de día**.
 El sitio recuerda su elección.
 
 ## El resumen en tres minutos
 
-Cada edición empieza con **⏱ En tres minutos**: lo esencial del día.
-Mientras baja leyendo, en la barra de arriba aparece **⏱ Resumen** para
+Cada edición empieza con **En tres minutos**: lo esencial del día.
+Mientras baja leyendo, en la barra de arriba aparece **Resumen** para
 volver a él.
 
 ## Qué pasa después

@@ -6,8 +6,8 @@ lo indexan.
 
 ## Qué cambia al abrirlo
 
-- **Cualquier lector puede comentar** (seleccionar una frase → 💬 Comentar,
-  el recuadro de comentarios, 🎤 Hablar y "¿Cómo le quedó?") poniendo solo
+- **Cualquier lector puede comentar** (seleccionar una frase → Comentar,
+  el recuadro de comentarios, Hablar y "¿Cómo le quedó?") poniendo solo
   su nombre. Una verificación de Cloudflare Turnstile, casi siempre
   invisible, filtra los robots.
 - Los comentarios de lectores llegan como issues **`[Lector] …`** y **no se

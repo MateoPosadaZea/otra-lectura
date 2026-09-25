@@ -834,17 +834,17 @@ def html_atajos(e):
     """Accesos visibles al resumen y a la pregunta del final."""
     atajos = []
     if e["en_breve"]:
-        atajos.append('<a href="#en-tres-minutos">⏱ Resumen en 3 minutos</a>')
+        atajos.append('<a href="#en-tres-minutos">Resumen en 3 minutos</a>')
     if 'id="para-conversar"' in e["cuerpo"]:
-        atajos.append('<a href="#para-conversar">💬 Para conversar</a>')
+        atajos.append('<a href="#para-conversar">Para conversar</a>')
     return f'<nav class="atajos" aria-label="Ir a">{"".join(atajos)}</nav>' if atajos else ""
 
 
 # Controles para escuchar la edición. Ocultos sin JavaScript o sin voz en el
 # navegador; los activa plantilla/base.html.
 HTML_ESCUCHAR = """<div class="escuchar" role="group" aria-label="Escuchar la edición" hidden>
-<button type="button" class="escuchar-play" aria-pressed="false">▶ Escuchar</button>
-<button type="button" class="escuchar-detener" hidden>■ Detener</button>
+<button type="button" class="escuchar-play" aria-pressed="false">Escuchar</button>
+<button type="button" class="escuchar-detener" hidden>Detener</button>
 <label><span class="escuchar-rotulo">Ritmo</span> <select class="escuchar-velocidad" aria-label="Ritmo de lectura">
 <option value="0.9">Pausado</option>
 <option value="0.97" selected>Normal</option>
@@ -905,7 +905,7 @@ def html_ediciones_dia(ediciones, raiz):
                         for slug, t in e["indice_fricciones"])
         temas = f'<ul class="dia-temas" aria-label="Temas principales">{temas}</ul>' if temas else ""
         if e["en_breve"]:
-            temas = (f'<div class="breve-portada"><p class="breve-rotulo">⏱ En tres minutos</p>'
+            temas = (f'<div class="breve-portada"><p class="breve-rotulo">En tres minutos</p>'
                      f'{e["en_breve"]}<p class="breve-mas"><a href="{href}">Leer la edición completa · '
                      f'{minutos_lectura(e)} →</a></p></div>')
         edicion = " · ".join(([f"Edición {html.escape(e['edicion'])}"] if e["edicion"] else [])

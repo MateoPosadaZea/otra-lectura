@@ -1444,7 +1444,7 @@ html:not(.js) .barra-fija { display: none; }
 
 .dictar {
   position: fixed;
-  left: 9.4rem;
+  left: 8.6rem;
   bottom: 1rem;
   z-index: 4;
   min-height: 2.3rem;

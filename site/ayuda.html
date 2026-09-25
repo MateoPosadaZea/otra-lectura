@@ -58,7 +58,7 @@ OL.verificar = function (contenedor) {
 <a class="saltar" href="#contenido">Ir al contenido</a>
 <div class="barra-fija">
 <a class="cabezote" href="index.html" tabindex="-1" aria-hidden="true">Otra Lectura</a>
-<a class="barra-resumen" href="#en-tres-minutos" hidden>⏱ Resumen</a>
+<a class="barra-resumen" href="#en-tres-minutos" hidden>Resumen</a>
 </div>
 <header class="sitio">
 <div class="marca">
@@ -90,13 +90,13 @@ paso a paso, cómo hacerlo.</p>
 <ol>
 <li>Seleccione una frase del texto. Con el mouse, arrastre sobre ella; en
    el celular, deje el dedo presionado sobre una palabra y arrastre.</li>
-<li>Aparece el botón <strong>💬 Comentar</strong>. Tóquelo.</li>
+<li>Aparece el botón <strong>Comentar</strong>. Tóquelo.</li>
 <li>Debajo del párrafo se abre un espacio. Escriba su comentario y toque
    <strong>Enviar</strong>. Listo.</li>
 </ol>
-<p>Si prefiere hablar, toque <strong>🎤 Decirlo</strong> en lugar de <strong>💬 Comentar</strong>.</p>
+<p>Si prefiere hablar, toque <strong>Decirlo en voz alta</strong> en lugar de <strong>Comentar</strong>.</p>
 <h2>Dejar varios comentarios y enviarlos juntos</h2>
-<p>Al lado izquierdo de la pantalla está el recuadro <strong>💬 Comentar</strong>. En el
+<p>Al lado izquierdo de la pantalla está el recuadro <strong>Comentar</strong>. En el
 celular es un botón abajo a la izquierda que dice <strong>Comentar</strong>: tóquelo
 para abrirlo.</p>
 <ol>
@@ -120,13 +120,13 @@ antes de enviarlo, toque la <strong>×</strong> que tiene al lado.</p>
 <li>Toque la palabra o la frase que quiere cambiar y escriba encima. Para
    quitar una frase, selecciónela y bórrela.</li>
 <li>El cambio se guarda solo unos segundos después de dejar de escribir.
-   Abajo aparece «Guardado ✓».</li>
+   Abajo aparece «Guardado».</li>
 </ol>
 <p>La primera vez le pide su nombre y la clave; después, ya no. Si se
 equivocó, toque <strong>Deshacer</strong> antes de que se guarde. Los cambios quedan
 publicados para todos en la próxima hora.</p>
 <h2>Decirlo en voz alta</h2>
-<p>Abajo a la izquierda está el botón <strong>🎤 Hablar</strong>. Tóquelo y diga lo que
+<p>Abajo a la izquierda está el botón <strong>Hablar</strong>. Tóquelo y diga lo que
 quiere cambiar, por ejemplo: «el título de la segunda noticia está muy
 largo». Cuando deje de hablar unos segundos, el texto aparece en pantalla
 y se envía solo. Si se arrepiente, toque <strong>Cancelar</strong> antes.</p>
@@ -138,17 +138,17 @@ edición?</strong>, con tres botones: <strong>Liviana</strong>, <strong>Justa</s
 uno y listo. Con esas respuestas ajustamos el largo de las ediciones
 siguientes.</p>
 <h2>Escuchar en vez de leer</h2>
-<p>Arriba de cada edición está el botón <strong>▶ Escuchar</strong>. El texto se lee en
+<p>Arriba de cada edición está el botón <strong>Escuchar</strong>. El texto se lee en
 voz alta, párrafo por párrafo, y el que está sonando se resalta. Puede
 pausar, cambiar el <strong>ritmo</strong> y elegir la <strong>voz</strong>. Si no aparece ninguna
 voz, debajo del botón se explica cómo instalarlas en el celular.</p>
 <h2>Leer de noche</h2>
-<p>Arriba a la derecha está el botón <strong>☾ Leer de noche</strong>. Pone el fondo
-oscuro, que cansa menos la vista. Para volver, toque <strong>☀ Leer de día</strong>.
+<p>Arriba a la derecha está el botón <strong>Leer de noche</strong>. Pone el fondo
+oscuro, que cansa menos la vista. Para volver, toque <strong>Leer de día</strong>.
 El sitio recuerda su elección.</p>
 <h2>El resumen en tres minutos</h2>
-<p>Cada edición empieza con <strong>⏱ En tres minutos</strong>: lo esencial del día.
-Mientras baja leyendo, en la barra de arriba aparece <strong>⏱ Resumen</strong> para
+<p>Cada edición empieza con <strong>En tres minutos</strong>: lo esencial del día.
+Mientras baja leyendo, en la barra de arriba aparece <strong>Resumen</strong> para
 volver a él.</p>
 <h2>Qué pasa después</h2>
 <ul>
@@ -196,7 +196,7 @@ Todos los días, antes de las 6 de la mañana (hora de Colombia).</p>
 <aside class="notas" aria-label="Comentarios y ajustes">
 <button type="button" class="cerrar-panel" aria-label="Cerrar el recuadro de comentarios" hidden>×</button>
 <details open>
-<summary>💬 Comentar <span class="notas-cuenta" hidden></span></summary>
+<summary>Comentar <span class="notas-cuenta" hidden></span></summary>
 <form class="notas-form" method="post" action="/api/ajuste">
 <input type="hidden" name="pagina" value="/ayuda.html">
 <input type="hidden" name="titulo" value="Cómo participar">
@@ -232,7 +232,7 @@ Todos los días, antes de las 6 de la mañana (hora de Colombia).</p>
   function actual() { return raiz.dataset.theme || (sistema.matches ? "dark" : "light"); }
   function pintar() {
     var oscuro = actual() === "dark";
-    boton.textContent = oscuro ? "☀ Leer de día" : "☾ Leer de noche";
+    boton.textContent = oscuro ? "Leer de día" : "Leer de noche";
     boton.title = oscuro ? "Volver al fondo claro" : "Fondo oscuro, más cómodo para leer de noche";
     boton.setAttribute("aria-label", oscuro ? "Leer de día: volver al fondo claro" : "Leer de noche: fondo oscuro, más cómodo para los ojos");
   }
@@ -439,7 +439,7 @@ Todos los días, antes de las 6 de la mañana (hora de Colombia).</p>
     }
   }
   function pintar() {
-    boton.textContent = activo && !pausado ? "❚❚ Pausa" : (pausado ? "▶ Seguir" : "▶ Escuchar");
+    boton.textContent = activo && !pausado ? "Pausa" : (pausado ? "Seguir" : "Escuchar");
     boton.setAttribute("aria-pressed", activo && !pausado ? "true" : "false");
     detener.hidden = !activo;
     // Mientras suena, los controles quedan a mano en la parte superior.
@@ -656,7 +656,7 @@ Todos los días, antes de las 6 de la mañana (hora de Colombia).</p>
           lista.forEach(function (el) { el.dataset.html = el.innerHTML; });
           if (clave.value) guardarCred(quien.value, clave.value);
           cred.hidden = true;
-          pintar("Guardado ✓ Queda publicado en la próxima hora.");
+          pintar("Guardado. Queda publicado en la próxima hora.");
           setTimeout(function () { if (!cambiados().length && !enviando) pintar(); }, 5000);
         } else {
           lista.forEach(function (el, k) { el.dataset.orig = previos[k]; });
@@ -903,7 +903,7 @@ Todos los días, antes de las 6 de la mañana (hora de Colombia).</p>
   boton.type = "button";
   boton.className = "dictar";
   boton.setAttribute("aria-label", "Dictar un ajuste por voz");
-  boton.innerHTML = '<span aria-hidden="true">🎤</span> Hablar';
+  boton.innerHTML = 'Hablar';
   var globo = document.createElement("div");
   globo.className = "dictar-globo";
   globo.setAttribute("role", "status");
@@ -958,7 +958,7 @@ Todos los días, antes de las 6 de la mañana (hora de Colombia).</p>
     previo.then(function () { return fetch(form.action, { method: "POST", body: d, headers: { Accept: "application/json" } }); })
       .then(function (r) { return r.json().then(function (j) { return [r.status, j]; }); })
       .then(function (res) {
-        estado.textContent = res[0] === 200 ? "Enviado ✓ Se aplica en la próxima hora." : res[1].mensaje;
+        estado.textContent = res[0] === 200 ? "Enviado. Se aplica en la próxima hora." : res[1].mensaje;
         setTimeout(cerrar, res[0] === 200 ? 3500 : 7000);
       })
       .catch(function () { estado.textContent = "No se pudo enviar. Revise la conexión."; setTimeout(cerrar, 6000); });
@@ -1020,8 +1020,8 @@ Todos los días, antes de las 6 de la mañana (hora de Colombia).</p>
 })();
 </script>
 <script>
-/* Comentar una frase: al seleccionar texto aparece "💬 Comentar" (y "🎤
-   Decirlo"); el comentario se escribe ahí mismo, debajo del párrafo, y se
+/* Comentar una frase: al seleccionar texto aparece "Comentar" (y "Decirlo en
+   voz alta"); el comentario se escribe ahí mismo, debajo del párrafo, y se
    envía con un toque. También: acceso al resumen desde la barra fija. */
 (function () {
   var resumen = document.getElementById("en-tres-minutos");
@@ -1035,9 +1035,9 @@ Todos los días, antes de las 6 de la mañana (hora de Colombia).</p>
   var pop = document.createElement("div");
   pop.className = "comentar-pop";
   pop.hidden = true;
-  pop.innerHTML = '<button type="button" class="comentar-si">💬 Comentar</button>' +
+  pop.innerHTML = '<button type="button" class="comentar-si">Comentar</button>' +
     (document.querySelector(".dictar") || window.SpeechRecognition || window.webkitSpeechRecognition
-      ? '<button type="button" class="comentar-voz">🎤 Decirlo</button>' : "");
+      ? '<button type="button" class="comentar-voz">Decirlo en voz alta</button>' : "");
   document.body.appendChild(pop);
   var cita = "", ancla = null;
 
@@ -1091,7 +1091,7 @@ Todos los días, antes de las 6 de la mañana (hora de Colombia).</p>
           if (clave.value) {
             try { localStorage.setItem("notas-quien", JSON.stringify(q)); localStorage.setItem("notas-clave", JSON.stringify(c)); } catch (e) {}
           }
-          caja.innerHTML = '<p class="comentario-gracias">¡Gracias! Su comentario llegó ✓</p>';
+          caja.innerHTML = '<p class="comentario-gracias">¡Gracias! Su comentario llegó.</p>';
           setTimeout(function () { caja.remove(); }, 3500);
         } else {
           if (res[0] === 401) caja.querySelector(".comentario-cred").hidden = false;
