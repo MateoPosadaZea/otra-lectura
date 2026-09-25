@@ -312,9 +312,6 @@ def envolver_secciones(cuerpo):
                 salida.append(f'<section class="{" ".join(clases)}"{extra}>\n')
             # "Carril 1: Radar" → "Radar", con una línea que explica el carril.
             heading = re.sub(r"(<h2[^>]*>)\s*Carril\s+\d+\s*:\s*", r"\1", heading, flags=re.I)
-            bajada = next((BAJADA_CARRIL[c] for c in clases if c in BAJADA_CARRIL), "")
-            if bajada:
-                heading += f'\n<p class="carril-bajada">{bajada}</p>'
             pila.append((nivel, "section", None))
         elif nivel == 3 and clases:
             # Slug explícito con {#slug} (attr_list) o derivado del título sin número.
@@ -803,25 +800,11 @@ def html_siguiente(e, ediciones):
 
 
 def pagina_edicion(base, e, ediciones):
-    lugares = (f'<p class="lugares">{" · ".join(html.escape(l) for l in e["lugares"])}</p>'
-               if e["lugares"] else "")
-    nota = f'<p class="nota">{html.escape(e["nota"])}</p>' if e["nota"] else ""
-    seguimiento = ""
-    if e["seguimiento_enlaces"]:
-        filas = "".join(
-            f'<li><span>{html.escape(tema.replace("-", " "))}</span>: '
-            f'{", ".join(enlace_edicion(o, "../") for o in previas)}'
-            + (f' · <a href="../temas/{tema}.html">todo el tema</a>' if tema in e.get("hilos_todos", ()) else "")
-            + '</li>'
-            for tema, previas in e["seguimiento_enlaces"])
-        seguimiento = f'<div class="seguimiento-de"><p>Seguimiento de temas anteriores</p><ul>{filas}</ul></div>'
     contenido = f"""<article class="edicion">
 <header class="cabecera">
 <p class="fecha">{linea_fecha(e)}</p>
 <h1>{html.escape(e['titulo'])}</h1>
-{lugares}
 {html_categorias(e['categorias'], '../')}
-{nota}
 {aviso_cambios(e)}
 {html_atajos(e)}
 {HTML_ESCUCHAR}

@@ -1644,3 +1644,10 @@ html:not(.js) .barra-fija { display: none; }
 .cerrar-panel:hover { background: var(--tinta); color: var(--papel); }
 .notas:not(:has(details[open])) .cerrar-panel,
 .glosario-flotante:not(:has(details[open])) .cerrar-panel { display: none; }
+
+/* Escuchar: en reposo solo el botón; ritmo y voz aparecen mientras suena. */
+html:not(.sonando) .escuchar label, html:not(.sonando) .escuchar-pista { display: none !important; }
+@media (max-width: 480px) {
+  .sonando .escuchar { flex-wrap: wrap; }
+  .sonando .escuchar-voces { display: inline-flex; }
+}
