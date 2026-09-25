@@ -58,7 +58,6 @@ OL.verificar = function (contenedor) {
 <a class="saltar" href="#contenido">Ir al contenido</a>
 <div class="barra-fija">
 <a class="cabezote" href="../index.html" tabindex="-1" aria-hidden="true">Otra Lectura</a>
-<a class="barra-resumen" href="#en-tres-minutos" hidden>Resumen</a>
 </div>
 <header class="sitio">
 <div class="marca">
@@ -84,7 +83,7 @@ OL.verificar = function (contenedor) {
 <h1>El presupuesto recorta la justicia transicional y la ONU admite el sobrepaso</h1>
 <ul class="temas" aria-label="Categorías"><li><a href="../categorias/economia.html">Economía</a></li><li><a href="../categorias/sociedad.html">Sociedad</a></li><li><a href="../categorias/ambiente.html">Ambiente</a></li></ul>
 
-
+<nav class="indice-edicion" aria-label="En esta edición"><p>En esta edición</p><ol><li><a href="#presupuesto-2027">Menos recursos en el presupuesto: a quién llegan los subsidios</a></li><li><a href="#el-recorte-a-la-justicia-transicional-sin-salida-conocida-colombia">El recorte a la justicia transicional: sin salida conocida</a></li><li><a href="#la-onu-admite-que-el-sobrepaso-ya-es-inevitable-mundo-banglades">La ONU admite que el sobrepaso ya es inevitable</a></li></ol></nav>
 <div class="escuchar" role="group" aria-label="Escuchar la edición" hidden>
 <button type="button" class="escuchar-play" aria-pressed="false">Escuchar</button>
 <button type="button" class="escuchar-detener" hidden>Detener</button>
@@ -330,7 +329,7 @@ bloque de trabajo.</p>
 <aside class="siguiente" aria-label="Siguiente lectura">
 <p class="siguiente-rotulo">Siguiente lectura</p>
 <a class="siguiente-titulo" href="2026-09-24-radar.html">El calor que no se cuenta, la extorsión que no se va con tropas y la vacuna que nadie fabricó</a>
-<p class="fecha">24 de septiembre de 2026 · 8 min de lectura</p>
+<p class="fecha">24 de septiembre de 2026 · 7 min de lectura</p>
 <p class="otros-temas"><a href="../archivo.html">Ver otros temas →</a></p>
 </aside>
 </main>
@@ -1165,9 +1164,6 @@ bloque de trabajo.</p>
    voz alta"); el comentario se escribe ahí mismo, debajo del párrafo, y se
    envía con un toque. También: acceso al resumen desde la barra fija. */
 (function () {
-  var resumen = document.getElementById("en-tres-minutos");
-  var enlace = document.querySelector(".barra-resumen");
-  if (resumen && enlace) enlace.hidden = false;
 
   var contenido = document.getElementById("contenido");
   var form = document.querySelector(".notas-form");

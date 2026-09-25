@@ -80,11 +80,10 @@ Arriba a la derecha está el botón **Leer de noche**. Pone el fondo
 oscuro, que cansa menos la vista. Para volver, toque **Leer de día**.
 El sitio recuerda su elección.
 
-## El resumen en tres minutos
+## Moverse dentro de una edición
 
-Cada edición empieza con **En tres minutos**: lo esencial del día.
-Mientras baja leyendo, en la barra de arriba aparece **Resumen** para
-volver a él.
+Al comienzo de cada edición está **En esta edición**, con la lista de sus
+temas. Toque uno para ir directo a él.
 
 ## Qué pasa después
 

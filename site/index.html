@@ -58,7 +58,6 @@ OL.verificar = function (contenedor) {
 <a class="saltar" href="#contenido">Ir al contenido</a>
 <div class="barra-fija">
 <a class="cabezote" href="index.html" tabindex="-1" aria-hidden="true">Otra Lectura</a>
-<a class="barra-resumen" href="#en-tres-minutos" hidden>Resumen</a>
 </div>
 <header class="sitio">
 <div class="marca">
@@ -89,25 +88,10 @@ OL.verificar = function (contenedor) {
 <h2 id="hoy-titulo" class="dia-fecha"><time datetime="2026-09-24">Jueves 24 de septiembre de 2026</time></h2>
 <ol class="indice dia">
 <li>
-<p class="fecha">Edición 4 · 8 min de lectura</p>
+<p class="fecha">Edición 4 · 7 min de lectura</p>
 <a class="dia-titulo" href="ediciones/2026-09-24-radar.html">El calor que no se cuenta, la extorsión que no se va con tropas y la vacuna que nadie fabricó</a>
 
-<div class="breve-portada"><p class="breve-rotulo">En tres minutos</p><ul>
-<li><strong>El calor que no se cuenta.</strong> Rige la alerta roja en la costa Caribe,
-  con sensación térmica superior a 55 °C y hasta 25% más consultas. La
-  alerta indica cuánto calor hace, no a quién atender. Ahmedabad (India) y
-  Francia adoptaron planes de calor que, según sus evaluaciones, evitaron
-  cientos o miles de muertes, aunque casi todos ignoran la humedad.</li>
-<li><strong>Extorsión en Santa Marta.</strong> Tras la muerte de alias Cholo, las ACSN
-  paralizaron la ciudad y el Gobierno ordenó militarizarla. Las tropas
-  recuperan la calle, pero el grupo vive de la extorsión. En Palermo,
-  Addiopizzo convirtió la negativa a pagar en una decisión colectiva.</li>
-<li><strong>La vacuna que nadie fabricó.</strong> El ébola Bundibugyo en el Congo suma
-  3.759 muertes, sin vacuna aprobada. Financiar y ensayar antes de que
-  exista un mercado da resultados, a un costo alto.</li>
-<li><strong>Seguimiento: presupuesto 2027.</strong> Aprobado en primer debate, con el
-  recorte a la JEP.</li>
-</ul><p class="breve-mas"><a href="ediciones/2026-09-24-radar.html">Leer la edición completa · 8 min de lectura →</a></p></div>
+<ul class="dia-temas" aria-label="Temas principales"><li><a href="ediciones/2026-09-24-radar.html#el-calor-que-enferma-y-no-se-cuenta-caribe-colombiano-ahmedabad-y-francia">El calor que enferma y no se cuenta</a></li><li><a href="ediciones/2026-09-24-radar.html#militarizar-recupera-la-calle-no-la-renta-santa-marta-palermo">Militarizar recupera la calle, no la renta</a></li><li><a href="ediciones/2026-09-24-radar.html#la-vacuna-que-nadie-fabrico-porque-no-habia-mercado-congo-guinea-y-uganda">La vacuna que nadie fabricó porque no había mercado</a></li></ul>
 </li>
 </ol>
 </section>
@@ -944,9 +928,6 @@ OL.verificar = function (contenedor) {
    voz alta"); el comentario se escribe ahí mismo, debajo del párrafo, y se
    envía con un toque. También: acceso al resumen desde la barra fija. */
 (function () {
-  var resumen = document.getElementById("en-tres-minutos");
-  var enlace = document.querySelector(".barra-resumen");
-  if (resumen && enlace) enlace.hidden = false;
 
   var contenido = document.getElementById("contenido");
   var form = document.querySelector(".notas-form");

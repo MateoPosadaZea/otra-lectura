@@ -58,7 +58,6 @@ OL.verificar = function (contenedor) {
 <a class="saltar" href="#contenido">Ir al contenido</a>
 <div class="barra-fija">
 <a class="cabezote" href="index.html" tabindex="-1" aria-hidden="true">Otra Lectura</a>
-<a class="barra-resumen" href="#en-tres-minutos" hidden>Resumen</a>
 </div>
 <header class="sitio">
 <div class="marca">
@@ -100,8 +99,7 @@ detiene en ellos.</p>
 <li><strong>Qué dice la historia.</strong> Cuándo pasó algo parecido y qué se aprendió.
   La historia ayuda a ver patrones y a no alarmarse de más.</li>
 </ul>
-<p>Cada edición abre con <strong>En tres minutos</strong>, para quien tenga poco tiempo.
-Después del Radar viene <strong>Asombro</strong>, con descubrimientos y buenas
+<p>Después del Radar viene <strong>Asombro</strong>, con descubrimientos y buenas
 noticias, y al final <strong>Para conversar</strong>, una pregunta para hablar en
 casa. También trae un <strong>glosario</strong> con los términos difíciles, las
 <strong>fuentes</strong> numeradas y una nota sobre cómo se hizo.</p>
@@ -964,9 +962,6 @@ mejoras. Los pasos están en <a href="ayuda.html">Cómo participar</a>.</p>
    voz alta"); el comentario se escribe ahí mismo, debajo del párrafo, y se
    envía con un toque. También: acceso al resumen desde la barra fija. */
 (function () {
-  var resumen = document.getElementById("en-tres-minutos");
-  var enlace = document.querySelector(".barra-resumen");
-  if (resumen && enlace) enlace.hidden = false;
 
   var contenido = document.getElementById("contenido");
   var form = document.querySelector(".notas-form");

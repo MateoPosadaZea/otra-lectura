@@ -21,7 +21,6 @@ Cada tema del **Radar** se cuenta en el mismo orden:
 - **Qué dice la historia.** Cuándo pasó algo parecido y qué se aprendió.
   La historia ayuda a ver patrones y a no alarmarse de más.
 
-Cada edición abre con **En tres minutos**, para quien tenga poco tiempo.
 Después del Radar viene **Asombro**, con descubrimientos y buenas
 noticias, y al final **Para conversar**, una pregunta para hablar en
 casa. También trae un **glosario** con los términos difíciles, las

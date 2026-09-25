@@ -12,7 +12,7 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
 
 - 2026-09-24 · Pedido de Mateo ("no queremos causar desgaste a nuestros
   lectores"): ediciones de máximo unas 1.500 palabras de lectura y hasta
-  tres fricciones; abrir con "En tres minutos"; cerrar con "Para
+  tres fricciones; cerrar con "Para
   conversar" (una pregunta y, si aplica, qué puede hacer un ciudadano).
   El objetivo es entender y conversar, no acumular información.
 - 2026-09-25 · Pedido de Mateo ("quitar términos como descabezados, mucho
@@ -34,3 +34,8 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   ediciones ni en el sitio: solo texto.
 - 2026-09-25 · Pedido de Mateo: la etiqueta del mecanismo se llama
   **El cómo, en síntesis.** (no "El cómo, en corto").
+- 2026-09-25 · Pedido de Mateo ("queremos fomentar la profundidad, no la
+  lectura rápida y efímera"): no hay sección "En tres minutos" ni
+  resúmenes para leer de afán. La apuesta es la curaduría, el análisis, las
+  fuentes y las ayudas (glosario, gráficos, historia); el techo de largo es
+  para no desgastar, no para simplificar.

@@ -9,7 +9,7 @@ markdown es Python-Markdown, con la versión fijada en `requirements.txt`.
 
 ## Estructura de una edición
 
-`## En tres minutos` (resumen arriba, en recuadro) → `## Carril 1: Radar`
+`## Carril 1: Radar` (la plantilla arma el índice "En esta edición")
 → `## Carril 2: Asombro` → `## Para conversar` (pregunta y, si aplica,
 qué puede hacer un ciudadano) → `## Descartes` → `## Glosario` →
 `## Nota metodológica`. El build calcula el tiempo de lectura (~200

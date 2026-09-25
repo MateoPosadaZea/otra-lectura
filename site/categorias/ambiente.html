@@ -58,7 +58,6 @@ OL.verificar = function (contenedor) {
 <a class="saltar" href="#contenido">Ir al contenido</a>
 <div class="barra-fija">
 <a class="cabezote" href="../index.html" tabindex="-1" aria-hidden="true">Otra Lectura</a>
-<a class="barra-resumen" href="#en-tres-minutos" hidden>Resumen</a>
 </div>
 <header class="sitio">
 <div class="marca">
@@ -84,7 +83,7 @@ OL.verificar = function (contenedor) {
 </header>
 <ol class="indice" reversed>
 <li>
-<p class="fecha"><time datetime="2026-09-24">24 de septiembre de 2026</time> · Edición 4 · 8 min de lectura</p>
+<p class="fecha"><time datetime="2026-09-24">24 de septiembre de 2026</time> · Edición 4 · 7 min de lectura</p>
 <a href="../ediciones/2026-09-24-radar.html">El calor que no se cuenta, la extorsión que no se va con tropas y la vacuna que nadie fabricó</a>
 
 </li><li>
@@ -934,9 +933,6 @@ OL.verificar = function (contenedor) {
    voz alta"); el comentario se escribe ahí mismo, debajo del párrafo, y se
    envía con un toque. También: acceso al resumen desde la barra fija. */
 (function () {
-  var resumen = document.getElementById("en-tres-minutos");
-  var enlace = document.querySelector(".barra-resumen");
-  if (resumen && enlace) enlace.hidden = false;
 
   var contenido = document.getElementById("contenido");
   var form = document.querySelector(".notas-form");

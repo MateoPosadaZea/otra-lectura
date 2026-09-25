@@ -46,8 +46,6 @@ con qué contrapeso y qué patrón histórico ayuda a entenderlo.
     `seguimiento` van los slugs de la semana que se repasan (en `temas`
     solo si se escribe una fricción nueva sobre ellos; lo normal es
     `seguimiento`).
-  - "En tres minutos": lo más importante de la semana, en cuatro o cinco
-    viñetas.
   - Carril Radar con `### Seguimiento: …` por cada tema que tuvo
     movimiento: qué cambió desde que se trató y qué sigue abierto.
   - "Para conversar": una pregunta de fondo que conecte dos o más temas
@@ -108,11 +106,6 @@ Cuerpo, en este orden (ver `prompt.md` 2.0 para el contenido de cada parte):
 ```markdown
 # Radar · 25 de septiembre de 2026
 
-## En tres minutos
-
-- **Tema uno en pocas palabras.** Qué pasó y quién lo está resolviendo, en una o dos frases.
-- **Tema dos…** (una viñeta por fricción, y una más si hay seguimiento)
-
 ## Carril 1: Radar
 
 ### 1. Título de la fricción (lugar → lugar de la intervención) {#tema-uno}
@@ -154,8 +147,9 @@ cercano (preguntar, participar, votar, revisar). Si no lo hay, se omite.
   no justificar. Mejor tres temas bien entendidos que cinco a medias. Un
   día sin novedades de fondo puede tener una sola fricción, o solo
   seguimientos.
-- **En tres minutos** va primero: una viñeta por fricción, en registro
-  directo y sin cifras de más. Quien solo lea eso debe quedar informado.
+- Sin resúmenes rápidos al comienzo ("En tres minutos" ya no existe): el
+  sitio apuesta por la profundidad. El índice de la edición lo genera la
+  plantilla a partir de los títulos de las fricciones.
 - **Para conversar** cierra la parte de lectura: una pregunta que invite a
   pensar (no a indignarse) y, cuando exista, una acción ciudadana concreta.
 - Hasta tres fricciones (dos es un buen número). Cada subtítulo es una negrita al inicio del

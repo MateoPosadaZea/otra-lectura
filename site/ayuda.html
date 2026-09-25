@@ -58,7 +58,6 @@ OL.verificar = function (contenedor) {
 <a class="saltar" href="#contenido">Ir al contenido</a>
 <div class="barra-fija">
 <a class="cabezote" href="index.html" tabindex="-1" aria-hidden="true">Otra Lectura</a>
-<a class="barra-resumen" href="#en-tres-minutos" hidden>Resumen</a>
 </div>
 <header class="sitio">
 <div class="marca">
@@ -146,10 +145,9 @@ voz, debajo del botón se explica cómo instalarlas en el celular.</p>
 <p>Arriba a la derecha está el botón <strong>Leer de noche</strong>. Pone el fondo
 oscuro, que cansa menos la vista. Para volver, toque <strong>Leer de día</strong>.
 El sitio recuerda su elección.</p>
-<h2>El resumen en tres minutos</h2>
-<p>Cada edición empieza con <strong>En tres minutos</strong>: lo esencial del día.
-Mientras baja leyendo, en la barra de arriba aparece <strong>Resumen</strong> para
-volver a él.</p>
+<h2>Moverse dentro de una edición</h2>
+<p>Al comienzo de cada edición está <strong>En esta edición</strong>, con la lista de sus
+temas. Toque uno para ir directo a él.</p>
 <h2>Qué pasa después</h2>
 <ul>
 <li>Los comentarios se revisan <strong>cada hora, entre las 6 de la mañana y las
@@ -1024,9 +1022,6 @@ Todos los días, antes de las 6 de la mañana (hora de Colombia).</p>
    voz alta"); el comentario se escribe ahí mismo, debajo del párrafo, y se
    envía con un toque. También: acceso al resumen desde la barra fija. */
 (function () {
-  var resumen = document.getElementById("en-tres-minutos");
-  var enlace = document.querySelector(".barra-resumen");
-  if (resumen && enlace) enlace.hidden = false;
 
   var contenido = document.getElementById("contenido");
   var form = document.querySelector(".notas-form");
