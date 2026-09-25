@@ -67,7 +67,9 @@ en cinco criterios:
 | Cercanía | ¿Qué tanto toca a Colombia o América Latina? | lejano | directo |
 | Decisión | ¿Se está decidiendo algo ahora (ley, presupuesto, fallo, elección)? | nada en curso | decisión inminente |
 
-Se eligen los de mayor puntaje (máximo 15). Reglas:
+**Gravedad y cercanía valen doble** (pedido de Mateo, 2026-09-25):
+total = alcance + 2 × gravedad + duración + 2 × cercanía + decisión.
+Se eligen los de mayor puntaje (máximo 21). Reglas:
 - Al menos **un tema colombiano de alto impacto** por edición (si no hay
   novedad, un seguimiento de uno ya tratado).
 - El tema puede ser **estructural y de largo plazo** (pensiones, salud,
@@ -78,7 +80,8 @@ Se eligen los de mayor puntaje (máximo 15). Reglas:
 - La diversidad geográfica se busca entre temas de impacto comparable, no
   a costa del impacto.
 - En la **Nota metodológica** va una tabla corta con el puntaje de los
-  temas elegidos y de los principales descartados, para que el criterio se
+  temas elegidos y de los principales descartados (los criterios en 1 a 3,
+  y el total ya ponderado), para que el criterio se
   pueda discutir y calibrar.
 
 ## 3. Investigar (sin prisa: la calidad de las fuentes es lo que distingue al sitio)

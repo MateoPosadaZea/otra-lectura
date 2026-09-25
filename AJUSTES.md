@@ -55,6 +55,6 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
 - 2026-09-25 · Pedido de Mateo ("temas de mayor impacto en la sociedad";
   en calibración): la selección se ordena por un puntaje de impacto
   (alcance, gravedad, duración, cercanía, decisión en curso; 1 a 3 cada
-  uno). Al menos un tema colombiano de alto impacto. El tema puede ser
-  estructural con un hecho reciente que lo reactive. La nota metodológica
+  uno; gravedad y cercanía valen doble, máximo 21). Al menos un tema
+  colombiano de alto impacto. El tema puede ser estructural con un hecho reciente que lo reactive. La nota metodológica
   muestra el puntaje de elegidos y descartados. Ver RUTINA.md, sección 2b.
