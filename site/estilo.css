@@ -1672,3 +1672,11 @@ html:not(.sonando) .escuchar label, html:not(.sonando) .escuchar-pista { display
 .indice-edicion a { display: block; padding: 0.5rem 0; font-size: 0.92em; text-decoration: none; text-align: center; }
 .indice-edicion a:hover { color: var(--rojo); }
 #para-conversar, .edicion article.item { scroll-margin-top: 4rem; }
+
+/* Candidatas: archivo de cruces con Mattriz */
+.cruces { max-width: var(--medida); margin: 3.5rem auto 0; }
+.cruces h2 { margin: 0 0 0.5rem; font: 400 1.8em/1.1 var(--serif); text-align: center; }
+.cruces-lista { list-style: none; margin: 1.2rem 0 0; padding: 0; border-top: 3px double var(--tinta); }
+.cruces-lista li { padding: 1rem 0; border-bottom: 1px solid var(--filete); }
+.cruces-lista .origen { margin: 0 0 0.3rem; font-size: 0.85em; color: var(--tenue); }
+.cruces-lista p { margin: 0; }

@@ -431,6 +431,7 @@ def leer_edicion(ruta):
     e["palabras"] = len(texto_plano(lectura).split())
     e["minutos"] = max(1, round(e["palabras"] / 200))
     e["cuerpo"] = graficos.insertar(marcar_bloques(cuerpo), figuras)
+    e["cuerpo"], e["cruces"] = sacar_cruces(e["cuerpo"], dict(e["indice_fricciones"]))
     e["glosario"] = extraer_glosario(e["cuerpo"])
 
     for i, a in enumerate(e["actualizaciones"], 1):
@@ -441,6 +442,22 @@ def leer_edicion(ruta):
     cambios = [a["fecha"] for a in e["actualizaciones"]] + [c["fecha"] for c in e["correcciones"]]
     e["ultimo_cambio"] = max(cambios) if cambios else ""
     return e
+
+
+RE_CRUCE = re.compile(r'<p class="con-etiqueta cruce[^"]*">\s*<strong class="etiqueta">[^<]*</strong>\s*(.*?)</p>\n?', re.S)
+
+
+def sacar_cruces(cuerpo, titulos):
+    """El "Cruce con Mattriz" no se muestra en la edición: se guarda para la
+    página de Candidatas (con la fricción de donde salió). Los "No hay." se
+    descartan."""
+    cruces = []
+    for m in re.finditer(r'<article class="item[^"]*" id="([^"]+)">(.*?)<!--fin:\1-->', cuerpo, re.S):
+        for c in RE_CRUCE.finditer(m.group(2)):
+            texto = c.group(1).strip()
+            if not re.fullmatch(r"no hay\.?", texto_plano(texto).strip(), re.I):
+                cruces.append({"slug": m.group(1), "friccion": titulos.get(m.group(1), ""), "html": texto})
+    return RE_CRUCE.sub("", cuerpo), cruces
 
 
 def resolver_seguimientos(ediciones):
@@ -1071,7 +1088,24 @@ def pagina_categoria(base, ediciones, clave):
                   f"/categorias/{clave}.html", seccion=clave)
 
 
-def pagina_candidatas(base, candidatas):
+def html_cruces(ediciones):
+    """Cruces con Mattriz anotados en las ediciones (ya no se muestran en ellas)."""
+    filas = []
+    for e in ediciones:
+        for c in e["cruces"]:
+            filas.append(f"""<li>
+<p class="origen"><a href="ediciones/{e['slug']}.html#{c['slug']}">{html.escape(c['friccion'] or e['titulo'])}</a> · {enlace_edicion(e, "")}</p>
+<p>{c['html']}</p>
+</li>""")
+    if not filas:
+        return ""
+    return ('<section class="cruces">\n<h2>Cruces anotados en las ediciones</h2>\n'
+            '<p class="candidatas-resumen">Lo que cada noticia sugirió para Mattriz. Queda aquí como archivo; '
+            'ya no aparece en las ediciones.</p>\n'
+            f'<ol class="cruces-lista">{"".join(filas)}</ol>\n</section>')
+
+
+def pagina_candidatas(base, candidatas, ediciones=()):
     conteo = {s: sum(c["estado"] == s for c in candidatas) for s in ESTADOS_CANDIDATA}
     resumen = " · ".join(f"{n} {s}" + ("s" if n != 1 else "") for s, n in conteo.items() if n)
     filas = []
@@ -1091,7 +1125,8 @@ def pagina_candidatas(base, candidatas):
 <p class="candidatas-resumen">{resumen or "Sin candidatas"}. El desarrollo y el estado se editan en <code>candidatas.md</code>.</p>
 <ol class="indice candidatas">
 {lista}
-</ol>"""
+</ol>
+{html_cruces(ediciones)}"""
     return pagina(base, "Candidatas · Otra lectura",
                   "Ideas de cruce con Mattriz surgidas en Otra lectura: candidatas, no tareas.",
                   "", contenido, "/candidatas.html")
@@ -1218,7 +1253,7 @@ def main():
             "contexto, historia, soluciones y contrapeso.", seccion="sobre"), encoding="utf-8")
 
     candidatas = reunir_candidatas(ediciones, estados)
-    (SITE / "candidatas.html").write_text(pagina_candidatas(base, candidatas), encoding="utf-8")
+    (SITE / "candidatas.html").write_text(pagina_candidatas(base, candidatas, ediciones), encoding="utf-8")
 
     print(f"{len(ediciones)} ediciones, {len(candidatas)} candidatas → {SITE.relative_to(RAIZ)}/"
           + ("" if INDEXAR else " (sin indexación)"))

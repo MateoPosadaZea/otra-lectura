@@ -39,3 +39,8 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   resúmenes para leer de afán. La apuesta es la curaduría, el análisis, las
   fuentes y las ayudas (glosario, gráficos, historia); el techo de largo es
   para no desgastar, no para simplificar.
+- 2026-09-25 · Pedido de Mateo: el "Cruce con Mattriz" no se muestra en las
+  ediciones. Se sigue escribiendo en el markdown (y las ideas nuevas en
+  `cruce_mattriz` y `candidatas.md`), pero la plantilla lo quita del
+  artículo y lo archiva en la página de Candidatas. Si no hay cruce, basta
+  omitirlo.
