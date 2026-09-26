@@ -197,6 +197,12 @@ partir del campo `seguimiento`.
 
 **Titular corrido.** texto…
 
+## La paradoja del día
+
+Dos a cuatro líneas sobre lo más absurdo de la edición, contado con
+ironía seca y con los hechos tal cual (ver AJUSTES.md, «Tono con humor»).
+Si hoy no hay una paradoja clara, se omite la sección.
+
 ## Para conversar
 
 **La pregunta.** Una sola pregunta abierta, sin respuesta obvia, para

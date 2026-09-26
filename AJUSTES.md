@@ -84,3 +84,20 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   «WebFetch», «la red bloqueó»): «no pudimos abrir el documento completo».
 - 2026-09-26 · Pedido de Mateo: el botón de noche/día lleva ícono (luna y
   sol, dibujados en SVG, no emojis). Es la excepción a «sin íconos».
+- 2026-09-26 · Pedido de Mateo: **tono con humor**. Crítico pero divertido,
+  para recordar, comentar y opinar; fácil de entender, sin complicarlo.
+  - La gracia sale de lo absurdo que ya traen los hechos, con ironía seca
+    («el negocio ideal sería un seguro de salud sin enfermos»). Nada de
+    chistes inventados.
+  - Se ríe de los sistemas y las paradojas, nunca de las víctimas ni de
+    personas por su aspecto, origen o condición. Parejo con todos los
+    lados políticos.
+  - Nunca a costa del dato: la frase irónica va junto a la cifra
+    verificada, no en su lugar.
+  - Dosis: una o dos frases por nudo, donde la paradoja lo permita. Temas
+    de violencia, muertes o tragedias van sin humor.
+  - Cierre fijo antes de «Para conversar»: **La paradoja del día**, dos a
+    cuatro líneas sobre lo más absurdo de la edición.
+  - Lenguaje llano: nada de jerga académica («diferencias en diferencias»,
+    «subcompensación», «margen operativo»); decir qué encontró el estudio
+    en palabras de todos los días.

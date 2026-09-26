@@ -294,6 +294,8 @@ def clases_heading(nivel, texto):
     if nivel == 2:
         if "para conversar" in t:
             return ["carril", "conversar"]
+        if "paradoja" in t:
+            return ["carril", "paradoja"]
         if "asombro" in t:
             return ["carril", "carril-asombro"]
         if "radar" in t or "carril" in t:
