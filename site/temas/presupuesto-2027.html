@@ -366,6 +366,27 @@
     document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && det.open && det.contains(document.activeElement)) det.open = false; });
   });
 })();
+/* Portada: "Leer la edición de hoy" baja despacio, con aceleración suave. */
+(function () {
+  var enlace = document.querySelector(".portada-guia a");
+  if (!enlace || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  enlace.addEventListener("click", function (ev) {
+    var destino = document.getElementById("hoy");
+    if (!destino) return;
+    ev.preventDefault();
+    var desde = scrollY, hasta = destino.getBoundingClientRect().top + scrollY - 64;
+    var duracion = 1600, inicio = null;
+    function suave(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+    function paso(ahora) {
+      if (inicio === null) inicio = ahora;
+      var t = Math.min((ahora - inicio) / duracion, 1);
+      scrollTo(0, desde + (hasta - desde) * suave(t));
+      if (t < 1) requestAnimationFrame(paso);
+      else history.replaceState(null, "", "#hoy");
+    }
+    requestAnimationFrame(paso);
+  });
+})();
 /* Cierra el menú de secciones al hacer clic fuera o con Escape. */
 (function () {
   var menu = document.querySelector("details.menu");

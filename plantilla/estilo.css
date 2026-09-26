@@ -1262,3 +1262,9 @@ html:not(.sonando) .escuchar label, html:not(.sonando) .escuchar-pista { display
   vertical-align: 0.1em;
 }
 .tipo-academica, .tipo-datos { border-color: var(--tinta); color: var(--tinta); }
+
+/* Sin palabras sueltas en un renglón: títulos y listas cortas se reparten
+   parejo; los párrafos evitan dejar una sola palabra al final. */
+h1, h2, h3, h4, summary, figcaption, .dia-titulo, .indice-edicion li, .dia-temas li,
+.indice li, .siguiente-titulo, .archivo-temas, .portada-intro { text-wrap: balance; }
+p, li, dd, blockquote { text-wrap: pretty; }
