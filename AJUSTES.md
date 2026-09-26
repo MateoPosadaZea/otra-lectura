@@ -94,8 +94,13 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
     lados políticos.
   - Nunca a costa del dato: la frase irónica va junto a la cifra
     verificada, no en su lugar.
-  - Dosis: una o dos frases por nudo, donde la paradoja lo permita. Temas
-    de violencia, muertes o tragedias van sin humor.
+  - Dosis (ajustada el mismo día, pedido de Mateo): el humor acompaña toda
+    la lectura, no solo el final. Repartido a lo largo de cada nudo (dos a
+    cuatro toques: en el título si se presta, en «Qué pasó», en «Por qué se
+    repite», en «Quién lo está resolviendo»…), también en Asombro y en la
+    pregunta de «Para conversar». Frases cortas, que se lean de paso, sin
+    frenar la explicación. Temas de violencia, muertes o tragedias van sin
+    humor.
   - Cierre fijo antes de «Para conversar»: **La paradoja del día**, dos a
     cuatro líneas sobre lo más absurdo de la edición.
   - Lenguaje llano: nada de jerga académica («diferencias en diferencias»,
