@@ -54,24 +54,7 @@
   --grano: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Oscuro: por preferencia del sistema, salvo que el lector elija claro con el botón. */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --papel: #1b1a18;
-    --papel-claro: #25231f;
-    --tinta: #e4ddd2;
-    --tenue: #a39b8f;
-    --filete: rgba(228, 221, 210, 0.25);
-    --rayado: rgba(228, 221, 210, 0.08);
-    --rojo: #e27a57;
-    --s1: #5b92e0;
-    --s2: #e0663a;
-    --s3: #27a07d;
-    --gris-dato: #5d5850;
-    --grano: none;
-  }
-}
+/* Oscuro: solo si el lector lo elige con el botón "Leer de noche"; por defecto, claro. */
 :root[data-theme="dark"] {
   color-scheme: dark;
   --papel: #1b1a18;
@@ -497,70 +480,6 @@ nav.categorias a:hover { color: inherit; border-bottom-color: var(--tinta); }
 nav.categorias a[aria-current="page"] { border-bottom-color: var(--rojo); }
 nav.categorias span { color: var(--tenue); font-weight: 500; }
 
-/* --- Formulario de ajustes --- */
-
-.ajuste {
-  margin-top: 3rem;
-  padding: 1rem 1.2rem;
-  border: 1px dashed var(--tinta);
-  font-size: 0.92em;
-}
-.ajuste summary {
-  cursor: pointer;
-  font-family: var(--sans);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-.ajuste form { display: grid; gap: 0.9rem; margin-top: 1rem; }
-.ajuste label {
-  display: grid;
-  gap: 0.3rem;
-  font-family: var(--sans);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.ajuste textarea, .ajuste input {
-  width: 100%;
-  padding: 0.55rem 0.65rem;
-  border: 1px solid var(--tinta);
-  border-radius: 0;
-  background: var(--papel-claro);
-  color: var(--tinta);
-  font: 400 1rem/1.5 var(--sans);
-  letter-spacing: 0;
-  text-transform: none;
-}
-.ajuste textarea { resize: vertical; }
-.ajuste-fila { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
-@media (max-width: 480px) { .ajuste-fila { grid-template-columns: 1fr; } }
-.ajuste button {
-  justify-self: start;
-  padding: 0.6rem 1.1rem;
-  border: 0;
-  background: var(--tinta);
-  color: var(--papel);
-  font: 800 0.72rem/1 var(--sans);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-.ajuste button:hover { background: var(--rojo); }
-.ajuste-nota { margin: 0; color: var(--tenue); font-size: 0.85em; }
-@media print { .ajuste { display: none; } }
-.ajuste-estado {
-  margin: 0;
-  padding: 0.55rem 0.75rem;
-  border-left: 3px solid var(--tinta);
-  font-family: var(--sans);
-  font-size: 0.85em;
-}
-.ajuste-estado.error { border-left-color: var(--rojo); color: var(--rojo); }
-.ajuste button:disabled { opacity: 0.6; cursor: wait; }
-
 /* --- Actualizaciones, correcciones y aviso de revisión --- */
 
 /* Etiqueta con fecha de actualizaciones y correcciones. */
@@ -710,15 +629,23 @@ footer.sitio .pie-enlaces { font-family: var(--sans); }
 
 .solo-lectores { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 
-.portada { margin: 4.5rem 0 4rem; }
+/* Portada: la frase, qué es esto y una guía para bajar a la edición del día. */
+.portada {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: min(78svh, 46rem);
+  margin: 0 0 3rem;
+  padding: 3rem 0;
+}
 .epigrafe { margin: 0; text-align: center; }
 .epigrafe blockquote { margin: 0; padding: 0; border: 0; }
 .epigrafe blockquote p {
   margin: 0 auto;
   max-width: 24em;
   font-family: var(--serif);
-  font-size: clamp(1.45rem, 1.1rem + 1.4vw, 2rem);
-  line-height: 1.28;
+  font-size: clamp(1.7rem, 1.2rem + 2vw, 2.7rem);
+  line-height: 1.22;
   color: var(--tinta);
   text-wrap: balance;
 }
@@ -729,6 +656,30 @@ footer.sitio .pie-enlaces { font-family: var(--sans); }
   color: var(--tenue);
 }
 .epigrafe cite { margin-left: 0.6em; font-style: italic; }
+.portada-intro {
+  max-width: 30em;
+  margin: 2.6rem auto 0;
+  text-align: center;
+  font: 400 1rem/1.6 var(--sans);
+  color: var(--tenue);
+  text-wrap: pretty;
+}
+.portada-intro a { color: var(--tinta); }
+.portada-guia { margin: 2.2rem 0 0; text-align: center; }
+.portada-guia a {
+  display: inline-block;
+  padding: 0.75rem 1.4rem;
+  border: 1px solid var(--tinta);
+  font: 700 0.72rem/1 var(--sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--tinta);
+}
+.portada-guia a:hover { background: var(--tinta); color: var(--papel); }
+.hoy { scroll-margin-top: 4rem; }
+/* En la portada, el titular de la edición un escalón por debajo de la frase. */
+.hoy .indice > li > a.dia-titulo { font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.1rem); }
 
 /* Índice con más aire. */
 .indice > li { padding: 2.2rem 0 2.3rem; }
@@ -755,155 +706,6 @@ footer.sitio .pie-enlaces { font-family: var(--sans); }
   text-transform: uppercase;
 }
 .candidata-detalle ol { padding-left: 1.3em; }
-
-/* --- Panel de notas: a la izquierda mientras se lee --- */
-
-/* Sin JavaScript, o por defecto: al final de la página, en la columna. */
-.notas {
-  max-width: var(--medida);
-  margin: 3rem auto 0;
-  padding: 0.9rem 1rem;
-  border: 1px dashed var(--tinta);
-  background: var(--papel);
-  font-size: 0.82rem;
-  line-height: 1.45;
-}
-.notas summary {
-  cursor: pointer;
-  font: 800 0.66rem/1 var(--sans);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-.notas-cuenta {
-  display: inline-block;
-  min-width: 1.4em;
-  margin-left: 0.3em;
-  padding: 0.15em 0.35em;
-  background: var(--rojo);
-  color: var(--papel);
-  text-align: center;
-  border-radius: 999px;
-  letter-spacing: 0;
-}
-.notas-form { display: grid; gap: 0.6rem; margin-top: 0.7rem; }
-.notas-ayuda { margin: 0; color: var(--tenue); }
-.notas textarea, .notas input:not([type="checkbox"]) {
-  width: 100%;
-  padding: 0.45rem 0.55rem;
-  border: 1px solid var(--tinta);
-  border-radius: 0;
-  background: var(--papel-claro);
-  color: var(--tinta);
-  font: 400 0.9rem/1.45 var(--sans);
-}
-.notas textarea { resize: vertical; }
-.notas label {
-  display: grid;
-  gap: 0.2rem;
-  font: 700 0.62rem/1.2 var(--sans);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-.notas .notas-recordar {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  text-transform: none;
-  font-size: 0.72rem;
-  color: var(--tenue);
-}
-.notas-envio { display: grid; gap: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--filete); }
-.notas-agregar, .notas-enviar {
-  justify-self: start;
-  padding: 0.5rem 0.8rem;
-  border: 1px solid var(--tinta);
-  background: none;
-  color: var(--tinta);
-  font: 800 0.62rem/1 var(--sans);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-.notas-enviar { background: var(--tinta); color: var(--papel); }
-.notas-agregar:hover, .notas-enviar:hover { background: var(--rojo); border-color: var(--rojo); color: var(--papel); }
-.notas-enviar:disabled { opacity: 0.6; cursor: wait; }
-
-.notas-cita {
-  display: flex;
-  gap: 0.4rem;
-  align-items: start;
-  margin: 0;
-  padding: 0.4rem 0.5rem;
-  border-left: 3px solid var(--rojo);
-  background: var(--papel-claro);
-  font-style: italic;
-}
-.notas-cita button, .notas-lista button {
-  flex: none;
-  margin-left: auto;
-  padding: 0 0.3rem;
-  border: 0;
-  background: none;
-  color: var(--tenue);
-  font-size: 1rem;
-  line-height: 1;
-  cursor: pointer;
-}
-.notas-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; }
-.notas-lista li {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 0.15rem 0.3rem;
-  padding: 0.4rem 0.5rem;
-  border: 1px solid var(--filete);
-}
-.notas-lista li > * { grid-column: 1; }
-.notas-lista li > button { grid-column: 2; grid-row: 1; }
-.notas-lista q { color: var(--tenue); font-style: italic; }
-.notas-lista small { color: var(--tenue); font-size: 0.7rem; }
-.notas-estado { margin: 0; padding: 0.4rem 0.5rem; border-left: 3px solid var(--tinta); }
-.notas-estado.error { border-left-color: var(--rojo); color: var(--rojo); }
-
-/* Con JavaScript en pantallas angostas: botón flotante abajo a la izquierda. */
-@media (max-width: 1239px) {
-  .js .notas {
-    position: fixed;
-    left: 1rem;
-    bottom: 1rem;
-    z-index: 4;
-    width: min(22rem, calc(100vw - 2rem));
-    max-height: 75vh;
-    overflow-y: auto;
-    margin: 0;
-    border-style: solid;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
-  }
-  .js .notas:not(:has(details[open])) {
-    width: auto;
-    padding: 0.5rem 0.8rem;
-    background: var(--tinta);
-    color: var(--papel);
-  }
-}
-
-/* Pantallas anchas: fijo a la izquierda, simétrico al glosario. */
-@media (min-width: 1240px) {
-  .notas {
-    position: fixed;
-    top: 10.5rem;
-    left: 1.5rem;
-    z-index: 3;
-    width: 14rem;
-    max-height: calc(100vh - 15.5rem); /* deja lugar al botón "Hablar" */
-    overflow-y: auto;
-    margin: 0;
-    border-style: solid;
-  }
-}
-
-@media print { .notas { display: none !important; } }
 
 /* --- Gráficos (scripts/graficos.py) --- */
 
@@ -1004,10 +806,7 @@ footer.sitio .pie-enlaces { font-family: var(--sans); }
   .g-svg .g-nombre { display: none; }
 }
 
-/* Pasos del panel de notas. */
-.notas-ayuda a { font-weight: 700; }
-
-/* Páginas de texto (Cómo participar). */
+/* Páginas de texto (Cómo se usa, ¿Qué es esto?). */
 .texto h2 {
   margin: 2.6rem 0 0.9rem;
   padding-top: 1rem;
@@ -1210,7 +1009,9 @@ html:not(.js) .barra-fija { display: none; }
   .cabecera { margin: 2rem 0; }
   .cabecera h1 { font-size: 1.75rem; line-height: 1.1; }
   .cabecera .bajada { font-size: 1.2em; }
-  .epigrafe blockquote p { font-size: 1.3rem; }
+  .epigrafe blockquote p { font-size: 1.75rem; }
+  .portada-intro { font-size: 0.9rem; }
+  .portada { min-height: 70svh; }
   .indice > li { padding: 1.6rem 0 1.7rem; }
   .indice > li > a { font-size: 1.75em; line-height: 1.1; }
   .dia-temas { font-size: 0.9em; }
@@ -1304,95 +1105,6 @@ html:not(.js) .barra-fija { display: none; }
 .temas-seguidos a { font-family: var(--serif); font-size: 1.3em; text-decoration: none; }
 .temas-seguidos span { display: block; color: var(--tenue); font-size: 0.8em; }
 
-/* --- Pulso: ¿cómo le quedó esta edición? --- */
-
-.pulso { max-width: var(--medida); margin: 3.5rem auto 0; }
-.pulso fieldset { margin: 0; padding: 1.2rem 1.2rem 1rem; border: 1px solid var(--tinta); text-align: center; }
-.pulso legend { padding: 0 0.6rem; font: 400 1.4em/1.2 var(--serif); }
-.pulso-ayuda { margin: 0 0 1rem; color: var(--tenue); font-size: 0.85em; }
-.pulso-opciones { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.6rem; }
-.pulso-opciones button {
-  min-width: 6.5rem;
-  min-height: 2.8rem;
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--tinta);
-  border-radius: 0;
-  background: none;
-  color: var(--tinta);
-  font: 700 0.75rem/1 var(--sans);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-.pulso-opciones button:hover, .pulso-opciones button[aria-pressed="true"] { background: var(--tinta); color: var(--papel); }
-.pulso-opciones button:disabled:not([aria-pressed="true"]) { opacity: 0.45; cursor: default; }
-.pulso-cred { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1rem; font-size: 0.8rem; text-align: left; }
-.pulso-cred label { display: grid; gap: 0.2rem; color: var(--tenue); }
-.pulso-cred input {
-  min-height: 2.4rem;
-  padding: 0.3rem 0.5rem;
-  border: 1px solid var(--tinta);
-  border-radius: 0;
-  background: var(--papel-claro);
-  color: var(--tinta);
-  font: 1rem var(--sans);
-}
-.pulso-estado { margin: 1rem 0 0; font-size: 0.9em; }
-.escuchar-pista { flex-basis: 100%; max-width: 30em; margin: 0.2rem auto 0; color: var(--tenue); font-size: 0.8em; text-align: center; }
-@media print { .pulso, .hilo-enlace { display: none; } }
-
-/* --- Edición directa: el texto se corrige como un documento --- */
-
-.editable { cursor: text; border-radius: 2px; }
-.editable:focus { outline: none; background: var(--papel-claro); box-shadow: 0 0 0 0.3rem var(--papel-claro); }
-.editable::selection, .editable *::selection { background: rgba(179, 64, 31, 0.25); }
-.editado { box-shadow: -0.6rem 0 0 -0.4rem var(--s3); }
-.editado:focus { box-shadow: 0 0 0 0.3rem var(--papel-claro), -0.6rem 0 0 -0.4rem var(--s3); }
-.guardado {
-  position: fixed;
-  left: 50%;
-  bottom: 0.8rem;
-  z-index: 6;
-  transform: translateX(-50%);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem 0.6rem;
-  width: max-content;
-  max-width: calc(100vw - 1.2rem);
-  padding: 0.45rem 0.7rem;
-  background: var(--tinta);
-  color: var(--papel);
-  font: 600 0.78rem/1.3 var(--sans);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-}
-.guardado button {
-  min-height: 2.2rem;
-  padding: 0.3rem 0.7rem;
-  border: 1px solid var(--papel);
-  border-radius: 0;
-  background: none;
-  color: var(--papel);
-  font: 700 0.66rem/1 var(--sans);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-.guardado .guardado-ya { background: var(--papel); color: var(--tinta); }
-.guardado-cred { display: flex; gap: 0.4rem; flex-wrap: wrap; }
-.guardado-cred input {
-  width: 8.5rem;
-  min-height: 2.2rem;
-  padding: 0.25rem 0.5rem;
-  border: 0;
-  border-radius: 0;
-  background: var(--papel);
-  color: var(--tinta);
-  font: 1rem var(--sans);
-}
-@media print { .guardado { display: none !important; } }
-
 /* --- Cierre plegado (fuentes, nota metodológica) --- */
 
 .plegable details > summary { list-style: none; cursor: pointer; }
@@ -1436,79 +1148,6 @@ html:not(.js) .barra-fija { display: none; }
 .tambien a { font-family: var(--serif); font-size: 1.2em; text-decoration: none; }
 .tambien span { display: block; color: var(--tenue); font-size: 0.78em; }
 @media (max-width: 600px) { .siguiente-titulo { font-size: 1.6em; } }
-@media (max-width: 1239px) {
-  .hay-cambios .notas, .hay-cambios .glosario-boton, .hay-cambios .arriba { visibility: hidden; }
-}
-
-/* --- Dictar un ajuste por voz --- */
-
-.dictar {
-  position: fixed;
-  left: 8.6rem;
-  bottom: 1rem;
-  z-index: 4;
-  min-height: 2.3rem;
-  padding: 0.45rem 0.8rem;
-  border: 1px solid var(--tinta);
-  border-radius: 0;
-  background: var(--papel);
-  color: var(--tinta);
-  font: 800 0.66rem/1 var(--sans);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
-}
-.dictar:hover { background: var(--tinta); color: var(--papel); }
-.dictar.oyendo { background: var(--rojo); border-color: var(--rojo); color: var(--papel); }
-@media (min-width: 1240px) { .dictar { left: 1.5rem; bottom: 1.5rem; } }
-.dictar-globo {
-  position: fixed;
-  left: 1rem;
-  bottom: 4rem;
-  z-index: 7;
-  width: min(22rem, calc(100vw - 2rem));
-  padding: 0.8rem 0.9rem;
-  background: var(--tinta);
-  color: var(--papel);
-  font: 500 0.88rem/1.45 var(--sans);
-  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.25);
-}
-@media (min-width: 1240px) { .dictar-globo { left: 1.5rem; bottom: 4.5rem; } }
-.dictar-estado { margin: 0 0 0.4rem; font-weight: 800; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; }
-.dictar-texto { margin: 0 0 0.6rem; font-size: 1rem; }
-.dictar-texto:empty { display: none; }
-.dictar-acciones { display: flex; gap: 0.4rem; flex-wrap: wrap; }
-.dictar-acciones button {
-  min-height: 2.3rem;
-  padding: 0.3rem 0.8rem;
-  border: 1px solid var(--papel);
-  border-radius: 0;
-  background: none;
-  color: var(--papel);
-  font: 700 0.66rem/1 var(--sans);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-.dictar-acciones .dictar-listo, .dictar-acciones .dictar-ya { background: var(--papel); color: var(--tinta); }
-@media (max-width: 1239px) { .hay-cambios .dictar { visibility: hidden; } }
-@media print { .dictar, .dictar-globo { display: none !important; } }
-@media (max-width: 1239px) { .js .notas:has(details[open]) ~ .dictar { display: none; } }
-
-/* Panel de notas compacto: que quepa sin scroll. */
-.notas-ayuda { font-size: 0.78rem; line-height: 1.4; }
-.notas-firma { margin: 0; font-size: 0.78rem; color: var(--tenue); }
-.notas-firma strong { color: var(--tinta); }
-.notas-firma button {
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--tinta);
-  font: inherit;
-  text-decoration: underline;
-  cursor: pointer;
-}
 
 /* --- En tres minutos: en la portada y accesos directos --- */
 
@@ -1554,78 +1193,7 @@ html:not(.js) .barra-fija { display: none; }
 }
 #en-tres-minutos, #para-conversar { scroll-margin-top: 4rem; }
 
-/* --- Comentar una frase --- */
-
-.comentar-pop {
-  position: fixed;
-  z-index: 8;
-  display: flex;
-  gap: 0;
-  background: var(--tinta);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-}
-.comentar-pop button {
-  min-height: 2.6rem;
-  padding: 0.45rem 0.9rem;
-  border: 0;
-  border-radius: 0;
-  background: none;
-  color: var(--papel);
-  font: 800 0.74rem/1 var(--sans);
-  letter-spacing: 0.04em;
-  cursor: pointer;
-}
-.comentar-pop button + button { border-left: 1px solid rgba(255, 255, 255, 0.25); }
-.comentar-pop button:hover { background: var(--rojo); }
-.comentario-caja {
-  margin: 0.6rem 0 1.4rem;
-  padding: 0.8rem 0.9rem;
-  border-left: 3px solid var(--rojo);
-  background: var(--papel-claro);
-  font-family: var(--sans);
-}
-.comentario-cita { margin: 0 0 0.5rem; color: var(--tenue); font-size: 0.85em; font-style: italic; }
-.comentario-caja textarea {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 0.5rem;
-  border: 1px solid var(--tinta);
-  border-radius: 0;
-  background: var(--papel);
-  color: var(--tinta);
-  font: 1rem/1.4 var(--sans);
-  resize: vertical;
-}
-.comentario-cred { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
-.comentario-cred input {
-  flex: 1 1 8rem;
-  min-height: 2.3rem;
-  padding: 0.3rem 0.5rem;
-  border: 1px solid var(--tinta);
-  border-radius: 0;
-  background: var(--papel);
-  color: var(--tinta);
-  font: 1rem var(--sans);
-}
-.comentario-acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-top: 0.5rem; }
-.comentario-acciones button {
-  min-height: 2.4rem;
-  padding: 0.35rem 0.9rem;
-  border: 1px solid var(--tinta);
-  border-radius: 0;
-  background: none;
-  color: var(--tinta);
-  font: 700 0.7rem/1 var(--sans);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-.comentario-acciones .comentario-enviar { background: var(--tinta); color: var(--papel); }
-.comentario-estado { font-size: 0.82rem; color: var(--tenue); }
-.comentario-gracias { margin: 0; font-weight: 700; }
-@media print { .comentar-pop, .comentario-caja, .atajos { display: none !important; } }
-
-/* --- Cerrar recuadros (comentarios, glosario) --- */
+/* --- Cerrar el glosario --- */
 .cerrar-panel {
   position: absolute;
   top: 0.35rem;
@@ -1642,7 +1210,6 @@ html:not(.js) .barra-fija { display: none; }
   cursor: pointer;
 }
 .cerrar-panel:hover { background: var(--tinta); color: var(--papel); }
-.notas:not(:has(details[open])) .cerrar-panel,
 .glosario-flotante:not(:has(details[open])) .cerrar-panel { display: none; }
 
 /* Escuchar: en reposo solo el botón; ritmo y voz aparecen mientras suena. */

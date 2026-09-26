@@ -56,8 +56,5 @@ funciona. Menos ansiedad y más participación.
 - Las **secciones** de arriba (Economía, Salud, Ambiente…) reúnen las
   ediciones por área.
 
-## Participar
-
-El sitio se construye con quienes lo leen. Los comentarios se revisan cada
-hora y cambian el sitio: corrigen datos, ajustan el tono o proponen
-mejoras. Los pasos están en [Cómo participar](ayuda.html).
+Para leer mejor (escuchar, leer de noche, moverse por la edición), vea
+[Cómo se usa](ayuda.html).

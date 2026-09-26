@@ -65,3 +65,8 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   Si falla una, no entra. El filtro va antes del puntaje de impacto. Ver
   prompt.md, "Definición de nudo". En el frontmatter, `actualizaciones`
   usa `nudo` (se acepta `friccion` en ediciones viejas).
+- 2026-09-26 · Pedido de Mateo: se quitan del sitio las herramientas de
+  comentar, hablar, corregir el texto y valorar la edición; los ajustes se
+  hacen directamente con Claude. El sitio arranca en modo día (claro); el
+  modo noche solo con el botón. La portada abre con la frase, una
+  explicación corta y "Leer la edición de hoy".

@@ -869,7 +869,6 @@ def pagina_edicion(base, e, ediciones):
 {cuerpo_edicion(e)}
 </article>
 {html_fin(e, ediciones)}
-{html_pulso(e)}
 {html_glosario_flotante(e['glosario'])}
 {html_siguiente(e, ediciones)}"""
     descripcion = descripcion_edicion(e)
@@ -911,28 +910,6 @@ HTML_ESCUCHAR = """<div class="escuchar" role="group" aria-label="Escuchar la ed
 <p class="escuchar-pista" hidden>¿Quiere una voz masculina o más natural? En iPhone: Ajustes → Accesibilidad → Contenido leído → Voces → Español, y descargue Jorge, Juan o Diego (versión «mejorada»). En Android: Ajustes → Texto a voz. En computador, el navegador Edge trae voces naturales como Gonzalo (Colombia) o Jorge (México).</p>
 <p class="escuchar-estado" role="status" aria-live="polite"></p>
 </div>"""
-
-
-def html_pulso(e):
-    """¿Cómo le quedó esta edición? Liviana / Justa / Pesada. Sin JS es un
-    formulario normal; con JS se envía de un toque si ya hay nombre y clave."""
-    titulo = html.escape(f"Edición {e['edicion']} · {fecha_legible(e['fecha'])}")
-    botones = "".join(f'<button type="submit" name="pulso" value="{v}">{n}</button>'
-                      for v, n in [("liviana", "Liviana"), ("justa", "Justa"), ("pesada", "Pesada")])
-    return f"""<form class="pulso" method="post" action="/api/ajuste">
-<input type="hidden" name="pagina" value="/ediciones/{e['slug']}.html">
-<input type="hidden" name="titulo" value="{titulo}">
-<fieldset>
-<legend>¿Cómo le quedó esta edición?</legend>
-<p class="pulso-ayuda">Un toque nos ayuda a calibrar el largo y la carga de las próximas.</p>
-<div class="pulso-cred">
-<label>Nombre <input name="quien" autocomplete="name"></label>
-<label>Clave <input name="clave" type="password" autocomplete="current-password" required></label>
-</div>
-<div class="pulso-opciones">{botones}</div>
-<p class="pulso-estado" role="status" aria-live="polite" hidden></p>
-</fieldset>
-</form>"""
 
 
 # Epígrafe de la portada: cita, autor y obra.
@@ -980,10 +957,14 @@ def pagina_portada(base, dias):
 <blockquote><p>«{html.escape(EPIGRAFE['cita'])}»</p></blockquote>
 <figcaption>{html.escape(EPIGRAFE['autor'])} <cite>{html.escape(EPIGRAFE['obra'])}</cite>, {EPIGRAFE['anio']}</figcaption>
 </figure>
+<p class="portada-intro">Cada día, pocos temas de fondo, contados con calma: qué pasó,
+por qué se repite, quién lo está resolviendo y qué dice la historia. Para
+leer despacio y conversar en casa. <a href="sobre.html">¿Qué es esto?</a></p>
+{'<p class="portada-guia"><a href="#hoy">Leer la edición de hoy <span aria-hidden="true">↓</span></a></p>' if dias else ""}
 </header>"""
     if dias:
         fecha, del_dia = dias[0]
-        cuerpo = f"""<section class="hoy" aria-labelledby="hoy-titulo">
+        cuerpo = f"""<section class="hoy" id="hoy" aria-labelledby="hoy-titulo">
 <h2 id="hoy-titulo" class="dia-fecha"><time datetime="{fecha}">{fecha_con_dia(fecha).capitalize()}</time></h2>
 {html_ediciones_dia(del_dia, "")}
 </section>"""
@@ -1287,7 +1268,7 @@ def main():
 
     if AYUDA.exists():
         (SITE / "ayuda.html").write_text(pagina_texto(
-            base, AYUDA, "ayuda.html", "Cómo participar",
+            base, AYUDA, "ayuda.html", "Cómo se usa",
             "Cómo dejar notas y comentarios en Otra lectura, y cómo leer una edición."), encoding="utf-8")
     if SOBRE.exists():
         (SITE / "sobre.html").write_text(pagina_texto(

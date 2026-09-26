@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light dark">
-<title>Cómo participar · Otra lectura</title>
+<meta name="color-scheme" content="light">
+<title>Cómo se usa · Otra lectura</title>
 <meta name="description" content="Cómo dejar notas y comentarios en Otra lectura, y cómo leer una edición.">
 <meta property="og:site_name" content="Otra lectura">
 <meta property="og:locale" content="es_CO">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Cómo participar · Otra lectura">
+<meta property="og:title" content="Cómo se usa · Otra lectura">
 <meta property="og:description" content="Cómo dejar notas y comentarios en Otra lectura, y cómo leer una edición.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Cómo participar · Otra lectura">
+<meta name="twitter:title" content="Cómo se usa · Otra lectura">
 <meta name="twitter:description" content="Cómo dejar notas y comentarios en Otra lectura, y cómo leer una edición.">
 <meta name="theme-color" content="#d8d1c7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1b1a18" media="(prefers-color-scheme: dark)">
@@ -24,41 +24,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Otra lectura: una mirada pragmática para informarse y participar">
 <meta name="twitter:image" content="https://otralectura.co/og.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Cómo participar · Otra lectura", "description": "Cómo dejar notas y comentarios en Otra lectura, y cómo leer una edición.", "inLanguage": "es-CO", "isPartOf": {"@type": "WebSite", "name": "Otra lectura"}, "url": "https://otralectura.co/ayuda.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Cómo se usa · Otra lectura", "description": "Cómo dejar notas y comentarios en Otra lectura, y cómo leer una edición.", "inLanguage": "es-CO", "isPartOf": {"@type": "WebSite", "name": "Otra lectura"}, "url": "https://otralectura.co/ayuda.html"}</script>
 <link rel="preload" href="fuentes/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fuentes/unifraktur.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="estilo.css">
-<script>
-/* Configuración de comentarios y verificación compartida por todos los
-   formularios: con la clave familiar guardada se envía con ella; si el sitio
-   está abierto al público y no hay clave, se verifica con Turnstile. */
-window.OL = {"abierto": false, "sitekey": ""};
-OL.clave = function () { try { return JSON.parse(localStorage.getItem("notas-clave") || '""'); } catch (e) { return ""; } };
-OL.quien = function () { try { return JSON.parse(localStorage.getItem("notas-quien") || '""'); } catch (e) { return ""; } };
-OL.verificar = function (contenedor) {
-  var c = OL.clave();
-  if (c) return Promise.resolve({ clave: c });
-  if (!OL.abierto || !OL.sitekey) return Promise.reject("clave");
-  return new Promise(function (listo, fallo) {
-    function pintar() {
-      var div = document.createElement("div");
-      div.className = "ol-verificacion";
-      contenedor.appendChild(div);
-      window.turnstile.render(div, {
-        sitekey: OL.sitekey, language: "es", appearance: "interaction-only",
-        callback: function (t) { listo({ turnstile: t }); setTimeout(function () { div.remove(); }, 800); },
-        "error-callback": function () { fallo("verificacion"); }
-      });
-    }
-    if (window.turnstile) return pintar();
-    var s = document.createElement("script");
-    s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
-    s.onload = pintar;
-    s.onerror = function () { fallo("verificacion"); };
-    document.head.appendChild(s);
-  });
-};
-</script>
 <script>document.documentElement.classList.add("js");try{var t=localStorage.getItem("tema");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
@@ -85,64 +54,11 @@ OL.verificar = function (contenedor) {
 </header>
 <main id="contenido">
 <header class="cabecera">
-<h1>Cómo participar</h1>
+<h1>Cómo se usa</h1>
 </header>
 <article class="texto">
-<p>Otra lectura se construye entre quienes la leen. Sus comentarios cambian
-el sitio: corrigen datos, ajustan el tono y proponen mejoras. Aquí está,
-paso a paso, cómo hacerlo.</p>
-<h2>Comentar una frase</h2>
-<p>Es la forma más fácil.</p>
-<ol>
-<li>Seleccione una frase del texto. Con el mouse, arrastre sobre ella; en
-   el celular, deje el dedo presionado sobre una palabra y arrastre.</li>
-<li>Aparece el botón <strong>Comentar</strong>. Tóquelo.</li>
-<li>Debajo del párrafo se abre un espacio. Escriba su comentario y toque
-   <strong>Enviar</strong>. Listo.</li>
-</ol>
-<p>Si prefiere hablar, toque <strong>Decirlo en voz alta</strong> en lugar de <strong>Comentar</strong>.</p>
-<h2>Dejar varios comentarios y enviarlos juntos</h2>
-<p>Al lado izquierdo de la pantalla está el recuadro <strong>Comentar</strong>. En el
-celular es un botón abajo a la izquierda que dice <strong>Comentar</strong>: tóquelo
-para abrirlo.</p>
-<ol>
-<li>Escriba su comentario. Puede ser una corrección («esta cifra no
-   cuadra»), una idea («sería bueno comparar con Chile»), una duda
-   («¿qué significa focalización?») o una opinión sobre el tono.</li>
-<li>Si es sobre una frase, selecciónela antes en el texto. Arriba de su
-   comentario aparecerá «Citando: …».</li>
-<li>Toque <strong>Agregar nota</strong>. El comentario queda en una lista. Puede agregar
-   los que quiera, en esta edición o en otras: se guardan aunque cambie de
-   página o cierre el navegador.</li>
-<li>Cuando termine de leer, escriba su nombre y la clave, y toque
-   <strong>Enviar</strong>. Todos se envían juntos.</li>
-</ol>
-<p>Si deja marcada la casilla <strong>Recordar en este dispositivo</strong>, no tendrá que
-escribir el nombre ni la clave la próxima vez. Para quitar un comentario
-antes de enviarlo, toque la <strong>×</strong> que tiene al lado.</p>
-<h2>Corregir el texto directamente</h2>
-<p>El texto de cada edición se puede corregir como un documento:</p>
-<ol>
-<li>Toque la palabra o la frase que quiere cambiar y escriba encima. Para
-   quitar una frase, selecciónela y bórrela.</li>
-<li>El cambio se guarda solo unos segundos después de dejar de escribir.
-   Abajo aparece «Guardado».</li>
-</ol>
-<p>La primera vez le pide su nombre y la clave; después, ya no. Si se
-equivocó, toque <strong>Deshacer</strong> antes de que se guarde. Los cambios quedan
-publicados para todos en la próxima hora.</p>
-<h2>Decirlo en voz alta</h2>
-<p>Abajo a la izquierda está el botón <strong>Hablar</strong>. Tóquelo y diga lo que
-quiere cambiar, por ejemplo: «el título de la segunda noticia está muy
-largo». Cuando deje de hablar unos segundos, el texto aparece en pantalla
-y se envía solo. Si se arrepiente, toque <strong>Cancelar</strong> antes.</p>
-<p>La primera vez, el celular pide permiso para usar el micrófono: toque
-<strong>Permitir</strong>. Funciona en Chrome, Edge y Safari.</p>
-<h2>Contarnos cómo le quedó la edición</h2>
-<p>Al final de cada edición está la pregunta <strong>¿Cómo le quedó esta
-edición?</strong>, con tres botones: <strong>Liviana</strong>, <strong>Justa</strong> y <strong>Pesada</strong>. Toque
-uno y listo. Con esas respuestas ajustamos el largo de las ediciones
-siguientes.</p>
+<p>Otra lectura se lee como un diario: de arriba abajo, sin prisa. Estas son
+las herramientas que tiene para hacerlo más cómodo.</p>
 <h2>Escuchar en vez de leer</h2>
 <p>Arriba de cada edición está el botón <strong>Escuchar</strong>. El texto se lee en
 voz alta, párrafo por párrafo, y el que está sonando se resalta. Puede
@@ -155,30 +71,8 @@ El sitio recuerda su elección.</p>
 <h2>Moverse dentro de una edición</h2>
 <p>Al comienzo de cada edición está <strong>En esta edición</strong>, con la lista de sus
 temas. Toque uno para ir directo a él.</p>
-<h2>Qué pasa después</h2>
-<ul>
-<li>Los comentarios se revisan <strong>cada hora, entre las 6 de la mañana y las
-  10 de la noche</strong>.</li>
-<li>Si un comentario corrige un dato, al final de la edición aparece el
-  recuadro <strong>Correcciones</strong>, con la fecha. Así queda claro qué cambió y
-  cuándo.</li>
-<li>Si es sobre el estilo o el tono («menos frases técnicas», por ejemplo),
-  se vuelve una regla para las ediciones siguientes.</li>
-<li>Si propone un cambio en el sitio (un botón, una sección, un diseño), se
-  hace si es sencillo; si es grande, lo decide Mateo.</li>
-</ul>
-<h2>Preguntas frecuentes</h2>
-<p><strong>¿Se pierden los comentarios si cierro la página antes de enviarlos?</strong>
-No. Quedan guardados en ese navegador hasta que los envíe o los quite. Si
-cambia de computador o de celular, allá no aparecerán.</p>
-<p><strong>Me salió «Clave incorrecta». ¿Qué hago?</strong>
-Revise que la escribió igual, con mayúsculas y minúsculas. Si sigue
-fallando, pídasela de nuevo a Mateo. Sus comentarios siguen guardados.</p>
-<p><strong>Me salió «No se pudo enviar».</strong>
-Seguramente fue la conexión. Espere un momento y toque <strong>Enviar</strong> otra
-vez. No se pierde nada.</p>
-<p><strong>¿Cuándo sale una edición nueva?</strong>
-Todos los días, antes de las 6 de la mañana (hora de Colombia).</p>
+<h2>Cuándo sale</h2>
+<p>Todos los días, antes de las 6 de la mañana (hora de Colombia).</p>
 <h2>Qué hay en cada edición</h2>
 <ul>
 <li><strong>Radar</strong>: problemas que se repiten, con quién los está resolviendo y
@@ -198,43 +92,19 @@ Todos los días, antes de las 6 de la mañana (hora de Colombia).</p>
 <p>Más detalles en <a href="sobre.html">¿Qué es esto?</a>.</p>
 </article>
 </main>
-<aside class="notas" aria-label="Comentarios y ajustes">
-<button type="button" class="cerrar-panel" aria-label="Cerrar el recuadro de comentarios" hidden>×</button>
-<details open>
-<summary>Comentar <span class="notas-cuenta" hidden></span></summary>
-<form class="notas-form" method="post" action="/api/ajuste">
-<input type="hidden" name="pagina" value="/ayuda.html">
-<input type="hidden" name="titulo" value="Cómo participar">
-<p class="notas-ayuda">Escriba lo que quiera corregir o proponer. ¿Es sobre una frase? Selecciónela antes. <a href="ayuda.html">Ayuda</a></p>
-<p class="notas-cita" hidden><span></span> <button type="button" aria-label="Quitar la cita">×</button></p>
-<textarea name="texto" rows="3" maxlength="4000" aria-label="Nota" placeholder="¿Qué cambiaría, qué no se entiende, qué le parece?"></textarea>
-<button type="button" class="notas-agregar" hidden>Agregar nota</button>
-<ol class="notas-lista" hidden></ol>
-<div class="notas-envio">
-<p class="notas-firma" hidden>Envía <strong></strong> · <button type="button">cambiar</button></p>
-<label class="notas-cred">Nombre <input name="quien" autocomplete="name"></label>
-<label class="notas-cred">Clave <input name="clave" type="password" autocomplete="current-password" required></label>
-<label class="notas-recordar" hidden><input type="checkbox" checked> Recordar en este dispositivo</label>
-<button type="submit" class="notas-enviar">Enviar</button>
-</div>
-<p class="notas-estado" role="status" aria-live="polite" hidden></p>
-</form>
-</details>
-</aside>
 <footer class="sitio">
 <p><a class="cabezote" href="index.html">Otra Lectura</a></p>
 <p>Una mirada pragmática para informarse y participar.</p>
-<p class="pie-enlaces"><a href="archivo.html">Días anteriores</a> · <a href="candidatas.html">Candidatas</a> · <a href="ayuda.html">Cómo participar</a> · <a href="sobre.html">¿Qué es esto?</a></p>
+<p class="pie-enlaces"><a href="archivo.html">Días anteriores</a> · <a href="candidatas.html">Candidatas</a> · <a href="ayuda.html">Cómo se usa</a> · <a href="sobre.html">¿Qué es esto?</a></p>
 <p class="pie-enlaces"><a href="#">↑ Volver arriba</a></p>
 </footer>
 <a class="arriba" href="#" aria-label="Volver arriba" hidden><span aria-hidden="true">↑</span> Arriba</a>
 <script>
-/* Cambio claro/oscuro. Sin elección guardada, sigue al sistema. */
+/* Cambio claro/oscuro. Por defecto, claro (modo día); se recuerda la elección. */
 (function () {
   var boton = document.querySelector(".tema");
   var raiz = document.documentElement;
-  var sistema = matchMedia("(prefers-color-scheme: dark)");
-  function actual() { return raiz.dataset.theme || (sistema.matches ? "dark" : "light"); }
+  function actual() { return raiz.dataset.theme || "light"; }
   function pintar() {
     var oscuro = actual() === "dark";
     boton.textContent = oscuro ? "Leer de día" : "Leer de noche";
@@ -249,7 +119,6 @@ Todos los días, antes de las 6 de la mañana (hora de Colombia).</p>
     try { localStorage.setItem("tema", nuevo); } catch (e) {}
     pintar();
   });
-  sistema.addEventListener("change", pintar);
 })();
 /* Tooltip de los gráficos: el valor primero, la categoría después. */
 (function () {
@@ -375,7 +244,7 @@ Todos los días, antes de las 6 de la mañana (hora de Colombia).</p>
     var sel = ".edicion .cabecera h1, .edicion .cabecera .fecha, .edicion h2, .edicion h3, .edicion p, .edicion li";
     return Array.prototype.filter.call(document.querySelectorAll(sel), function (el) {
       return !el.closest(".fuentes, figure, table, .escuchar, .temas, nav, .glosario-flotante, #glosario, " +
-        ".plegable, .lugares, .nota, .seguimiento-de, .hilo-enlace, .aviso-cambios, .dia-temas, .atajos, .comentario-caja") &&
+        ".plegable, .lugares, .nota, .seguimiento-de, .hilo-enlace, .aviso-cambios, .dia-temas, .atajos") &&
         !el.querySelector("p, li") && el.textContent.trim();
     });
   }
@@ -501,214 +370,6 @@ Todos los días, antes de las 6 de la mañana (hora de Colombia).</p>
   });
   addEventListener("pagehide", function () { voz.cancel(); });
 })();
-/* Pulso: envía la valoración sin salir de la página; usa el nombre y la
-   clave guardados por el panel de notas, si los hay. */
-(function () {
-  var f = document.querySelector(".pulso");
-  if (!f || !window.fetch) return;
-  var cred = f.querySelector(".pulso-cred");
-  var estado = f.querySelector(".pulso-estado");
-  f.noValidate = true;
-  function leer(k) { try { return JSON.parse(localStorage.getItem(k) || '""'); } catch (e) { return ""; } }
-  f.elements.quien.value = leer("notas-quien");
-  f.elements.clave.value = leer("notas-clave");
-  // El nombre y la clave solo aparecen si hacen falta, al tocar una respuesta.
-  cred.hidden = true;
-  f.addEventListener("submit", function (ev) {
-    ev.preventDefault();
-    var boton = ev.submitter;
-    if (!f.elements.clave.value && !OL.abierto) {
-      cred.hidden = false;
-      estado.hidden = false;
-      estado.textContent = "Escriba su nombre y la clave, y vuelva a tocar su respuesta.";
-      f.elements.clave.focus();
-      return;
-    }
-    var datos = new FormData(f);
-    datos.set("pulso", boton ? boton.value : "");
-    f.querySelectorAll("button").forEach(function (b) { b.disabled = true; b.removeAttribute("aria-pressed"); });
-    if (boton) boton.setAttribute("aria-pressed", "true");
-    estado.hidden = false;
-    estado.textContent = "Enviando…";
-    var previo = !f.elements.clave.value ? OL.verificar(f).then(function (x) { datos.set("turnstile", x.turnstile); }) : Promise.resolve();
-    previo.then(function () { return fetch(f.action, { method: "POST", body: datos, headers: { Accept: "application/json" } }); })
-      .then(function (r) { return r.json().then(function (j) { return [r.status, j]; }); })
-      .then(function (res) {
-        estado.textContent = res[1].mensaje;
-        if (res[0] === 200) {
-          cred.hidden = true;
-        } else {
-          if (res[0] === 401) cred.hidden = false;
-          f.querySelectorAll("button").forEach(function (b) { b.disabled = false; });
-        }
-      })
-      .catch(function () {
-        estado.textContent = "No se pudo enviar. Revise la conexión e inténtelo de nuevo.";
-        f.querySelectorAll("button").forEach(function (b) { b.disabled = false; });
-      });
-  });
-})();
-/* Edición directa: el texto de la edición se corrige como un documento,
-   sin botones ni modos. Los párrafos tocados se guardan solos al dejar de
-   escribir (o al salir de la página) como "quitar / poner" con contexto;
-   la revisión horaria lo aplica al markdown. */
-(function () {
-  var edicion = document.querySelector(".edicion");
-  if (!edicion || !window.fetch) return;
-  // Abierto al público, corregir el texto queda solo para los editores.
-  if (OL.abierto && !OL.clave()) return;
-  var ESPERA = 12000;  // ms sin escribir antes de guardar
-  var bloques = [], reloj = null, enviando = false;
-
-  function texto(el) { return el.textContent.replace(/\s+/g, " ").trim(); }
-  function leer(k) { try { return JSON.parse(localStorage.getItem(k) || '""'); } catch (e) { return ""; } }
-  function guardarCred(q, c) {
-    try { localStorage.setItem("notas-quien", JSON.stringify(q)); localStorage.setItem("notas-clave", JSON.stringify(c)); } catch (e) {}
-  }
-
-  // Texto de la edición y también el glosario (el del final y el recuadro fijo).
-  var sel = ".edicion .cabecera h1, .edicion h3, .edicion h4, .edicion p, .edicion li, " +
-    ".glosario-flotante dt, .glosario-flotante dd";
-  bloques = Array.prototype.filter.call(document.querySelectorAll(sel), function (el) {
-    return !el.closest(".fuentes, figure, table, .escuchar, .temas, nav, .seguimiento-de, " +
-      ".aviso-cambios, .avisos, .actualizacion, .hilo-enlace, .fecha, .lugares, .nota, .carril-bajada, .plegable") &&
-      !el.querySelector("p, li") && texto(el);
-  });
-  bloques.forEach(function (el) {
-    el.dataset.orig = texto(el);
-    el.dataset.html = el.innerHTML;
-    el.contentEditable = "true";
-    el.spellcheck = false;
-    el.classList.add("editable");
-  });
-  if (!bloques.length) return;
-
-  // Barra discreta: aparece solo cuando hay algo que guardar.
-  var barra = document.createElement("div");
-  barra.className = "guardado";
-  barra.setAttribute("role", "status");
-  barra.setAttribute("aria-live", "polite");
-  barra.hidden = true;
-  barra.innerHTML =
-    '<span class="guardado-texto"></span>' +
-    '<span class="guardado-cred" hidden><input name="quien" placeholder="Nombre" aria-label="Nombre" autocomplete="name">' +
-    '<input name="clave" type="password" placeholder="Clave" aria-label="Clave" autocomplete="current-password"></span>' +
-    '<button type="button" class="guardado-ya">Guardar</button>' +
-    '<button type="button" class="guardado-deshacer">Deshacer</button>';
-  document.body.appendChild(barra);
-  var aviso = barra.querySelector(".guardado-texto");
-  var cred = barra.querySelector(".guardado-cred");
-  var quien = cred.querySelector("[name=quien]"), clave = cred.querySelector("[name=clave]");
-  var ya = barra.querySelector(".guardado-ya"), deshacer = barra.querySelector(".guardado-deshacer");
-
-  function cambiados() { return bloques.filter(function (el) { return texto(el) !== el.dataset.orig; }); }
-  function pintar(mensaje) {
-    var n = cambiados().length;
-    bloques.forEach(function (el) { el.classList.toggle("editado", texto(el) !== el.dataset.orig); });
-    ya.hidden = deshacer.hidden = !n || enviando;
-    if (mensaje) aviso.textContent = mensaje;
-    else aviso.textContent = n ? (n === 1 ? "1 cambio sin guardar" : n + " cambios sin guardar") : "";
-    barra.hidden = !aviso.textContent;
-    document.documentElement.classList.toggle("hay-cambios", !barra.hidden);
-  }
-  function recorte(a, b) {
-    var x = a.split(" "), y = b ? b.split(" ") : [], i = 0, j = 0;
-    while (i < x.length && i < y.length && x[i] === y[i]) i++;
-    while (j < x.length - i && j < y.length - i && x[x.length - 1 - j] === y[y.length - 1 - j]) j++;
-    return {
-      antes: x.slice(i, x.length - j).join(" "), despues: y.slice(i, y.length - j).join(" "),
-      izq: x.slice(Math.max(0, i - 6), i).join(" "), der: x.slice(x.length - j, x.length - j + 6).join(" "),
-      parrafo: a
-    };
-  }
-  function datosEnvio(lista) {
-    var d = new FormData();
-    d.set("pagina", location.pathname);
-    d.set("titulo", texto(document.querySelector(".edicion .cabecera h1") || document.querySelector("title")));
-    d.set("quien", quien.value || leer("notas-quien"));
-    d.set("clave", clave.value || leer("notas-clave"));
-    d.set("cambios", JSON.stringify(lista.map(function (el) {
-      var c = recorte(el.dataset.orig, texto(el));
-      // En el glosario se indica de qué término se trata, para ubicarlo en la lista.
-      if (el.closest(".glosario-flotante, #glosario")) {
-        var dt = el.tagName === "DD" ? el.previousElementSibling : null;
-        c.parrafo = "[Glosario] " + (dt ? (dt.dataset.orig || texto(dt)) + ": " : "") + el.dataset.orig;
-      }
-      return c;
-    })));
-    return d;
-  }
-  function guardar() {
-    clearTimeout(reloj);
-    var lista = cambiados();
-    if (!lista.length || enviando) return;
-    if (!(clave.value || leer("notas-clave"))) {
-      cred.hidden = false;
-      pintar("Para guardar, escriba su nombre y la clave una vez:");
-      return;
-    }
-    // Lo que se envía pasa a ser el nuevo punto de partida (si falla, se revierte).
-    var previos = lista.map(function (el) { return el.dataset.orig; });
-    var datos = datosEnvio(lista);
-    lista.forEach(function (el) { el.dataset.orig = texto(el); });
-    enviando = true;
-    pintar("Guardando…");
-    fetch("/api/ajuste", { method: "POST", body: datos, headers: { Accept: "application/json" } })
-      .then(function (r) { return r.json().then(function (j) { return [r.status, j]; }); })
-      .then(function (res) {
-        enviando = false;
-        if (res[0] === 200) {
-          lista.forEach(function (el) { el.dataset.html = el.innerHTML; });
-          if (clave.value) guardarCred(quien.value, clave.value);
-          cred.hidden = true;
-          pintar("Guardado. Queda publicado en la próxima hora.");
-          setTimeout(function () { if (!cambiados().length && !enviando) pintar(); }, 5000);
-        } else {
-          lista.forEach(function (el, k) { el.dataset.orig = previos[k]; });
-          if (res[0] === 401) { cred.hidden = false; clave.value = ""; }
-          pintar(res[1].mensaje);
-        }
-      })
-      .catch(function () {
-        enviando = false;
-        lista.forEach(function (el, k) { el.dataset.orig = previos[k]; });
-        pintar("Sin conexión; sus cambios siguen aquí. Toque Guardar para reintentar.");
-      });
-  }
-
-  document.addEventListener("input", function (ev) {
-    if (!ev.target.isContentEditable || !ev.target.classList.contains("editable")) return;
-    pintar();
-    clearTimeout(reloj);
-    reloj = setTimeout(guardar, ESPERA);
-  });
-  // Un párrafo es un párrafo: Enter guarda en vez de partirlo; lo pegado entra como texto.
-  document.addEventListener("keydown", function (ev) {
-    if (ev.key === "Enter" && ev.target.isContentEditable) { ev.preventDefault(); ev.target.blur(); guardar(); }
-  });
-  document.addEventListener("paste", function (ev) {
-    if (!ev.target.isContentEditable) return;
-    ev.preventDefault();
-    var t = (ev.clipboardData || window.clipboardData).getData("text").replace(/\s+/g, " ");
-    document.execCommand("insertText", false, t);
-  });
-  ya.addEventListener("click", guardar);
-  clave.addEventListener("keydown", function (ev) { if (ev.key === "Enter") guardar(); });
-  deshacer.addEventListener("click", function () {
-    cambiados().forEach(function (el) { el.innerHTML = el.dataset.html; });
-    clearTimeout(reloj);
-    pintar();
-  });
-  // Al salir de la página se guarda lo pendiente, sin preguntar.
-  document.addEventListener("visibilitychange", function () {
-    if (document.visibilityState !== "hidden") return;
-    var lista = cambiados();
-    if (lista.length && leer("notas-clave") && navigator.sendBeacon) {
-      navigator.sendBeacon("/api/ajuste", datosEnvio(lista));
-      lista.forEach(function (el) { el.dataset.orig = texto(el); el.dataset.html = el.innerHTML; });
-    }
-  });
-})();
 /* El glosario del final está plegado: se abre al ir a él (botón del celular o enlace). */
 (function () {
   function abrir() {
@@ -719,7 +380,7 @@ Todos los días, antes de las 6 de la mañana (hora de Colombia).</p>
   addEventListener("hashchange", abrir);
   abrir();
 })();
-/* Botones "×" para cerrar los recuadros de comentarios y glosario. */
+/* Botón "×" para cerrar el glosario. */
 (function () {
   document.querySelectorAll(".cerrar-panel").forEach(function (b) {
     var det = b.parentElement.querySelector("details");
@@ -735,409 +396,6 @@ Todos los días, antes de las 6 de la mañana (hora de Colombia).</p>
   if (!menu) return;
   document.addEventListener("click", function (ev) { if (!menu.contains(ev.target)) menu.open = false; });
   document.addEventListener("keydown", function (ev) { if (ev.key === "Escape") menu.open = false; });
-})();
-</script>
-<script>
-/* Notas: se acumulan en este navegador (incluso entre páginas) y se envían
-   todas juntas; nombre y clave se recuerdan si el lector lo permite. */
-(function () {
-  var panel = document.querySelector(".notas");
-  if (!panel) return;
-  var detalles = panel.querySelector("details");
-  var form = panel.querySelector("form");
-  var texto = form.querySelector("textarea");
-  var lista = panel.querySelector(".notas-lista");
-  var cuenta = panel.querySelector(".notas-cuenta");
-  var citaBox = panel.querySelector(".notas-cita");
-  var agregar = panel.querySelector(".notas-agregar");
-  var enviar = panel.querySelector(".notas-enviar");
-  var estado = panel.querySelector(".notas-estado");
-  var recordar = panel.querySelector(".notas-recordar");
-  var quien = form.elements.quien, clave = form.elements.clave;
-  var aqui = { pagina: form.elements.pagina.value, titulo: form.elements.titulo.value };
-  var cita = "";
-
-  function leer(k, def) { try { var v = localStorage.getItem(k); return v === null ? def : JSON.parse(v); } catch (e) { return def; } }
-  function guardar(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
-  function borrar(k) { try { localStorage.removeItem(k); } catch (e) {} }
-  var notas = leer("notas", []);
-
-  quien.value = leer("notas-quien", "");
-  clave.value = leer("notas-clave", "");
-  agregar.hidden = false;
-  recordar.hidden = false;
-  if (OL.abierto) {
-    // Abierto al público: la clave es solo para los editores.
-    clave.required = false;
-    clave.closest("label").firstChild.textContent = "Clave (solo editores) ";
-  }
-  // Con nombre y clave guardados, no se muestran: solo "Envía Papá · cambiar".
-  var firma = panel.querySelector(".notas-firma");
-  function pintarFirma() {
-    var guardada = !!leer("notas-clave", "");
-    firma.hidden = !guardada;
-    firma.querySelector("strong").textContent = leer("notas-quien", "") || "sin nombre";
-    panel.querySelectorAll(".notas-cred, .notas-recordar").forEach(function (el) { el.hidden = guardada; });
-  }
-  firma.querySelector("button").addEventListener("click", function () {
-    firma.hidden = true;
-    panel.querySelectorAll(".notas-cred, .notas-recordar").forEach(function (el) { el.hidden = false; });
-    quien.focus();
-  });
-  pintarFirma();
-  if (matchMedia("(max-width: 1239px)").matches) detalles.open = false;
-
-  function pintar() {
-    lista.innerHTML = "";
-    notas.forEach(function (n, i) {
-      var li = document.createElement("li");
-      if (n.cita) {
-        var q = document.createElement("q");
-        q.textContent = n.cita.length > 90 ? n.cita.slice(0, 90) + "…" : n.cita;
-        li.appendChild(q);
-      }
-      var t = document.createElement("span");
-      t.textContent = n.texto.length > 160 ? n.texto.slice(0, 160) + "…" : n.texto;
-      li.appendChild(t);
-      if (n.pagina !== aqui.pagina) {
-        var p = document.createElement("small");
-        p.textContent = n.titulo;
-        li.appendChild(p);
-      }
-      var x = document.createElement("button");
-      x.type = "button";
-      x.textContent = "×";
-      x.setAttribute("aria-label", "Quitar esta nota");
-      x.addEventListener("click", function () { notas.splice(i, 1); guardar("notas", notas); pintar(); });
-      li.appendChild(x);
-      lista.appendChild(li);
-    });
-    lista.hidden = !notas.length;
-    cuenta.hidden = !notas.length;
-    cuenta.textContent = notas.length;
-    enviar.textContent = notas.length > 1 ? "Enviar " + notas.length + " notas" : "Enviar";
-  }
-
-  function pintarCita() {
-    citaBox.hidden = !cita;
-    citaBox.querySelector("span").textContent = cita ? "Citando: «" + (cita.length > 120 ? cita.slice(0, 120) + "…" : cita) + "»" : "";
-  }
-  citaBox.querySelector("button").addEventListener("click", function () { cita = ""; pintarCita(); });
-
-  // Guarda el último fragmento seleccionado dentro del texto de la página.
-  document.addEventListener("selectionchange", function () {
-    var sel = document.getSelection();
-    var s = sel ? String(sel).trim() : "";
-    if (s && sel.anchorNode && document.getElementById("contenido").contains(sel.anchorNode)) {
-      cita = s.replace(/\s+/g, " ").slice(0, 600);
-      pintarCita();
-    }
-  });
-
-  agregar.addEventListener("click", function () {
-    var v = texto.value.trim();
-    if (!v) { texto.focus(); return; }
-    notas.push({ texto: v, cita: cita, pagina: aqui.pagina, titulo: aqui.titulo });
-    guardar("notas", notas);
-    texto.value = "";
-    cita = "";
-    pintarCita();
-    pintar();
-    texto.focus();
-  });
-
-  function mostrar(msg, ok) {
-    estado.textContent = msg;
-    estado.className = "notas-estado " + (ok ? "ok" : "error");
-    estado.hidden = false;
-  }
-
-  form.addEventListener("submit", function (ev) {
-    ev.preventDefault();
-    var tanda = notas.slice();
-    if (texto.value.trim()) tanda.push({ texto: texto.value.trim(), cita: cita, pagina: aqui.pagina, titulo: aqui.titulo });
-    if (!tanda.length) { mostrar("Escriba al menos una nota.", false); return; }
-    var datos = new FormData();
-    datos.append("pagina", aqui.pagina);
-    datos.append("titulo", aqui.titulo);
-    datos.append("quien", quien.value);
-    datos.append("clave", clave.value);
-    datos.append("notas", JSON.stringify(tanda));
-    enviar.disabled = true;
-    enviar.textContent = "Enviando…";
-    // Sitio abierto y sin clave: primero la verificación de Turnstile.
-    var previo = !clave.value && OL.abierto
-      ? OL.verificar(form).then(function (x) { datos.append("turnstile", x.turnstile); })
-      : Promise.resolve();
-    previo.then(function () {
-      return fetch(form.action, { method: "POST", body: datos, headers: { Accept: "application/json" } });
-    })
-      .then(function (r) { return r.json(); })
-      .then(function (d) {
-        mostrar(d.titulo + ". " + d.mensaje, d.ok);
-        if (!d.ok) return;
-        notas = [];
-        borrar("notas");
-        texto.value = "";
-        cita = "";
-        pintarCita();
-        if (recordar.querySelector("input").checked) {
-          guardar("notas-quien", quien.value);
-          guardar("notas-clave", clave.value);
-        } else {
-          borrar("notas-clave");
-        }
-        pintarFirma();
-      })
-      .catch(function () { mostrar("No se pudo enviar. Las notas siguen guardadas; inténtelo de nuevo.", false); })
-      .then(function () { enviar.disabled = false; pintar(); });
-  });
-
-  pintar();
-})();
-</script>
-<script>
-/* Dictar un ajuste: se toca el micrófono, se habla y se envía solo.
-   Usa el reconocimiento de voz del navegador (Chrome, Edge, Safari). */
-(function () {
-  var Reconocer = window.SpeechRecognition || window.webkitSpeechRecognition;
-  var form = document.querySelector(".notas-form");
-  if (!Reconocer || !form || !window.fetch) return;
-  function leer(k) { try { return JSON.parse(localStorage.getItem(k) || '""'); } catch (e) { return ""; } }
-  var boton = document.createElement("button");
-  boton.type = "button";
-  boton.className = "dictar";
-  boton.setAttribute("aria-label", "Dictar un ajuste por voz");
-  boton.innerHTML = 'Hablar';
-  var globo = document.createElement("div");
-  globo.className = "dictar-globo";
-  globo.setAttribute("role", "status");
-  globo.setAttribute("aria-live", "polite");
-  globo.hidden = true;
-  globo.innerHTML = '<p class="dictar-estado"></p><p class="dictar-texto"></p>' +
-    '<div class="dictar-acciones"><button type="button" class="dictar-listo">Listo</button>' +
-    '<button type="button" class="dictar-ya" hidden>Enviar ya</button>' +
-    '<button type="button" class="dictar-cancelar">Cancelar</button></div>';
-  document.body.appendChild(boton);
-  document.body.appendChild(globo);
-  var estado = globo.querySelector(".dictar-estado"), textoEl = globo.querySelector(".dictar-texto");
-  var listo = globo.querySelector(".dictar-listo"), ya = globo.querySelector(".dictar-ya");
-  var cancelar = globo.querySelector(".dictar-cancelar");
-  var rec = null, final = "", cita = "", cuenta = null, silencio = null, cancelado = false;
-
-  function cerrar() {
-    clearInterval(cuenta); clearTimeout(silencio);
-    globo.hidden = true; boton.classList.remove("oyendo"); boton.disabled = false;
-  }
-  function citaActual() {
-    var sel = document.getSelection(), s = sel ? String(sel).trim() : "";
-    return s && sel.anchorNode && document.getElementById("contenido").contains(sel.anchorNode)
-      ? s.replace(/\s+/g, " ").slice(0, 600) : "";
-  }
-  function enviar(texto) {
-    clearInterval(cuenta);
-    var clave = leer("notas-clave");
-    if (!clave && !OL.abierto) {
-      // Sin clave guardada: el texto queda en el panel de notas para enviarlo desde ahí.
-      var t = form.querySelector("textarea");
-      t.value = texto;
-      var det = document.querySelector(".notas details");
-      if (det) det.open = true;
-      estado.textContent = "Su ajuste quedó en el recuadro de Notas. Ponga su nombre y la clave una vez y toque Enviar.";
-      textoEl.textContent = "";
-      listo.hidden = ya.hidden = true;
-      cancelar.textContent = "Cerrar";
-      form.elements.clave.focus();
-      return;
-    }
-    var d = new FormData();
-    d.set("quien", leer("notas-quien"));
-    d.set("clave", clave);
-    d.set("pagina", form.elements.pagina.value);
-    d.set("titulo", form.elements.titulo.value);
-    d.set("notas", JSON.stringify([{ texto: "[Dictado por voz] " + texto, cita: cita,
-      pagina: form.elements.pagina.value, titulo: form.elements.titulo.value }]));
-    estado.textContent = "Enviando…";
-    listo.hidden = ya.hidden = cancelar.hidden = true;
-    var previo = !clave ? OL.verificar(globo).then(function (x) { d.set("turnstile", x.turnstile); }) : Promise.resolve();
-    previo.then(function () { return fetch(form.action, { method: "POST", body: d, headers: { Accept: "application/json" } }); })
-      .then(function (r) { return r.json().then(function (j) { return [r.status, j]; }); })
-      .then(function (res) {
-        estado.textContent = res[0] === 200 ? "Enviado. Se aplica en la próxima hora." : res[1].mensaje;
-        setTimeout(cerrar, res[0] === 200 ? 3500 : 7000);
-      })
-      .catch(function () { estado.textContent = "No se pudo enviar. Revise la conexión."; setTimeout(cerrar, 6000); });
-  }
-  function confirmar() {
-    var texto = final.trim();
-    if (!texto) { estado.textContent = "No se oyó nada. Intente de nuevo."; listo.hidden = true; setTimeout(cerrar, 2500); return; }
-    // Unos segundos para arrepentirse; si no, se envía solo.
-    var n = 4;
-    listo.hidden = true; ya.hidden = false; cancelar.hidden = false;
-    estado.textContent = "Se envía en " + n + "…";
-    cuenta = setInterval(function () {
-      n--;
-      if (n <= 0) enviar(texto); else estado.textContent = "Se envía en " + n + "…";
-    }, 1000);
-    ya.onclick = function () { enviar(texto); };
-  }
-  boton.addEventListener("click", function () {
-    cita = citaActual() || window.citaParaDictar || "";
-    window.citaParaDictar = "";
-    final = ""; cancelado = false;
-    rec = new Reconocer();
-    rec.lang = "es-CO";
-    rec.interimResults = true;
-    rec.continuous = true;
-    rec.onresult = function (ev) {
-      var provisional = "";
-      final = "";
-      for (var i = 0; i < ev.results.length; i++) {
-        if (ev.results[i].isFinal) final += ev.results[i][0].transcript + " ";
-        else provisional += ev.results[i][0].transcript;
-      }
-      textoEl.textContent = (final + provisional).trim();
-      if (!final.trim() && provisional) final = provisional;
-      // Tres segundos de silencio terminan el dictado.
-      clearTimeout(silencio);
-      silencio = setTimeout(function () { try { rec.stop(); } catch (e) {} }, 3000);
-    };
-    rec.onerror = function (ev) {
-      if (ev.error === "not-allowed" || ev.error === "service-not-allowed") {
-        estado.textContent = "El navegador no dio permiso al micrófono. Actívelo en los ajustes del navegador para este sitio.";
-        listo.hidden = true; cancelado = true;
-      }
-    };
-    rec.onend = function () { boton.classList.remove("oyendo"); if (!cancelado) confirmar(); };
-    globo.hidden = false;
-    listo.hidden = false; ya.hidden = true; cancelar.hidden = false; cancelar.textContent = "Cancelar";
-    estado.textContent = cita ? "Escuchando… (sobre la frase que seleccionó)" : "Escuchando… diga su ajuste.";
-    textoEl.textContent = "";
-    boton.classList.add("oyendo"); boton.disabled = true;
-    try { rec.start(); } catch (e) { estado.textContent = "No se pudo usar el micrófono."; }
-  });
-  listo.addEventListener("click", function () { try { rec.stop(); } catch (e) {} });
-  cancelar.addEventListener("click", function () {
-    cancelado = true;
-    try { rec.abort(); } catch (e) {}
-    cerrar();
-  });
-})();
-</script>
-<script>
-/* Comentar una frase: al seleccionar texto aparece "Comentar" (y "Decirlo en
-   voz alta"); el comentario se escribe ahí mismo, debajo del párrafo, y se
-   envía con un toque. También: acceso al resumen desde la barra fija. */
-(function () {
-
-  var contenido = document.getElementById("contenido");
-  var form = document.querySelector(".notas-form");
-  if (!contenido || !form || !window.fetch) return;
-  function leer(k) { try { return JSON.parse(localStorage.getItem(k) || '""'); } catch (e) { return ""; } }
-  var pop = document.createElement("div");
-  pop.className = "comentar-pop";
-  pop.hidden = true;
-  pop.innerHTML = '<button type="button" class="comentar-si">Comentar</button>' +
-    (document.querySelector(".dictar") || window.SpeechRecognition || window.webkitSpeechRecognition
-      ? '<button type="button" class="comentar-voz">Decirlo en voz alta</button>' : "");
-  document.body.appendChild(pop);
-  var cita = "", ancla = null;
-
-  function seleccion() {
-    var sel = document.getSelection();
-    if (!sel || sel.isCollapsed || !sel.rangeCount) return null;
-    var t = String(sel).replace(/\s+/g, " ").trim();
-    if (t.length < 2 || !contenido.contains(sel.anchorNode)) return null;
-    if (sel.anchorNode.parentElement && sel.anchorNode.parentElement.closest(".comentario-caja, .pulso, .escuchar")) return null;
-    return { texto: t.slice(0, 600), rect: sel.getRangeAt(0).getBoundingClientRect(), nodo: sel.anchorNode };
-  }
-  function mostrar() {
-    var s = seleccion();
-    if (!s) { pop.hidden = true; return; }
-    cita = s.texto;
-    var el = s.nodo.nodeType === 1 ? s.nodo : s.nodo.parentElement;
-    ancla = el.closest("p, li, h1, h2, h3, h4, dd") || el;
-    pop.hidden = false;
-    var arriba = s.rect.top - pop.offsetHeight - 10;
-    // En el celular el menú del sistema aparece arriba de la selección: el botón va debajo.
-    var tactil = matchMedia("(pointer: coarse)").matches;
-    var top = tactil || arriba < 50 ? s.rect.bottom + 12 : arriba;
-    pop.style.top = Math.min(top, innerHeight - pop.offsetHeight - 8) + "px";
-    pop.style.left = Math.max(8, Math.min(s.rect.left + s.rect.width / 2 - pop.offsetWidth / 2, innerWidth - pop.offsetWidth - 8)) + "px";
-  }
-  var reloj = null;
-  document.addEventListener("selectionchange", function () { clearTimeout(reloj); reloj = setTimeout(mostrar, 250); });
-  addEventListener("scroll", function () { if (!pop.hidden) mostrar(); }, { passive: true });
-
-  function enviar(caja, texto) {
-    var estado = caja.querySelector(".comentario-estado");
-    var quien = caja.querySelector("[name=quien]"), clave = caja.querySelector("[name=clave]") || { value: "" };
-    var q = quien.value || leer("notas-quien"), c = clave.value || leer("notas-clave");
-    if (!c && !OL.abierto) {
-      caja.querySelector(".comentario-cred").hidden = false;
-      estado.textContent = "Escriba su nombre y la clave (solo esta vez).";
-      clave.focus();
-      return;
-    }
-    var d = new FormData();
-    d.set("quien", q); d.set("clave", c);
-    d.set("pagina", form.elements.pagina.value); d.set("titulo", form.elements.titulo.value);
-    d.set("notas", JSON.stringify([{ texto: texto, cita: caja.dataset.cita,
-      pagina: form.elements.pagina.value, titulo: form.elements.titulo.value }]));
-    estado.textContent = "Enviando…";
-    var previo = !c ? OL.verificar(caja).then(function (x) { d.set("turnstile", x.turnstile); }) : Promise.resolve();
-    previo.then(function () { return fetch(form.action, { method: "POST", body: d, headers: { Accept: "application/json" } }); })
-      .then(function (r) { return r.json().then(function (j) { return [r.status, j]; }); })
-      .then(function (res) {
-        if (res[0] === 200) {
-          if (clave.value) {
-            try { localStorage.setItem("notas-quien", JSON.stringify(q)); localStorage.setItem("notas-clave", JSON.stringify(c)); } catch (e) {}
-          }
-          caja.innerHTML = '<p class="comentario-gracias">¡Gracias! Su comentario llegó.</p>';
-          setTimeout(function () { caja.remove(); }, 3500);
-        } else {
-          if (res[0] === 401) caja.querySelector(".comentario-cred").hidden = false;
-          estado.textContent = res[1].mensaje;
-        }
-      })
-      .catch(function () { estado.textContent = "No se pudo enviar. Revise la conexión."; });
-  }
-  pop.querySelector(".comentar-si").addEventListener("mousedown", function (ev) { ev.preventDefault(); });
-  pop.querySelector(".comentar-si").addEventListener("click", function () {
-    pop.hidden = true;
-    var vieja = document.querySelector(".comentario-caja");
-    if (vieja) vieja.remove();
-    var caja = document.createElement("div");
-    caja.className = "comentario-caja";
-    caja.dataset.cita = cita;
-    caja.setAttribute("contenteditable", "false");
-    caja.innerHTML = '<p class="comentario-cita"></p>' +
-      '<textarea rows="2" aria-label="Su comentario" placeholder="Escriba su comentario…"></textarea>' +
-      '<div class="comentario-cred"' + (OL.abierto && !OL.clave() ? "" : " hidden") + '><input name="quien" placeholder="Su nombre" aria-label="Su nombre" autocomplete="name">' +
-      (OL.abierto ? "" : '<input name="clave" type="password" placeholder="Clave" aria-label="Clave" autocomplete="current-password">') + '</div>' +
-      '<div class="comentario-acciones"><button type="button" class="comentario-enviar">Enviar</button>' +
-      '<button type="button" class="comentario-cancelar">Cancelar</button><span class="comentario-estado" role="status" aria-live="polite"></span></div>';
-    caja.querySelector(".comentario-cita").textContent = "«" + (cita.length > 140 ? cita.slice(0, 140) + "…" : cita) + "»";
-    var destino = ancla && ancla.closest("li") ? ancla.closest("ul, ol") : ancla;
-    (destino || contenido).insertAdjacentElement("afterend", caja);
-    var t = caja.querySelector("textarea");
-    t.focus();
-    caja.querySelector(".comentario-enviar").addEventListener("click", function () {
-      if (t.value.trim()) enviar(caja, t.value.trim()); else t.focus();
-    });
-    caja.querySelector(".comentario-cancelar").addEventListener("click", function () { caja.remove(); });
-    getSelection().removeAllRanges();
-  });
-  var voz = pop.querySelector(".comentar-voz");
-  if (voz) {
-    voz.addEventListener("mousedown", function (ev) { ev.preventDefault(); });
-    voz.addEventListener("click", function () {
-      pop.hidden = true;
-      window.citaParaDictar = cita;
-      var boton = document.querySelector(".dictar");
-      if (boton) boton.click();
-    });
-  }
 })();
 </script>
 </body>
