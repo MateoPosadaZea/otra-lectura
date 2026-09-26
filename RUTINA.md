@@ -37,8 +37,8 @@ con qué contrapeso y qué patrón histórico ayuda a entenderlo.
 
 - **Días livianos.** Si no hay novedades de fondo, se permite una edición
   corta: un solo nudo, o solo seguimientos de temas ya tratados, o
-  incluso solo el carril de Asombro. Decirlo con franqueza en "En tres
-  minutos" ("Hoy no hubo cambios de fondo; esto es lo que vale la pena").
+  incluso solo el carril de Asombro. Decirlo con franqueza en la nota
+  metodológica ("Hoy no hubo cambios de fondo; esto es lo que vale la pena").
   No inventar urgencia.
 - **Domingo** (`TZ=America/Bogota date +%u` da 7): no se abren temas
   nuevos. La edición es **"La semana en limpio"**:
