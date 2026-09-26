@@ -4,15 +4,15 @@ Otra lectura es un sitio para entender temas de actualidad y de gran
 impacto, y formarse, poco a poco, un criterio propio. La idea es apostar por
 una ciudadanía informada y participativa.
 
-No busca contarlo todo ni llegar primero. Cada día elige pocos temas y se
+No busca contarlo todo ni llegar primero. Cada día se eligen pocos temas y se
 detiene en ellos.
 
 ## Cómo se lee una edición
 
 Cada tema del **Radar** es un **nudo**: un problema que se repite porque
-algo lo sostiene, y que alguien podría desatar. Para entrar debe cumplir
+algo lo sostiene, y que alguien podría desatar. Para ser considerado como tal debe cumplir
 cuatro condiciones: se repite o persiste, tiene una causa identificable,
-alguien lo puede cambiar y causa un daño comprobable.
+causa un daño comprobable y alguien lo puede resolver.
 
 Cada nudo se cuenta en el mismo orden:
 
@@ -20,7 +20,7 @@ Cada nudo se cuenta en el mismo orden:
 - **Por qué se repite.** Lo que hace que el problema vuelva.
 - **Quién lo está resolviendo.** Casos documentados, en Colombia o en otro
   país, y sus resultados.
-- **El cómo, en síntesis.** Por qué funciona lo que funciona.
+- **El cómo en síntesis.** Por qué funciona lo que funciona.
 - **Contrapeso.** Las críticas, los límites y los resultados mixtos. Una
   solución sin contrapeso es propaganda.
 - **Qué dice la historia.** Cuándo pasó algo parecido y qué se aprendió.
@@ -28,7 +28,7 @@ Cada nudo se cuenta en el mismo orden:
 
 Después del Radar viene **Asombro**, con descubrimientos y buenas
 noticias, y al final **Para conversar**, una pregunta para hablar en
-casa. También trae un **glosario** con los términos difíciles, las
+casa. También trae un **glosario** de términos, las
 **fuentes** numeradas y una nota sobre cómo se hizo.
 
 El domingo no hay temas nuevos: es **la semana en limpio**.
