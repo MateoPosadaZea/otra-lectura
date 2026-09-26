@@ -914,7 +914,7 @@ HTML_ESCUCHAR = """<div class="escuchar" role="group" aria-label="Escuchar la ed
 
 # Epígrafe de la portada: cita, autor y obra.
 EPIGRAFE = {
-    "cita": "He procurado con esmero no ridiculizar ni lamentar ni detestar las acciones "
+    "cita": "He procurado con esmero no ridiculizar, ni lamentar, ni detestar las acciones "
             "humanas, sino entenderlas.",
     "autor": "Baruch Spinoza",
     "obra": "Tratado político",
