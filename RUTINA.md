@@ -30,7 +30,7 @@ con qué contrapeso y qué patrón histórico ayuda a entenderlo.
   de hoy más corta (menos nudos, menos palabras); si dicen "Liviana"
   de forma sostenida, se puede profundizar un poco, sin pasar el techo.
 - Las cinco ediciones más recientes: sus `temas`, `seguimiento`,
-  `cruce_mattriz` y "Lo que descarté", para no repetir temas (salvo como
+  `cruce_mattriz` y "Lo que descartamos", para no repetir temas (salvo como
   seguimiento) y mantener diversidad geográfica.
 
 ### Días livianos y domingo
@@ -128,7 +128,8 @@ Metas por edición (guía, no excusa para rellenar):
 
 - Intentar abrir los documentos con WebFetch. Si la red lo bloquea,
   trabajar con los resultados de búsqueda (resúmenes, abstracts) y decirlo
-  en la nota metodológica; no atribuir a un estudio más de lo que dice su
+  en la nota metodológica, en plural y en lenguaje llano («no pudimos abrir
+  el documento completo»); no atribuir a un estudio más de lo que dice su
   resumen.
 - Buscar activamente críticas y resultados mixtos para "Contrapeso".
 - Lo que no se pueda confirmar en fuentes va marcado

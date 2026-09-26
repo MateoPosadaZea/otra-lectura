@@ -750,7 +750,7 @@ def plegar_cierre(cuerpo):
         t = texto_plano(titulo).lower()
         if "descart" in t:
             return ""
-        if "fuentes" in t or "metodol" in t or "lo que hice" in t or "glosario" in t:
+        if "fuentes" in t or "metodol" in t or "lo que hice" in t or "lo que hicimos" in t or "glosario" in t:
             return (f'<section class="{clases} plegable"{attrs}>\n<details>\n<summary>{h2}</summary>'
                     f'{resto}</details>\n</section>\n')
         return m.group(0)

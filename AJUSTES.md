@@ -78,3 +78,7 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   importa («según la Contraloría») y todas quedan en Fuentes. Cada sigla o
   entidad se explica la primera vez que aparece, dentro de la frase
   («la Adres, la entidad que administra el dinero de la salud pública»).
+- 2026-09-26 · Pedido de Mateo: la nota metodológica (y "Lo que
+  descartamos") se escribe en primera persona del plural: «hicimos»,
+  «trabajamos», «no pudimos abrir». Sin jerga técnica (nada de
+  «WebFetch», «la red bloqueó»): «no pudimos abrir el documento completo».
