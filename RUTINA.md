@@ -178,7 +178,7 @@ Cuerpo, en este orden (ver `prompt.md` 2.0 para el contenido de cada parte):
 
 ## Carril 1: Radar
 
-### 1. Título del nudo (lugar → lugar de la intervención) {#tema-uno}
+### 1. Título del nudo {#tema-uno}
 
 **Qué ocurrió.** …
 **Quién lo está abordando.** …

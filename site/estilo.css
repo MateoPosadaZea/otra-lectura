@@ -292,8 +292,8 @@ footer.sitio .cabezote { font-size: 1.6rem; color: var(--tinta); }
 
 /* Nudo: titular de diario. */
 .edicion h3 {
-  margin: 0 0 0.9rem;
-  padding-top: 2rem;
+  margin: 0 0 1.6rem;
+  padding-top: 2.6rem;
   font-family: var(--serif);
   font-weight: 400;
   font-size: 2.5em;
@@ -302,20 +302,23 @@ footer.sitio .cabezote { font-size: 1.6rem; color: var(--tinta); }
   hyphens: manual;
   text-wrap: balance;
 }
-.item + .item { margin-top: 2rem; border-top: 1px solid var(--tinta); }
+.item + .item { margin-top: 3.5rem; border-top: 1px solid var(--tinta); }
 .edicion h4, .edicion h5, .edicion h6 { font-family: var(--serif); font-weight: 400; font-size: 1.4em; margin: 1.5rem 0 0.25rem; }
 
 /* Subtítulos del nudo (Qué pasó, Contrapeso…): versalitas sans, al estilo National Geographic. */
 .carril-radar .etiqueta {
   display: block;
-  margin: 1.5rem 0 0.3rem;
+  margin: 0 0 0.45rem;
   font-family: var(--sans);
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
-.carril-radar h3 + p .etiqueta { margin-top: 0; }
+/* Aire entre bloques: cada subtítulo abre un respiro claro. */
+.carril-radar p.con-etiqueta { margin-top: 2.4rem; }
+.carril-radar h3 + p.con-etiqueta { margin-top: 0; }
+.edicion p.contrapeso, .edicion p.no-verificado, .edicion p.conflicto { margin-top: 2.4rem; margin-bottom: 1.6rem; }
 
 /* Asombro: la negrita es un titular corrido. */
 .carril-asombro .con-etiqueta { margin: 1.6rem 0; padding-top: 1.1rem; border-top: 1px solid var(--filete); }

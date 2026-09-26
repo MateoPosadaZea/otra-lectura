@@ -70,3 +70,11 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   hacen directamente con Claude. El sitio arranca en modo día (claro); el
   modo noche solo con el botón. La portada abre con la frase, una
   explicación corta y "Leer la edición de hoy".
+- 2026-09-26 · Pedido de Mateo: sin título «Radar» en pantalla (los nudos
+  abren la edición) y sin el paréntesis de lugares en los títulos
+  («(Colombia → Países Bajos)»); los lugares se explican en el texto.
+  Nada de citas de medios entre paréntesis dentro del texto («(Infobae)»,
+  «(El Tiempo, Infobae…)»): la fuente se nombra con naturalidad cuando
+  importa («según la Contraloría») y todas quedan en Fuentes. Cada sigla o
+  entidad se explica la primera vez que aparece, dentro de la frase
+  («la Adres, la entidad que administra el dinero de la salud pública»).

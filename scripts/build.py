@@ -91,7 +91,6 @@ CATEGORIAS = {
 # Explicación corta bajo la banda de cada carril (el markdown dice "Carril 1: Radar";
 # en pantalla se muestra solo "Radar").
 BAJADA_CARRIL = {
-    "carril-radar": "Problemas que se repiten, quién los está abordando, con qué resultados y con qué críticas.",
     "carril-asombro": "Hallazgos e historias que amplían la mirada, aunque no sirvan para nada inmediato.",
 }
 
@@ -344,6 +343,9 @@ def envolver_secciones(cuerpo):
                 salida.append(f'<section class="{" ".join(clases)}"{extra}>\n')
             # "Carril 1: Radar" → "Radar", con una línea que explica el carril.
             heading = re.sub(r"(<h2[^>]*>)\s*Carril\s+\d+\s*:\s*", r"\1", heading, flags=re.I)
+            # El Radar no lleva banda de título: los nudos abren la edición directamente.
+            if "carril-radar" in clases:
+                heading = ""
             pila.append((nivel, "section", None))
         elif nivel == 3 and clases:
             # Slug explícito con {#slug} (attr_list) o derivado del título sin número.
@@ -352,6 +354,8 @@ def envolver_secciones(cuerpo):
             if m_id:
                 heading = heading.replace(m_id.group(0), "", 1)
             heading = re.sub(r"(<h3[^>]*>)\s*\d+\.\s*", r"\1", heading, count=1)
+            # Sin el paréntesis de lugares "(Colombia → Países Bajos)": el texto lo explica.
+            heading = re.sub(r"\s*\([^()]*→[^()]*\)\s*(</h3>)", r"\1", heading)
             base, n = slug, 2
             while slug in slugs:
                 slug, n = f"{base}-{n}", n + 1
