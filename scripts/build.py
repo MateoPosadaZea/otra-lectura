@@ -44,7 +44,7 @@ SOBRE = RAIZ / "sobre.md"
 # Dirección pública del sitio, sin barra final (p. ej. "https://otra-lectura.xxx.workers.dev").
 # Hace falta para las vistas previas al compartir (og:image y og:url deben ser
 # absolutas), la url canónica y el sitemap. Vacía, esas etiquetas se omiten.
-SITIO_URL = ""
+SITIO_URL = "https://otralectura.co"
 
 NOMBRE_SITIO = "Otra lectura"
 FRASE_SITIO = "Una mirada pragmática para informarse y participar."

@@ -24,7 +24,7 @@ lo indexan.
 
 1. **Crear el widget de Turnstile** (gratis): en el panel de Cloudflare →
    *Turnstile* → *Add widget*. Nombre: "Otra lectura". Dominio: el del
-   sitio (`….workers.dev`). Modo: *Managed*. Cloudflare entrega dos claves:
+   sitio (`otralectura.co` y `www.otralectura.co`). Modo: *Managed*. Cloudflare entrega dos claves:
    una **site key** (pública) y una **secret key** (privada).
 2. **Guardar la secret key en el Worker**: Workers → otra-lectura →
    *Settings* → *Variables and Secrets* → *Add* → tipo **Secret**, nombre
@@ -37,7 +37,7 @@ lo indexan.
    TURNSTILE_SITEKEY = "0x4AAAA…"
    ```
 4. **Buscadores** (opcional, al mismo tiempo o después): en
-   `scripts/build.py`, `INDEXAR = True` y `SITIO_URL = "https://….workers.dev"`
+   `scripts/build.py`, `INDEXAR = True` y `SITIO_URL` ya es `"https://otralectura.co"`
    (con la dirección real). Eso activa el sitemap, la dirección canónica y
    la imagen de vista previa al compartir.
 5. Publicar (`./deploy.sh` o push a `main`). Cloudflare despliega solo.
