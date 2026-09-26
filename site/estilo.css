@@ -247,6 +247,7 @@ footer.sitio .cabezote { font-size: 1.6rem; color: var(--tinta); }
   text-transform: uppercase;
 }
 .temas li { padding: 0.2rem 0.5rem; border: 1px solid var(--tinta); }
+.temas li, .edicion .temas li + li { margin: 0; }
 
 .cabecera .nota {
   margin: 1.25rem auto 0;
