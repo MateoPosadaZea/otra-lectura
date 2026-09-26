@@ -1,7 +1,7 @@
 # ¿Qué es esto?
 
 Otra lectura es un sitio para entender temas de actualidad y de gran
-impacto, y formarse, poco a poco, un criterio propio. La idea es aportar a
+impacto, y formarse, poco a poco, un criterio propio. La idea es apostar por
 una ciudadanía informada y participativa.
 
 No busca contarlo todo ni llegar primero. Cada día elige pocos temas y se
