@@ -1271,3 +1271,7 @@ html:not(.sonando) .escuchar label, html:not(.sonando) .escuchar-pista { display
 h1, h2, h3, h4, summary, figcaption, .dia-titulo, .indice-edicion li, .dia-temas li,
 .indice li, .siguiente-titulo, .archivo-temas, .portada-intro { text-wrap: balance; }
 p, li, dd, blockquote { text-wrap: pretty; }
+
+/* Ícono del botón de noche/día. */
+.tema { display: inline-flex; align-items: center; gap: 0.45em; }
+.tema-icono { width: 1.15em; height: 1.15em; flex: none; }

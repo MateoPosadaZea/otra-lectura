@@ -82,3 +82,5 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   descartamos") se escribe en primera persona del plural: «hicimos»,
   «trabajamos», «no pudimos abrir». Sin jerga técnica (nada de
   «WebFetch», «la red bloqueó»): «no pudimos abrir el documento completo».
+- 2026-09-26 · Pedido de Mateo: el botón de noche/día lleva ícono (luna y
+  sol, dibujados en SVG, no emojis). Es la excepción a «sin íconos».

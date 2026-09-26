@@ -88,7 +88,10 @@
   function actual() { return raiz.dataset.theme || "light"; }
   function pintar() {
     var oscuro = actual() === "dark";
-    boton.textContent = oscuro ? "Leer de día" : "Leer de noche";
+    // Ícono en línea (SVG, sin emojis): luna para ir a la noche, sol para volver al día.
+    var luna = '<svg class="tema-icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg>';
+    var sol = '<svg class="tema-icono" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></g></svg>';
+    boton.innerHTML = (oscuro ? sol + "Leer de día" : luna + "Leer de noche");
     boton.title = oscuro ? "Volver al fondo claro" : "Fondo oscuro, más cómodo para leer de noche";
     boton.setAttribute("aria-label", oscuro ? "Leer de día: volver al fondo claro" : "Leer de noche: fondo oscuro, más cómodo para los ojos");
   }
