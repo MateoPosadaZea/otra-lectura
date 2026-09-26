@@ -3,6 +3,19 @@
 Otra lectura se lee como un diario: de arriba abajo, sin prisa. Estas son
 las herramientas que tiene para hacerlo más cómodo.
 
+## Corregir el texto
+
+Arriba, junto a **Leer de noche**, está el botón **Corregir**.
+
+1. Tóquelo. La primera vez pide **usuario y contraseña**; después, ya no.
+2. Todo el texto de la página se vuelve editable, como un documento:
+   toque cualquier palabra y escriba encima, o seleccione una frase y
+   bórrela. Lo corregido queda marcado con una línea verde a la izquierda.
+3. Toque **Guardar** en la barra de abajo. Si se equivocó, **Deshacer**.
+4. Para terminar, toque **Terminar** (arriba) o **Salir** (abajo).
+
+Los cambios quedan publicados en la próxima hora.
+
 ## Escuchar en vez de leer
 
 Arriba de cada edición está el botón **Escuchar**. El texto se lee en

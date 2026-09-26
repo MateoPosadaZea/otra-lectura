@@ -49,7 +49,10 @@
 <ul><li><a href="../index.html">Inicio</a></li><li><a href="../categorias/economia.html">Economía</a></li><li><a href="../categorias/salud.html">Salud</a></li><li><a href="../categorias/ambiente.html">Ambiente</a></li><li><a href="../categorias/sociedad.html">Sociedad</a></li><li><a href="../categorias/ciencia.html">Ciencia</a></li><li><a href="../sobre.html">¿Qué es esto?</a></li></ul>
 </nav>
 </details>
+<div class="acciones">
+<button class="corregir" type="button" hidden>Corregir</button>
 <button class="tema" type="button" hidden>Oscuro</button>
+</div>
 </div>
 </header>
 <main id="contenido">
@@ -778,6 +781,182 @@ de diseño fuerte sobre el daño.</p></details>
       else history.replaceState(null, "", "#hoy");
     }
     requestAnimationFrame(paso);
+  });
+})();
+/* Corregir: con usuario y contraseña, todo el texto de la página se vuelve
+   editable, como un documento. "Guardar" envía los cambios ("quitar / poner"
+   con contexto) y la revisión horaria los aplica al markdown. */
+(function () {
+  var boton = document.querySelector(".corregir");
+  var main = document.querySelector("main");
+  if (!boton || !main || !window.fetch) return;
+  boton.hidden = false;
+  var activo = false, enviando = false, bloques = [];
+
+  function texto(el) { return el.textContent.replace(/\s+/g, " ").trim(); }
+  function leer(k) { try { return JSON.parse(localStorage.getItem(k) || '""'); } catch (e) { return ""; } }
+  function escribir(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+
+  var barra = document.createElement("div");
+  barra.className = "guardado";
+  barra.hidden = true;
+  barra.innerHTML =
+    '<form class="guardado-cred" hidden>' +
+    '<input name="quien" placeholder="Usuario" aria-label="Usuario" autocomplete="username" required>' +
+    '<input name="clave" type="password" placeholder="Contraseña" aria-label="Contraseña" autocomplete="current-password" required>' +
+    '<button type="submit" class="guardado-entrar">Entrar</button></form>' +
+    '<span class="guardado-texto" role="status" aria-live="polite"></span>' +
+    '<button type="button" class="guardado-ya" hidden>Guardar</button>' +
+    '<button type="button" class="guardado-deshacer" hidden>Deshacer</button>' +
+    '<button type="button" class="guardado-salir">Salir</button>';
+  document.body.appendChild(barra);
+  var cred = barra.querySelector(".guardado-cred");
+  var quien = cred.querySelector("[name=quien]"), clave = cred.querySelector("[name=clave]");
+  var aviso = barra.querySelector(".guardado-texto");
+  var ya = barra.querySelector(".guardado-ya"), deshacer = barra.querySelector(".guardado-deshacer");
+  var salir = barra.querySelector(".guardado-salir");
+
+  // Todo el texto de la página: títulos, párrafos, listas, glosario, leyendas.
+  var SEL = "main h1, main h2, main h3, main h4, main p, main li, main dt, main dd, " +
+    "main figcaption, main blockquote, main td, main th, .glosario-flotante dt, .glosario-flotante dd";
+  var FUERA = ".escuchar, nav, .temas, .indice-edicion, .portada-guia, .fecha, .aviso-cambios, " +
+    ".otros-temas, .dias-anteriores, .ir-fecha, summary, button, .g-tip";
+
+  function cambiados() { return bloques.filter(function (el) { return texto(el) !== el.dataset.orig; }); }
+  function pintar(mensaje) {
+    var n = cambiados().length;
+    bloques.forEach(function (el) { el.classList.toggle("editado", texto(el) !== el.dataset.orig); });
+    ya.hidden = deshacer.hidden = !n || enviando || !cred.hidden;
+    aviso.textContent = mensaje || (n ? (n === 1 ? "1 cambio sin guardar" : n + " cambios sin guardar")
+      : "Toque cualquier texto para corregirlo.");
+  }
+  function encender() {
+    bloques = Array.prototype.filter.call(document.querySelectorAll(SEL), function (el) {
+      return !el.closest(FUERA) && !el.querySelector("p, li, dd, blockquote") && texto(el);
+    });
+    bloques.forEach(function (el) {
+      el.dataset.orig = texto(el);
+      el.dataset.html = el.innerHTML;
+      el.contentEditable = "true";
+      el.spellcheck = true;
+      el.classList.add("editable");
+    });
+    // Abre lo plegado (fuentes, nota, glosario) para que también se pueda corregir.
+    document.querySelectorAll("main details").forEach(function (d) { d.open = true; });
+    activo = true;
+    boton.textContent = "Terminar";
+    boton.setAttribute("aria-pressed", "true");
+    document.documentElement.classList.add("corrigiendo");
+    pintar();
+  }
+  function apagar() {
+    if (cambiados().length && !confirm("Hay cambios sin guardar. ¿Salir sin guardarlos?")) return;
+    bloques.forEach(function (el) {
+      el.innerHTML = el.dataset.html;
+      el.removeAttribute("contenteditable");
+      el.classList.remove("editable", "editado");
+    });
+    bloques = [];
+    activo = false;
+    barra.hidden = true;
+    boton.textContent = "Corregir";
+    boton.setAttribute("aria-pressed", "false");
+    document.documentElement.classList.remove("corrigiendo");
+  }
+  function pedirCred(mensaje) {
+    barra.hidden = false;
+    cred.hidden = false;
+    quien.value = leer("notas-quien");
+    pintar(mensaje || "");
+    (quien.value ? clave : quien).focus();
+  }
+  boton.addEventListener("click", function () {
+    if (activo) return apagar();
+    if (!leer("notas-clave")) return pedirCred("");
+    barra.hidden = false;
+    encender();
+  });
+  cred.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    escribir("notas-quien", quien.value.trim());
+    escribir("notas-clave", clave.value);
+    clave.value = "";
+    cred.hidden = true;
+    if (activo) guardar(); else encender();
+  });
+
+  function recorte(a, b) {
+    var x = a.split(" "), y = b ? b.split(" ") : [], i = 0, j = 0;
+    while (i < x.length && i < y.length && x[i] === y[i]) i++;
+    while (j < x.length - i && j < y.length - i && x[x.length - 1 - j] === y[y.length - 1 - j]) j++;
+    return {
+      antes: x.slice(i, x.length - j).join(" "), despues: y.slice(i, y.length - j).join(" "),
+      izq: x.slice(Math.max(0, i - 6), i).join(" "), der: x.slice(x.length - j, x.length - j + 6).join(" "),
+      parrafo: a
+    };
+  }
+  function guardar() {
+    var lista = cambiados();
+    if (!lista.length || enviando) return;
+    var d = new FormData();
+    d.set("pagina", location.pathname);
+    d.set("titulo", texto(document.querySelector("main h1") || document.querySelector("title")));
+    d.set("quien", leer("notas-quien"));
+    d.set("clave", leer("notas-clave"));
+    d.set("cambios", JSON.stringify(lista.map(function (el) {
+      var c = recorte(el.dataset.orig, texto(el));
+      if (el.closest(".glosario-flotante, #glosario")) {
+        var dt = el.tagName === "DD" ? el.previousElementSibling : null;
+        c.parrafo = "[Glosario] " + (dt ? (dt.dataset.orig || texto(dt)) + ": " : "") + el.dataset.orig;
+      }
+      return c;
+    })));
+    enviando = true;
+    pintar("Guardando…");
+    fetch("/api/ajuste", { method: "POST", body: d, headers: { Accept: "application/json" } })
+      .then(function (r) { return r.json().then(function (j) { return [r.status, j]; }); })
+      .then(function (res) {
+        enviando = false;
+        if (res[0] === 200) {
+          lista.forEach(function (el) { el.dataset.orig = texto(el); el.dataset.html = el.innerHTML; });
+          pintar("Guardado. Queda publicado en la próxima hora.");
+        } else if (res[0] === 401) {
+          escribir("notas-clave", "");
+          pedirCred("Usuario o contraseña incorrectos. Sus cambios siguen aquí.");
+        } else {
+          pintar(res[1].mensaje || "No se pudo guardar. Inténtelo de nuevo.");
+        }
+      })
+      .catch(function () {
+        enviando = false;
+        pintar("Sin conexión; sus cambios siguen aquí. Toque Guardar para reintentar.");
+      });
+  }
+  ya.addEventListener("click", guardar);
+  salir.addEventListener("click", function () { if (activo) apagar(); else { barra.hidden = true; cred.hidden = true; } });
+  deshacer.addEventListener("click", function () {
+    cambiados().forEach(function (el) { el.innerHTML = el.dataset.html; });
+    pintar();
+  });
+  document.addEventListener("input", function (ev) {
+    if (activo && ev.target.isContentEditable) pintar();
+  });
+  // Un párrafo es un párrafo: Enter no lo parte; lo pegado entra como texto simple.
+  document.addEventListener("keydown", function (ev) {
+    if (activo && ev.key === "Enter" && ev.target.isContentEditable) { ev.preventDefault(); ev.target.blur(); }
+  });
+  document.addEventListener("paste", function (ev) {
+    if (!activo || !ev.target.isContentEditable) return;
+    ev.preventDefault();
+    var t = (ev.clipboardData || window.clipboardData).getData("text").replace(/\s+/g, " ");
+    document.execCommand("insertText", false, t);
+  });
+  // Mientras se corrige, los enlaces no se abren (para poder editar su texto).
+  document.addEventListener("click", function (ev) {
+    if (activo && ev.target.closest && ev.target.closest(".editable a")) ev.preventDefault();
+  }, true);
+  window.addEventListener("beforeunload", function (ev) {
+    if (activo && cambiados().length) { ev.preventDefault(); ev.returnValue = ""; }
   });
 })();
 /* Cierra el menú de secciones al hacer clic fuera o con Escape. */

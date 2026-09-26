@@ -106,3 +106,7 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   - Lenguaje llano: nada de jerga académica («diferencias en diferencias»,
     «subcompensación», «margen operativo»); decir qué encontró el estudio
     en palabras de todos los días.
+- 2026-09-26 · Pedido de Mateo: vuelve la corrección sobre el texto, y
+  solo eso. Botón «Corregir» arriba; pide usuario y contraseña (la clave
+  familiar) una vez; todo el texto de la página es editable; «Guardar»
+  envía los cambios como «[Edición]» y la revisión horaria los aplica.

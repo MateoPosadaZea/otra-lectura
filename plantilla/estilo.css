@@ -145,11 +145,15 @@ header.sitio { border-bottom: 1px solid var(--tinta); }
 .principal a:hover { color: var(--rojo); }
 .principal a[aria-current="page"], .menu a[aria-current="page"] { color: var(--rojo); }
 
-.tema {
+.acciones {
   position: absolute;
   right: clamp(1.1rem, 3vw, 2.5rem);
   top: 50%;
   transform: translateY(-50%);
+  display: flex;
+  gap: 0.4rem;
+}
+.tema, .corregir {
   padding: 0.3rem 0.6rem;
   border: 1px solid var(--tinta);
   border-radius: 0;
@@ -161,7 +165,7 @@ header.sitio { border-bottom: 1px solid var(--tinta); }
   cursor: pointer;
   white-space: nowrap;
 }
-.tema:hover { background: var(--tinta); color: var(--papel); }
+.tema:hover, .corregir:hover, .corregir[aria-pressed="true"] { background: var(--tinta); color: var(--papel); }
 
 /* En pantallas angostas la barra se vuelve un menú desplegable (<details>, sin JS). */
 .menu { display: none; }
@@ -1302,3 +1306,60 @@ p, li, dd, blockquote { text-wrap: pretty; }
   font-style: italic;
   text-wrap: balance;
 }
+
+/* --- Corregir: el texto se edita como un documento --- */
+
+.editable { cursor: text; border-radius: 2px; }
+.editable:focus { outline: none; background: var(--papel-claro); box-shadow: 0 0 0 0.3rem var(--papel-claro); }
+.editable::selection, .editable *::selection { background: rgba(179, 64, 31, 0.25); }
+.editado { box-shadow: -0.6rem 0 0 -0.4rem var(--s3); }
+.editado:focus { box-shadow: 0 0 0 0.3rem var(--papel-claro), -0.6rem 0 0 -0.4rem var(--s3); }
+.guardado {
+  position: fixed;
+  left: 50%;
+  bottom: 0.8rem;
+  z-index: 6;
+  transform: translateX(-50%);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem 0.6rem;
+  width: max-content;
+  max-width: calc(100vw - 1.2rem);
+  padding: 0.45rem 0.7rem;
+  background: var(--tinta);
+  color: var(--papel);
+  font: 600 0.78rem/1.3 var(--sans);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+.guardado button {
+  min-height: 2.2rem;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--papel);
+  border-radius: 0;
+  background: none;
+  color: var(--papel);
+  font: 700 0.66rem/1 var(--sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.guardado .guardado-ya { background: var(--papel); color: var(--tinta); }
+.guardado-cred { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.guardado-cred input {
+  width: 8.5rem;
+  min-height: 2.2rem;
+  padding: 0.25rem 0.5rem;
+  border: 0;
+  border-radius: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font: 1rem var(--sans);
+}
+@media print { .guardado { display: none !important; } }
+
+.guardado[hidden] { display: none; }
+.guardado button[hidden], .guardado-cred[hidden] { display: none; }
+.corrigiendo .arriba, .corrigiendo .glosario-boton { visibility: hidden; }
+.corrigiendo main { padding-bottom: 5rem; }
