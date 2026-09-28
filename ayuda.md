@@ -40,9 +40,11 @@ Todos los días, antes de las 6 de la mañana (hora de Colombia).
 
 ## Qué hay en cada edición
 
-- **Radar**: problemas que se repiten, con quién los está resolviendo y
-  con qué resultados. Las críticas van en un recuadro, **Contrapeso**.
-- **Asombro**: hallazgos e historias que amplían la mirada.
+- **Un solo tema**: un problema que se repite, con quién lo está
+  resolviendo y con qué resultados. Las críticas van en un recuadro,
+  **Contrapeso**.
+- **La paradoja del día** y **Para conversar**, para cerrar.
+- Las **fuentes**, en un recuadro plegado al final.
 - El sello rojo **Conocimiento general** marca lo que no se pudo
   confirmar con una fuente. Léalo con cautela.
 - **Revisada el…**, junto al título, avisa que la edición tuvo

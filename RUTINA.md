@@ -27,7 +27,7 @@ con qué contrapeso y qué patrón histórico ayuda a entenderlo.
 - `README.md`: tabla de convenciones de markdown que entiende la plantilla.
 - `PULSO.md`: las valoraciones (Liviana / Justa / Pesada) que los lectores
   dejan al final de cada edición. Si las últimas dicen "Pesada", hacer la
-  de hoy más corta (menos nudos, menos palabras); si dicen "Liviana"
+  de hoy más corta (menos palabras); si dicen "Liviana"
   de forma sostenida, se puede profundizar un poco, sin pasar el techo.
 - Las cinco ediciones más recientes: sus `temas`, `seguimiento`,
   `cruce_mattriz` y "Lo que descartamos", para no repetir temas (salvo como
@@ -36,8 +36,8 @@ con qué contrapeso y qué patrón histórico ayuda a entenderlo.
 ### Días livianos y domingo
 
 - **Días livianos.** Si no hay novedades de fondo, se permite una edición
-  corta: un solo nudo, o solo seguimientos de temas ya tratados, o
-  incluso solo el carril de Asombro. Decirlo con franqueza en la nota
+  corta: el nudo más breve, o un seguimiento de fondo de un tema ya
+  tratado. Decirlo con franqueza en la nota
   metodológica ("Hoy no hubo cambios de fondo; esto es lo que vale la pena").
   No inventar urgencia.
 - **Domingo** (`TZ=America/Bogota date +%u` da 7): no se abren temas
@@ -70,9 +70,10 @@ criterios:
 
 **Gravedad y cercanía valen doble** (pedido de Mateo, 2026-09-25):
 total = alcance + 2 × gravedad + duración + 2 × cercanía + decisión.
-Se eligen los de mayor puntaje (máximo 21). Reglas:
-- Al menos **un tema colombiano de alto impacto** por edición (si no hay
-  novedad, un seguimiento de uno ya tratado).
+Se elige **el de mayor puntaje** (máximo 21): la edición trata un solo
+tema. Reglas:
+- A igualdad de puntaje, preferir el **tema colombiano** (si no hay
+  novedad, un seguimiento de fondo de uno ya tratado).
 - El tema puede ser **estructural y de largo plazo** (pensiones, salud,
   seguridad, empleo, clima, educación, agua, alimentación…): basta un
   **hecho reciente** que lo reactive (informe, cifra, votación, fallo,
@@ -81,7 +82,7 @@ Se eligen los de mayor puntaje (máximo 21). Reglas:
 - La diversidad geográfica se busca entre temas de impacto comparable, no
   a costa del impacto.
 - En la **Nota metodológica** va una tabla corta con el puntaje de los
-  temas elegidos y de los principales descartados (los criterios en 1 a 3,
+  tema elegido y de los principales descartados (los criterios en 1 a 3,
   y el total ya ponderado), para que el criterio se
   pueda discutir y calibrar.
 
@@ -144,8 +145,8 @@ Frontmatter:
 ---
 fecha: AAAA-MM-DD
 edicion: N
-titulo: "Titular que resuma los nudos del día"
-temas: [tema-uno, tema-dos]
+titulo: "Titular del nudo del día"
+temas: [tema-uno]
 categorias: [economia, salud]
 lugares: [Colombia, ...]
 cruce_mattriz: []
@@ -159,7 +160,7 @@ fuentes:
 ```
 
 `categorias` usa solo estas claves (una o varias por edición, según los
-nudos y el carril de Asombro):
+nudo):
 
 | Clave | Categoría | Incluye |
 |---|---|---|
@@ -179,7 +180,7 @@ Cuerpo, en este orden (ver `prompt.md` 2.0 para el contenido de cada parte):
 
 ## Carril 1: Radar
 
-### 1. Título del nudo {#tema-uno}
+### Título del nudo {#tema-uno}
 
 **Qué ocurrió.** …
 **Quién lo está abordando.** …
@@ -187,15 +188,6 @@ Cuerpo, en este orden (ver `prompt.md` 2.0 para el contenido de cada parte):
 **Contrapeso.** …
 **Antecedente histórico.** *(Conocimiento general.)* …
 **Cruce con Mattriz.** …
-
-### Seguimiento: tema   ← solo si hay novedad sin cambio sustantivo
-
-Nota breve. El enlace a la edición donde se trató lo pone la plantilla a
-partir del campo `seguimiento`.
-
-## Carril 2: Asombro
-
-**Titular corrido.** texto…
 
 ## La paradoja del día
 
@@ -219,17 +211,17 @@ cercano (preguntar, participar, votar, revisar). Si no lo hay, se omite.
 ```
 
 - **Largo (para no desgastar):** la edición completa, sin contar Descartes,
-  Glosario ni Nota metodológica, no pasa de unas 1.500 palabras (unos 7
+  Glosario ni Nota metodológica, no pasa de unas 1.000 palabras (unos 5
   minutos de lectura). El build avisa si se pasa: en ese caso recortar,
-  no justificar. Mejor tres temas bien entendidos que cinco a medias. Un
-  día sin novedades de fondo puede tener un solo nudo, o solo
-  seguimientos.
+  no justificar. Un solo tema bien entendido, que el lector alcance a
+  llegar a la paradoja y a Para conversar.
 - Sin resúmenes rápidos al comienzo ("En tres minutos" ya no existe): el
   sitio apuesta por la profundidad. El índice de la edición lo genera la
   plantilla a partir de los títulos de los nudos.
 - **Para conversar** cierra la parte de lectura: una pregunta que invite a
   pensar (no a indignarse) y, cuando exista, una acción ciudadana concreta.
-- Hasta tres nudos (dos es un buen número). Cada subtítulo es una negrita al inicio del
+- Un solo nudo por edición (pedido de Mateo, 2026-09-28): sin segundo nudo, sin
+  Asombro, sin seguimientos de otros temas. Cada subtítulo es una negrita al inicio del
   párrafo que termina en punto; así lo reconoce la plantilla.
 - Si no hay intervención documentada, usar **Sin salida conocida.**
   (máximo una o dos por edición, nunca todas).
@@ -249,8 +241,7 @@ cercano (preguntar, participar, votar, revisar). Si no lo hay, se omite.
   seguimiento y agregarle actualizaciones.
 - `seguimiento` solo admite slugs que estén en `temas` de una edición
   anterior (el build falla si no). Cuando un nudo ya tratado tiene
-  novedad: nota breve en `### Seguimiento: …` de la edición de hoy, su
-  slug en `seguimiento` y, además, una entrada en `actualizaciones` de la
+  novedad: una entrada en `actualizaciones` de la
   edición original (`fecha`, `nudo` con su slug y `texto` de una o dos
   frases). Nunca se edita el texto de una edición ya publicada; los
   errores detectados se agregan en su campo `correcciones`. (La excepción

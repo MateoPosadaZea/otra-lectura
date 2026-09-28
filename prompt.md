@@ -52,7 +52,7 @@ no pasó el filtro.
 
 ## Carril 1: Radar
 
-Entre dos y cuatro nudos por edición. Estructura de cada uno:
+Un solo nudo por edición (desde el 2026-09-28): el de mayor impacto del día, contado a fondo para que el lector llegue sin cansarse a la paradoja y a la conversación. Estructura:
 
 1. **Qué ocurrió.** Exposición breve de los hechos, con fecha y fuente.
 2. **Quién lo está abordando.** Intervenciones documentadas, en cualquier
@@ -73,18 +73,16 @@ Entre dos y cuatro nudos por edición. Estructura de cada uno:
    consignarlo. Máximo una o dos candidatas por edición.
 
 **Seguimiento.** Cuando un nudo ya tratado presenta novedad sin
-cambio sustantivo, se consigna como nota breve, con enlace a la edición
-donde se trató, y no como análisis completo.
+cambio sustantivo, no se agrega a la edición del día: va como entrada en
+`actualizaciones` de la edición original. Solo si la novedad es de
+fondo y es lo más importante del día, puede ser el nudo de la edición.
 
 ---
 
-## Carril 2: Asombro
+## Carril 2: Asombro (suspendido)
 
-Hallazgos, avances e historias de construcción que amplíen la
-comprensión del mundo, con independencia de su utilidad inmediata.
-
-Puede cerrar con la pregunta que dejan abierta o con un patrón que
-vincule las historias entre sí o con ediciones previas.
+Desde el 2026-09-28 las ediciones no llevan Asombro ni otras noticias:
+un solo tema, luego la paradoja y Para conversar.
 
 ---
 

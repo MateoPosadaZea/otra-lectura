@@ -104,7 +104,7 @@ CAMPOS_CONOCIDOS = {"fecha", "edicion", "titulo", "slug", "nota",
                     "actualizaciones", "correcciones", "fuentes", *CAMPOS_LISTA}
 
 # Techo editorial de una edición (palabras de lectura, sin el cierre).
-LARGO_MAXIMO = 1500
+LARGO_MAXIMO = 1000
 
 # Tipos de fuente (campo `tipo` en `fuentes`). Si falta, se deduce del dominio.
 TIPOS_FUENTE = {
@@ -673,7 +673,7 @@ def html_fuentes(fuentes):
                 "organizacion": "de una organización", "prensa": "de prensa", "referencia": "de referencia"}
     partes = [f"{n} {TIPOS_FUENTE[t][1].lower() if n != 1 else singular[t]}" for t, n in conteo if n]
     resumen = f'<p class="fuentes-resumen">{len(fuentes)} fuentes: {", ".join(partes)}.</p>'
-    return (f'<section class="carril cierre fuentes" id="fuentes">\n<h2>Fuentes</h2>\n{resumen}\n'
+    return (f'<section class="carril cierre fuentes" id="fuentes">\n<h2>¿Le interesa ver las fuentes?</h2>\n{resumen}\n'
             f'<ol>\n{chr(10).join(items)}\n</ol>\n</section>\n')
 
 
@@ -841,25 +841,28 @@ def recomendar(e, ediciones):
     return sorted(otras, key=puntaje, reverse=True)
 
 
-def html_fin(e, ediciones):
-    ultima = e["fecha"] == ediciones[0]["fecha"]
-    return f'<p class="fin-edicion">{"Eso es todo por hoy." if ultima else "Eso es todo en esta edición."}</p>'
+def relacionada(e, ediciones):
+    """La edición más afín que comparta tema o seguimiento con esta, o None.
+    Solo se sugiere una lectura si de verdad está relacionada."""
+    propios = set(e["temas"]) | set(e["seguimiento"])
+    for o in recomendar(e, ediciones):
+        if propios & (set(o["temas"]) | set(o["seguimiento"])):
+            return o
+    return None
 
 
 def html_siguiente(e, ediciones):
-    """Cierre de la edición: "Eso es todo", una sola lectura sugerida y el
-    camino a los demás temas. Sin listas largas."""
-    recomendadas = recomendar(e, ediciones)
-    sugerida = ""
-    if recomendadas:
-        s = recomendadas[0]
-        sugerida = f"""<p class="siguiente-rotulo">Siguiente lectura</p>
+    """Cierre de la edición: si hay una lectura relacionada con el tema, se
+    ofrece; si no, «Eso es todo por hoy» y nada más."""
+    s = relacionada(e, ediciones)
+    if s:
+        return f"""<aside class="siguiente" aria-label="Seguir leyendo">
+<p class="siguiente-pregunta">¿Le gustaría seguir leyendo? Tenemos esta otra lectura:</p>
 <a class="siguiente-titulo" href="{s['slug']}.html">{html.escape(s['titulo'])}</a>
-<p class="fecha">{fecha_legible(s['fecha'])} · {minutos_lectura(s)}</p>"""
-    return f"""<aside class="siguiente" aria-label="Siguiente lectura">
-{sugerida}
-<p class="otros-temas"><a href="../archivo.html">Ver otros temas →</a></p>
+<p class="fecha">{fecha_legible(s['fecha'])} · {minutos_lectura(s)}</p>
 </aside>"""
+    ultima = e["fecha"] == ediciones[0]["fecha"]
+    return f'<p class="fin-edicion">{"Eso es todo por hoy." if ultima else "Eso es todo en esta edición."}</p>'
 
 
 def pagina_edicion(base, e, ediciones):
@@ -874,7 +877,6 @@ def pagina_edicion(base, e, ediciones):
 </header>
 {cuerpo_edicion(e)}
 </article>
-{html_fin(e, ediciones)}
 {html_glosario_flotante(e['glosario'])}
 {html_siguiente(e, ediciones)}"""
     descripcion = descripcion_edicion(e)
@@ -963,7 +965,7 @@ def pagina_portada(base, dias):
 <blockquote><p>«{html.escape(EPIGRAFE['cita'])}»</p></blockquote>
 <figcaption>{html.escape(EPIGRAFE['autor'])} <cite>{html.escape(EPIGRAFE['obra'])}</cite>, {EPIGRAFE['anio']}</figcaption>
 </figure>
-<p class="portada-intro">Cada día, pocos temas de fondo, contados con calma: qué pasó,
+<p class="portada-intro">Cada día, un tema de fondo, contado con calma: qué pasó,
 por qué se repite, quién lo está resolviendo y qué dice la historia. Para
 leer despacio y conversar en casa. <a href="sobre.html">¿Qué es esto?</a></p>
 {'<p class="portada-guia"><a href="#hoy">Leer la edición de hoy <span aria-hidden="true">↓</span></a></p>' if dias else ""}
@@ -1207,9 +1209,10 @@ def main():
             print(f"  error: {err}", file=sys.stderr)
         sys.exit(1)
 
-    # Aviso (no detiene el build): el techo editorial es de ~1.500 palabras.
+    # Aviso (no detiene el build): el techo editorial es de ~1.000 palabras.
     for e in ediciones:
-        if e["palabras"] > LARGO_MAXIMO:
+        # Las ediciones anteriores al 28 de septiembre de 2026 tenían otro techo (1.500).
+        if e["palabras"] > LARGO_MAXIMO and e["fecha"] >= "2026-09-28":
             print(f"  aviso: ediciones/{e['archivo']} tiene ~{e['palabras']} palabras de lectura "
                   f"(techo: {LARGO_MAXIMO}).", file=sys.stderr)
 

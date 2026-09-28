@@ -11,8 +11,8 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
 ## Reglas vigentes
 
 - 2026-09-24 · Pedido de Mateo ("no queremos causar desgaste a nuestros
-  lectores"): ediciones de máximo unas 1.500 palabras de lectura y hasta
-  tres nudos; cerrar con "Para
+  lectores"): ediciones cortas (ver la regla del 2026-09-28, que la
+  reemplaza en largo y número de temas); cerrar con "Para
   conversar" (una pregunta y, si aplica, qué puede hacer un ciudadano).
   El objetivo es entender y conversar, no acumular información.
 - 2026-09-25 · Pedido de Mateo ("quitar términos como descabezados, mucho
@@ -110,3 +110,12 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   solo eso. Botón «Corregir» arriba; pide usuario y contraseña (la clave
   familiar) una vez; todo el texto de la página es editable; «Guardar»
   envía los cambios como «[Edición]» y la revisión horaria los aplica.
+- 2026-09-28 · Pedido de Mateo ("la paradoja del día y Para conversar se
+  pierden, no se llega hasta abajo"): **un solo tema por edición**, el de
+  mayor impacto. Sin segundo nudo, sin Asombro y sin seguimientos de otros
+  temas (las novedades de temas viejos van como `actualizaciones` en su
+  edición original). Orden: el tema → La paradoja del día → Para
+  conversar. Después, un recuadro plegado «¿Le interesa ver las fuentes?»
+  y, solo si existe una edición relacionada con el tema, «¿Le gustaría
+  seguir leyendo?» con esa lectura; si no la hay, «Eso es todo por hoy» y
+  ninguna otra noticia. Techo: unas 1.000 palabras de lectura.
