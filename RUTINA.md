@@ -18,7 +18,15 @@ con qué contrapeso y qué patrón histórico ayuda a entenderlo.
 3. Fecha de hoy en Colombia: `TZ=America/Bogota date +%F`.
 4. Si ya existe `ediciones/<fecha>-radar*.md`, terminar sin hacer nada.
 5. Número de edición: el mayor `edicion:` de `ediciones/*.md` más uno.
-6. Si existe `borradores/<fecha>-*.md` (un borrador aprobado por los
+6. **Revisar las decisiones en seguimiento** (campo `decisiones` de las
+   ediciones anteriores). Para cada una en `pendiente` cuyo `plazo` ya
+   pasó o esté a menos de siete días, o sin plazo y sin revisar hace más
+   de un mes (`revisada`), buscar si hay noticia. Si la hay: cambiar
+   `estado` (tomada, aplazada, sin_decision), escribir en `nota` qué pasó
+   en una frase, poner `revisada` con la fecha de hoy y agregar una
+   entrada en `actualizaciones` de esa edición. Si no hay noticia, solo
+   poner `revisada`. No se cambia el texto de la edición.
+7. Si existe `borradores/<fecha>-*.md` (un borrador aprobado por los
    editores para hoy), no escribir otra edición: moverlo a `ediciones/`
    con `git mv`, poner en `edicion:` el número del paso 5, revisar que
    las cifras y fechas sigan vigentes (si algo cambió, corregirlo y
@@ -261,6 +269,12 @@ cercano (preguntar, participar, votar, revisar). Si no lo hay, se omite.
 - Sin resúmenes rápidos al comienzo ("En tres minutos" ya no existe): el
   sitio apuesta por la profundidad. El índice de la edición lo genera la
   plantilla a partir de los títulos de los nudos.
+- **Seguimiento de decisiones**: cada edición lleva en el frontmatter el
+  campo `decisiones` con las decisiones pendientes que cuenta la sección
+  «Quién decide y cuándo» (`nudo`, `quien`, `que`, `plazo` si hay fecha,
+  `estado: pendiente`, `nota` opcional). La plantilla las muestra en la
+  edición y en la página Decisiones. Si no hay una decisión concreta en
+  curso, se omite el campo.
 - **Quién decide y cuándo** es obligatorio en cada edición (pedido de
   Mateo, 2026-09-29, inspirado en *Imaginar la democracia*): tres líneas
   cortas, unas 60 a 90 palabras, después del nudo y antes de la paradoja.

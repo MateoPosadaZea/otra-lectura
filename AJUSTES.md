@@ -138,4 +138,10 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
 - 2026-09-29 · Los editores aprobaron el borrador «Imaginemos: una regla del
   gas que dure más que un gobierno» (borradores/2026-10-03-imaginemos-gas.md)
   como la edición del sábado 3 de octubre de 2026. Ese día la rutina lo
-  publica en vez de escribir otra (ver RUTINA.md, paso 1.6).
+  publica en vez de escribir otra (ver RUTINA.md, paso 1.7).
+- 2026-09-29 · Pedido de Mateo (idea 4 de *Imaginar la democracia*):
+  seguimiento de decisiones. Cada edición registra en `decisiones` quién
+  tiene que decidir qué y para cuándo; la rutina diaria revisa las que
+  vencen y anota si se tomaron, se aplazaron o nadie las tomó. El sitio
+  tiene una página «Decisiones» (enlace al pie) con todas, agrupadas por
+  estado, y cada edición muestra el estado de la suya.

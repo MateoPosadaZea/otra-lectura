@@ -101,7 +101,16 @@ ESTADOS_CANDIDATA = ["pendiente", "evaluada", "descartada", "activa"]
 
 CAMPOS_LISTA = ["temas", "categorias", "lugares", "cruce_mattriz", "seguimiento"]
 CAMPOS_CONOCIDOS = {"fecha", "edicion", "titulo", "slug", "nota",
-                    "actualizaciones", "correcciones", "fuentes", *CAMPOS_LISTA}
+                    "actualizaciones", "correcciones", "fuentes", "decisiones", *CAMPOS_LISTA}
+
+# Seguimiento de decisiones (campo `decisiones`): quién decide qué y para
+# cuándo, y en qué quedó. El estado lo actualiza la rutina cuando hay noticia.
+ESTADOS_DECISION = {
+    "pendiente": "Pendiente",
+    "tomada": "Se tomó",
+    "aplazada": "Aplazada",
+    "sin_decision": "Nadie la tomó",
+}
 
 # Techo editorial de una edición (palabras de lectura, sin el cierre).
 LARGO_MAXIMO = 1100
@@ -281,6 +290,23 @@ def validar(meta, ruta):
                         "medio": _texto(f.get("medio"), f"fuentes[{i}].medio", requerido=False),
                         "url": url, "tipo": tipo or tipo_por_url(url)})
     datos["fuentes"] = fuentes
+    decisiones = []
+    for i, d in enumerate(_lista_mapas(meta.get("decisiones"), "decisiones",
+                                       ["nudo", "quien", "que", "plazo", "estado", "nota", "revisada"]), 1):
+        estado = _texto(d.get("estado"), f"decisiones[{i}].estado", requerido=False) or "pendiente"
+        if estado not in ESTADOS_DECISION:
+            raise ErrorEdicion(f"decisiones[{i}].estado: «{estado}» no existe "
+                               f"(válidos: {', '.join(ESTADOS_DECISION)})")
+        decisiones.append({
+            "nudo": _texto(d.get("nudo"), f"decisiones[{i}].nudo", requerido=False),
+            "quien": _texto(d.get("quien"), f"decisiones[{i}].quien"),
+            "que": _texto(d.get("que"), f"decisiones[{i}].que"),
+            "plazo": _fecha(d.get("plazo"), f"decisiones[{i}].plazo") if d.get("plazo") else "",
+            "estado": estado,
+            "nota": _texto(d.get("nota"), f"decisiones[{i}].nota", requerido=False),
+            "revisada": _fecha(d.get("revisada"), f"decisiones[{i}].revisada") if d.get("revisada") else "",
+        })
+    datos["decisiones"] = decisiones
     return datos
 
 
@@ -722,6 +748,15 @@ def cuerpo_edicion(e):
                         rf'\1\n<p class="hilo-enlace"><a href="../temas/{slug}.html">Ver todo el tema, '
                         rf'de principio a fin →</a></p>', cuerpo, count=1, flags=re.S)
 
+    if e["decisiones"]:
+        items = "".join(html_decision(d) for d in e["decisiones"])
+        bloque = (f'<div class="decision-seguimiento"><p class="decision-rotulo">Seguimiento de la decisión</p>'
+                  f'<ul class="decisiones">{items}</ul>'
+                  f'<p class="decision-mas"><a href="../decisiones.html">Ver todas las decisiones en seguimiento →</a></p></div>\n')
+        cuerpo, n = re.subn(r'(<section class="carril decide"[^>]*>.*?)(</section>)',
+                            lambda m: m.group(1) + bloque + m.group(2), cuerpo, count=1, flags=re.S)
+        if not n:
+            cuerpo += f'<section class="carril decide" id="quien-decide">{bloque}</section>\n'
     fuentes = html_fuentes(e["fuentes"])
     if "<!--antes-glosario-->" in cuerpo:
         cuerpo = cuerpo.replace("<!--antes-glosario-->", fuentes, 1)
@@ -1003,6 +1038,53 @@ def html_temas_seguidos(hilos):
             f'<ul>{filas}</ul>\n</section>')
 
 
+def estado_decision(d, hoy=None):
+    """(clase, texto) del estado de una decisión; una pendiente con plazo
+    vencido se marca aparte, porque es justo la que hay que vigilar."""
+    hoy = hoy or date.today().isoformat()
+    if d["estado"] == "pendiente" and d["plazo"] and d["plazo"] < hoy:
+        return "vencida", "Venció el plazo sin noticia"
+    return d["estado"], ESTADOS_DECISION[d["estado"]]
+
+
+def html_decision(d, raiz="", e=None):
+    clase, texto = estado_decision(d)
+    plazo = f' · plazo: <time datetime="{d["plazo"]}">{fecha_legible(d["plazo"])}</time>' if d["plazo"] else " · sin fecha fija"
+    nota = f'<p class="decision-nota">{convertir_linea(d["nota"])}</p>' if d["nota"] else ""
+    origen = (f'<p class="decision-origen"><a href="{raiz}ediciones/{e["slug"]}.html">'
+              f'{html.escape(e["titulo"])}</a> · {fecha_legible(e["fecha"])}</p>') if e else ""
+    return (f'<li class="decision decision-{clase}"><p class="decision-estado">'
+            f'<span class="estado">{texto}</span>{plazo}</p>'
+            f'<p class="decision-que"><strong>{html.escape(d["quien"])}</strong>: {convertir_linea(d["que"])}</p>'
+            f'{nota}{origen}</li>')
+
+
+def pagina_decisiones(base, ediciones):
+    """decisiones.html: lo que se está decidiendo, quién y para cuándo, y en qué quedó."""
+    todas = [(d, e) for e in ediciones for d in e["decisiones"]]
+    orden = ["vencida", "pendiente", "aplazada", "tomada", "sin_decision"]
+    titulos = {"vencida": "Venció el plazo y no hay noticia", "pendiente": "Por decidir",
+               "aplazada": "Aplazadas", "tomada": "Ya se decidieron", "sin_decision": "Nadie las tomó"}
+    grupos = {k: [] for k in orden}
+    for d, e in todas:
+        grupos[estado_decision(d)[0]].append((d, e))
+    bloques = []
+    for k in orden:
+        if not grupos[k]:
+            continue
+        lista = sorted(grupos[k], key=lambda x: (x[0]["plazo"] or "9999", x[1]["fecha"]))
+        items = "".join(html_decision(d, "", e) for d, e in lista)
+        bloques.append(f'<section class="decisiones-grupo"><h2>{titulos[k]}</h2><ul class="decisiones">{items}</ul></section>')
+    contenido = f"""<header class="cabecera">
+<h1>Decisiones</h1>
+<p class="bajada">Lo que alguien tiene que decidir sobre los temas que hemos contado: quién, para cuándo y en qué quedó.</p>
+</header>
+{"".join(bloques) or "<p>Todavía no hay decisiones en seguimiento.</p>"}"""
+    return pagina(base, "Decisiones · Otra lectura",
+                  "Seguimiento de las decisiones pendientes sobre los temas de Otra lectura.", "",
+                  contenido, "/decisiones.html", seccion="decisiones")
+
+
 def pagina_archivo(base, dias, hilos=None):
     """archivo.html: todos los días, agrupados por mes, con sus temas."""
     meses, bloques = {}, []
@@ -1233,6 +1315,7 @@ def main():
     dias = por_dia(ediciones)
     (SITE / "index.html").write_text(pagina_portada(base, dias), encoding="utf-8")
     (SITE / "archivo.html").write_text(pagina_archivo(base, dias, hilos), encoding="utf-8")
+    (SITE / "decisiones.html").write_text(pagina_decisiones(base, ediciones), encoding="utf-8")
     (SITE / "dias").mkdir()
     for i, (fecha, del_dia) in enumerate(dias):
         anterior = dias[i + 1][0] if i + 1 < len(dias) else None

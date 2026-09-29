@@ -7,6 +7,12 @@ categorias: [sociedad, economia]
 lugares: [Colombia, Barranquilla, Puerto Colombia]
 cruce_mattriz: []
 seguimiento: []
+decisiones:
+  - nudo: limites-barranquilla-puerto-colombia
+    quien: "Congreso (comisiones de ordenamiento territorial)"
+    que: "Fijar el límite entre Barranquilla y Puerto Colombia a partir del estudio del IGAC."
+    estado: pendiente
+    nota: "La prensa calcula de seis a nueve meses."
 fuentes:
   - medio: "El Heraldo"
     titulo: "Villa Campestre pasaría a control de Barranquilla, según límite del Igac"
