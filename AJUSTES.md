@@ -135,3 +135,7 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   costaría, qué podría salir mal, quién tendría que aprobarla). Ver
   RUTINA.md, «Días livianos y domingo». La primera sale el sábado 3 de
   octubre de 2026.
+- 2026-09-29 · Los editores aprobaron el borrador «Imaginemos: una regla del
+  gas que dure más que un gobierno» (borradores/2026-10-03-imaginemos-gas.md)
+  como la edición del sábado 3 de octubre de 2026. Ese día la rutina lo
+  publica en vez de escribir otra (ver RUTINA.md, paso 1.6).

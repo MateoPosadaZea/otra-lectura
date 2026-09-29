@@ -18,6 +18,12 @@ con qué contrapeso y qué patrón histórico ayuda a entenderlo.
 3. Fecha de hoy en Colombia: `TZ=America/Bogota date +%F`.
 4. Si ya existe `ediciones/<fecha>-radar*.md`, terminar sin hacer nada.
 5. Número de edición: el mayor `edicion:` de `ediciones/*.md` más uno.
+6. Si existe `borradores/<fecha>-*.md` (un borrador aprobado por los
+   editores para hoy), no escribir otra edición: moverlo a `ediciones/`
+   con `git mv`, poner en `edicion:` el número del paso 5, revisar que
+   las cifras y fechas sigan vigentes (si algo cambió, corregirlo y
+   decirlo en la nota metodológica), ejecutar `./build.sh` y publicar
+   como siempre.
 
 ## 2. Leer antes de escribir
 
