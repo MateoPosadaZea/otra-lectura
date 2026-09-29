@@ -229,6 +229,13 @@ Cuerpo, en este orden (ver `prompt.md` 2.0 para el contenido de cada parte):
 **Antecedente histórico.** *(Conocimiento general.)* …
 **Cruce con Mattriz.** …
 
+## Dos lecturas          ← solo si el tema divide opiniones
+
+**<La primera postura, en pocas palabras>.** Su mejor argumento, en dos o
+tres frases, como lo diría alguien que la defiende de buena fe.
+
+**<La postura contraria>.** Igual: su mejor argumento, no su caricatura.
+
 ## Quién decide y cuándo
 
 **Quién decide.** La institución o persona que tiene la decisión (Congreso,
@@ -262,13 +269,20 @@ cercano (preguntar, participar, votar, revisar). Si no lo hay, se omite.
 ```
 
 - **Largo (para no desgastar):** la edición completa, sin contar Descartes,
-  Glosario ni Nota metodológica, no pasa de unas 1.100 palabras (unos 5
+  Glosario ni Nota metodológica, no pasa de unas 1.200 palabras (unos 5
   minutos de lectura). El build avisa si se pasa: en ese caso recortar,
   no justificar. Un solo tema bien entendido, que el lector alcance a
   llegar a la paradoja y a Para conversar.
 - Sin resúmenes rápidos al comienzo ("En tres minutos" ya no existe): el
   sitio apuesta por la profundidad. El índice de la edición lo genera la
   plantilla a partir de los títulos de los nudos.
+- **Dos lecturas** (pedido de Mateo, 2026-09-29, idea de *Imaginar la
+  democracia*): cuando el tema divide opiniones (una política, una ley, un
+  límite, un programa), después del nudo van las dos posturas principales,
+  cada una en su mejor versión y con el mismo espacio (unas 40 a 60
+  palabras cada una). Los rótulos son las posturas mismas, no partidos ni
+  personas. No se dice cuál gana: lo decide el lector. Si el tema no
+  divide (un dato técnico, un desastre), se omite. El humor no va aquí.
 - **Seguimiento de decisiones**: cada edición lleva en el frontmatter el
   campo `decisiones` con las decisiones pendientes que cuenta la sección
   «Quién decide y cuándo» (`nudo`, `quien`, `que`, `plazo` si hay fecha,

@@ -36,6 +36,8 @@ Todos los días, antes de las 6 de la mañana (hora de Colombia).
 - **Un solo tema**: un problema que se repite, con quién lo está
   resolviendo y con qué resultados. Las críticas van en un recuadro,
   **Contrapeso**.
+- **Dos lecturas**: cuando el tema divide opiniones, las dos posturas
+  principales, cada una en su mejor versión, para que usted decida.
 - **Quién decide y cuándo**: quién tiene la decisión, en qué plazo y
   por dónde puede participar un ciudadano. Debajo aparece en qué va esa
   decisión; la página **Decisiones**, al pie del sitio, las reúne todas.

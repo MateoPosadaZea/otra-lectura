@@ -166,6 +166,18 @@ predial y menos industria y comercio para atender al resto de su
 territorio. Y para el residente, la promesa de obras depende de la
 alcaldía de turno, no de la ley que fija el límite.
 
+## Dos lecturas
+
+**La zona es de Barranquilla.** Quien vive en Villa Campestre estudia,
+trabaja, compra y se mueve en Barranquilla. El límite debería reconocer la
+ciudad real, y una sola alcaldía responde mejor por vías, alumbrado y
+seguridad que dos que se pasan la cuenta.
+
+**La zona es de Puerto Colombia.** El territorio es del municipio por ley
+desde hace décadas. Si cada ciudad grande se queda con las zonas de mayor
+recaudo del vecino, los municipios pequeños pierden el dinero con el que
+atienden a sus barrios más pobres.
+
 ## Quién decide y cuándo
 
 **Quién decide.** El Congreso, en las comisiones de ordenamiento

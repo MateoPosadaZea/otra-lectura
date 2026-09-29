@@ -145,3 +145,7 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   vencen y anota si se tomaron, se aplazaron o nadie las tomó. El sitio
   tiene una página «Decisiones» (enlace al pie) con todas, agrupadas por
   estado, y cada edición muestra el estado de la suya.
+- 2026-09-29 · Pedido de Mateo (idea 2 de *Imaginar la democracia*): en
+  temas que dividen opiniones, la sección «## Dos lecturas» después del
+  nudo, con las dos posturas principales en su mejor versión, mismo
+  espacio y sin decir cuál gana. Techo de la edición: unas 1.200 palabras.

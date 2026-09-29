@@ -113,7 +113,7 @@ ESTADOS_DECISION = {
 }
 
 # Techo editorial de una edición (palabras de lectura, sin el cierre).
-LARGO_MAXIMO = 1100
+LARGO_MAXIMO = 1200
 
 # Tipos de fuente (campo `tipo` en `fuentes`). Si falta, se deduce del dominio.
 TIPOS_FUENTE = {
@@ -322,6 +322,8 @@ def clases_heading(nivel, texto):
             return ["carril", "conversar"]
         if "quién decide" in t or "quien decide" in t:
             return ["carril", "decide"]
+        if "dos lecturas" in t:
+            return ["carril", "lecturas"]
         if "paradoja" in t:
             return ["carril", "paradoja"]
         if "asombro" in t:
@@ -1276,7 +1278,7 @@ def main():
             print(f"  error: {err}", file=sys.stderr)
         sys.exit(1)
 
-    # Aviso (no detiene el build): el techo editorial es de ~1.100 palabras.
+    # Aviso (no detiene el build): el techo editorial es de ~1.200 palabras.
     for e in ediciones:
         # Las ediciones anteriores al 28 de septiembre de 2026 tenían otro techo (1.500).
         if e["palabras"] > LARGO_MAXIMO and e["fecha"] >= "2026-09-28":

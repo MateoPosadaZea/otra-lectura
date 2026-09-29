@@ -1354,3 +1354,17 @@ p, li, dd, blockquote { text-wrap: pretty; }
 .decisiones-grupo { max-width: var(--medida); margin: 0 auto 2.5rem; }
 .decisiones-grupo h2 { font: 800 0.75rem/1.3 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--rojo); border-bottom: 1px solid var(--tinta); padding-bottom: 0.4rem; margin: 0 0 1rem; }
 .edicion .decisiones { padding-left: 0; margin-left: 0; } .edicion .decision { list-style: none; }
+
+/* --- Dos lecturas: cada postura en su mejor versión, lado a lado --- */
+.edicion .lecturas { margin: 2.5rem 0; }
+.edicion .lecturas h2 {
+  margin: 0 0 1rem; padding: 0; background: none; color: var(--rojo);
+  font: 800 0.72rem/1.3 var(--sans); letter-spacing: 0.16em; text-align: center;
+}
+.edicion .lecturas { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.6rem; }
+.edicion .lecturas h2 { grid-column: 1 / -1; }
+.edicion .lecturas p { margin: 0; padding: 1rem 0 0; border-top: 3px solid var(--tinta); }
+.edicion .lecturas .etiqueta { display: block; margin-bottom: 0.3rem; font: 800 0.7rem/1.3 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; }
+@media (max-width: 600px) {
+  .edicion .lecturas { grid-template-columns: 1fr; gap: 1.2rem; }
+}
