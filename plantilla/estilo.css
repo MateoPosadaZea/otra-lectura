@@ -1353,3 +1353,4 @@ p, li, dd, blockquote { text-wrap: pretty; }
 .decision-mas { margin: 0.6rem 0 0; font-size: 0.85em; }
 .decisiones-grupo { max-width: var(--medida); margin: 0 auto 2.5rem; }
 .decisiones-grupo h2 { font: 800 0.75rem/1.3 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--rojo); border-bottom: 1px solid var(--tinta); padding-bottom: 0.4rem; margin: 0 0 1rem; }
+.edicion .decisiones { padding-left: 0; margin-left: 0; } .edicion .decision { list-style: none; }
