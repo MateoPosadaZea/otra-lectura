@@ -32,6 +32,7 @@ import markdown
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from frontmatter import ErrorFrontmatter, parsear  # noqa: E402
 import graficos  # noqa: E402
+import og  # noqa: E402
 
 RAIZ = Path(__file__).resolve().parent.parent
 EDICIONES = RAIZ / "ediciones"
@@ -822,7 +823,7 @@ def descripcion_edicion(e):
     return f"{cuerpo} Contexto, soluciones y contrapeso."
 
 
-def meta_etiquetas(titulo, descripcion, ruta, tipo, ld):
+def meta_etiquetas(titulo, descripcion, ruta, tipo, ld, imagen="og.png", alt=None):
     """<meta> de descripción, robots, Open Graph, tarjeta de X y JSON-LD."""
     desc = recortar(descripcion, 300)
     m = [f'<meta name="description" content="{html.escape(recortar(descripcion, 160))}">',
@@ -842,11 +843,11 @@ def meta_etiquetas(titulo, descripcion, ruta, tipo, ld):
         url = SITIO_URL + ruta
         m += [f'<link rel="canonical" href="{url}">',
               f'<meta property="og:url" content="{url}">',
-              f'<meta property="og:image" content="{SITIO_URL}/og.png">',
+              f'<meta property="og:image" content="{SITIO_URL}/{imagen}">',
               '<meta property="og:image:width" content="1200">',
               '<meta property="og:image:height" content="630">',
-              f'<meta property="og:image:alt" content="{NOMBRE_SITIO}: una mirada pragmática para informarse y participar">',
-              f'<meta name="twitter:image" content="{SITIO_URL}/og.png">']
+              f'<meta property="og:image:alt" content="{html.escape(alt or NOMBRE_SITIO + ": una mirada pragmática para informarse y participar")}">',
+              f'<meta name="twitter:image" content="{SITIO_URL}/{imagen}">']
         ld = {**ld, "url": url}
     # "<\/" evita que un "</script>" dentro de los datos cierre el bloque.
     datos = json.dumps({"@context": "https://schema.org", **ld}, ensure_ascii=False).replace("</", "<\\/")
@@ -854,7 +855,18 @@ def meta_etiquetas(titulo, descripcion, ruta, tipo, ld):
     return "\n".join(m)
 
 
-def pagina(base, titulo, descripcion, raiz, contenido, ruta, tipo="website", ld=None, seccion=None):
+def imagen_compartir(ruta, titulo, rotulo="", pie="UNA EDICIÓN CADA MAÑANA", bajada=""):
+    """Genera la imagen para compartir de una página y devuelve su ruta en el
+    sitio; si no se puede (sin Pillow), la imagen fija og.png."""
+    if ruta in ("/", "/index.html"):
+        return "og.png"
+    nombre = "og" + ruta[:-len(".html")] + ".png" if ruta.endswith(".html") else "og.png"
+    if nombre != "og.png" and og.generar(SITE / nombre, titulo, rotulo, pie, bajada):
+        return nombre
+    return "og.png"
+
+
+def pagina(base, titulo, descripcion, raiz, contenido, ruta, tipo="website", ld=None, seccion=None, compartir=None):
     ld = ld or {"@type": "WebPage", "name": html.unescape(titulo), "description": descripcion,
                 "inLanguage": "es-CO", "isPartOf": {"@type": "WebSite", "name": NOMBRE_SITIO}}
     nota_titulo = html.escape(re.sub(r"\s*·\s*Otra lectura$", "", html.unescape(titulo)))
@@ -862,7 +874,17 @@ def pagina(base, titulo, descripcion, raiz, contenido, ruta, tipo="website", ld=
     config = json.dumps({"abierto": abierto, "sitekey": TURNSTILE_SITEKEY if abierto else ""})
     return base.substitute(titulo=titulo, raiz=raiz, contenido=contenido, menu=html_menu(raiz, seccion),
                            nota_pagina=ruta, nota_titulo=nota_titulo, config=config,
-                           meta=meta_etiquetas(titulo, descripcion, ruta, tipo, ld))
+                           meta=meta_etiquetas(titulo, descripcion, ruta, tipo, ld, *compartir_de(ruta, nota_titulo, compartir, descripcion)))
+
+
+def compartir_de(ruta, nota_titulo, compartir, descripcion=""):
+    """(imagen, alt): `compartir` = (título, rótulo, pie); si falta, el título
+    de la página con su descripción debajo."""
+    if compartir:
+        titulo, rotulo, pie = compartir
+        return imagen_compartir(ruta, titulo, rotulo, pie), titulo
+    titulo = html.unescape(nota_titulo)
+    return imagen_compartir(ruta, titulo, "", "UNA EDICIÓN CADA MAÑANA", recortar(descripcion, 110)), titulo
 
 
 def recomendar(e, ediciones):
@@ -927,8 +949,11 @@ def pagina_edicion(base, e, ediciones):
           "isAccessibleForFree": True}
     if e["fuentes"]:
         ld["citation"] = [f["url"] for f in e["fuentes"]]
+    cats = " · ".join(CATEGORIAS[c] for c in e["categorias"]) or "Otra lectura"
+    rotulo = f"Edición {e['edicion']} · {fecha_legible(e['fecha'])}"
     return pagina(base, html.escape(f"{e['titulo']} · Otra lectura"), descripcion, "../",
-                  contenido, f"/ediciones/{e['slug']}.html", "article", ld)
+                  contenido, f"/ediciones/{e['slug']}.html", "article", ld,
+                  compartir=(e["titulo"], rotulo, cats))
 
 
 def html_atajos(e):
@@ -1024,8 +1049,9 @@ def pagina_dia(base, fecha, del_dia, anterior, siguiente):
 <nav class="entre-ediciones" aria-label="Otros días">{''.join(nav)}</nav>"""
     temas = "; ".join(t for e in del_dia for t in e["titulos_nudos"])
     descripcion = f"Otra lectura del {fecha_legible(fecha)}: {temas}." if temas else f"Otra lectura del {fecha_legible(fecha)}."
+    principal = del_dia[0]["titulo"] if del_dia else titulo
     return pagina(base, html.escape(f"{titulo} · Otra lectura"), descripcion, "../", contenido,
-                  f"/dias/{fecha}.html")
+                  f"/dias/{fecha}.html", compartir=(principal, titulo, "UNA EDICIÓN CADA MAÑANA"))
 
 
 def html_temas_seguidos(hilos):

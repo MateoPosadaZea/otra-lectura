@@ -149,3 +149,8 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   temas que dividen opiniones, la sección «## Dos lecturas» después del
   nudo, con las dos posturas principales en su mejor versión, mismo
   espacio y sin decir cuál gana. Techo de la edición: unas 1.200 palabras.
+- 2026-09-29 · Pedido de Mateo: la imagen para compartir (Open Graph) cambia
+  según la página. Cada edición muestra su título, número, fecha y
+  categorías; cada día, el título de su edición; las demás páginas, su
+  título y descripción. La portada conserva la imagen general. Se generan
+  solas en el build (scripts/og.py, con Pillow); no hay que hacer nada.

@@ -1,2 +1,4 @@
 # Único conversor de markdown. Versión fijada a propósito: subirla es una decisión explícita.
 markdown==3.7
+# Imágenes para compartir (Open Graph) por página. Solo se usa al construir.
+pillow==12.3.0
