@@ -16,13 +16,6 @@ Arriba, junto a **Leer de noche**, está el botón **Corregir**.
 
 Los cambios quedan publicados en la próxima hora.
 
-## Escuchar en vez de leer
-
-Arriba de cada edición está el botón **Escuchar**. El texto se lee en
-voz alta, párrafo por párrafo, y el que está sonando se resalta. Puede
-pausar, cambiar el **ritmo** y elegir la **voz**. Si no aparece ninguna
-voz, debajo del botón se explica cómo instalarlas en el celular.
-
 ## Leer de noche
 
 Arriba a la derecha está el botón **Leer de noche**. Pone el fondo

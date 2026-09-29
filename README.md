@@ -97,11 +97,6 @@ JavaScript simplemente no aparece sin él):
 
 - Al bajar, una barra fija con el logotipo pequeño y un botón **Arriba**
   (en el pie hay además un enlace "Volver arriba" que funciona sin JS).
-- **Escuchar**: cada edición se puede oír en voz alta con la voz del
-  propio dispositivo (Web Speech API, sin archivos de audio ni servicios
-  pagos). Lee párrafo por párrafo, resalta el que suena, permite pausar,
-  detener y cambiar la velocidad, y omite fuentes, gráficos y tablas. La
-  calidad de la voz depende del teléfono o computador.
 - Lectura para el oído: se lee frase por frase, con respiros entre
   frases, párrafos y títulos. Antes de hablar se limpia el texto: sin
   "punto centrado", flechas, comillas ni paréntesis; °C se dice

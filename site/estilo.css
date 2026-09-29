@@ -883,57 +883,6 @@ html:not(.js) .barra-fija { display: none; }
   .barra-fija, .arriba { transition: none; }
 }
 
-/* --- Escuchar la edición --- */
-
-.escuchar {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem 0.8rem;
-  margin: 1.6rem 0 0;
-  font-family: var(--sans);
-  font-size: 0.8rem;
-}
-.escuchar button, .escuchar select {
-  min-height: 2.6rem;
-  padding: 0.45rem 0.9rem;
-  border: 1px solid var(--tinta);
-  border-radius: 0;
-  background: none;
-  color: var(--tinta);
-  font: 700 0.72rem/1 var(--sans);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-.escuchar select { padding: 0.4rem 0.5rem; letter-spacing: 0.04em; text-transform: none; font-size: 0.8rem; }
-.escuchar .escuchar-play { background: var(--tinta); color: var(--papel); }
-.escuchar button:hover { background: var(--rojo); border-color: var(--rojo); color: var(--papel); }
-.escuchar label { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--tenue); }
-.sonando .escuchar {
-  position: fixed;
-  top: 3.2rem;
-  left: 50%;
-  z-index: 5;
-  transform: translateX(-50%);
-  width: max-content;
-  max-width: calc(100vw - 2rem);
-  margin: 0;
-  padding: 0.5rem 0.7rem;
-  background: var(--papel);
-  border: 1px solid var(--tinta);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
-}
-.sonando .leyendo { scroll-margin-top: 7rem; }
-.escuchar-estado { flex-basis: 100%; margin: 0; color: var(--tenue); }
-.escuchar-estado:empty { display: none; }
-.leyendo {
-  background: var(--rayado);
-  box-shadow: 0 0 0 0.35rem var(--rayado);
-  scroll-margin-top: 4rem;
-}
-
 /* --- Portada del día y días anteriores --- */
 
 .dia-fecha {
@@ -1249,12 +1198,6 @@ html:not(.js) .barra-fija { display: none; }
 .cerrar-panel:hover { background: var(--tinta); color: var(--papel); }
 .glosario-flotante:not(:has(details[open])) .cerrar-panel { display: none; }
 
-/* Escuchar: en reposo solo el botón; ritmo y voz aparecen mientras suena. */
-html:not(.sonando) .escuchar label, html:not(.sonando) .escuchar-pista { display: none !important; }
-@media (max-width: 480px) {
-  .sonando .escuchar { flex-wrap: wrap; }
-  .sonando .escuchar-voces { display: inline-flex; }
-}
 
 /* Fin de la edición */
 .fin-edicion { max-width: var(--medida); margin: 3.5rem auto 0; text-align: center; font: 400 1.6em/1.2 var(--serif); font-style: italic; color: var(--tenue); }

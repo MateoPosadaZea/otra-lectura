@@ -119,3 +119,7 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   y, solo si existe una edición relacionada con el tema, «¿Le gustaría
   seguir leyendo?» con esa lectura; si no la hay, «Eso es todo por hoy» y
   ninguna otra noticia. Techo: unas 1.000 palabras de lectura.
+- 2026-09-29 · Pedido de Mateo: se quita la opción Escuchar (las voces del
+  dispositivo sonaban robóticas). Si vuelve, que sea una sola voz pausada,
+  colombiana y natural, grabada o generada por edición; no las voces del
+  navegador. También: letra de 18 px en móvil para leer más fácil.

@@ -56,5 +56,5 @@ funciona. Menos ansiedad y más participación.
 - Las **secciones** de arriba (Economía, Salud, Ambiente…) reúnen las
   ediciones por área.
 
-Para leer mejor (escuchar, leer de noche, moverse por la edición), vea
+Para leer mejor (leer de noche, moverse por la edición), vea
 [Cómo se usa](ayuda.html).

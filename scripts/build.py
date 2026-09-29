@@ -873,7 +873,6 @@ def pagina_edicion(base, e, ediciones):
 {html_categorias(e['categorias'], '../')}
 {aviso_cambios(e)}
 {html_atajos(e)}
-{HTML_ESCUCHAR}
 </header>
 {cuerpo_edicion(e)}
 </article>
@@ -902,22 +901,6 @@ def html_atajos(e):
         return ""
     return (f'<nav class="indice-edicion" aria-label="En esta edición"><p>En esta edición</p>'
             f'<ol>{"".join(items)}</ol></nav>')
-
-
-# Controles para escuchar la edición. Ocultos sin JavaScript o sin voz en el
-# navegador; los activa plantilla/base.html.
-HTML_ESCUCHAR = """<div class="escuchar" role="group" aria-label="Escuchar la edición" hidden>
-<button type="button" class="escuchar-play" aria-pressed="false">Escuchar</button>
-<button type="button" class="escuchar-detener" hidden>Detener</button>
-<label><span class="escuchar-rotulo">Ritmo</span> <select class="escuchar-velocidad" aria-label="Ritmo de lectura">
-<option value="0.9">Pausado</option>
-<option value="0.97" selected>Normal</option>
-<option value="1.1">Ágil</option>
-</select></label>
-<label class="escuchar-voces" hidden><span class="escuchar-rotulo">Voz</span> <select class="escuchar-voz" aria-label="Voz"></select></label>
-<p class="escuchar-pista" hidden>¿Quiere una voz masculina o más natural? En iPhone: Ajustes → Accesibilidad → Contenido leído → Voces → Español, y descargue Jorge, Juan o Diego (versión «mejorada»). En Android: Ajustes → Texto a voz. En computador, el navegador Edge trae voces naturales como Gonzalo (Colombia) o Jorge (México).</p>
-<p class="escuchar-estado" role="status" aria-live="polite"></p>
-</div>"""
 
 
 # Epígrafe de la portada: cita, autor y obra.
