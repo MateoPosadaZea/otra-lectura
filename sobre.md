@@ -31,7 +31,10 @@ del día** y **Para conversar**, una pregunta para hablar en
 casa. También trae un **glosario** de términos, las
 **fuentes** numeradas y una nota sobre cómo se hizo.
 
-El domingo no hay temas nuevos: es **la semana en limpio**.
+El domingo no hay temas nuevos: es **la semana en limpio**. Y el primer
+sábado de cada mes, **Imaginemos**: tomamos un tema ya tratado y
+proponemos cómo podría funcionar mejor, con lo que costaría y quién
+tendría que aprobarlo.
 
 ## Por qué así
 

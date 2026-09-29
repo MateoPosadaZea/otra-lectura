@@ -129,3 +129,9 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   participar.** El objetivo es que el lector sepa dónde se toma la decisión
   y por dónde puede entrar. Si no hay fecha o canal de participación, se
   dice con franqueza. Techo de la edición: unas 1.100 palabras.
+- 2026-09-29 · Pedido de Mateo: el primer sábado de cada mes la edición es
+  «Imaginemos»: se toma un nudo ya tratado y se propone un diseño concreto
+  de cómo podría funcionar mejor (qué se probó, la propuesta, cuánto
+  costaría, qué podría salir mal, quién tendría que aprobarla). Ver
+  RUTINA.md, «Días livianos y domingo». La primera sale el sábado 3 de
+  octubre de 2026.

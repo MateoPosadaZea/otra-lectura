@@ -51,6 +51,32 @@ con qué contrapeso y qué patrón histórico ayuda a entenderlo.
   - "Para conversar": una pregunta de fondo que conecte dos o más temas
     de la semana.
   - Máximo unas 1.000 palabras. Sin Asombro nuevo si no hace falta.
+- **Primer sábado de cada mes: "Imaginemos"** (pedido de Mateo,
+  2026-09-29, inspirado en *Imaginar la democracia*). Ese día no se busca
+  un tema nuevo: se toma un nudo ya tratado (el de mayor puntaje o el que
+  más se ha movido en el mes) y se diseña cómo podría funcionar mejor. Si
+  el primer sábado cae un día 1 con otro compromiso, igual aplica.
+  - `titulo: "Imaginemos: <la propuesta en pocas palabras>"`; en `temas`
+    un slug nuevo `imaginemos-<tema>`; en `seguimiento` el slug del nudo
+    original (así la edición enlaza a donde se trató).
+  - Cuerpo: `### Imaginemos: <título> {#imaginemos-<tema>}` con estas
+    etiquetas, en este orden:
+    **El problema en una línea.** Lo que ya se contó, en dos frases.
+    **Qué ya se probó.** Lo que funcionó o fracasó aquí y en otros países,
+    con fuentes.
+    **La propuesta.** Un diseño concreto: qué se hace, quién lo hace,
+    con qué reglas. Una sola propuesta, no un menú.
+    **Cuánto costaría y de dónde sale.** Cifras con fuente, o un orden de
+    magnitud razonado y marcado como estimación.
+    **Qué podría salir mal.** Los riesgos y quién se opondría, en su mejor
+    argumento.
+  - Luego las secciones de siempre: Quién decide y cuándo (aquí: quién
+    tendría que aprobar la propuesta y por qué vía), La paradoja del día,
+    Para conversar (¿usted la apoyaría? ¿qué le cambiaría?).
+  - La propuesta es de Otra lectura y así se dice: un ejercicio para
+    pensar, no una verdad. Pareja con todos los bandos; nada de
+    propuestas de un partido presentadas como propias.
+  - Mismo techo: unas 1.100 palabras.
 
 ## 2b. Elegir los temas: los de mayor impacto en la sociedad
 
