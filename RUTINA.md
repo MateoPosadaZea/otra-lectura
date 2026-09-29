@@ -189,6 +189,17 @@ Cuerpo, en este orden (ver `prompt.md` 2.0 para el contenido de cada parte):
 **Antecedente histórico.** *(Conocimiento general.)* …
 **Cruce con Mattriz.** …
 
+## Quién decide y cuándo
+
+**Quién decide.** La institución o persona que tiene la decisión (Congreso,
+concejo, ministerio, entidad, juez), en una o dos frases.
+
+**Cuándo.** La fecha o el plazo, si existe; si no hay fecha, decirlo.
+
+**Cómo participar.** Por dónde puede entrar un ciudadano: audiencia,
+consulta, derecho de petición, votación, transmisión pública. Si no hay un
+canal real, decirlo con franqueza, sin inventar.
+
 ## La paradoja del día
 
 Dos a cuatro líneas sobre lo más absurdo de la edición, contado con
@@ -211,13 +222,17 @@ cercano (preguntar, participar, votar, revisar). Si no lo hay, se omite.
 ```
 
 - **Largo (para no desgastar):** la edición completa, sin contar Descartes,
-  Glosario ni Nota metodológica, no pasa de unas 1.000 palabras (unos 5
+  Glosario ni Nota metodológica, no pasa de unas 1.100 palabras (unos 5
   minutos de lectura). El build avisa si se pasa: en ese caso recortar,
   no justificar. Un solo tema bien entendido, que el lector alcance a
   llegar a la paradoja y a Para conversar.
 - Sin resúmenes rápidos al comienzo ("En tres minutos" ya no existe): el
   sitio apuesta por la profundidad. El índice de la edición lo genera la
   plantilla a partir de los títulos de los nudos.
+- **Quién decide y cuándo** es obligatorio en cada edición (pedido de
+  Mateo, 2026-09-29, inspirado en *Imaginar la democracia*): tres líneas
+  cortas, unas 60 a 90 palabras, después del nudo y antes de la paradoja.
+  Solo con datos verificables; lo que sea conocimiento general se marca.
 - **Para conversar** cierra la parte de lectura: una pregunta que invite a
   pensar (no a indignarse) y, cuando exista, una acción ciudadana concreta.
 - Un solo nudo por edición (pedido de Mateo, 2026-09-28): sin segundo nudo, sin

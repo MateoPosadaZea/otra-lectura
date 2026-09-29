@@ -104,7 +104,7 @@ CAMPOS_CONOCIDOS = {"fecha", "edicion", "titulo", "slug", "nota",
                     "actualizaciones", "correcciones", "fuentes", *CAMPOS_LISTA}
 
 # Techo editorial de una edición (palabras de lectura, sin el cierre).
-LARGO_MAXIMO = 1000
+LARGO_MAXIMO = 1100
 
 # Tipos de fuente (campo `tipo` en `fuentes`). Si falta, se deduce del dominio.
 TIPOS_FUENTE = {
@@ -294,6 +294,8 @@ def clases_heading(nivel, texto):
     if nivel == 2:
         if "para conversar" in t:
             return ["carril", "conversar"]
+        if "quién decide" in t or "quien decide" in t:
+            return ["carril", "decide"]
         if "paradoja" in t:
             return ["carril", "paradoja"]
         if "asombro" in t:
@@ -340,7 +342,7 @@ def envolver_secciones(cuerpo):
                 salida.append("<!--antes-glosario-->\n")
                 salida.append(f'<section class="{" ".join(clases)}" id="glosario">\n')
             else:
-                ancla = {"conversar": ' id="para-conversar"'}
+                ancla = {"conversar": ' id="para-conversar"', "decide": ' id="quien-decide"'}
                 extra = next((ancla[c] for c in clases if c in ancla), "")
                 salida.append(f'<section class="{" ".join(clases)}"{extra}>\n')
             # "Carril 1: Radar" → "Radar", con una línea que explica el carril.
@@ -1192,7 +1194,7 @@ def main():
             print(f"  error: {err}", file=sys.stderr)
         sys.exit(1)
 
-    # Aviso (no detiene el build): el techo editorial es de ~1.000 palabras.
+    # Aviso (no detiene el build): el techo editorial es de ~1.100 palabras.
     for e in ediciones:
         # Las ediciones anteriores al 28 de septiembre de 2026 tenían otro techo (1.500).
         if e["palabras"] > LARGO_MAXIMO and e["fecha"] >= "2026-09-28":

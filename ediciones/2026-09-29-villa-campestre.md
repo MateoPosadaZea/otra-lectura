@@ -160,6 +160,20 @@ predial y menos industria y comercio para atender al resto de su
 territorio. Y para el residente, la promesa de obras depende de la
 alcaldía de turno, no de la ley que fija el límite.
 
+## Quién decide y cuándo
+
+**Quién decide.** El Congreso, en las comisiones de ordenamiento
+territorial del Senado y la Cámara, a partir del estudio del IGAC. Ni
+Barranquilla ni Puerto Colombia pueden fijar el límite por su cuenta.
+
+**Cuándo.** La prensa calcula de seis a nueve meses. No hay fecha fija.
+
+**Cómo participar.** Las juntas de acción comunal y las administraciones de
+los conjuntos pueden pedir por escrito, con un derecho de petición, que las
+comisiones las escuchen, y escribir a los congresistas del Atlántico. Antes
+de que cambie el límite, conviene pedir a la alcaldía el certificado de
+estrato del inmueble y guardar el avalúo catastral actual.
+
 ## La paradoja del día
 
 Los vecinos de Villa Campestre izaron la bandera de Barranquilla para

@@ -36,6 +36,8 @@ Todos los días, antes de las 6 de la mañana (hora de Colombia).
 - **Un solo tema**: un problema que se repite, con quién lo está
   resolviendo y con qué resultados. Las críticas van en un recuadro,
   **Contrapeso**.
+- **Quién decide y cuándo**: quién tiene la decisión, en qué plazo y
+  por dónde puede participar un ciudadano.
 - **La paradoja del día** y **Para conversar**, para cerrar.
 - Las **fuentes**, en un recuadro plegado al final.
 - El sello rojo **Conocimiento general** marca lo que no se pudo

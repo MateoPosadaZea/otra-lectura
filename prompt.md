@@ -72,6 +72,10 @@ Un solo nudo por edición (desde el 2026-09-28): el de mayor impacto del día, c
 5. **Cruce con Mattriz.** Únicamente cuando sea efectivo. Si no existe,
    consignarlo. Máximo una o dos candidatas por edición.
 
+**Quién decide y cuándo.** Después del nudo, tres líneas: quién tiene la
+decisión, en qué plazo y cómo puede participar un ciudadano. Sin inventar
+canales que no existen.
+
 **Seguimiento.** Cuando un nudo ya tratado presenta novedad sin
 cambio sustantivo, no se agrega a la edición del día: va como entrada en
 `actualizaciones` de la edición original. Solo si la novedad es de

@@ -123,3 +123,9 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   dispositivo sonaban robóticas). Si vuelve, que sea una sola voz pausada,
   colombiana y natural, grabada o generada por edición; no las voces del
   navegador. También: letra de 18 px en móvil para leer más fácil.
+- 2026-09-29 · Pedido de Mateo (idea del libro *Imaginar la democracia*):
+  cada edición lleva la sección «## Quién decide y cuándo», entre el nudo y
+  la paradoja, con tres etiquetas: **Quién decide.** **Cuándo.** **Cómo
+  participar.** El objetivo es que el lector sepa dónde se toma la decisión
+  y por dónde puede entrar. Si no hay fecha o canal de participación, se
+  dice con franqueza. Techo de la edición: unas 1.100 palabras.
