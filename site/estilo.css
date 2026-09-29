@@ -1012,7 +1012,7 @@ html:not(.js) .barra-fija { display: none; }
 
 /* --- Celular: letra más contenida (lectura cómoda, titulares que no gritan) --- */
 @media (max-width: 600px) {
-  body { font-size: 0.9375rem; line-height: 1.6; }
+  body { font-size: 1.125rem; line-height: 1.65; }
   .edicion > p { font-size: 1em; }
   .cabecera { margin: 2rem 0; }
   .cabecera h1 { font-size: 1.75rem; line-height: 1.1; }
