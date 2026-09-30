@@ -7,6 +7,9 @@ categorias: [sociedad, economia]
 lugares: [Colombia, Barranquilla, Puerto Colombia]
 cruce_mattriz: []
 seguimiento: []
+correcciones:
+  - fecha: 2026-09-30
+    texto: "Reescribimos la edición en un lenguaje más sencillo, con frases cortas y ejemplos cotidianos. Los datos y las fuentes son los mismos."
 decisiones:
   - nudo: limites-barranquilla-puerto-colombia
     quien: "Congreso (comisiones de ordenamiento territorial)"
@@ -78,53 +81,72 @@ fuentes:
 
 ### Villa Campestre, entre dos alcaldías: qué cambiaría en la factura, el predial y el precio {#limites-barranquilla-puerto-colombia}
 
-**Qué pasó.** El IGAC, el Instituto Geográfico Agustín Codazzi, la entidad
-que traza los mapas y límites oficiales del país, propuso en agosto una
-nueva línea entre Barranquilla y Puerto Colombia. Con ella, Villa
-Campestre, el Corredor Universitario y Ciudad Mallorquín quedarían en
-Barranquilla. El alcalde Alejandro Char dijo que la ciudad "recupera
-territorios que siempre le pertenecieron" y prometió obras de vías,
-alumbrado, parques y seguridad. Pero la línea todavía no es ley: la decide
-el Congreso, en las comisiones de ordenamiento territorial del Senado y la
-Cámara, en un plazo que la prensa calcula en seis a nueve meses. Mientras
-tanto, algunos residentes izaron la bandera de Barranquilla en sus
+**En pocas palabras.** Villa Campestre hoy es parte de Puerto Colombia. Una
+entidad del Estado propuso que pase a ser parte de Barranquilla. Si pasa,
+lo que más cambiaría para los vecinos es el impuesto de su casa, el
+predial. Los servicios cambiarían poco.
+
+**Qué pasó.** El IGAC, el Instituto Geográfico Agustín Codazzi, es la
+entidad que dibuja los mapas y los límites oficiales del país. En agosto
+propuso una nueva línea entre Barranquilla y Puerto Colombia. Con esa
+línea, Villa Campestre, el Corredor Universitario y Ciudad Mallorquín
+quedarían en Barranquilla.
+
+El alcalde Alejandro Char dijo que la ciudad "recupera territorios que
+siempre le pertenecieron". Prometió vías, alumbrado, parques y seguridad.
+
+Pero la línea todavía no es ley. La decide el Congreso, en las comisiones
+de ordenamiento territorial del Senado y la Cámara. La prensa calcula que
+tardará de seis a nueve meses.
+
+Mientras tanto, algunos vecinos izaron la bandera de Barranquilla en sus
 conjuntos. Es la primera protesta registrada para pedir que el impuesto lo
 cobre otro.
 
-**Por qué se repite.** El límite nunca quedó claro. El arroyo León, que
-alguna vez sirvió de frontera natural, dejó de marcar algo cuando la
-ciudad lo pasó por encima con edificios. Barranquilla creció hacia el
-norte, los proyectos se aprobaron donde había tierra, y cada alcaldía
-atendió lo que alcanzaba. El resultado es una zona de estrato 5 y 6 donde
-el vecino no siempre sabe a quién reclamarle un poste apagado. Cuando no
-se sabe de quién es un barrio, las obras tienden a no ser de nadie; el
-impuesto, en cambio, siempre encuentra dueño.
+**Cómo llegamos aquí.** El límite nunca quedó claro. Antes, el arroyo León
+servía de frontera. Pero la ciudad construyó edificios encima, y el arroyo
+dejó de marcar nada. Barranquilla creció hacia el norte. Los proyectos se
+aprobaron donde había tierra. Y cada alcaldía atendió lo que alcanzaba.
 
-**Qué cambiaría en los servicios.** Poco, en principio. Triple A ya presta
-agua, alcantarillado y aseo en ambos municipios, y Air-e la energía. Lo
-que mueve la factura es el estrato, y el estrato lo asigna cada alcaldía.
-Si Barranquilla re-estratifica y un conjunto pasa de 5 a 6, el recargo
-sobre agua y aseo sube de alrededor de 50% a alrededor de 60% del costo
-del servicio: en una factura de agua de 200.000 pesos, unos 13.000 pesos
-más al mes. *(Conocimiento general.)* En energía, los estratos 5 y 6
-pagan el mismo recargo. El alumbrado público sí puede cambiar, porque cada
-municipio fija su tarifa.
+El resultado es una zona de estratos 5 y 6 donde el vecino no siempre sabe
+a quién reclamarle por un poste apagado. Cuando no se sabe de quién es un
+barrio, las obras terminan siendo de nadie. El impuesto, en cambio, siempre
+encuentra quién lo cobre.
+
+**Qué cambiaría en los servicios.** Poco, en principio. Triple A ya lleva
+el agua, el alcantarillado y el aseo en los dos municipios. Air-e ya lleva
+la luz.
+
+Lo que sí mueve la factura es el estrato. El estrato es la clasificación
+de las casas de 1 a 6, y lo pone cada alcaldía. Los estratos 5 y 6 pagan
+un recargo, una plata extra que ayuda a pagar los servicios de los
+estratos 1 a 3.
+
+Si Barranquilla vuelve a clasificar las casas y un conjunto pasa de 5 a 6,
+el recargo en agua y aseo sube. De cada 100 pesos que cuesta el servicio,
+se pasaría de pagar unos 50 de más a unos 60 de más. En una factura de agua
+de 200.000 pesos, son unos 13.000 pesos más al mes. *(Conocimiento
+general.)*
+
+En la luz, los estratos 5 y 6 pagan el mismo recargo. Lo que sí puede
+cambiar es el cobro del alumbrado público, porque cada municipio pone su
+propia tarifa.
 
 **Qué cambiaría en el predial.** Aquí está el cambio grande. El predial es
-el avalúo catastral, el valor oficial del inmueble para impuestos, por una
-tarifa. Barranquilla cobra 9,7 por mil en estrato 5 y 11 por mil en
-estrato 6, tarifas que no cambian desde 2008. Para un apartamento con
-avalúo de 400 millones de pesos serían unos 3,9 millones al año en estrato
-5 y 4,4 millones en estrato 6. Pero el avalúo también podría recalcularse,
-porque Barranquilla tiene su propio catastro. Puerto Colombia actualizó el
-suyo en 2021 y 2022, tras más de diez años sin hacerlo, y en Villa
-Campestre hubo alzas denunciadas de hasta 600%. En Barranquilla, en 2026,
-hubo quejas por avalúos que subieron 40% o más. Es decir: ambos catastros
-ya demostraron que saben subir.
+el impuesto que se paga cada año por tener una casa o un apartamento. Se
+calcula así: el avalúo catastral (el valor que el municipio le pone al
+inmueble para cobrar impuestos) por una tarifa.
+
+En Barranquilla, la tarifa es de 9,7 por mil en estrato 5 y de 11 por mil
+en estrato 6. Es decir: por cada 1.000 pesos de avalúo, se pagan 9,70 o 11
+pesos al año. Esas tarifas no cambian desde 2008.
+
+Un ejemplo. Un apartamento con avalúo de 400 millones de pesos pagaría unos
+3,9 millones al año en estrato 5 y unos 4,4 millones en estrato 6.
 
 ```grafico
 tipo: barras
-titulo: "Predial anual en Barranquilla para un avalúo de 400 millones"
+titulo: "Cuánto predial pagaría al año un apartamento de 400 millones en Barranquilla"
 subtitulo: "Millones de pesos al año, según estrato"
 unidad: "millones de pesos"
 destacar: "Estrato 6"
@@ -138,75 +160,93 @@ datos:
     valor: 4.4
 ```
 
-**Qué pasaría con el precio del apartamento.** La prima de "vivir en
-Barranquilla" ya está, en buena parte, en el precio: los portales
-inmobiliarios anuncian Villa Campestre como Barranquilla desde hace años,
-con apartamentos entre 460 y 1.450 millones de pesos. El mapa llegaría
-tarde a la escritura. Lo que podría sumar es lo que no está: alumbrado,
-vías, seguridad y certeza jurídica para licencias y trámites. Lo que
-podría restar es un predial más alto y, si llegan las obras, la
-contribución de valorización, el cobro con que Barranquilla financia obras
-a cargo de los predios que se benefician. Una proyección razonable, sin
-datos duros que la respalden, es un efecto adicional de 0 a 5% en uno o
-dos años, y solo si las obras se ven. Si no se ven y el predial sube, el
-efecto neto puede ser cero.
+Pero el avalúo también podría cambiar, porque Barranquilla tiene su propio
+catastro, su propia oficina que les pone valor a los inmuebles. Y los dos
+municipios ya han subido avalúos:
 
-**Quién lo está resolviendo.** El IGAC hizo el estudio técnico con unos
-15 puntos de referencia y usó como argumento la "conexión cotidiana" de la
-zona con Barranquilla: dónde estudia, compra y trabaja la gente. El
-Congreso tiene la última palabra. *(Conocimiento general.)* Hay un
-antecedente de ciudad que absorbe a sus vecinos: en 1954 Bogotá anexó seis
-municipios, entre ellos Suba, Usaquén y Fontibón. Los servicios llegaron
-con los años; los impuestos, bastante antes.
+- **Puerto Colombia** actualizó el suyo en 2021 y 2022, después de más de
+  diez años sin hacerlo. En Villa Campestre hubo denuncias de alzas de
+  hasta 600%.
+- **Barranquilla**, en 2026, recibió quejas por avalúos que subieron 40% o
+  más.
 
-**Contrapeso.** Puerto Colombia pierde una de sus zonas de mayor
-recaudo, y su alcaldía ha defendido que la zona le pertenece. Para el
-municipio más pequeño, el cambio no es de mapa sino de presupuesto: menos
-predial y menos industria y comercio para atender al resto de su
-territorio. Y para el residente, la promesa de obras depende de la
-alcaldía de turno, no de la ley que fija el límite.
+**Qué pasaría con el precio del apartamento.** Probablemente poco, porque
+ya se vende como si fuera de Barranquilla. Hace años que los portales de
+finca raíz anuncian Villa Campestre como Barranquilla. Allí se ofrecen
+apartamentos de entre 460 y 1.450 millones de pesos. El mapa llegaría
+tarde a la escritura.
+
+Lo que podría subir el precio es lo que hoy falta: alumbrado, vías,
+seguridad, y la tranquilidad de saber a qué alcaldía pedirle licencias y
+trámites.
+
+Lo que podría bajarlo es un predial más alto. Y, si llegan las obras, la
+contribución de valorización: un cobro a los dueños de las casas que se
+benefician de una obra, para ayudar a pagarla.
+
+Nuestro cálculo, sin datos duros que lo respalden: el precio podría subir
+entre nada y 5% en uno o dos años, y solo si las obras se ven. Si no se ven
+y el predial sube, puede quedar igual.
+
+**Quién lo está resolviendo.** El IGAC hizo el estudio técnico. Su
+argumento principal es la "conexión cotidiana" de la zona con
+Barranquilla: la gente de allí estudia, compra y trabaja en Barranquilla.
+El Congreso tiene la última palabra.
+
+**Ya pasó antes.** *(Conocimiento general.)* En 1954, Bogotá se quedó con
+seis municipios vecinos, entre ellos Suba, Usaquén y Fontibón. Los
+servicios llegaron con los años. Los impuestos llegaron bastante antes.
+
+**Pero ojo.** Puerto Colombia perdería una de las zonas que más impuestos
+le pagan, y su alcaldía ha defendido que la zona es suya. Para un
+municipio pequeño, esto no es un cambio de mapa: es un cambio de
+presupuesto. Tendría menos predial y menos impuesto de industria y
+comercio para atender el resto de su territorio. Y para el vecino, las
+obras prometidas dependen de quién sea alcalde, no de la ley que fija el
+límite.
 
 ## Dos lecturas
 
 **La zona es de Barranquilla.** Quien vive en Villa Campestre estudia,
-trabaja, compra y se mueve en Barranquilla. El límite debería reconocer la
-ciudad real, y una sola alcaldía responde mejor por vías, alumbrado y
-seguridad que dos que se pasan la cuenta.
+trabaja, compra y se mueve en Barranquilla. El límite debería mostrar la
+ciudad real. Y una sola alcaldía responde mejor por vías, alumbrado y
+seguridad que dos alcaldías que se pasan la cuenta.
 
-**La zona es de Puerto Colombia.** El territorio es del municipio por ley
-desde hace décadas. Si cada ciudad grande se queda con las zonas de mayor
-recaudo del vecino, los municipios pequeños pierden el dinero con el que
-atienden a sus barrios más pobres.
+**La zona es de Puerto Colombia.** Por ley, ese territorio es del
+municipio desde hace décadas. Si cada ciudad grande se queda con las zonas
+del vecino que más impuestos pagan, los municipios pequeños pierden la
+plata con la que atienden a sus barrios más pobres.
 
 ## Quién decide y cuándo
 
 **Quién decide.** El Congreso, en las comisiones de ordenamiento
-territorial del Senado y la Cámara, a partir del estudio del IGAC. Ni
-Barranquilla ni Puerto Colombia pueden fijar el límite por su cuenta.
+territorial del Senado y la Cámara, con base en el estudio del IGAC. Ni
+Barranquilla ni Puerto Colombia pueden fijar el límite solas.
 
 **Cuándo.** La prensa calcula de seis a nueve meses. No hay fecha fija.
 
 **Cómo participar.** Las juntas de acción comunal y las administraciones de
-los conjuntos pueden pedir por escrito, con un derecho de petición, que las
-comisiones las escuchen, y escribir a los congresistas del Atlántico. Antes
-de que cambie el límite, conviene pedir a la alcaldía el certificado de
-estrato del inmueble y guardar el avalúo catastral actual.
+los conjuntos pueden pedir por escrito que las comisiones las escuchen. Ese
+escrito se llama derecho de petición. También pueden escribirles a los
+congresistas del Atlántico. Y antes de que cambie el límite, conviene
+pedirle a la alcaldía el certificado de estrato de la vivienda y guardar
+el avalúo catastral de hoy.
 
 ## La paradoja del día
 
 Los vecinos de Villa Campestre izaron la bandera de Barranquilla para
 pedir que los adopte. Si lo logran, lo primero que les llegará de su nueva
-ciudad, antes que el alumbrado, será el recibo del predial.
+ciudad no será el alumbrado. Será el recibo del predial.
 
 ## Para conversar
 
-**La pregunta.** ¿A qué ciudad pertenece un barrio: a la que dice el mapa,
-a la que le cobra los impuestos o a la que la gente va todos los días? Y si
-no coinciden, ¿quién debería ceder?
+**La pregunta.** ¿De qué ciudad es un barrio? ¿De la que dice el mapa, de
+la que cobra los impuestos o de la ciudad adonde la gente va todos los
+días? Y si no son la misma, ¿quién debería ceder?
 
-**Qué puede hacer usted.** Guardar el último recibo del predial y la
-factura de Triple A. Si el límite cambia, serán la base para comparar si
-el nuevo avalúo y el estrato quedaron bien, y para reclamar a tiempo si no.
+**Qué puede hacer usted.** Guarde el último recibo del predial y la factura
+de Triple A. Si el límite cambia, le servirán para comparar si el nuevo
+avalúo y el estrato quedaron bien, y para reclamar a tiempo si no.
 
 ## Lo que descartamos
 
@@ -251,6 +291,8 @@ Quedó sin verificar o con límites:
 - Un medio local afirma que el Consejo de Estado ya definió los límites;
   las demás fuentes dicen que la decisión es del Congreso. Seguimos la
   versión mayoritaria.
+- El IGAC hizo su estudio con unos 15 puntos de referencia; lo dejamos
+  aquí para simplificar el texto.
 - Marcado como conocimiento general: los recargos por estrato y la
   anexión de municipios a Bogotá en 1954.
 
