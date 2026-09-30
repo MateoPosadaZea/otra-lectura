@@ -154,3 +154,15 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   categorías; cada día, el título de su edición; las demás páginas, su
   título y descripción. La portada conserva la imagen general. Se generan
   solas en el build (scripts/og.py, con Pillow); no hay que hacer nada.
+- 2026-09-30 · Pedido de Mateo: explicar como si el lector fuera un niño
+  (rige desde el 1 de octubre; modelo: la edición 11, sobre Air-e). Cada
+  nudo empieza con **En pocas palabras** (dos o tres frases que dicen de
+  qué se trata). Luego un ejemplo cotidiano que haga de puente (la tienda
+  de barrio, la recarga del celular), frases cortas, una idea por frase,
+  cifras traducidas a escala humana ("de cada 100 pesos, cobra 76"; "más
+  de cinco veces") y cada término técnico explicado ahí mismo, no solo en
+  el glosario. Etiquetas sencillas: En pocas palabras, Qué pasó, Cómo
+  llegamos aquí, Ya pasó antes, ¿Hay salida?, Pero ojo. Menos datos, mejor
+  elegidos: si una cifra o un estudio no ayuda a entender, va a la nota
+  metodológica o se queda por fuera. El rigor no baja: mismas fuentes,
+  mismas marcas de no verificado.

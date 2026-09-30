@@ -30,7 +30,8 @@ con qué contrapeso y qué patrón histórico ayuda a entenderlo.
    editores para hoy), no escribir otra edición: moverlo a `ediciones/`
    con `git mv`, poner en `edicion:` el número del paso 5, revisar que
    las cifras y fechas sigan vigentes (si algo cambió, corregirlo y
-   decirlo en la nota metodológica), ejecutar `./build.sh` y publicar
+   decirlo en la nota metodológica), adaptar el texto a las reglas de
+   estilo vigentes en AJUSTES.md (lenguaje sencillo), ejecutar `./build.sh` y publicar
    como siempre.
 
 ## 2. Leer antes de escribir
@@ -222,12 +223,20 @@ Cuerpo, en este orden (ver `prompt.md` 2.0 para el contenido de cada parte):
 
 ### Título del nudo {#tema-uno}
 
-**Qué ocurrió.** …
-**Quién lo está abordando.** …
-**Mecanismo en versión breve.** …
-**Contrapeso.** …
-**Antecedente histórico.** *(Conocimiento general.)* …
-**Cruce con Mattriz.** …
+**En pocas palabras.** Dos o tres frases: de qué se trata y por qué
+importa. Quien lea solo esto ya entendió.
+**Qué pasó.** Con un ejemplo cotidiano que haga de puente (la tienda de
+barrio, la recarga del celular) y luego los hechos.
+**Cómo llegamos aquí.** El mecanismo, en pocas viñetas cortas.
+**Ya pasó antes.** El antecedente, si lo hay. *(Conocimiento general.)*
+**¿Hay salida?** Lo que ha funcionado en otras partes, dicho simple.
+**Pero ojo.** El contrapeso: por qué no es mágico.
+**Cruce con Mattriz.** … (solo si aplica)
+
+Escribir como si se le explicara a un niño (AJUSTES.md, 2026-09-30):
+frases cortas, una idea por frase, cifras a escala humana ("de cada 100
+pesos, cobra 76"), cada término técnico explicado ahí mismo. Menos datos,
+mejor elegidos. Modelo: `ediciones/2026-09-30-radar.md`.
 
 ## Dos lecturas          ← solo si el tema divide opiniones
 
