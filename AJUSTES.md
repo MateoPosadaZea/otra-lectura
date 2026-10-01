@@ -166,3 +166,7 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   elegidos: si una cifra o un estudio no ayuda a entender, va a la nota
   metodológica o se queda por fuera. El rigor no baja: mismas fuentes,
   mismas marcas de no verificado.
+- 2026-10-01 · Pedido de Mateo: el sitio se abre a los buscadores
+  (`INDEXAR = True`): robots.txt permite rastrear, el sitemap se anuncia y
+  se quita el noindex. Search Console verificado por Mateo con el dominio.
+  Los comentarios siguen cerrados al público (ver APERTURA.md).

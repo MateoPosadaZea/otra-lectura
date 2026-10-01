@@ -58,7 +58,7 @@ DESCRIPCION_SITIO = (
 # Mientras el proyecto está en calibración, el sitio pide no ser indexado
 # (robots.txt con Disallow total y meta noindex). Para abrirlo a buscadores,
 # basta con cambiar esto a True y volver a publicar.
-INDEXAR = False
+INDEXAR = True
 
 # Comentarios abiertos al público. Mientras esté en False, comentar y
 # corregir exige la clave familiar (como hasta ahora). Para abrir: poner
