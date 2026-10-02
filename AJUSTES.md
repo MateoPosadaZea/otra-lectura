@@ -185,3 +185,8 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   sin identificar víctimas y siempre con líneas de ayuda. Ver RUTINA.md,
   sección 7. Primera edición: violencia sexual y el silencio de quienes
   saben (2 de octubre).
+- 2026-10-02 · Pedido de Mateo: cada edición cierra con «Para leer más»
+  (uno a tres libros sobre el tema). Primero se elige el libro por el
+  tema; si está en Santo & Seña (librería de la familia del editor), se
+  enlaza allí, y siempre se dice esa relación en una línea. Ver RUTINA.md,
+  «Para leer más». Rige desde el 3 de octubre; prueba en la edición 15.

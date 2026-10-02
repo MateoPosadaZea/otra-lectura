@@ -270,6 +270,8 @@ discutir en la sobremesa.
 **Qué puede hacer usted.** Solo si hay algo concreto, posible y
 cercano (preguntar, participar, votar, revisar). Si no lo hay, se omite.
 
+## Para leer más       ← uno a tres libros; ver «Para leer más» abajo
+
 ## Descartes          ← no se muestra en el sitio; sirve para no repetir temas
 
 ## Glosario
@@ -352,6 +354,33 @@ cercano (preguntar, participar, votar, revisar). Si no lo hay, se omite.
   (dos o tres pasos concretos; marcar "a verificar" lo que dependa de
   datos no confirmados) y **Entregable posible.** (algo pequeño y
   demostrable). Si la idea ya existe, no se duplica.
+
+### Para leer más (rige desde el 3 de octubre de 2026)
+
+Toda edición (también «De lo que nadie habla», Imaginemos y La semana si
+viene al caso) cierra con uno a tres libros que ayuden a entender el tema.
+Reglas, en este orden:
+
+1. **Primero el libro, después la tienda.** Se elige el libro que mejor
+   ayude a entender el tema, esté o no en Santo & Seña. Nunca se elige un
+   libro porque está en el inventario.
+2. **Datos verificados.** Autor, año y editorial confirmados en una fuente
+   (ficha de la editorial, catálogo de biblioteca, resultados de búsqueda).
+   Una o dos frases de por qué ayuda, sin citar páginas ni frases textuales
+   que no se hayan leído.
+3. **Revisar el catálogo.** Buscar cada libro en
+   `https://casasantoysena.com/tienda?q=<título o autor>` y abrir su ficha
+   (`https://casasantoysena.com/tienda/<slug>`): si está y dice «Añadir al
+   carrito», enlazar con el texto «Disponible en Santo & Seña». Si no está,
+   se recomienda igual, sin enlace de compra. Si hay una versión gratuita y
+   legal (licencia libre, dominio público), decirlo.
+4. **Transparencia siempre.** Si hay al menos un enlace a Santo & Seña,
+   cerrar la sección con esta línea en cursiva: *Los enlaces de compra van
+   a Santo & Seña, una librería de Bogotá de la familia del editor.
+   Elegimos los libros por el tema, no por la tienda.*
+5. En la nota metodológica, una línea: cuántos libros están en Santo & Seña
+   y cómo se verificaron los datos.
+6. No cuenta para el techo de palabras si se mantiene corta (unas 150).
 
 ## 5. Publicar
 

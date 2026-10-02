@@ -46,6 +46,10 @@ funciona. Menos ansiedad y más participación.
 
 - Toda cifra tiene su fuente al final de la edición.
 - Lo que no se pudo confirmar lleva el sello **Conocimiento general**.
+- Al final de cada edición, **Para leer más** recomienda libros sobre el
+  tema. Cuando un libro está en Santo & Seña, una librería de Bogotá de la
+  familia del editor, el enlace de compra va allí. Los libros se eligen por
+  el tema, no por la tienda, y se recomiendan igual si no están en ella.
 - Si un tema tiene novedades, se agrega una **actualización**. Si hubo un
   error en un dato, se agrega una **corrección** visible, con la fecha.
 

@@ -216,6 +216,30 @@ ICBF, gratuita y las 24 horas, para casos de niñas, niños y adolescentes.
 **122**: la Fiscalía, para denunciar violencia sexual, como víctima o como
 testigo.
 
+## Para leer más
+
+**Tengo un nombre**, de Chanel Miller (2019; en español, Blackie Books,
+2021). La autora fue agredida sexualmente en la Universidad de Stanford, en
+Estados Unidos. Durante años la conocieron solo como «Emily Doe»; en este
+libro cuenta su historia con su nombre. Ayuda a entender lo que vive una
+víctima ante la justicia y el valor de quienes no miran para otro lado: a
+ella la ayudaron dos estudiantes que pasaban en bicicleta y se detuvieron.
+
+**La guerra contra las mujeres**, de Rita Segato (2016). La antropóloga
+argentina explica que la violencia sexual no es solo cosa de individuos
+enfermos: muchas veces el agresor actúa para que lo vean y lo aprueben sus
+pares. Por eso el grupo importa tanto. Es una lectura más exigente. La
+editorial, Traficantes de Sueños, lo publica con licencia libre y se puede
+descargar gratis en su página.
+
+**Los hombres lloramos**, de Joan Turu. Un libro ilustrado para leer con
+niños: Nil se pregunta cómo es ser hombre y descubre que puede sentir y ser
+él mismo. Sirve para empezar en casa la conversación sobre el respeto.
+[Disponible en Santo & Seña](https://casasantoysena.com/tienda/los-hombres-lloramos).
+
+*Los enlaces de compra van a Santo & Seña, una librería de Bogotá de la
+familia del editor. Elegimos los libros por el tema, no por la tienda.*
+
 ## Glosario
 
 - **Efecto espectador:** mientras más personas presencian algo, menos
@@ -274,6 +298,12 @@ hecho a propósito. Quedó sin verificar o con límites:
   de la Policía, el ICBF y una guía oficial de rutas de atención. El horario
   24 horas del 141 es el de la línea telefónica; los demás canales del ICBF
   tienen horario de oficina.
+
+**Para leer más.** Elegimos primero los libros por el tema y después
+revisamos el catálogo de Santo & Seña: de los tres, solo el de Joan Turu
+está allí. Los datos de los otros dos (editorial, año y licencia libre del
+de Segato) los confirmamos en resultados de búsqueda; no leímos los libros
+completos para esta edición.
 
 No hay sección «Dos lecturas»: el tema no divide en dos posturas de buena
 fe. Tampoco «Quién decide y cuándo» ni registro de decisiones: no
