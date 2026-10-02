@@ -16,6 +16,12 @@ decisiones:
     que: "Fijar el límite entre Barranquilla y Puerto Colombia a partir del estudio del IGAC."
     estado: pendiente
     nota: "La prensa calcula de seis a nueve meses."
+grabado:
+  - archivo: "2026-09-29-villa-campestre.webp"
+    pie: "Plano de la ciudad de Barranquilla, levantado en 1897"
+    credito: "Plano de Cayetano Moreno y David Granados, 1897 · Dominio público, vía Wikimedia Commons"
+    url: "https://commons.wikimedia.org/wiki/File:Mapa_de_Barranquilla_levantado_por_Cayetano_Monero_y_David_Granados_en_1897.jpg"
+    alt: "Plano de 1897: las cuadras de Barranquilla dibujadas en tinta, más apretadas junto al río, en la parte baja; arriba a la izquierda va el título en letras adornadas y a la derecha la rosa de los vientos y la escala."
 fuentes:
   - medio: "El Heraldo"
     titulo: "Villa Campestre pasaría a control de Barranquilla, según límite del Igac"
@@ -295,6 +301,8 @@ Quedó sin verificar o con límites:
   aquí para simplificar el texto.
 - Marcado como conocimiento general: los recargos por estrato y la
   anexión de municipios a Bogotá en 1954.
+
+El plano es de Cayetano Moreno y David Granados (1897) y muestra cómo era Barranquilla entonces; es de otra época y lo usamos para evocar el tema.
 
 **Puntaje de impacto.** Filtro primero (las cuatro condiciones de nudo) y
 luego puntaje de 1 a 3; gravedad y cercanía valen doble (máximo 21).

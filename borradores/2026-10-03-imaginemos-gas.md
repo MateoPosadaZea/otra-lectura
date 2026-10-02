@@ -7,6 +7,12 @@ categorias: [economia, ambiente]
 lugares: [Colombia, Argentina, Noruega, Chile, Estados Unidos]
 cruce_mattriz: []
 seguimiento: [gas-natural-deficit]
+grabado:
+  - archivo: "2026-10-03-imaginemos-gas.webp"
+    pie: "Leiden (Países Bajos), la fábrica municipal de gas y su gasómetro junto al canal, 1859"
+    credito: "Litografía de Gerardus Johannes Bos, 1859 · Dominio público, vía Wikimedia Commons"
+    url: "https://commons.wikimedia.org/wiki/File:De_Stedelijke_Gasfabriek_1859.PNG"
+    alt: "Litografía de 1859: un canal tranquilo con un bote de remos; en la orilla, una fila de árboles, los edificios de la fábrica de gas con su chimenea y, a la derecha, el tanque redondo del gasómetro."
 fuentes:
   - medio: "Presidencia de la República (informe de la ANH y el Ministerio de Minas)"
     titulo: "Reservas de petróleo aumentaron a 7,4 años y las de gas a 5,9 años"
@@ -280,3 +286,5 @@ Quedó sin verificar o con límites:
 - La distancia de Colorado es de 2.000 pies, con excepciones; la
   equivalencia en metros es nuestra.
 - Cómo se financia hoy el subsidio de estratos 1 y 2 *(Conocimiento general.)*.
+
+La litografía es de Gerardus Johannes Bos (1859) y muestra la fábrica de gas de Leiden, en los Países Bajos; es de otra época y la usamos para evocar el tema.

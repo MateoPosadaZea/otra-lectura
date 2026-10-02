@@ -308,6 +308,8 @@ encontramos una decisión concreta en curso en Colombia; lo que cambia aquí
 depende de familias, colegios y universidades. Sin humor, por tratarse de
 violencia.
 
+Esta edición sale sin grabado: por el tema, preferimos no acompañarla con ninguna imagen.
+
 **Puntaje de impacto.** Filtro primero: es un nudo (se repite año tras año;
 tiene un mecanismo, el silencio de quienes saben; colegios, universidades,
 familias y la justicia pueden cambiarlo; y el daño está medido).
