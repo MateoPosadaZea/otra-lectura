@@ -264,7 +264,8 @@ footer.sitio .cabezote { font-size: 1.6rem; color: var(--tinta); }
 
 .edicion p, .edicion ul, .edicion ol { margin: 0 0 0.85em; }
 .edicion ul, .edicion ol { padding-left: 1.1em; }
-.edicion li + li { margin-top: 0.25em; }
+.edicion li + li { margin-top: 0.85em; }
+.edicion ul, .edicion ol { margin-top: 0.6em; margin-bottom: 1.7em; }
 .edicion strong { font-weight: 700; }
 
 /* Entrada de la edición, con capitular en recuadro negro. */
