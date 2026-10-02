@@ -179,3 +179,9 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
 - 2026-10-02 · Mateo: «La semana» debe ser práctica, no pretenciosa. Nada
   de «el hilo que las une» ni moralejas: repaso de lo que pasó, qué
   recordar y qué viene, con una pregunta sencilla. Unas 400 a 600 palabras.
+- 2026-10-02 · Pedido de Mateo: nueva sección «De lo que nadie habla»,
+  para temas que incomodan o duelen y que no se tocan en la mesa. Se
+  tratan buscando entender el patrón y qué se puede hacer, sin escándalo,
+  sin identificar víctimas y siempre con líneas de ayuda. Ver RUTINA.md,
+  sección 7. Primera edición: violencia sexual y el silencio de quienes
+  saben (2 de octubre).

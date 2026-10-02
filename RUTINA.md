@@ -386,5 +386,26 @@ semana, de lunes a viernes. Modelo: `ediciones/2026-10-02-semana.md`.
   `decisiones` (ya están en sus ediciones).
 - Se publica en el mismo commit o en uno aparte: `Edición N · <fecha> · La semana`.
 
+## 7. De lo que nadie habla
+
+Sección para los temas que no se tocan en la mesa porque incomodan,
+pueden ofender o son muy emocionales (violencia sexual, salud mental,
+suicidio, racismo, abuso en la familia y parecidos). Se publica cuando
+los editores la piden o cuando la rutina encuentra un tema así que
+cumple las cuatro condiciones de nudo. Archivo:
+`ediciones/<fecha>-nadie-habla.md`; título que empiece por «De lo que
+nadie habla: ». Modelo: `ediciones/2026-10-02-nadie-habla.md`.
+
+- El objetivo es aprender a hablar del tema de una forma que construya:
+  el patrón y el porqué, no el escándalo ni el caso a caso.
+- Nunca identificar víctimas ni dar detalles morbosos; no culpar a la
+  víctima ni generalizar sobre grupos enteros.
+- Siempre cierra con **Qué puede hacer usted** (acciones concretas por
+  rol) y un recuadro **Si usted o alguien cercano lo necesita** con
+  líneas de ayuda verificadas.
+- La pregunta de «Para conversar» abre una conversación en familia, sin
+  sermón ni culpa.
+- Mismo lenguaje sencillo y mismo rigor de fuentes que las demás.
+
 No modificar la plantilla, el build, `prompt.md` ni este archivo durante
 la rutina.
