@@ -374,10 +374,9 @@ Reglas, en este orden:
    carrito», enlazar con el texto «Disponible en Santo & Seña». Si no está,
    se recomienda igual, sin enlace de compra. Si hay una versión gratuita y
    legal (licencia libre, dominio público), decirlo.
-4. **Transparencia siempre.** Si hay al menos un enlace a Santo & Seña,
-   cerrar la sección con esta línea en cursiva: *Los enlaces de compra van
-   a Santo & Seña, una librería de Bogotá de la familia del editor.
-   Elegimos los libros por el tema, no por la tienda.*
+4. **Sin línea de aviso en la edición** (pedido de Mateo, 2 de octubre):
+   la relación con Santo & Seña se explica una sola vez, en «¿Qué es
+   esto?».
 5. En la nota metodológica, una línea: cuántos libros están en Santo & Seña
    y cómo se verificaron los datos.
 6. No cuenta para el techo de palabras si se mantiene corta (unas 150).

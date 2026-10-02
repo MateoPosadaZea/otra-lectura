@@ -190,3 +190,5 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   tema; si está en Santo & Seña (librería de la familia del editor), se
   enlaza allí, y siempre se dice esa relación en una línea. Ver RUTINA.md,
   «Para leer más». Rige desde el 3 de octubre; prueba en la edición 15.
+- 2026-10-02 · Mateo: en «Para leer más» no va la línea de aviso sobre
+  Santo & Seña en cada edición; basta con la explicación en «¿Qué es esto?».

@@ -237,9 +237,6 @@ niños: Nil se pregunta cómo es ser hombre y descubre que puede sentir y ser
 él mismo. Sirve para empezar en casa la conversación sobre el respeto.
 [Disponible en Santo & Seña](https://casasantoysena.com/tienda/los-hombres-lloramos).
 
-*Los enlaces de compra van a Santo & Seña, una librería de Bogotá de la
-familia del editor. Elegimos los libros por el tema, no por la tienda.*
-
 ## Glosario
 
 - **Efecto espectador:** mientras más personas presencian algo, menos
