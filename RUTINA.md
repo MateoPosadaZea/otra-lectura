@@ -381,6 +381,37 @@ Reglas, en este orden:
    y cómo se verificaron los datos.
 6. No cuenta para el techo de palabras si se mantiene corta (unas 150).
 
+### Grabado de época (rige desde el 3 de octubre de 2026)
+
+Cada edición lleva, bajo el título, un grabado antiguo que evoque el tema:
+ilustraciones de periódicos y libros del siglo XIX y comienzos del XX (el
+referente visual es el de los periódicos de Red Dead Redemption).
+
+1. **Buscar en Wikimedia Commons** (API:
+   `https://commons.wikimedia.org/w/api.php?action=query&list=search&srnamespace=6&srsearch=<términos>&format=json`),
+   en inglés y en español: el hecho o el lugar más «engraving», «wood
+   engraving», «grabado», «Harper's Weekly», «Le Tour du monde»,
+   «L'Illustration». Preferir escenas de Colombia, los Andes o América
+   Latina; si no hay, una escena universal del mismo asunto.
+2. **Solo grabados, litografías o dibujos de época**, no fotos, y solo
+   dominio público o CC BY / CC BY-SA. Nada de imágenes de juegos, de
+   bancos de imágenes ni de prensa actual.
+3. **Debe evocar, no engañar.** La imagen es de otra época y el pie lo
+   dice: lugar, hecho y año. Nunca se presenta como foto del hecho de hoy.
+   Nada morboso: en temas de violencia, víctimas o niños, se elige algo
+   simbólico (un lugar, un objeto) o la edición sale sin grabado.
+4. **Preparar la imagen** con
+   `.venv/bin/python scripts/grabado.py "File:<nombre en Commons>" <slug-de-la-edición>`.
+   Deja `imagenes/<slug>.webp` en tinta y papel del sitio e imprime el
+   bloque `grabado:` para el frontmatter. Completar `pie` y `alt` en
+   español (el `alt` describe lo que se ve) y traducir el crédito
+   («Grabado de <autor>, <año> · Dominio público, vía Wikimedia Commons»).
+5. Commons limita las descargas seguidas (error 429): el script espera y
+   reintenta; no insistir más de tres veces.
+6. Si no aparece un grabado que encaje bien, la edición sale sin grabado.
+   Mejor ninguno que uno forzado. Una línea en la nota metodológica dice
+   de dónde salió (o por qué no hay).
+
 ## 5. Publicar
 
 1. `./build.sh` debe terminar sin error y crear

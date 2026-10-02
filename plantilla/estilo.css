@@ -264,6 +264,11 @@ footer.sitio .cabezote { font-size: 1.6rem; color: var(--tinta); }
 
 .edicion p, .edicion ul, .edicion ol { margin: 0 0 0.85em; }
 .edicion ul, .edicion ol { padding-left: 1.1em; }
+.grabado { margin: 1.6rem 0 2.2rem; }
+.grabado img { display: block; width: 100%; height: auto; border: 1px solid var(--tinta); outline: 1px solid var(--tinta); outline-offset: 4px; }
+.grabado figcaption { margin-top: 0.95rem; text-align: center; font-size: 0.72em; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tenue); line-height: 1.6; }
+.grabado figcaption a { color: inherit; text-decoration: none; }
+.grabado figcaption a:hover { text-decoration: underline; }
 .edicion li + li { margin-top: 0.85em; }
 .edicion ul, .edicion ol { margin-top: 0.6em; margin-bottom: 1.7em; }
 .edicion strong { font-weight: 700; }

@@ -192,3 +192,9 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   «Para leer más». Rige desde el 3 de octubre; prueba en la edición 15.
 - 2026-10-02 · Mateo: en «Para leer más» no va la línea de aviso sobre
   Santo & Seña en cada edición; basta con la explicación en «¿Qué es esto?».
+- 2026-10-02 · Pedido de Mateo: cada edición lleva un grabado de época bajo
+  el título, en tinta y papel del sitio, con pie (lugar, hecho, año) y
+  crédito con enlace a la fuente. Referente: los periódicos de Red Dead
+  Redemption. Solo dominio público o licencia libre (Wikimedia Commons);
+  nunca se presenta como imagen del hecho actual. Ver RUTINA.md, «Grabado
+  de época». Primera: edición 13 (Ibarra, 1868, de Édouard Riou).

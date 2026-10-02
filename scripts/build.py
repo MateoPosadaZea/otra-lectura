@@ -38,6 +38,7 @@ RAIZ = Path(__file__).resolve().parent.parent
 EDICIONES = RAIZ / "ediciones"
 PLANTILLA = RAIZ / "plantilla"
 SITE = RAIZ / "site"
+IMAGENES = RAIZ / "imagenes"
 CANDIDATAS = RAIZ / "candidatas.md"
 AYUDA = RAIZ / "ayuda.md"
 SOBRE = RAIZ / "sobre.md"
@@ -102,7 +103,7 @@ ESTADOS_CANDIDATA = ["pendiente", "evaluada", "descartada", "activa"]
 
 CAMPOS_LISTA = ["temas", "categorias", "lugares", "cruce_mattriz", "seguimiento"]
 CAMPOS_CONOCIDOS = {"fecha", "edicion", "titulo", "slug", "nota",
-                    "actualizaciones", "correcciones", "fuentes", "decisiones", *CAMPOS_LISTA}
+                    "actualizaciones", "correcciones", "fuentes", "decisiones", "grabado", *CAMPOS_LISTA}
 
 # Seguimiento de decisiones (campo `decisiones`): quién decide qué y para
 # cuándo, y en qué quedó. El estado lo actualiza la rutina cuando hay noticia.
@@ -291,6 +292,20 @@ def validar(meta, ruta):
                         "medio": _texto(f.get("medio"), f"fuentes[{i}].medio", requerido=False),
                         "url": url, "tipo": tipo or tipo_por_url(url)})
     datos["fuentes"] = fuentes
+    grabados = []
+    for i, g in enumerate(_lista_mapas(meta.get("grabado"), "grabado",
+                                       ["archivo", "pie", "credito", "url", "alt"]), 1):
+        archivo = _texto(g.get("archivo"), f"grabado[{i}].archivo")
+        if not (IMAGENES / archivo).is_file():
+            raise ErrorEdicion(f"grabado[{i}].archivo: no existe imagenes/{archivo}")
+        url = _texto(g.get("url"), f"grabado[{i}].url")
+        if not re.match(r"^https?://\S+$", url):
+            raise ErrorEdicion(f"grabado[{i}].url: «{url}» no es una url http(s) válida")
+        grabados.append({"archivo": archivo, "url": url,
+                         "pie": _texto(g.get("pie"), f"grabado[{i}].pie"),
+                         "credito": _texto(g.get("credito"), f"grabado[{i}].credito"),
+                         "alt": _texto(g.get("alt"), f"grabado[{i}].alt")})
+    datos["grabado"] = grabados[0] if grabados else None
     decisiones = []
     for i, d in enumerate(_lista_mapas(meta.get("decisiones"), "decisiones",
                                        ["nudo", "quien", "que", "plazo", "estado", "nota", "revisada"]), 1):
@@ -933,6 +948,7 @@ def pagina_edicion(base, e, ediciones):
 <h1>{html.escape(e['titulo'])}</h1>
 {html_categorias(e['categorias'], '../')}
 {aviso_cambios(e)}
+{html_grabado(e)}
 {html_atajos(e)}
 </header>
 {cuerpo_edicion(e)}
@@ -954,6 +970,24 @@ def pagina_edicion(base, e, ediciones):
     return pagina(base, html.escape(f"{e['titulo']} · Otra lectura"), descripcion, "../",
                   contenido, f"/ediciones/{e['slug']}.html", "article", ld,
                   compartir=(e["titulo"], rotulo, cats))
+
+
+def html_grabado(e):
+    """Grabado de época bajo el título, con pie y crédito (ver RUTINA.md)."""
+    g = e["grabado"]
+    if not g:
+        return ""
+    medidas = ""
+    try:
+        from PIL import Image
+        with Image.open(IMAGENES / g["archivo"]) as im:
+            medidas = f' width="{im.width}" height="{im.height}"'
+    except Exception:
+        pass
+    return (f'<figure class="grabado"><img src="../imagenes/{html.escape(g["archivo"])}"{medidas} '
+            f'alt="{html.escape(g["alt"])}" decoding="async">'
+            f'<figcaption>{html.escape(g["pie"])}<br>'
+            f'<a href="{html.escape(g["url"])}">{html.escape(g["credito"])}</a></figcaption></figure>')
 
 
 def html_atajos(e):
@@ -1322,6 +1356,8 @@ def main():
     shutil.copy(PLANTILLA / "estilo.css", SITE / "estilo.css")
     shutil.copytree(PLANTILLA / "fuentes", SITE / "fuentes")
     shutil.copy(PLANTILLA / "og.png", SITE / "og.png")
+    if IMAGENES.is_dir():
+        shutil.copytree(IMAGENES, SITE / "imagenes")
     robots = "User-agent: *\n" + ("Allow: /\n" if INDEXAR else "Disallow: /\n")
     if INDEXAR and SITIO_URL:
         robots += f"Sitemap: {SITIO_URL}/sitemap.xml\n"

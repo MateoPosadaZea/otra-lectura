@@ -123,6 +123,12 @@ El formato editorial está en `prompt.md` y el técnico en `ESPECIFICACION.md`.
    cruce_mattriz: [alerta de calor legible]
    seguimiento: [presupuesto-2027]   # temas de ediciones anteriores
    nota: "opcional, se muestra bajo el título"
+   grabado:                          # opcional; ver scripts/grabado.py
+     - archivo: "2026-10-02-radar.webp"   # en imagenes/
+       pie: "Ibarra, Ecuador, tras el terremoto de 1868"
+       credito: "Grabado de Édouard Riou, 1883 · Dominio público, vía Wikimedia Commons"
+       url: "https://commons.wikimedia.org/wiki/File:..."
+       alt: "Lo que se ve en la imagen"
    fuentes:
      - medio: "CEPAL"
        titulo: "Panorama Fiscal 2026"
