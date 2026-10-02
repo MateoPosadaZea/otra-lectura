@@ -48,7 +48,7 @@ SOBRE = RAIZ / "sobre.md"
 SITIO_URL = "https://otralectura.co"
 
 NOMBRE_SITIO = "Otra lectura"
-FRASE_SITIO = "Una mirada pragmática para informarse y participar."
+FRASE_SITIO = "Apostando por una ciudadanía informada."
 DESCRIPCION_SITIO = (
     "Otra manera de leer noticias, con contexto, soluciones y contrapeso. Cada "
     "día, los problemas que se repiten en Colombia, América Latina "
@@ -846,7 +846,7 @@ def meta_etiquetas(titulo, descripcion, ruta, tipo, ld, imagen="og.png", alt=Non
               f'<meta property="og:image" content="{SITIO_URL}/{imagen}">',
               '<meta property="og:image:width" content="1200">',
               '<meta property="og:image:height" content="630">',
-              f'<meta property="og:image:alt" content="{html.escape(alt or NOMBRE_SITIO + ": una mirada pragmática para informarse y participar")}">',
+              f'<meta property="og:image:alt" content="{html.escape(alt or NOMBRE_SITIO + ": apostando por una ciudadanía informada")}">',
               f'<meta name="twitter:image" content="{SITIO_URL}/{imagen}">']
         ld = {**ld, "url": url}
     # "<\/" evita que un "</script>" dentro de los datos cierre el bloque.
