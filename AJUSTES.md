@@ -170,3 +170,9 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   (`INDEXAR = True`): robots.txt permite rastrear, el sitemap se anuncia y
   se quita el noindex. Search Console verificado por Mateo con el dominio.
   Los comentarios siguen cerrados al público (ver APERTURA.md).
+- 2026-10-02 · Pedido de Mateo: cada viernes, además de la edición del
+  día, sale «La semana»: una síntesis que redondea las ediciones de lunes
+  a viernes, el hilo que las une, lo que hay que tener presente y las
+  decisiones que vienen. Sin datos nuevos. Ver RUTINA.md, sección 6.
+- 2026-10-02 · Pedido de Mateo: se quitan del pie de página los enlaces
+  «Cómo se usa» y «Candidatas» (las páginas siguen existiendo).
