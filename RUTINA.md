@@ -375,13 +375,13 @@ semana, de lunes a viernes. Modelo: `ediciones/2026-10-02-semana.md`.
 
 - No es una edición nueva de noticias: no se investiga ni se agregan
   datos. Todo sale de las ediciones de la semana y sus fuentes.
-- Estructura: **En pocas palabras** (la semana en tres o cuatro frases),
-  **Lo que pasó esta semana** (una viñeta por edición, con enlace),
-  **El hilo que las une** (el patrón común, con un ejemplo cotidiano),
-  **Para tener presente** (tres a cinco cosas para recordar) y **Lo que
-  viene** (decisiones pendientes con fecha y quién decide). Luego
-  «## Para conversar» con una pregunta y una nota metodológica corta.
-- Lenguaje sencillo (AJUSTES.md, 2026-09-30), unas 600 a 800 palabras.
+- Estructura práctica, sin tesis ni moraleja: **En pocas palabras** (una
+  o dos frases), **Lo que pasó esta semana** (una viñeta por edición, con
+  enlace), **Para tener presente** (tres a cinco cosas concretas para
+  recordar) y **Lo que viene** (decisiones pendientes con fecha y quién
+  decide). Luego «## Para conversar» con una pregunta sencilla y una nota
+  metodológica corta.
+- Lenguaje sencillo (AJUSTES.md, 2026-09-30), unas 400 a 600 palabras.
 - `seguimiento` lleva los `temas` de las ediciones de la semana; sin
   `decisiones` (ya están en sus ediciones).
 - Se publica en el mismo commit o en uno aparte: `Edición N · <fecha> · La semana`.

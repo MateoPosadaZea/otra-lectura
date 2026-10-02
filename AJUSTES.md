@@ -176,3 +176,6 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   decisiones que vienen. Sin datos nuevos. Ver RUTINA.md, sección 6.
 - 2026-10-02 · Pedido de Mateo: se quitan del pie de página los enlaces
   «Cómo se usa» y «Candidatas» (las páginas siguen existiendo).
+- 2026-10-02 · Mateo: «La semana» debe ser práctica, no pretenciosa. Nada
+  de «el hilo que las une» ni moralejas: repaso de lo que pasó, qué
+  recordar y qué viene, con una pregunta sencilla. Unas 400 a 600 palabras.
