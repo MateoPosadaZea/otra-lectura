@@ -1,0 +1,44 @@
+# Otra lectura
+
+> Otra manera de leer noticias, con contexto, soluciones y contrapeso. Cada día, los problemas que se repiten en Colombia, América Latina y el mundo, con su contexto histórico, las soluciones que ya funcionan en otros lugares y sus críticas.
+
+Sitio colombiano en español. Cada día explica un problema que se repite (un «nudo»): qué pasó, por qué se repite, quién lo está resolviendo, el contrapeso y la historia. Toda cifra tiene su fuente al final de cada edición; lo no verificado se marca así; los errores se corrigen con una nota visible y fechada. Al citar, enlace la edición.
+
+## Sobre el sitio
+
+- [¿Qué es esto?](https://otralectura.co/sobre.html): propósito, método y en qué se puede confiar
+- [Días anteriores](https://otralectura.co/archivo.html): todas las ediciones por fecha
+- [Decisiones](https://otralectura.co/decisiones.html): decisiones públicas pendientes que seguimos
+- [RSS](https://otralectura.co/feed.xml)
+
+## Ediciones
+
+- [Imaginemos: una regla del gas que dure más que un gobierno](https://otralectura.co/ediciones/2026-10-03-imaginemos-gas.html): 3 de octubre de 2026.
+- [De lo que nadie habla: la violencia sexual y el silencio de los que saben](https://otralectura.co/ediciones/2026-10-02-nadie-habla.html): 2 de octubre de 2026.
+- [La semana: seis noticias y lo que viene](https://otralectura.co/ediciones/2026-10-02-semana.html): 2 de octubre de 2026.
+- [Reconstruir rápido o reconstruir a la vista: el Fondo Milagro pide 2,7 billones](https://otralectura.co/ediciones/2026-10-02-radar.html): 2 de octubre de 2026.
+- [Uno de cada dos trabajadores sin pensión: el desempleo sube y la informalidad casi no se mueve](https://otralectura.co/ediciones/2026-10-01-radar.html): 1 de octubre de 2026.
+- [Air-e: dos años de intervención, seis interventores y una deuda que el país vuelve a pagar](https://otralectura.co/ediciones/2026-09-30-radar.html): 30 de septiembre de 2026.
+- [Colombia gasta 40 y recibe 29: por qué vuelve a tocar la puerta del FMI](https://otralectura.co/ediciones/2026-09-29-radar.html): 29 de septiembre de 2026.
+- [Villa Campestre cambiaría de ciudad: qué pasaría con el predial, los servicios y el precio del apartamento](https://otralectura.co/ediciones/2026-09-29-villa-campestre.html): 29 de septiembre de 2026. Temas: Villa Campestre, entre dos alcaldías: qué cambiaría en la factura, el predial y el precio.
+- [El gas que Colombia ahora compra en barco](https://otralectura.co/ediciones/2026-09-28-radar.html): 28 de septiembre de 2026. Temas: Colombia importa un tercio de su gas mientras cada gobierno cambia la regla para buscarlo.
+- [La semana en limpio · 22 al 26 de septiembre](https://otralectura.co/ediciones/2026-09-27-radar.html): 27 de septiembre de 2026.
+- [Las EPS que deben más cada año y las apuestas que Brasil legalizó y ahora prohíbe](https://otralectura.co/ediciones/2026-09-26-radar.html): 26 de septiembre de 2026. Temas: Las EPS deben más cada año y el pago por afiliado no sigue a la enfermedad; Brasil prohíbe las apuestas en línea que reguló hace dos años.
+- [El sarampión que regresa, las cuentas que no cuadran y las escuelas sin agua](https://otralectura.co/ediciones/2026-09-25-radar.html): 25 de septiembre de 2026. Temas: El sarampión regresa donde bajó la vacunación; Cuentas públicas reprobadas, año tras año; Escuelas sin agua: construir resulta más fácil que mantener.
+- [El calor que no se cuenta, la extorsión que no se va con tropas y la vacuna que nadie fabricó](https://otralectura.co/ediciones/2026-09-24-radar.html): 24 de septiembre de 2026. Temas: El calor que enferma y no se cuenta; Militarizar recupera la calle, no la renta; La vacuna que nadie fabricó porque no había mercado.
+- [El presupuesto recorta la justicia transicional y la ONU admite el sobrepaso](https://otralectura.co/ediciones/2026-09-23-radar.html): 23 de septiembre de 2026. Temas: Menos dinero para repartir: ahora importa a quién le llega; El recorte a la justicia transicional: sin salida conocida; La ONU admite que el sobrepaso ya es inevitable.
+- [Un medicamento de casi un billón y una isla sin lluvia](https://otralectura.co/ediciones/2026-09-22-radar-02.html): 22 de septiembre de 2026. Temas: Un solo medicamento, casi un billón de pesos; Una isla sin lluvia y una ciudad que redujo su consumo a la mitad.
+- [Deuda, reconstrucción, páramos y quién se queda con el crédito](https://otralectura.co/ediciones/2026-09-22-radar-01.html): 22 de septiembre de 2026. Temas: Colombia se acerca a su techo de deuda; Reconstrucción rápida frente a control; El Caribe sigue en riesgo de apagón; Ecuador: se retiró la licencia, pero la concesión sigue vigente; IA, matemáticas y quién se queda con el crédito.
+
+## Temas que seguimos
+
+- [Menos dinero para repartir: ahora importa a quién le llega](https://otralectura.co/temas/presupuesto-2027.html)
+- [El sarampión regresa donde bajó la vacunación](https://otralectura.co/temas/sarampion-vacunacion.html)
+- [Las EPS deben más cada año y el pago por afiliado no sigue a la enfermedad](https://otralectura.co/temas/eps-deuda-ajuste-riesgo.html)
+- [Brasil prohíbe las apuestas en línea que reguló hace dos años](https://otralectura.co/temas/apuestas-en-linea.html)
+- [Colombia importa un tercio de su gas mientras cada gobierno cambia la regla para buscarlo](https://otralectura.co/temas/gas-natural-deficit.html)
+- [Villa Campestre, entre dos alcaldías: qué cambiaría en la factura, el predial y el precio](https://otralectura.co/temas/limites-barranquilla-puerto-colombia.html)
+- [Colombia gasta 40 y recibe 29: por qué vuelve a tocar la puerta del FMI](https://otralectura.co/temas/deficit-fiscal-fmi.html)
+- [Air-e: dos años de intervención, seis interventores y una deuda que el país vuelve a pagar](https://otralectura.co/temas/air-e-deuda-caribe.html)
+- [Uno de cada dos trabajadores sin pensión: el desempleo sube y la informalidad casi no se mueve](https://otralectura.co/temas/informalidad-empleo.html)
+- [Reconstruir rápido o reconstruir a la vista: el Fondo Milagro pide 2,7 billones](https://otralectura.co/temas/reconstruccion-fondo-milagro.html)

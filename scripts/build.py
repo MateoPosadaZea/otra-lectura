@@ -50,6 +50,21 @@ SITIO_URL = "https://otralectura.co"
 
 NOMBRE_SITIO = "Otra lectura"
 FRASE_SITIO = "Apostando por una ciudadanía informada."
+# Rastreadores de buscadores con IA y asistentes, permitidos explícitamente.
+BOTS_IA = ["GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-SearchBot",
+           "Claude-User", "PerplexityBot", "Google-Extended", "Applebot-Extended",
+           "CCBot", "Bingbot"]
+
+
+def editor_ld():
+    """La organización que publica, con su logo, para los datos estructurados."""
+    org = {"@type": "Organization", "name": NOMBRE_SITIO}
+    if SITIO_URL:
+        org["url"] = SITIO_URL + "/"
+        org["logo"] = {"@type": "ImageObject", "url": f"{SITIO_URL}/icono-512.png", "width": 512, "height": 512}
+    return org
+
+
 DESCRIPCION_SITIO = (
     "Otra manera de leer noticias, con contexto, soluciones y contrapeso. Cada "
     "día, los problemas que se repiten en Colombia, América Latina "
@@ -831,6 +846,50 @@ def recortar(texto, limite):
     return texto if len(texto) <= limite else texto[:limite].rsplit(" ", 1)[0].rstrip(",;:") + "…"
 
 
+def rss(ediciones):
+    """RSS 2.0 con las 20 ediciones más recientes (salen a las 5 a. m. de Colombia)."""
+    from email.utils import format_datetime
+    from datetime import datetime, timedelta, timezone
+    bogota = timezone(timedelta(hours=-5))
+    def fecha_rss(f):
+        return format_datetime(datetime.fromisoformat(f).replace(hour=5, tzinfo=bogota))
+    items = []
+    for e in ediciones[:20]:
+        url = f"{SITIO_URL}/ediciones/{e['slug']}.html"
+        items.append(f"<item><title>{html.escape(e['titulo'])}</title><link>{url}</link>"
+                     f"<guid isPermaLink=\"true\">{url}</guid><pubDate>{fecha_rss(e['fecha'])}</pubDate>"
+                     f"<description>{html.escape(descripcion_edicion(e))}</description></item>")
+    ultima = fecha_rss(ediciones[0]["fecha"]) if ediciones else ""
+    return ('<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" '
+            'xmlns:atom="http://www.w3.org/2005/Atom"><channel>'
+            f"<title>{NOMBRE_SITIO}</title><link>{SITIO_URL}/</link>"
+            f"<description>{html.escape(DESCRIPCION_SITIO)}</description><language>es-co</language>"
+            f'<atom:link href="{SITIO_URL}/feed.xml" rel="self" type="application/rss+xml"/>'
+            f"<lastBuildDate>{ultima}</lastBuildDate>" + "".join(items) + "</channel></rss>\n")
+
+
+def llms_txt(ediciones, hilos):
+    """Guía para asistentes de IA (formato llms.txt): qué es el sitio y dónde está cada cosa."""
+    lineas = [f"# {NOMBRE_SITIO}", "", f"> {DESCRIPCION_SITIO}", "",
+              "Sitio colombiano en español. Cada día explica un problema que se repite (un «nudo»): "
+              "qué pasó, por qué se repite, quién lo está resolviendo, el contrapeso y la historia. "
+              "Toda cifra tiene su fuente al final de cada edición; lo no verificado se marca así; "
+              "los errores se corrigen con una nota visible y fechada. Al citar, enlace la edición.", "",
+              "## Sobre el sitio", "",
+              f"- [¿Qué es esto?]({SITIO_URL}/sobre.html): propósito, método y en qué se puede confiar",
+              f"- [Días anteriores]({SITIO_URL}/archivo.html): todas las ediciones por fecha",
+              f"- [Decisiones]({SITIO_URL}/decisiones.html): decisiones públicas pendientes que seguimos",
+              f"- [RSS]({SITIO_URL}/feed.xml)", "", "## Ediciones", ""]
+    for e in ediciones:
+        nudos = [t for t in e["titulos_nudos"] if t.lower() not in e["titulo"].lower()]
+        lineas.append(f"- [{e['titulo']}]({SITIO_URL}/ediciones/{e['slug']}.html): "
+                      f"{fecha_legible(e['fecha'])}." + (f" Temas: {'; '.join(nudos)}." if nudos else ""))
+    if hilos:
+        lineas += ["", "## Temas que seguimos", ""]
+        lineas += [f"- [{h['titulo']}]({SITIO_URL}/temas/{h['slug']}.html)" for h in hilos.values()]
+    return "\n".join(lineas) + "\n"
+
+
 def descripcion_edicion(e):
     temas = "; ".join(e["titulos_nudos"])
     inicio = f"Edición {e['edicion']}, {fecha_legible(e['fecha'])}"
@@ -864,6 +923,9 @@ def meta_etiquetas(titulo, descripcion, ruta, tipo, ld, imagen="og.png", alt=Non
               f'<meta property="og:image:alt" content="{html.escape(alt or NOMBRE_SITIO + ": apostando por una ciudadanía informada")}">',
               f'<meta name="twitter:image" content="{SITIO_URL}/{imagen}">']
         ld = {**ld, "url": url}
+        ld.setdefault("image", f"{SITIO_URL}/{imagen}")
+        if ld.get("@type") == "NewsArticle":
+            ld.setdefault("mainEntityOfPage", url)
     # "<\/" evita que un "</script>" dentro de los datos cierre el bloque.
     datos = json.dumps({"@context": "https://schema.org", **ld}, ensure_ascii=False).replace("</", "<\\/")
     m.append(f'<script type="application/ld+json">{datos}</script>')
@@ -956,15 +1018,17 @@ def pagina_edicion(base, e, ediciones):
 {html_glosario_flotante(e['glosario'])}
 {html_siguiente(e, ediciones)}"""
     descripcion = descripcion_edicion(e)
-    ld = {"@type": "Article", "headline": e["titulo"], "description": descripcion,
+    ld = {"@type": "NewsArticle", "headline": e["titulo"], "description": descripcion,
           "datePublished": e["fecha"], "dateModified": e["ultimo_cambio"] or e["fecha"],
           "inLanguage": "es-CO", "articleSection": [CATEGORIAS[c] for c in e["categorias"]],
           "keywords": ", ".join(e["temas"]), "contentLocation": e["lugares"],
-          "author": {"@type": "Organization", "name": NOMBRE_SITIO},
-          "publisher": {"@type": "Organization", "name": NOMBRE_SITIO},
+          "author": editor_ld(), "publisher": editor_ld(),
+          "isPartOf": {"@type": "WebSite", "name": NOMBRE_SITIO},
           "isAccessibleForFree": True}
     if e["fuentes"]:
         ld["citation"] = [f["url"] for f in e["fuentes"]]
+    if e["grabado"] and SITIO_URL:
+        ld["image"] = [f"{SITIO_URL}/imagenes/{e['grabado']['archivo']}"]
     cats = " · ".join(CATEGORIAS[c] for c in e["categorias"]) or "Otra lectura"
     rotulo = f"Edición {e['edicion']} · {fecha_legible(e['fecha'])}"
     return pagina(base, html.escape(f"{e['titulo']} · Otra lectura"), descripcion, "../",
@@ -1061,8 +1125,9 @@ leer despacio y conversar en casa. <a href="sobre.html">¿Qué es esto?</a></p>
             cuerpo += '\n<p class="dias-anteriores"><a href="archivo.html">Días anteriores →</a></p>'
     else:
         cuerpo = '<p class="bajada">Todavía no hay ediciones.</p>'
-    ld = {"@type": "WebSite", "name": NOMBRE_SITIO, "description": DESCRIPCION_SITIO,
-          "inLanguage": "es-CO"}
+    ld = {"@type": "WebSite", "name": NOMBRE_SITIO, "alternateName": "Otra Lectura",
+          "description": DESCRIPCION_SITIO, "slogan": FRASE_SITIO,
+          "inLanguage": "es-CO", "publisher": editor_ld()}
     return pagina(base, "Otra lectura", DESCRIPCION_SITIO, "", f"{epigrafe}\n{cuerpo}",
                   "/", "website", ld, seccion="inicio")
 
@@ -1356,9 +1421,21 @@ def main():
     shutil.copy(PLANTILLA / "estilo.css", SITE / "estilo.css")
     shutil.copytree(PLANTILLA / "fuentes", SITE / "fuentes")
     shutil.copy(PLANTILLA / "og.png", SITE / "og.png")
+    for icono in (PLANTILLA / "iconos").iterdir():
+        shutil.copy(icono, SITE / icono.name)
+    (SITE / "site.webmanifest").write_text(json.dumps({
+        "name": NOMBRE_SITIO, "short_name": NOMBRE_SITIO, "description": FRASE_SITIO,
+        "lang": "es-CO", "start_url": "/", "display": "browser",
+        "background_color": "#d8d1c7", "theme_color": "#1c1b19",
+        "icons": [{"src": "/icono-192.png", "sizes": "192x192", "type": "image/png"},
+                  {"src": "/icono-512.png", "sizes": "512x512", "type": "image/png"}]},
+        ensure_ascii=False, indent=1), encoding="utf-8")
     if IMAGENES.is_dir():
         shutil.copytree(IMAGENES, SITE / "imagenes")
     robots = "User-agent: *\n" + ("Allow: /\n" if INDEXAR else "Disallow: /\n")
+    if INDEXAR:
+        # Buscadores y asistentes de IA: bienvenidos a leer y citar (con enlace).
+        robots += "".join(f"\nUser-agent: {bot}\nAllow: /\n" for bot in BOTS_IA)
     if INDEXAR and SITIO_URL:
         robots += f"Sitemap: {SITIO_URL}/sitemap.xml\n"
     (SITE / "robots.txt").write_text(robots, encoding="utf-8")
@@ -1406,6 +1483,10 @@ def main():
             '<?xml version="1.0" encoding="UTF-8"?>\n'
             f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{filas}</urlset>\n',
             encoding="utf-8")
+
+    if SITIO_URL:
+        (SITE / "feed.xml").write_text(rss(ediciones), encoding="utf-8")
+        (SITE / "llms.txt").write_text(llms_txt(ediciones, hilos), encoding="utf-8")
 
     if AYUDA.exists():
         (SITE / "ayuda.html").write_text(pagina_texto(
