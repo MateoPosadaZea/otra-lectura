@@ -1,6 +1,6 @@
 ---
 fecha: 2026-10-03
-edicion: 11
+edicion: 16
 titulo: "Imaginemos: una regla del gas que dure más que un gobierno"
 temas: [imaginemos-gas-natural]
 categorias: [economia, ambiente]
@@ -241,6 +241,20 @@ borradores sobre gas abiertos a comentarios y dejar el suyo.
 - Congelar tarifas por decreto: alivia hoy y quita a los productores la
   razón para invertir mañana.
 
+## Para leer más
+
+**El gobierno de los bienes comunes**, de Elinor Ostrom (1990; en
+español, Fondo de Cultura Económica, 2000). La primera mujer en ganar el
+Nobel de Economía estudió pueblos que llevan siglos compartiendo agua,
+bosques y pesca sin agotarlos. Su hallazgo ayuda a pensar este tema: las
+reglas que duran son las que la gente ayuda a diseñar y puede vigilar,
+no las que cambian con cada gobierno.
+
+**The Quest** (*La búsqueda*), de Daniel Yergin (2011). Un recorrido por
+cómo los países han buscado asegurar su energía: petróleo, gas, carbón y
+renovables, con sus aciertos y sus crisis. Es largo, pero se lee como
+una historia. No confirmamos que tenga edición en español.
+
 ## Glosario
 
 - **Ronda de exploración:** convocatoria en la que el Estado ofrece áreas
@@ -288,3 +302,11 @@ Quedó sin verificar o con límites:
 - Cómo se financia hoy el subsidio de estratos 1 y 2 *(Conocimiento general.)*.
 
 La litografía es de Gerardus Johannes Bos (1859) y muestra la fábrica de gas de Leiden, en los Países Bajos; es de otra época y la usamos para evocar el tema.
+
+Este borrador se escribió el 29 de septiembre y se publicó el 3 de
+octubre. Antes de publicarlo revisamos que las cifras siguieran
+vigentes: el alza de 79 % en el precio del gas importado para los
+contratos de septiembre a noviembre sigue siendo el dato más reciente.
+Los libros de «Para leer más» los elegimos por el tema; ninguno está en
+Santo & Seña, y sus datos (año y editorial) salen de resultados de
+búsqueda.
