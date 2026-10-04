@@ -952,7 +952,7 @@ html:not(.js) .barra-fija { display: none; }
 }
 .archivo-dias { list-style: none; margin: 0; padding: 0; }
 .archivo-dias li { padding: 1rem 0; border-bottom: 1px solid var(--filete); }
-.archivo-dias > li > a { font-family: var(--serif); font-size: 1.35em; text-decoration: none; }
+.archivo-dias > li > a { font-family: var(--serif); font-size: 1.35em; line-height: 1.15; text-decoration: none; }
 .archivo-dias > li > a:hover { color: var(--rojo); }
 .archivo-temas { margin: 0.3rem 0 0; color: var(--tenue); font-size: 0.88em; }
 
@@ -1067,8 +1067,8 @@ html:not(.js) .barra-fija { display: none; }
 }
 .temas-seguidos ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--tinta); }
 .temas-seguidos li { padding: 0.8rem 0; border-bottom: 1px solid var(--filete); text-align: center; }
-.temas-seguidos a { font-family: var(--serif); font-size: 1.3em; text-decoration: none; }
-.temas-seguidos span { display: block; color: var(--tenue); font-size: 0.8em; }
+.temas-seguidos a { display: inline-block; font-family: var(--serif); font-size: 1.3em; line-height: 1.15; text-decoration: none; }
+.temas-seguidos span { display: block; margin-top: 0.3rem; color: var(--tenue); font-size: 0.8em; }
 
 /* --- Cierre plegado (fuentes, nota metodológica) --- */
 
