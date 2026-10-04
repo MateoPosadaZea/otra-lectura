@@ -16,6 +16,7 @@ decisiones:
     que: "Fijar el límite entre Barranquilla y Puerto Colombia a partir del estudio del IGAC."
     estado: pendiente
     nota: "La prensa calcula de seis a nueve meses."
+    revisada: 2026-10-04
 grabado:
   - archivo: "2026-09-29-villa-campestre.webp"
     pie: "Plano de la ciudad de Barranquilla, levantado en 1897"
