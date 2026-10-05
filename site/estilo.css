@@ -1434,3 +1434,28 @@ p, li, dd, blockquote { text-wrap: pretty; }
 @media (min-width: 760px) {
   .reticula-2 .reticula-columna .aviso-cambios { justify-self: start; }
 }
+
+/* --- Portada compacta (desde el 5 de octubre de 2026): la cita como lema
+   bajo el nombre, siempre visible; la primera plana del día, a la vista. --- */
+.portada.portada-compacta {
+  display: block;
+  min-height: 0;
+  margin: 0 0 1.6rem;
+  padding: 1.8rem 0 1.4rem;
+  border-bottom: 1px solid var(--filete);
+}
+.portada-compacta .epigrafe blockquote p {
+  max-width: 34em;
+  font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.3rem);
+  line-height: 1.35;
+  font-style: italic;
+}
+.portada-compacta .epigrafe figcaption { margin-top: 0.4rem; font-size: 0.9em; }
+.portada-compacta .portada-intro { margin-top: 0.8rem; font-size: 0.85rem; line-height: 1.5; }
+.portada-compacta + .hoy .dia-fecha { margin-top: 0; }
+/* El grabado que abre la retícula, contenido para que el titular quede a la vista. */
+.reticula-principal .reticula-imagen { max-width: 34rem; margin-inline: auto; }
+@media (min-width: 760px) {
+  .reticula-2 .reticula-principal .reticula-imagen,
+  .reticula-3 .reticula-principal .reticula-imagen { max-width: 34rem; }
+}

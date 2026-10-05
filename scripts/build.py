@@ -1141,17 +1141,15 @@ def html_ediciones_dia(ediciones, raiz):
 
 def pagina_portada(base, dias):
     """Portada: solo las ediciones del día más reciente y el camino a los anteriores."""
-    epigrafe = f"""<header class="cabecera portada">
+    # Cabecera compacta, como el lema bajo el nombre de un periódico: la cita
+    # queda siempre visible, pero la primera plana del día sube a la vista.
+    epigrafe = f"""<header class="cabecera portada portada-compacta">
 <h1 class="solo-lectores">Otra lectura</h1>
 <figure class="epigrafe">
 <blockquote><p>«{html.escape(EPIGRAFE['cita'])}»</p></blockquote>
 <figcaption>{html.escape(EPIGRAFE['autor'])} <cite>{html.escape(EPIGRAFE['obra'])}</cite>, {EPIGRAFE['anio']}</figcaption>
 </figure>
-<p class="portada-intro">Cada día, los temas que de verdad mueven la aguja (uno,
-dos o tres, según el día), contados con calma: qué pasó, por qué importa,
-quién lo está resolviendo y qué dice la historia. Para leer despacio y
-conversar en casa. <a href="sobre.html">¿Qué es esto?</a></p>
-{'<p class="portada-guia"><a href="#hoy">Leer la edición de hoy <span aria-hidden="true">↓</span></a></p>' if dias else ""}
+<p class="portada-intro">Uno, dos o tres temas al día, los que de verdad mueven la aguja, contados con calma. <a href="sobre.html">¿Qué es esto?</a></p>
 </header>"""
     if dias:
         fecha, del_dia = dias[0]
