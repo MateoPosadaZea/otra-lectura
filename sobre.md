@@ -63,6 +63,9 @@ Después, en el mismo orden:
 
 ## En qué se puede confiar
 
+- Las ediciones se investigan y redactan con ayuda de inteligencia
+  artificial (Claude, de Anthropic). Los editores fijan las reglas,
+  revisan y corrigen; las reglas están a la vista en esta página.
 - Toda cifra tiene su fuente al final de la edición.
 - Lo que no se pudo confirmar va marcado: **No verificado**, **Fuente
   única** o **Conocimiento general**. Léalo con cautela.
