@@ -11,7 +11,7 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
 ## Reglas vigentes
 
 - 2026-09-24 · Pedido de Mateo ("no queremos causar desgaste a nuestros
-  lectores"): ediciones cortas (ver la regla del 2026-09-28, que la
+  lectores"): ediciones cortas (ver las reglas del 2026-09-28 y del 2026-10-05, que las
   reemplaza en largo y número de temas); cerrar con "Para
   conversar" (una pregunta y, si aplica, qué puede hacer un ciudadano).
   El objetivo es entender y conversar, no acumular información.
@@ -198,3 +198,12 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   Redemption. Solo dominio público o licencia libre (Wikimedia Commons);
   nunca se presenta como imagen del hecho actual. Ver RUTINA.md, «Grabado
   de época». Primera: edición 13 (Ibarra, 1868, de Édouard Riou).
+- 2026-10-05 · Pedido de Mateo ("si es un tema, un tema; si realmente con
+  este criterio son dos, dos; si son tres, tres"): el día puede tener de
+  uno a tres temas, cada uno en su edición, solo si cada uno mueve la
+  aguja (17 puntos o más); nunca se rellena. Puede entrar un tema de
+  contexto que no es nudo pero toca a Colombia por canales concretos
+  (ejemplo: las elecciones de Brasil). La portada los muestra en retícula
+  de periódico: el principal arriba, los demás en columnas. Ver RUTINA.md,
+  sección 2b, y prompt.md, «Temas de contexto». Primera: 5 de octubre
+  (agua y El Niño; Brasil).

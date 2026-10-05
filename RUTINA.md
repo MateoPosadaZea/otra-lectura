@@ -111,8 +111,31 @@ criterios:
 
 **Gravedad y cercanía valen doble** (pedido de Mateo, 2026-09-25):
 total = alcance + 2 × gravedad + duración + 2 × cercanía + decisión.
-Se elige **el de mayor puntaje** (máximo 21): la edición trata un solo
-tema. Reglas:
+Se elige **el de mayor puntaje** (máximo 21). Cada edición trata un solo
+tema.
+
+**Uno, dos o tres temas por día (desde el 2026-10-05, pedido de Mateo).**
+El día no tiene que ser de un solo tema. Después del principal, entra un
+segundo y un tercero solo si también mueven la aguja: **17 puntos o más**
+y que no sea el mismo asunto que otro del día ni uno tratado en los
+últimos siete días (salvo novedad de fondo). Si solo uno llega, se
+publica uno y ya: no se rellena. Reglas:
+- Además de los nudos, puede entrar **un tema de contexto** al día
+  (prompt.md, «Temas de contexto»): un hecho que no es nudo pero toca a
+  Colombia por canales concretos (por ejemplo, las elecciones de Brasil
+  y lo que se juega en comercio, Amazonía, agua, Venezuela y frontera).
+  Se puntúa igual; las cuatro condiciones de nudo no aplican.
+- Cada tema va en su propia edición, con su número, su grabado y su
+  «Para leer más». El principal es `ediciones/<fecha>-radar.md` y lleva
+  el número más bajo del día (abre la retícula de la portada); los demás
+  van en `ediciones/<fecha>-<tema-corto>.md`, con los números siguientes.
+- Cada edición respeta el techo de palabras. Con dos o tres temas, los
+  secundarios van más cortos (unas 900 palabras de lectura), para que el
+  día completo se pueda leer sin cansancio.
+- La tabla de puntaje de la nota metodológica va en la edición principal
+  y cubre todos los elegidos y los descartados.
+
+Reglas de selección:
 - A igualdad de puntaje, preferir el **tema colombiano** (si no hay
   novedad, un seguimiento de fondo de uno ya tratado).
 - El tema puede ser **estructural y de largo plazo** (pensiones, salud,
@@ -419,9 +442,9 @@ referente visual es el de los periódicos de Red Dead Redemption).
    mensaje (archivo, campo y motivo), corregir el frontmatter y repetir;
    no publicar nunca con el build fallando. Revisar que el HTML tenga los
    carriles, los nudos y las fuentes numeradas.
-2. Commit solo de `ediciones/`, `site/` y, si cambiaron, `candidatas.md`
-   y `AJUSTES.md`, con el mensaje
-   `Edición N · <fecha>`.
+2. Commit solo de `ediciones/`, `imagenes/`, `site/` y, si cambiaron,
+   `candidatas.md` y `AJUSTES.md`, con el mensaje `Edición N · <fecha>`
+   (o `Ediciones N y M · <fecha>` si el día tiene más de un tema).
 3. `git push origin main`. Si falla por red, reintentar hasta cuatro veces
    con espera creciente (2, 4, 8 y 16 segundos).
 4. Cloudflare publica solo al recibir el push.

@@ -43,6 +43,16 @@ No son nudos: un hecho adverso sin mecanismo, la competencia política por
 el poder, un dato de coyuntura, o una noticia que indigna sin señalar
 dónde intervenir.
 
+**Temas de contexto (desde el 2026-10-05).** Hay hechos que no son nudos
+pero mueven la aguja para Colombia: unas elecciones en un país vecino, una
+guerra comercial, una decisión de otro gobierno sobre la Amazonía. No se
+descartan por no ser nudos: pueden entrar como **tema de contexto** si
+tocan a Colombia por canales concretos y medibles (comercio, agua y clima,
+salud, seguridad, migración, precios) y hay una decisión en curso con
+fecha. Se cuentan canal por canal, con cifras, sin tomar partido: qué
+propone cada quien en lo que nos toca, atribuido, sin predicciones. Las
+cuatro condiciones de nudo no aplican, pero sí el puntaje de impacto.
+
 **Dos pasos distintos.** Primero el filtro (¿es un nudo? las cuatro
 condiciones). Después el orden (¿qué tan importante? el puntaje de
 impacto de RUTINA.md, sección 2b). El puntaje nunca rescata un tema que
@@ -52,7 +62,7 @@ no pasó el filtro.
 
 ## Carril 1: Radar
 
-Un solo nudo por edición (desde el 2026-09-28): el de mayor impacto del día, contado a fondo para que el lector llegue sin cansarse a la paradoja y a la conversación. Estructura:
+Un tema por edición, contado a fondo para que el lector llegue sin cansarse a la paradoja y a la conversación. Desde el 2026-10-05, un día puede tener **de uno a tres temas**, cada uno en su propia edición, según cuántos muevan de verdad la aguja (ver RUTINA.md, sección 2b): si solo uno pesa, se publica uno. Estructura de cada edición:
 
 1. **Qué ocurrió.** Exposición breve de los hechos, con fecha y fuente.
 2. **Quién lo está abordando.** Intervenciones documentadas, en cualquier

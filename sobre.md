@@ -4,12 +4,13 @@ Otra lectura es un sitio para entender temas de actualidad y de gran
 impacto, y formarse, poco a poco, un criterio propio. La idea es apostar por
 una ciudadanía informada y participativa.
 
-No busca contarlo todo ni llegar primero. Cada día se elige un solo tema y se
-detiene en él.
+No busca contarlo todo ni llegar primero. Cada día se eligen los temas que
+de verdad mueven la aguja (casi siempre uno; a veces dos o tres) y se
+detiene en ellos. Si solo uno pesa, se publica uno.
 
 ## Cómo se lee una edición
 
-Cada tema es un **nudo**: un problema que se repite porque
+Casi siempre el tema es un **nudo**: un problema que se repite porque
 algo lo sostiene, y que alguien podría desatar. Para ser considerado como tal debe cumplir
 cuatro condiciones: se repite o persiste, tiene una causa identificable,
 causa un daño comprobable y alguien lo puede resolver.
@@ -26,7 +27,10 @@ Cada nudo se cuenta en el mismo orden:
 - **Qué dice la historia.** Cuándo pasó algo parecido y qué se aprendió.
   La historia ayuda a ver patrones y a no alarmarse de más.
 
-Cada edición trata un solo tema, a fondo. Después vienen **la paradoja
+Cada edición trata un solo tema, a fondo. A veces entra también un **tema
+de contexto**: algo que no es un nudo, como unas elecciones en un país
+vecino, pero que toca a Colombia por canales concretos (el comercio, el
+agua, la salud, la frontera). Después vienen **la paradoja
 del día** y **Para conversar**, una pregunta para hablar en
 casa. También trae un **glosario** de términos, las
 **fuentes** numeradas y una nota sobre cómo se hizo.

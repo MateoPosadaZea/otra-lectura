@@ -1083,23 +1083,60 @@ def por_dia(ediciones):
     return sorted(dias.items(), reverse=True)
 
 
+RE_POCAS = re.compile(r'<strong class="etiqueta">En pocas palabras\.</strong>(.*?)</p>', re.S)
+
+
+def entradilla(e):
+    """El «En pocas palabras» del primer tema: la bajada de la edición en la retícula."""
+    m = RE_POCAS.search(e["cuerpo"])
+    return recortar(" ".join(texto_plano(m.group(1)).split()), 320) if m else ""
+
+
+def miniatura_grabado(e, raiz, principal):
+    """El grabado de la edición, enlazado, para la retícula del día."""
+    g = e["grabado"]
+    if not g:
+        return ""
+    medidas = ""
+    try:
+        from PIL import Image
+        with Image.open(IMAGENES / g["archivo"]) as im:
+            medidas = f' width="{im.width}" height="{im.height}"'
+    except Exception:
+        pass
+    carga = "" if principal else ' loading="lazy"'
+    return (f'<a class="reticula-imagen" href="{raiz}ediciones/{e["slug"]}.html" tabindex="-1" aria-hidden="true">'
+            f'<img src="{raiz}imagenes/{html.escape(g["archivo"])}"{medidas} alt="" decoding="async"{carga}></a>')
+
+
 def html_ediciones_dia(ediciones, raiz):
-    """Las ediciones de un día con sus nudos principales."""
+    """Las ediciones de un día en retícula de periódico: la primera publicada abre
+    a todo el ancho; las demás van en columnas debajo. Si el día tiene un solo
+    tema, se ve solo ese."""
+    orden = sorted(ediciones, key=lambda o: (o["orden"], o["slug"]))
     bloques = []
-    for e in ediciones:
+    for i, e in enumerate(orden):
         href = f"{raiz}ediciones/{e['slug']}.html"
-        temas = "".join(f'<li><a href="{href}#{slug}">{html.escape(t)}</a></li>'
-                        for slug, t in e["indice_nudos"])
-        temas = f'<ul class="dia-temas" aria-label="Temas principales">{temas}</ul>' if temas else ""
+        temas = ""
+        if len(e["indice_nudos"]) > 1:
+            temas = "".join(f'<li><a href="{href}#{slug}">{html.escape(t)}</a></li>'
+                            for slug, t in e["indice_nudos"])
+            temas = f'<ul class="dia-temas" aria-label="Temas principales">{temas}</ul>'
         edicion = " · ".join(([f"Edición {html.escape(e['edicion'])}"] if e["edicion"] else [])
                              + [minutos_lectura(e)])
-        bloques.append(f"""<li>
+        bajada = entradilla(e)
+        bajada = f'<p class="reticula-bajada">{html.escape(bajada)}</p>' if bajada else ""
+        clase = "reticula-principal" if i == 0 else "reticula-columna"
+        bloques.append(f"""<li class="{clase}">
+{miniatura_grabado(e, raiz, i == 0)}
 <p class="fecha">{edicion}</p>
 <a class="dia-titulo" href="{href}">{html.escape(e['titulo'])}</a>
 {aviso_cambios(e, raiz)}
+{bajada}
 {temas}
 </li>""")
-    return '<ol class="indice dia">\n' + "\n".join(bloques) + "\n</ol>"
+    n = min(len(orden), 3)
+    return f'<ol class="indice dia reticula reticula-{n}">\n' + "\n".join(bloques) + "\n</ol>"
 
 
 def pagina_portada(base, dias):
@@ -1110,9 +1147,10 @@ def pagina_portada(base, dias):
 <blockquote><p>«{html.escape(EPIGRAFE['cita'])}»</p></blockquote>
 <figcaption>{html.escape(EPIGRAFE['autor'])} <cite>{html.escape(EPIGRAFE['obra'])}</cite>, {EPIGRAFE['anio']}</figcaption>
 </figure>
-<p class="portada-intro">Cada día, un tema de fondo, contado con calma: qué pasó,
-por qué se repite, quién lo está resolviendo y qué dice la historia. Para
-leer despacio y conversar en casa. <a href="sobre.html">¿Qué es esto?</a></p>
+<p class="portada-intro">Cada día, los temas que de verdad mueven la aguja (uno,
+dos o tres, según el día), contados con calma: qué pasó, por qué importa,
+quién lo está resolviendo y qué dice la historia. Para leer despacio y
+conversar en casa. <a href="sobre.html">¿Qué es esto?</a></p>
 {'<p class="portada-guia"><a href="#hoy">Leer la edición de hoy <span aria-hidden="true">↓</span></a></p>' if dias else ""}
 </header>"""
     if dias:

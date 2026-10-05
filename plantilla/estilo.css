@@ -1374,3 +1374,63 @@ p, li, dd, blockquote { text-wrap: pretty; }
 @media (max-width: 600px) {
   .edicion .lecturas { grid-template-columns: 1fr; gap: 1.2rem; }
 }
+
+/* --- Retícula del día (desde el 5 de octubre de 2026): como la primera
+   plana de un periódico. La edición que abre va a todo el ancho; las demás,
+   en columnas con filete. Con un solo tema, se ve solo ese. --- */
+.reticula { margin-top: 0; }
+.reticula > li { text-align: center; }
+.reticula-imagen { display: block; margin: 0 0 1.2rem; padding: 4px; }
+.reticula-imagen img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--tinta);
+  outline: 1px solid var(--tinta);
+  outline-offset: 3px;
+}
+.reticula-bajada {
+  max-width: 32em;
+  margin: 0 auto 0.4rem;
+  font: 400 1rem/1.6 var(--sans);
+  color: var(--tenue);
+  text-wrap: pretty;
+}
+.reticula-columna .reticula-bajada { font-size: 0.92rem; }
+.reticula-columna .reticula-imagen img { aspect-ratio: 3 / 2; object-fit: cover; }
+
+@media (min-width: 760px) {
+  /* Con dos o más temas, la retícula se abre más allá de la columna de lectura. */
+  .reticula-2, .reticula-3 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 2.4rem;
+    width: min(60rem, calc(100vw - 2.5rem));
+    margin-inline: calc(50% - min(30rem, 50vw - 1.25rem));
+  }
+  .reticula-2 .reticula-principal, .reticula-3 .reticula-principal { grid-column: 1 / -1; }
+  .reticula-2 .reticula-principal .reticula-imagen,
+  .reticula-3 .reticula-principal .reticula-imagen { max-width: 40rem; margin-inline: auto; }
+  /* Una sola columna debajo: ocupa todo el ancho, con la imagen al lado. */
+  .reticula-2 .reticula-columna {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    column-gap: 2rem;
+    align-items: start;
+    text-align: left;
+  }
+  .reticula-2 .reticula-columna .reticula-imagen { grid-row: 1 / span 5; margin: 0; }
+  .reticula-2 .reticula-columna > :not(.reticula-imagen) { grid-column: 2; }
+  .reticula-2 .reticula-columna .reticula-bajada { margin-left: 0; }
+  /* Dos columnas debajo: filete vertical entre ellas, como en el papel. */
+  .reticula-3 .reticula-columna + .reticula-columna {
+    border-left: 1px solid var(--tinta);
+    margin-left: -1.2rem;
+    padding-left: 1.2rem;
+  }
+  .reticula-columna > a.dia-titulo { font-size: 1.7em; }
+}
+@media (min-width: 760px) {
+  .reticula-2 .reticula-columna .aviso-cambios { justify-self: start; }
+}
