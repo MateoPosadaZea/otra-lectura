@@ -33,9 +33,10 @@ Todos los días, antes de las 6 de la mañana (hora de Colombia).
 
 ## Qué hay en cada edición
 
-- **Un solo tema**: un problema que se repite, con quién lo está
-  resolviendo y con qué resultados. Las críticas van en un recuadro,
-  **Contrapeso**.
+- **Un tema a fondo**: casi siempre un problema que se repite, con quién
+  lo está resolviendo y con qué resultados. Las críticas van en un
+  recuadro, **Contrapeso**. Algunos días hay dos o tres temas, cada uno en
+  su edición; la portada los muestra juntos, como una primera plana.
 - **Dos lecturas**: cuando el tema divide opiniones, las dos posturas
   principales, cada una en su mejor versión, para que usted decida.
 - **Quién decide y cuándo**: quién tiene la decisión, en qué plazo y
@@ -43,8 +44,10 @@ Todos los días, antes de las 6 de la mañana (hora de Colombia).
   decisión; la página **Decisiones**, al pie del sitio, las reúne todas.
 - **La paradoja del día** y **Para conversar**, para cerrar.
 - Las **fuentes**, en un recuadro plegado al final.
-- El sello rojo **Conocimiento general** marca lo que no se pudo
-  confirmar con una fuente. Léalo con cautela.
+- Los sellos **No verificado**, **Fuente única** y **Conocimiento
+  general** marcan lo que no se pudo confirmar del todo. Léalo con
+  cautela.
+- **Para leer más**, al final, recomienda uno a tres libros sobre el tema.
 - **Revisada el…**, junto al título, avisa que la edición tuvo
   correcciones o actualizaciones después de publicarse.
 - En los **gráficos**, al pasar el mouse o tocar, se ve el valor exacto.

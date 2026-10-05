@@ -193,7 +193,7 @@ header.sitio { border-bottom: 1px solid var(--tinta); }
 .menu li a { display: block; padding: 0.85rem 1.1rem; text-align: center; }
 .menu li a:hover { background: var(--tinta); color: var(--papel); }
 
-@media (max-width: 1080px) {
+@media (max-width: 1360px) {
   .principal { display: none; }
   .menu { display: block; }
   .barra { justify-content: flex-start; }
