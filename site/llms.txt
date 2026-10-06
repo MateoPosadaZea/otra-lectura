@@ -13,6 +13,8 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 
 ## Ediciones
 
+- [Drones con explosivos: cada año más ataques, cuatro cuentas distintas y una ley que no avanza](https://otralectura.co/ediciones/2026-10-06-drones.html): 6 de octubre de 2026.
+- [Prestarles a las EPS para que paguen: el salvavidas que vuelve cada pocos años](https://otralectura.co/ediciones/2026-10-06-radar.html): 6 de octubre de 2026.
 - [Brasil vuelve a votar el 25: lo que se juega Colombia](https://otralectura.co/ediciones/2026-10-05-brasil.html): 5 de octubre de 2026.
 - [El Niño avisó en junio y el agua se raciona igual](https://otralectura.co/ediciones/2026-10-05-radar.html): 5 de octubre de 2026.
 - [La semana en limpio · 28 de septiembre al 3 de octubre](https://otralectura.co/ediciones/2026-10-04-radar.html): 4 de octubre de 2026.
@@ -45,3 +47,4 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 - [Air-e: dos años de intervención, seis interventores y una deuda que el país vuelve a pagar](https://otralectura.co/temas/air-e-deuda-caribe.html)
 - [Uno de cada dos trabajadores sin pensión: el desempleo sube y la informalidad casi no se mueve](https://otralectura.co/temas/informalidad-empleo.html)
 - [Reconstruir rápido o reconstruir a la vista: el Fondo Milagro pide 2,7 billones](https://otralectura.co/temas/reconstruccion-fondo-milagro.html)
+- [El Niño avisó en junio y el agua se raciona igual](https://otralectura.co/temas/agua-racionamiento-el-nino.html)
