@@ -207,3 +207,10 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   de periódico: el principal arriba, los demás en columnas. Ver RUTINA.md,
   sección 2b, y prompt.md, «Temas de contexto». Primera: 5 de octubre
   (agua y El Niño; Brasil).
+- 2026-10-07 · Pedido de Mateo (sobre la edición de desaparecidos: "es de
+  esas noticias que son más desesperanzadoras"): en los temas duros, el
+  título no se queda solo en la brecha o el daño, y «En pocas palabras»
+  dice también lo que sí funciona o la salida posible, con su fuente.
+  Sin maquillar el problema ni prometer lo que no está probado. Cuando
+  hay una decisión pendiente, se le hace seguimiento y se cuenta el
+  resultado, también si es bueno. Rige desde la edición 24.
