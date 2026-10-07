@@ -125,6 +125,18 @@ publica uno y ya: no se rellena. Reglas:
   Colombia por canales concretos (por ejemplo, las elecciones de Brasil
   y lo que se juega en comercio, Amazonía, agua, Venezuela y frontera).
   Se puntúa igual; las cuatro condiciones de nudo no aplican.
+- **Temas del mundo (desde el 2026-10-07, pedido de Mateo: "no veo mucho
+  noticias del mundo… que muevan la aguja… si hay algo importante, si no
+  no").** El barrido incluye siempre el mundo, no solo como fuente de
+  casos. Un hecho de otro país entra (como nudo o como tema de contexto)
+  con los mismos filtros y el mismo umbral de 17 puntos. Para que la
+  geografía no lo deje fuera por defecto, la **cercanía** de un tema del
+  mundo se puntúa por el canal real por el que llega a Colombia, no por
+  la distancia: 3 si cambia ya precios, clima, salud, migración,
+  seguridad o tecnología que se usan aquí; 2 si los cambiará en meses;
+  1 si no hay canal claro. Siempre se dice ese canal en «En pocas
+  palabras» (qué tiene que ver con nosotros). Como máximo uno al día;
+  si ninguno llega a 17, no entra. Nunca se rellena.
 - Cada tema va en su propia edición, con su número, su grabado y su
   «Para leer más». El principal es `ediciones/<fecha>-radar.md` y lleva
   el número más bajo del día (abre la retícula de la portada); los demás

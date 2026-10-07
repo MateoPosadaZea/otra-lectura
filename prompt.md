@@ -53,6 +53,15 @@ fecha. Se cuentan canal por canal, con cifras, sin tomar partido: qué
 propone cada quien en lo que nos toca, atribuido, sin predicciones. Las
 cuatro condiciones de nudo no aplican, pero sí el puntaje de impacto.
 
+**Temas del mundo (desde el 2026-10-07).** Un hecho de otro país puede
+ser el tema del día si mueve la aguja: una guerra, una pandemia, una
+decisión sobre el clima, el comercio o la inteligencia artificial que
+cambia la vida de cientos de millones. Pasa por los mismos filtros (nudo
+o tema de contexto) y el mismo puntaje; la cercanía se mide por el canal
+por el que llega a Colombia (RUTINA.md, sección 2b), y ese canal se
+explica en «En pocas palabras». Si no hay nada del mundo que llegue al
+umbral, no entra.
+
 **Dos pasos distintos.** Primero el filtro (¿es un nudo? las cuatro
 condiciones). Después el orden (¿qué tan importante? el puntaje de
 impacto de RUTINA.md, sección 2b). El puntaje nunca rescata un tema que

@@ -214,3 +214,12 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   Sin maquillar el problema ni prometer lo que no está probado. Cuando
   hay una decisión pendiente, se le hace seguimiento y se cuenta el
   resultado, también si es bueno. Rige desde la edición 24.
+- 2026-10-07 · Pedido de Mateo ("no veo mucho noticias del mundo… con los
+  mismos filtros y explicaciones… que muevan la aguja… si hay algo
+  importante, si no no"): el barrido incluye siempre el mundo. Un tema de
+  otro país entra con los mismos filtros y el umbral de 17 puntos; su
+  cercanía se puntúa por el canal real por el que llega a Colombia
+  (precios, clima, salud, migración, seguridad, tecnología), no por la
+  distancia, y ese canal se explica en «En pocas palabras». Máximo uno al
+  día; si ninguno llega, no entra. Ver RUTINA.md, sección 2b, y prompt.md,
+  «Temas del mundo».

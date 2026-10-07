@@ -20,6 +20,10 @@ elecciones en un país vecino, pero que toca a Colombia por canales
 concretos (el comercio, el agua, la salud, la frontera). Se cuenta canal
 por canal y sin tomar partido.
 
+Lo que pasa en el mundo entra con las mismas reglas: si una guerra, una
+pandemia o una decisión de otro país mueve la aguja, se cuenta, y se
+explica por dónde nos toca. Si no hay nada de ese tamaño, no se rellena.
+
 Entre los temas posibles se elige por impacto: a cuántas personas toca,
 qué tan grave es, cuánto dura, qué tan cerca está de Colombia y si hay
 algo por decidirse ahora. La tabla con ese puntaje va en la nota
