@@ -237,7 +237,10 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   3. Humor donde cabe: ironía sobre instituciones y sobre nosotros
      mismos, y analogías cotidianas, en temas que no duelen. Nunca contra
      víctimas, nunca en violencia, muertes, desaparecidos, salud mental
-     ni «De lo que nadie habla». El humor no reemplaza datos.
+     ni «De lo que nadie habla». El humor no reemplaza datos. Mateo
+     (2026-10-08): «que se siga viendo elegante, con los términos»:
+     vocabulario preciso, sin muletillas ni frases dirigidas al lector;
+     una ironía bien puesta, no un chiste por párrafo.
   Prueba: la edición 25 (diésel) se reescribió con las tres reglas.
   Ver prompt.md, «Soluciones primero», «Cómo se conecta» y «Registro y
   estilo».

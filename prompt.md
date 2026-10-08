@@ -181,7 +181,10 @@ ediciones. Nunca se marca un seguimiento sin decir el porqué.
   incumplidas) se permite un tono con algo de humor: ironía sobre las
   instituciones y sobre nosotros mismos, analogías cotidianas, una frase
   que haga sonreír. El humor nunca apunta a víctimas ni a personas
-  vulnerables, nunca reemplaza un dato y no exagera cifras. Nunca hay
+  vulnerables, nunca reemplaza un dato y no exagera cifras. El tono
+  sigue siendo elegante: vocabulario preciso, términos correctos, sin
+  muletillas ni regaños al lector; una ironía bien puesta, no un chiste
+  por párrafo. Nunca hay
   humor en violencia, muertes, desaparecidos, salud mental, «De lo que
   nadie habla» ni temas parecidos.
 - Cifras con unidad, periodo de referencia y fuente.
