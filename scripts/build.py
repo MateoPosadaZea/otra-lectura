@@ -1448,6 +1448,12 @@ def main():
             print(f"  aviso: ediciones/{e['archivo']} tiene ~{e['palabras']} palabras de lectura "
                   f"(techo: {LARGO_MAXIMO}).", file=sys.stderr)
 
+    # Aviso: desde el 2026-10-09, toda edición con seguimiento explica por qué se conecta.
+    for e in ediciones:
+        if e["seguimiento"] and e["fecha"] >= "2026-10-09" and "Cómo se conecta" not in e["cuerpo"]:
+            print(f"  aviso: ediciones/{e['archivo']} tiene seguimiento pero no explica "
+                  f"«Cómo se conecta».", file=sys.stderr)
+
     # Cronológico inverso; a igual fecha, la edición de número mayor primero.
     ediciones.sort(key=lambda e: (e["fecha"], e["orden"], e["slug"]), reverse=True)
     CATEGORIAS_ACTIVAS[:] = [c for c in CATEGORIAS if any(c in e["categorias"] for e in ediciones)]

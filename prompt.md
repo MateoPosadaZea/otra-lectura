@@ -145,6 +145,21 @@ priorización y qué se marcó como no verificado.
 variación semanal supera el 3%, cuando se atraviesa un umbral relevante,
 o cuando existe una causa identificable de la tendencia.
 
+**Soluciones primero (desde el 2026-10-08, pedido de Mateo).** Lo que
+debe quedar en el lector es cómo se ha resuelto el problema: en la
+historia de Colombia («ya nos pasó y lo resolvimos así») y en otros
+países («allá lo están resolviendo así»). El problema se cuenta corto;
+la salida lleva más espacio que el diagnóstico, con al menos un caso de
+otro país y, si existe, uno colombiano. «En pocas palabras» cierra con
+la salida, y «Para conversar» agrega «Qué podríamos hacer». Si de verdad
+no hay salida conocida, se dice (ver «sin salida conocida»).
+
+**Cómo se conecta (desde el 2026-10-08).** Toda edición con `seguimiento`,
+o que comparte día con otra de tema vecino, lleva después de «En pocas
+palabras» un párrafo corto en negrita **Cómo se conecta.** que explica en
+una o dos frases por qué este tema toca a los otros, con enlace a esas
+ediciones. Nunca se marca un seguimiento sin decir el porqué.
+
 ---
 
 ## Registro y estilo
@@ -161,6 +176,14 @@ o cuando existe una causa identificable de la tendencia.
 - Lenguaje calibrado ante la incertidumbre: "es consistente con",
   "sugiere", "no permite descartar".
 - Sin adjetivos valorativos ni coloquialismos.
+- **Humor, solo donde cabe (desde el 2026-10-08).** En temas que no
+  duelen (presupuesto, trámites, subsidios, servicios, promesas
+  incumplidas) se permite un tono con algo de humor: ironía sobre las
+  instituciones y sobre nosotros mismos, analogías cotidianas, una frase
+  que haga sonreír. El humor nunca apunta a víctimas ni a personas
+  vulnerables, nunca reemplaza un dato y no exagera cifras. Nunca hay
+  humor en violencia, muertes, desaparecidos, salud mental, «De lo que
+  nadie habla» ni temas parecidos.
 - Cifras con unidad, periodo de referencia y fuente.
 - Excepción: el cierre y el glosario mantienen registro directo. El
   cierre devuelve una decisión o una pregunta abierta, nunca un llamado

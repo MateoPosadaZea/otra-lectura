@@ -223,3 +223,21 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   distancia, y ese canal se explica en «En pocas palabras». Máximo uno al
   día; si ninguno llega, no entra. Ver RUTINA.md, sección 2b, y prompt.md,
   «Temas del mundo».
+- 2026-10-08 · Pedido de Mateo ("lo más importante es cómo se ha resuelto
+  esto en otras partes del mundo"; "¿por qué se conecta esto con esto?";
+  "en algunos temas, un poco más de humor"). Tres reglas, desde la
+  edición siguiente:
+  1. Soluciones primero: el problema va corto y la salida lleva más
+     espacio, con lo que ya funcionó en la historia de Colombia y en
+     otros países. «En pocas palabras» cierra con la salida y «Para
+     conversar» agrega «Qué podríamos hacer».
+  2. «Cómo se conecta»: toda edición con seguimiento, o con un tema
+     vecino el mismo día, explica en una o dos frases por qué se conecta,
+     con enlace. El build avisa si falta.
+  3. Humor donde cabe: ironía sobre instituciones y sobre nosotros
+     mismos, y analogías cotidianas, en temas que no duelen. Nunca contra
+     víctimas, nunca en violencia, muertes, desaparecidos, salud mental
+     ni «De lo que nadie habla». El humor no reemplaza datos.
+  Prueba: la edición 25 (diésel) se reescribió con las tres reglas.
+  Ver prompt.md, «Soluciones primero», «Cómo se conecta» y «Registro y
+  estilo».
