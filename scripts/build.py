@@ -949,7 +949,9 @@ def pagina(base, titulo, descripcion, raiz, contenido, ruta, tipo="website", ld=
     nota_titulo = html.escape(re.sub(r"\s*·\s*Otra lectura$", "", html.unescape(titulo)))
     abierto = COMENTARIOS_ABIERTOS and bool(TURNSTILE_SITEKEY)
     config = json.dumps({"abierto": abierto, "sitekey": TURNSTILE_SITEKEY if abierto else ""})
-    return base.substitute(titulo=titulo, raiz=raiz, contenido=contenido, menu=html_menu(raiz, seccion),
+    volver = "" if ruta in ("/", "index.html") else (
+        f'<a class="volver" href="{raiz}index.html"><span aria-hidden="true">←</span> Inicio</a>')
+    return base.substitute(titulo=titulo, raiz=raiz, contenido=contenido, menu=html_menu(raiz, seccion), volver=volver,
                            nota_pagina=ruta, nota_titulo=nota_titulo, config=config,
                            meta=meta_etiquetas(titulo, descripcion, ruta, tipo, ld, *compartir_de(ruta, nota_titulo, compartir, descripcion)))
 

@@ -37,6 +37,7 @@
 <body>
 <a class="saltar" href="#contenido">Ir al contenido</a>
 <div class="barra-fija">
+<a class="volver" href="../index.html"><span aria-hidden="true">←</span> Inicio</a>
 <a class="cabezote" href="../index.html" tabindex="-1" aria-hidden="true">Otra Lectura</a>
 </div>
 <header class="sitio">
@@ -426,6 +427,16 @@ colegio.</p></details>
     el.addEventListener("blur", function () { tip.hidden = true; });
   });
   addEventListener("scroll", function () { tip.hidden = true; }, { passive: true });
+})();
+/* «Volver»: si se llegó desde otra página del sitio, regresa a ella; si no, va a la portada. */
+(function () {
+  var volver = document.querySelector(".barra-fija .volver");
+  if (!volver) return;
+  var previa;
+  try { previa = document.referrer && new URL(document.referrer).origin === location.origin; } catch (e) {}
+  if (!previa || history.length < 2) return;
+  volver.lastChild.textContent = " Volver";
+  volver.addEventListener("click", function (ev) { ev.preventDefault(); history.back(); });
 })();
 /* Al bajar: barra fija con el logotipo pequeño y botón para volver arriba. */
 (function () {
