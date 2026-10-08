@@ -257,4 +257,6 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   3. Página Memoria (memoria.html): reúne sola las promesas que siguen
      esperando y todos los «Ojo con el cuento» de las ediciones, para que
      no se olviden con los días. Enlazada en el pie y en Decisiones.
-  Prueba: ediciones 24 y 25.
+  Prueba: ediciones 24 y 25. Mateo: «lo veo muy al final, puede que ni
+  lleguen»: el sitio muestra «Qué hacer con esto» justo después de «En
+  pocas palabras» (en el markdown se sigue escribiendo al final).

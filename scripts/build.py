@@ -549,7 +549,7 @@ def leer_edicion(ruta):
     lectura = re.split(r'<section class="carril cierre"', cuerpo)[0]
     e["palabras"] = len(texto_plano(lectura).split())
     e["minutos"] = max(1, round(e["palabras"] / 200))
-    e["cuerpo"] = graficos.insertar(marcar_bloques(cuerpo), figuras)
+    e["cuerpo"] = subir_que_hacer(graficos.insertar(marcar_bloques(cuerpo), figuras))
     e["cuerpo"], e["cruces"] = sacar_cruces(e["cuerpo"], dict(e["indice_nudos"]))
     e["glosario"] = extraer_glosario(e["cuerpo"])
 
@@ -1276,6 +1276,19 @@ def pagina_decisiones(base, ediciones):
     return pagina(base, "Decisiones · Otra lectura",
                   "Seguimiento de las decisiones pendientes sobre los temas de Otra lectura.", "",
                   contenido, "/decisiones.html", seccion="decisiones")
+
+
+def subir_que_hacer(cuerpo):
+    """«Qué hacer con esto» se escribe al final, pero se muestra arriba, justo
+    después de «En pocas palabras»: es lo práctico y no todos llegan al final."""
+    m = re.search(r'<section class="carril hacer"[^>]*>.*?</section>\n?', cuerpo, re.S)
+    ancla = re.search(r'<p class="con-etiqueta[^"]*">\s*<strong class="etiqueta">En pocas palabras\.?</strong>.*?</p>\n?',
+                      cuerpo, re.S)
+    if not m or not ancla or ancla.start() > m.start():
+        return cuerpo
+    bloque = m.group(0)
+    sin = cuerpo[:m.start()] + cuerpo[m.end():]
+    return sin[:ancla.end()] + bloque + sin[ancla.end():]
 
 
 RE_CUENTO = re.compile(r'<p class="con-etiqueta[^"]*">\s*<strong class="etiqueta">Ojo con el cuento\.?</strong>\s*(.*?)</p>', re.S)

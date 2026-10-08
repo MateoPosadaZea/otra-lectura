@@ -31,8 +31,9 @@ metodológica de cada edición, para que el criterio se pueda discutir.
 
 ## Cómo se lee una edición
 
-Cada edición abre con un **grabado de época** y **En pocas palabras**.
-Después, en el mismo orden:
+Cada edición abre con un **grabado de época**, **En pocas palabras** y
+**Qué hacer con esto**: qué decisiones conviene ir pensando, cómo
+prepararse y cómo no dejarse meter el cuento. Después, en el mismo orden:
 
 - **Qué pasó.** El hecho, con sus cifras y sus fuentes.
 - **Por qué se repite.** Lo que sostiene el problema.
@@ -45,8 +46,6 @@ Después, en el mismo orden:
   principales, cada una en su mejor versión.
 - **Quién decide y cuándo**: quién tiene la decisión, en qué plazo y por
   dónde puede participar un ciudadano.
-- **Qué hacer con esto**: qué decisiones conviene ir pensando, cómo
-  prepararse y cómo no dejarse meter el cuento.
 - **La paradoja del día** y **Para conversar**, una pregunta para hablar
   en casa.
 - **Para leer más**: uno a tres libros sobre el tema.
