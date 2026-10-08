@@ -45,6 +45,8 @@ Después, en el mismo orden:
   principales, cada una en su mejor versión.
 - **Quién decide y cuándo**: quién tiene la decisión, en qué plazo y por
   dónde puede participar un ciudadano.
+- **Qué hacer con esto**: qué decisiones conviene ir pensando, cómo
+  prepararse y cómo no dejarse meter el cuento.
 - **La paradoja del día** y **Para conversar**, una pregunta para hablar
   en casa.
 - **Para leer más**: uno a tres libros sobre el tema.
@@ -90,6 +92,9 @@ Después, en el mismo orden:
   **temas que seguimos**, cada uno con su historia de principio a fin.
 - **Decisiones** reúne lo que alguien tiene que decidir sobre los temas
   contados: quién, para cuándo y en qué quedó.
+- **Memoria** guarda lo que no se nos puede olvidar: las promesas que
+  siguen esperando, desde cuándo y cuántos plazos llevan incumplidos, y
+  los patrones para reconocer una promesa vacía.
 - Las **secciones** de arriba (Economía, Salud, Ambiente, Sociedad,
   Ciencia) agrupan las ediciones por área.
 

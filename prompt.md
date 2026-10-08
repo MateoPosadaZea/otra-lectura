@@ -160,6 +160,19 @@ palabras» un párrafo corto en negrita **Cómo se conecta.** que explica en
 una o dos frases por qué este tema toca a los otros, con enlace a esas
 ediciones. Nunca se marca un seguimiento sin decir el porqué.
 
+**Qué hacer con esto (desde el 2026-10-08, pedido de Mateo: «qué hacer,
+qué decisiones hay que ir pensando, cómo prepararse, no dejarse meter el
+cuento, memoria»).** Cada edición lleva la sección «Qué hacer con esto»
+(ver RUTINA.md): para ir pensando, cómo prepararse, ojo con el cuento y,
+si cabe, qué podríamos exigir. Es lo práctico de la edición y no se
+rellena: si no hay nada que preparar, se dice.
+
+**Escepticismo con los anuncios (desde el 2026-10-08).** Un anuncio se
+cuenta como anuncio, no como hecho: «el Ministerio dice que estudia…».
+Si ya se había prometido, se dice desde cuándo y cuántos plazos se
+incumplieron, en el texto y en `decisiones` (`prometido_desde`,
+`incumplidos`).
+
 ---
 
 ## Registro y estilo

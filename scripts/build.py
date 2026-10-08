@@ -323,7 +323,8 @@ def validar(meta, ruta):
     datos["grabado"] = grabados[0] if grabados else None
     decisiones = []
     for i, d in enumerate(_lista_mapas(meta.get("decisiones"), "decisiones",
-                                       ["nudo", "quien", "que", "plazo", "estado", "nota", "revisada"]), 1):
+                                       ["nudo", "quien", "que", "plazo", "estado", "nota", "revisada",
+                                        "prometido_desde", "incumplidos"]), 1):
         estado = _texto(d.get("estado"), f"decisiones[{i}].estado", requerido=False) or "pendiente"
         if estado not in ESTADOS_DECISION:
             raise ErrorEdicion(f"decisiones[{i}].estado: «{estado}» no existe "
@@ -336,9 +337,24 @@ def validar(meta, ruta):
             "estado": estado,
             "nota": _texto(d.get("nota"), f"decisiones[{i}].nota", requerido=False),
             "revisada": _fecha(d.get("revisada"), f"decisiones[{i}].revisada") if d.get("revisada") else "",
+            "prometido_desde": (_fecha(d.get("prometido_desde"), f"decisiones[{i}].prometido_desde")
+                                if d.get("prometido_desde") else ""),
+            "incumplidos": _entero_no_negativo(d.get("incumplidos"), f"decisiones[{i}].incumplidos"),
         })
     datos["decisiones"] = decisiones
     return datos
+
+
+def _entero_no_negativo(valor, campo):
+    if valor in (None, ""):
+        return 0
+    try:
+        n = int(str(valor).strip())
+    except ValueError:
+        raise ErrorEdicion(f"{campo}: «{valor}» debe ser un número entero")
+    if n < 0:
+        raise ErrorEdicion(f"{campo}: no puede ser negativo")
+    return n
 
 
 # --- Marcado del cuerpo -------------------------------------------------------
@@ -351,6 +367,8 @@ def clases_heading(nivel, texto):
     if nivel == 2:
         if "para conversar" in t:
             return ["carril", "conversar"]
+        if "qué hacer con esto" in t or "que hacer con esto" in t:
+            return ["carril", "hacer"]
         if "quién decide" in t or "quien decide" in t:
             return ["carril", "decide"]
         if "dos lecturas" in t:
@@ -1216,6 +1234,15 @@ def html_decision(d, raiz="", e=None):
     clase, texto = estado_decision(d)
     plazo = f' · plazo: <time datetime="{d["plazo"]}">{fecha_legible(d["plazo"])}</time>' if d["plazo"] else " · sin fecha fija"
     nota = f'<p class="decision-nota">{convertir_linea(d["nota"])}</p>' if d["nota"] else ""
+    partes = []
+    if d.get("prometido_desde"):
+        f = d["prometido_desde"]
+        partes.append(f'Prometido desde <time datetime="{f}">{MESES[int(f[5:7]) - 1]} de {f[:4]}</time>')
+    if d.get("incumplidos"):
+        n = d["incumplidos"]
+        partes.append(f'{n} plazo{"s" if n != 1 else ""} incumplido{"s" if n != 1 else ""}')
+    historial = f'<p class="decision-historial">{" · ".join(partes)}</p>' if partes else ""
+    nota = historial + nota
     origen = (f'<p class="decision-origen"><a href="{raiz}ediciones/{e["slug"]}.html">'
               f'{html.escape(e["titulo"])}</a> · {fecha_legible(e["fecha"])}</p>') if e else ""
     return (f'<li class="decision decision-{clase}"><p class="decision-estado">'
@@ -1243,11 +1270,47 @@ def pagina_decisiones(base, ediciones):
     contenido = f"""<header class="cabecera">
 <h1>Decisiones</h1>
 <p class="bajada">Lo que alguien tiene que decidir sobre los temas que hemos contado: quién, para cuándo y en qué quedó.</p>
+<p class="bajada"><a href="memoria.html">Memoria: promesas que siguen esperando →</a></p>
 </header>
 {"".join(bloques) or "<p>Todavía no hay decisiones en seguimiento.</p>"}"""
     return pagina(base, "Decisiones · Otra lectura",
                   "Seguimiento de las decisiones pendientes sobre los temas de Otra lectura.", "",
                   contenido, "/decisiones.html", seccion="decisiones")
+
+
+RE_CUENTO = re.compile(r'<p class="con-etiqueta[^"]*">\s*<strong class="etiqueta">Ojo con el cuento\.?</strong>\s*(.*?)</p>', re.S)
+
+
+def pagina_memoria(base, ediciones):
+    """memoria.html: lo que no se nos puede olvidar. Las promesas que siguen
+    esperando y los patrones para no dejarse meter el cuento, de todas las ediciones."""
+    promesas = [(d, e) for e in ediciones for d in e["decisiones"]
+                if estado_decision(d)[0] == "vencida" or d.get("incumplidos")
+                or (d.get("prometido_desde") and d["estado"] in ("pendiente", "aplazada"))]
+    promesas.sort(key=lambda x: (x[0].get("prometido_desde") or x[1]["fecha"], x[1]["fecha"]))
+    items_p = "".join(html_decision(d, "", e) for d, e in promesas)
+    cuentos = []
+    for e in ediciones:
+        for m in RE_CUENTO.finditer(e["cuerpo"]):
+            cuentos.append(f'<li><p>{m.group(1).strip()}</p><p class="decision-origen">'
+                           f'<a href="ediciones/{e["slug"]}.html">{html.escape(e["titulo"])}</a> · '
+                           f'{fecha_legible(e["fecha"])}</p></li>')
+    bloque_p = (f'<section class="decisiones-grupo"><h2>Promesas que siguen esperando</h2>'
+                f'<p class="memoria-nota">Lo que alguien prometió y no ha cumplido, de la más antigua a la más reciente.</p>'
+                f'<ul class="decisiones">{items_p}</ul></section>') if items_p else ""
+    bloque_c = (f'<section class="decisiones-grupo"><h2>Para no dejarse meter el cuento</h2>'
+                f'<p class="memoria-nota">Patrones que se repiten. Cada uno salió de una edición.</p>'
+                f'<ul class="memoria-cuentos">{"".join(cuentos)}</ul></section>') if cuentos else ""
+    contenido = f"""<header class="cabecera">
+<h1>Memoria</h1>
+<p class="bajada">Lo que no se nos puede olvidar: promesas que siguen esperando y patrones para reconocer una promesa vacía. Se actualiza solo, con cada edición.</p>
+</header>
+{bloque_p}{bloque_c or ""}
+{"" if (bloque_p or bloque_c) else "<p>Todavía no hay nada en la memoria.</p>"}
+<p class="decision-mas"><a href="decisiones.html">Ver todas las decisiones →</a></p>"""
+    return pagina(base, "Memoria · Otra lectura",
+                  "Promesas que siguen esperando y patrones para no dejarse meter el cuento.", "",
+                  contenido, "/memoria.html", seccion="memoria")
 
 
 def pagina_archivo(base, dias, hilos=None):
@@ -1501,6 +1564,7 @@ def main():
     (SITE / "index.html").write_text(pagina_portada(base, dias), encoding="utf-8")
     (SITE / "archivo.html").write_text(pagina_archivo(base, dias, hilos), encoding="utf-8")
     (SITE / "decisiones.html").write_text(pagina_decisiones(base, ediciones), encoding="utf-8")
+    (SITE / "memoria.html").write_text(pagina_memoria(base, ediciones), encoding="utf-8")
     (SITE / "dias").mkdir()
     for i, (fecha, del_dia) in enumerate(dias):
         anterior = dias[i + 1][0] if i + 1 < len(dias) else None

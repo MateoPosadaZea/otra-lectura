@@ -25,7 +25,10 @@ con qué contrapeso y qué patrón histórico ayuda a entenderlo.
    `estado` (tomada, aplazada, sin_decision), escribir en `nota` qué pasó
    en una frase, poner `revisada` con la fecha de hoy y agregar una
    entrada en `actualizaciones` de esa edición. Si no hay noticia, solo
-   poner `revisada`. No se cambia el texto de la edición.
+   poner `revisada`. No se cambia el texto de la edición. Memoria (desde
+   el 2026-10-08): si el plazo venció sin decisión, sumar 1 a
+   `incumplidos`; si la promesa venía de antes, poner `prometido_desde`
+   con la fecha del primer anuncio. La página Memoria las muestra solas.
 7. Si existe `borradores/<fecha>-*.md` (un borrador aprobado por los
    editores para hoy), no escribir otra edición: moverlo a `ediciones/`
    con `git mv`, poner en `edicion:` el número del paso 5, revisar que
@@ -297,13 +300,26 @@ Dos a cuatro líneas sobre lo más absurdo de la edición, contado con
 ironía seca y con los hechos tal cual (ver AJUSTES.md, «Tono con humor»).
 Si hoy no hay una paradoja clara, se omite la sección.
 
+## Qué hacer con esto      ← obligatorio desde el 2026-10-08
+
+**Para ir pensando.** Qué decisión de la casa, el bolsillo, el negocio o
+el voto conviene ir pensando por este tema, con plazo si lo hay.
+
+**Cómo prepararse.** Lo concreto que se puede hacer ya. Si no hay nada
+urgente, decirlo y señalar qué hay que vigilar.
+
+**Ojo con el cuento.** Un patrón para no dejarse meter el cuento: cómo
+reconocer una promesa vacía o un anuncio que no es una medida. Dos a
+cuatro líneas, con el ejemplo de esta edición. Se recopila sola en la
+página Memoria.
+
+**Qué podríamos exigir.** Opcional: lo que ya funcionó en Colombia o en
+otro país, dicho como exigencia razonable.
+
 ## Para conversar
 
 **La pregunta.** Una sola pregunta abierta, sin respuesta obvia, para
 discutir en la sobremesa.
-
-**Qué puede hacer usted.** Solo si hay algo concreto, posible y
-cercano (preguntar, participar, votar, revisar). Si no lo hay, se omite.
 
 ## Para leer más       ← uno a tres libros; ver «Para leer más» abajo
 
@@ -332,7 +348,9 @@ cercano (preguntar, participar, votar, revisar). Si no lo hay, se omite.
 - **Seguimiento de decisiones**: cada edición lleva en el frontmatter el
   campo `decisiones` con las decisiones pendientes que cuenta la sección
   «Quién decide y cuándo» (`nudo`, `quien`, `que`, `plazo` si hay fecha,
-  `estado: pendiente`, `nota` opcional). La plantilla las muestra en la
+  `estado: pendiente`, `nota` opcional; `prometido_desde` con la fecha
+  del primer anuncio si la promesa es vieja, e `incumplidos` con el
+  número de plazos que ya pasaron sin cumplirse). La plantilla las muestra en la
   edición y en la página Decisiones. Si no hay una decisión concreta en
   curso, se omite el campo.
 - **Quién decide y cuándo** es obligatorio en cada edición (pedido de

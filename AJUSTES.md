@@ -244,3 +244,17 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   Prueba: la edición 25 (diésel) se reescribió con las tres reglas.
   Ver prompt.md, «Soluciones primero», «Cómo se conecta» y «Registro y
   estilo».
+- 2026-10-08 · Pedido de Mateo ("¿para qué me sirve a mí esto?"; "qué
+  hacer, qué decisiones hay que ir pensando, cómo prepararse, no dejarse
+  meter el cuento, patrones, memoria, que no se nos olvide"). Desde la
+  edición siguiente:
+  1. Sección obligatoria «Qué hacer con esto»: Para ir pensando, Cómo
+     prepararse, Ojo con el cuento y, si cabe, Qué podríamos exigir.
+     Reemplaza el «Qué puede hacer usted» de Para conversar.
+  2. Escepticismo con los anuncios: un anuncio no es un hecho; si la
+     promesa es vieja, se dice desde cuándo y cuántos plazos incumplió
+     (`prometido_desde` e `incumplidos` en `decisiones`).
+  3. Página Memoria (memoria.html): reúne sola las promesas que siguen
+     esperando y todos los «Ojo con el cuento» de las ediciones, para que
+     no se olviden con los días. Enlazada en el pie y en Decisiones.
+  Prueba: ediciones 24 y 25.
