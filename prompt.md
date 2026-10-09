@@ -88,6 +88,20 @@ Un tema por edición, contado a fondo para que el lector llegue sin cansarse a l
    interpretar la situación actual. Patrones, no pronósticos. Señalar de
    forma explícita cuando proceda de conocimiento general y no de una
    fuente verificada en la edición.
+   - **Inflexiones (desde el 2026-10-09, pedido de Mateo).** Cuando
+     conecte de verdad con el tema, el antecedente cuenta una inflexión
+     que enseña algo, no la obvia (la anestesia, el lavado de manos de
+     Semmelweis, el contenedor de carga, la hoja de cálculo): qué
+     cambió, el dato que lo muestra y, en un párrafo **El patrón.**, qué
+     enseña para hoy. Patrones útiles: bajar el costo de intentar
+     cambia la pregunta que la gente se hace; sacar algo de adentro de
+     una persona mata un oficio y abre una capacidad; lo que cambia
+     todo rara vez se reconoce a tiempo, pero cuidado: por cada
+     Semmelweis hubo muchos convencidos que estaban equivocados, y la
+     lección es que cuando la prueba es barata hay que probar, no que
+     al rechazado hay que creerle. Cifras verificadas con fuente; lo
+     que sea estimación o conjetura se marca. Nunca se fuerza: si no
+     hay una inflexión que conecte, no va.
 5. **Cruce con Mattriz.** Únicamente cuando sea efectivo. Si no existe,
    consignarlo. Máximo una o dos candidatas por edición.
 

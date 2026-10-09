@@ -260,3 +260,12 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   Prueba: ediciones 24 y 25. Mateo: «lo veo muy al final, puede que ni
   lleguen»: el sitio muestra «Qué hacer con esto» justo después de «En
   pocas palabras» (en el markdown se sigue escribiendo al final).
+- 2026-10-09 · Pedido de Mateo (datos curiosos que enseñan: la anestesia,
+  Semmelweis, Haber-Bosch, el contenedor, las gafas, la hoja de cálculo;
+  "lo útil es ver qué tenían en común"): cuando el tema lo permita, «Ya
+  pasó antes» cuenta una inflexión con el dato que la muestra y un
+  párrafo **El patrón.** con lo que enseña para hoy. Solo si conecta de
+  verdad; cifras verificadas, conjeturas marcadas. La página Memoria
+  recoge sola esos patrones en «Lo que enseña la historia». Una pieza
+  propia los sábados queda para después, si sobra material. Ver
+  prompt.md, «Inflexiones», y RUTINA.md, plantilla del Radar.

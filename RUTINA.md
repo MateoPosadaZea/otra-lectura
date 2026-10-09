@@ -267,6 +267,10 @@ importa. Quien lea solo esto ya entendió.
 barrio, la recarga del celular) y luego los hechos.
 **Cómo llegamos aquí.** El mecanismo, en pocas viñetas cortas.
 **Ya pasó antes.** El antecedente, si lo hay. *(Conocimiento general.)*
+Cuando el tema lo permita, una inflexión: un momento en que algo cambió
+de verdad (en Colombia o en el mundo), con el dato que lo muestra.
+**El patrón.** Opcional, una o dos frases: qué enseña esa inflexión
+para el problema de hoy. Se recopila sola en la página Memoria.
 **¿Hay salida?** Lo que ha funcionado en otras partes, dicho simple.
 **Pero ojo.** El contrapeso: por qué no es mágico.
 **Cruce con Mattriz.** … (solo si aplica)

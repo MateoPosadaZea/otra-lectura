@@ -1291,6 +1291,7 @@ def subir_que_hacer(cuerpo):
     return sin[:ancla.end()] + bloque + sin[ancla.end():]
 
 
+RE_PATRON = re.compile(r'<p class="con-etiqueta[^"]*">\s*<strong class="etiqueta">El patrón\.?</strong>\s*(.*?)</p>', re.S)
 RE_CUENTO = re.compile(r'<p class="con-etiqueta[^"]*">\s*<strong class="etiqueta">Ojo con el cuento\.?</strong>\s*(.*?)</p>', re.S)
 
 
@@ -1302,24 +1303,27 @@ def pagina_memoria(base, ediciones):
                 or (d.get("prometido_desde") and d["estado"] in ("pendiente", "aplazada"))]
     promesas.sort(key=lambda x: (x[0].get("prometido_desde") or x[1]["fecha"], x[1]["fecha"]))
     items_p = "".join(html_decision(d, "", e) for d, e in promesas)
-    cuentos = []
-    for e in ediciones:
-        for m in RE_CUENTO.finditer(e["cuerpo"]):
-            cuentos.append(f'<li><p>{m.group(1).strip()}</p><p class="decision-origen">'
-                           f'<a href="ediciones/{e["slug"]}.html">{html.escape(e["titulo"])}</a> · '
-                           f'{fecha_legible(e["fecha"])}</p></li>')
+    def recoger(regex):
+        return [f'<li><p>{m.group(1).strip()}</p><p class="decision-origen">'
+                f'<a href="ediciones/{e["slug"]}.html">{html.escape(e["titulo"])}</a> · '
+                f'{fecha_legible(e["fecha"])}</p></li>'
+                for e in ediciones for m in regex.finditer(e["cuerpo"])]
+    cuentos, patrones = recoger(RE_CUENTO), recoger(RE_PATRON)
     bloque_p = (f'<section class="decisiones-grupo"><h2>Promesas que siguen esperando</h2>'
                 f'<p class="memoria-nota">Lo que alguien prometió y no ha cumplido, de la más antigua a la más reciente.</p>'
                 f'<ul class="decisiones">{items_p}</ul></section>') if items_p else ""
     bloque_c = (f'<section class="decisiones-grupo"><h2>Para no dejarse meter el cuento</h2>'
                 f'<p class="memoria-nota">Patrones que se repiten. Cada uno salió de una edición.</p>'
                 f'<ul class="memoria-cuentos">{"".join(cuentos)}</ul></section>') if cuentos else ""
+    bloque_h = (f'<section class="decisiones-grupo"><h2>Lo que enseña la historia</h2>'
+                f'<p class="memoria-nota">Momentos en que algo cambió de verdad, y el patrón que dejan. Cada uno salió de una edición.</p>'
+                f'<ul class="memoria-cuentos">{"".join(patrones)}</ul></section>') if patrones else ""
     contenido = f"""<header class="cabecera">
 <h1>Memoria</h1>
-<p class="bajada">Lo que no se nos puede olvidar: promesas que siguen esperando y patrones para reconocer una promesa vacía. Se actualiza solo, con cada edición.</p>
+<p class="bajada">Lo que no se nos puede olvidar: promesas que siguen esperando, patrones para reconocer una promesa vacía y lo que enseña la historia. Se actualiza solo, con cada edición.</p>
 </header>
-{bloque_p}{bloque_c or ""}
-{"" if (bloque_p or bloque_c) else "<p>Todavía no hay nada en la memoria.</p>"}
+{bloque_p}{bloque_c}{bloque_h}
+{"" if (bloque_p or bloque_c or bloque_h) else "<p>Todavía no hay nada en la memoria.</p>"}
 <p class="decision-mas"><a href="decisiones.html">Ver todas las decisiones →</a></p>"""
     return pagina(base, "Memoria · Otra lectura",
                   "Promesas que siguen esperando y patrones para no dejarse meter el cuento.", "",
