@@ -13,6 +13,8 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 
 ## Ediciones
 
+- [La semana: diez temas, lo que cambió y lo que viene](https://otralectura.co/ediciones/2026-10-09-semana.html): 9 de octubre de 2026.
+- [Comida en el colegio: el contrato se acaba antes que las clases, y Brasil y Colombia ya probaron cómo cubrir el año](https://otralectura.co/ediciones/2026-10-09-radar.html): 9 de octubre de 2026.
 - [Subsidio al diésel: todos pagamos el tanqueo de las camionetas, y con la gasolina ya aprendimos a dejar de hacerlo](https://otralectura.co/ediciones/2026-10-08-diesel.html): 8 de octubre de 2026.
 - [Riesgo de apagón en 2027: el seguro que pagamos no alcanza, y ahorrar a tiempo ya evitó uno en 2016](https://otralectura.co/ediciones/2026-10-08-radar.html): 8 de octubre de 2026.
 - [Consulta previa: nadie sabe cuántas hay abiertas, y el Gobierno quiere destrabarlas en 90 días](https://otralectura.co/ediciones/2026-10-07-consulta-previa.html): 7 de octubre de 2026.
@@ -51,4 +53,13 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 - [Air-e: dos años de intervención, seis interventores y una deuda que el país vuelve a pagar](https://otralectura.co/temas/air-e-deuda-caribe.html)
 - [Uno de cada dos trabajadores sin pensión: el desempleo sube y la informalidad casi no se mueve](https://otralectura.co/temas/informalidad-empleo.html)
 - [Reconstruir rápido o reconstruir a la vista: el Fondo Milagro pide 2,7 billones](https://otralectura.co/temas/reconstruccion-fondo-milagro.html)
+- [Imaginemos: una regla del gas que dure más que un gobierno](https://otralectura.co/temas/imaginemos-gas-natural.html)
 - [El Niño avisó en junio y el agua se raciona igual](https://otralectura.co/temas/agua-racionamiento-el-nino.html)
+- [Brasil vuelve a votar el 25: lo que se juega Colombia](https://otralectura.co/temas/brasil-elecciones-colombia.html)
+- [Prestarles a las EPS para que paguen: el salvavidas que vuelve cada pocos años](https://otralectura.co/temas/eps-credito-rescates.html)
+- [Drones con explosivos: cada año más ataques, cuatro cuentas distintas y una ley que no avanza](https://otralectura.co/temas/drones-explosivos-control.html)
+- [Desaparecidos: identificarlos más rápido es posible, y el presupuesto de 2027 lo pone en riesgo](https://otralectura.co/temas/desaparecidos-busqueda-identificacion.html)
+- [Consulta previa: nadie sabe cuántas hay abiertas, y el Gobierno quiere destrabarlas en 90 días](https://otralectura.co/temas/consulta-previa-represada.html)
+- [Riesgo de apagón en 2027: el seguro que pagamos no alcanza, y ahorrar a tiempo ya evitó uno en 2016](https://otralectura.co/temas/riesgo-apagon-confiabilidad.html)
+- [Subsidio al diésel: todos pagamos el tanqueo de las camionetas, y con la gasolina ya aprendimos a dejar de hacerlo](https://otralectura.co/temas/diesel-subsidio-fepc.html)
+- [Comida en el colegio: el contrato se acaba antes que las clases, y Brasil y Colombia ya probaron cómo cubrir el año](https://otralectura.co/temas/pae-alimentacion-escolar.html)
