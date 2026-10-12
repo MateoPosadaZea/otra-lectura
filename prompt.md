@@ -168,11 +168,17 @@ otro país y, si existe, uno colombiano. «En pocas palabras» cierra con
 la salida, y «Para conversar» agrega «Qué podríamos hacer». Si de verdad
 no hay salida conocida, se dice (ver «sin salida conocida»).
 
-**Cómo se conecta (desde el 2026-10-08).** Toda edición con `seguimiento`,
-o que comparte día con otra de tema vecino, lleva después de «En pocas
-palabras» un párrafo corto en negrita **Cómo se conecta.** que explica en
-una o dos frases por qué este tema toca a los otros, con enlace a esas
-ediciones. Nunca se marca un seguimiento sin decir el porqué.
+**Lo que ya habíamos contado (desde el 2026-10-08; antes se llamaba «Cómo
+se conecta»).** Toda edición con `seguimiento`, o que comparte día con otra
+de tema vecino, lleva un párrafo corto en negrita **Lo que ya habíamos
+contado.** que explica en una o dos frases qué contamos antes y por qué
+este tema lo toca. Se escribe para quien llega por primera vez: cada tema
+anterior se nombra en palabras llanas, con su fecha («El 5 de octubre
+escribimos sobre…»), y el enlace va en «ver esa edición», nunca solo un
+número de edición. Sin jerga interna (nudo, seguimiento, tema vecino).
+En el markdown va después de «En pocas palabras»; el sitio lo muestra al
+cerrar la historia, antes de «Qué hacer con esto». Nunca se marca un
+seguimiento sin decir el porqué.
 
 **Qué hacer con esto (desde el 2026-10-08, pedido de Mateo: «qué hacer,
 qué decisiones hay que ir pensando, cómo prepararse, no dejarse meter el

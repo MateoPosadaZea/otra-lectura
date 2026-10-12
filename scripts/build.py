@@ -549,7 +549,7 @@ def leer_edicion(ruta):
     lectura = re.split(r'<section class="carril cierre"', cuerpo)[0]
     e["palabras"] = len(texto_plano(lectura).split())
     e["minutos"] = max(1, round(e["palabras"] / 200))
-    e["cuerpo"] = subir_que_hacer(graficos.insertar(marcar_bloques(cuerpo), figuras))
+    e["cuerpo"] = bajar_conexion(subir_que_hacer(graficos.insertar(marcar_bloques(cuerpo), figuras)))
     e["cuerpo"], e["cruces"] = sacar_cruces(e["cuerpo"], dict(e["indice_nudos"]))
     e["glosario"] = extraer_glosario(e["cuerpo"])
 
@@ -1301,6 +1301,31 @@ def subir_que_hacer(cuerpo):
     return sin[:ancla.end()] + enlace + sin[ancla.end():]
 
 
+RE_CONEXION = re.compile(r'<p class="con-etiqueta[^"]*">\s*<strong class="etiqueta">'
+                         r'(?:Cómo se conecta|Lo que ya habíamos contado)\.?</strong>.*?</p>\n?', re.S)
+
+
+def bajar_conexion(cuerpo):
+    """«Lo que ya habíamos contado» (antes «Cómo se conecta») va al cerrar la
+    historia, antes de «Qué hacer con esto»: quien llega por primera vez lee
+    primero el tema y después, si quiere, el hilo con ediciones anteriores."""
+    m = RE_CONEXION.search(cuerpo)
+    if not m:
+        return cuerpo
+    parrafo = re.sub(r'(<strong class="etiqueta">)Cómo se conecta(\.?</strong>)',
+                     r'\1Lo que ya habíamos contado\2', m.group(0))
+    sin = cuerpo[:m.start()] + cuerpo[m.end():]
+    hacer = sin.find('<section class="carril hacer"')
+    if hacer < 0:
+        return sin[:m.start()] + parrafo + sin[m.start():]
+    cierre = sin.rfind('</article>', 0, hacer)
+    if cierre < 0 or cierre < m.start():
+        cierre = sin.rfind('</section>', 0, hacer)
+    if cierre < 0 or cierre < m.start():
+        return sin[:m.start()] + parrafo + sin[m.start():]
+    return sin[:cierre] + parrafo + sin[cierre:]
+
+
 RE_PATRON = re.compile(r'<p class="con-etiqueta[^"]*">\s*<strong class="etiqueta">El patrón\.?</strong>\s*(.*?)</p>', re.S)
 RE_CUENTO = re.compile(r'<p class="con-etiqueta[^"]*">\s*<strong class="etiqueta">Ojo con el cuento\.?</strong>\s*(.*?)</p>', re.S)
 
@@ -1540,9 +1565,9 @@ def main():
 
     # Aviso: desde el 2026-10-09, toda edición con seguimiento explica por qué se conecta.
     for e in ediciones:
-        if e["seguimiento"] and e["fecha"] >= "2026-10-09" and "Cómo se conecta" not in e["cuerpo"]:
+        if e["seguimiento"] and e["fecha"] >= "2026-10-09" and not RE_CONEXION.search(e["cuerpo"]):
             print(f"  aviso: ediciones/{e['archivo']} tiene seguimiento pero no explica "
-                  f"«Cómo se conecta».", file=sys.stderr)
+                  f"«Lo que ya habíamos contado».", file=sys.stderr)
 
     # Cronológico inverso; a igual fecha, la edición de número mayor primero.
     ediciones.sort(key=lambda e: (e["fecha"], e["orden"], e["slug"]), reverse=True)

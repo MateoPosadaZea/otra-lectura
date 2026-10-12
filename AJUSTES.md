@@ -233,7 +233,12 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
      conversar» agrega «Qué podríamos hacer».
   2. «Cómo se conecta»: toda edición con seguimiento, o con un tema
      vecino el mismo día, explica en una o dos frases por qué se conecta,
-     con enlace. El build avisa si falta.
+     con enlace. El build avisa si falta. 2026-10-12, Mateo: «está muy
+     hecho para mí, que conozco el contexto, no para el lector que apenas
+     llega». Se llama ahora «Lo que ya habíamos contado», se escribe para
+     quien llega por primera vez (el tema anterior en palabras llanas y
+     con fecha, enlace en «ver esa edición», sin jerga interna) y el sitio
+     lo muestra al cerrar la historia, antes de «Qué hacer con esto».
   3. Humor donde cabe: ironía sobre instituciones y sobre nosotros
      mismos, y analogías cotidianas, en temas que no duelen. Nunca contra
      víctimas, nunca en violencia, muertes, desaparecidos, salud mental
