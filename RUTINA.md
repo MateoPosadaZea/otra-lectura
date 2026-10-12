@@ -263,6 +263,11 @@ Cuerpo, en este orden (ver `prompt.md` 2.0 para el contenido de cada parte):
 
 **En pocas palabras.** Dos o tres frases: de qué se trata y por qué
 importa. Quien lea solo esto ya entendió.
+**El dato curioso.** Obligatorio desde el 2026-10-13, solo en el primer
+nudo. Un dato histórico o curioso, de 60 a 100 palabras, que se lea con
+gusto y deje algo: de dónde salió una medida, quién inventó qué, cómo lo
+resolvieron otros hace un siglo. Mejor si toca el tema del día; si no hay
+uno así, uno del mismo campo. Con fuente en `fuentes`, como todo.
 **Qué pasó.** Con un ejemplo cotidiano que haga de puente (la tienda de
 barrio, la recarga del celular) y luego los hechos.
 **Cómo llegamos aquí.** El mecanismo, en pocas viñetas cortas.

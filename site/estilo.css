@@ -1520,3 +1520,33 @@ p, li, dd, blockquote { text-wrap: pretty; }
 }
 .edicion .ir-hacer a:hover, .edicion .ir-hacer a:focus-visible { text-decoration: underline; }
 #que-hacer { scroll-margin-top: 4.5rem; }
+/* Buscador */
+.buscador { max-width: 34rem; margin: 0 auto 1.2rem; font-family: var(--sans); }
+.buscador label { display: block; margin-bottom: 0.4rem; color: var(--tenue); font-size: 0.8rem; }
+.buscador-fila { display: flex; gap: 0.5rem; }
+.buscador input {
+  flex: 1; min-width: 0; min-height: 2.8rem; padding: 0.5rem 0.75rem;
+  border: 1px solid var(--tinta); border-radius: 0; background: var(--papel); color: var(--tinta);
+  font: 500 1rem/1.2 var(--sans);
+}
+.buscador button {
+  min-height: 2.8rem; padding: 0.5rem 1rem; border: 1px solid var(--tinta); border-radius: 0;
+  background: var(--tinta); color: var(--papel); font: 700 0.85rem/1 var(--sans); cursor: pointer;
+}
+.buscador-estado { max-width: 34rem; margin: 0 auto 1.5rem; text-align: center; color: var(--tenue); font-family: var(--sans); font-size: 0.9rem; }
+.buscador-estado:empty { display: none; }
+.buscador-sin-js { text-align: center; }
+.resultados { list-style: none; max-width: 40rem; margin: 0 auto 3rem; padding: 0; }
+.resultados li { padding: 1.1rem 0; border-bottom: 1px solid var(--filete); }
+.resultados li > a { font: 400 1.35rem/1.25 var(--serif); color: var(--tinta); text-decoration: none; }
+.resultados li > a:hover, .resultados li > a:focus-visible { text-decoration: underline; }
+.resultado-fecha { margin: 0.3rem 0 0.4rem; color: var(--tenue); font: 700 0.7rem/1.3 var(--sans); letter-spacing: 0.1em; text-transform: uppercase; }
+.resultado-texto { margin: 0; color: var(--tenue); font-size: 0.95rem; line-height: 1.5; overflow-wrap: anywhere; }
+.resultados mark { background: rgba(176, 58, 46, 0.18); color: inherit; padding: 0 0.1em; }
+/* El dato curioso: recuadro liviano bajo «En pocas palabras». */
+.edicion .con-etiqueta.curioso {
+  margin: 1.4rem 0 1.8rem; padding: 0.9rem 1.1rem;
+  background: var(--papel-claro); border-top: 1px dotted var(--tinta); border-bottom: 1px dotted var(--tinta);
+  font-family: var(--serif); font-style: italic; font-size: 1.02em; line-height: 1.5;
+}
+.edicion .con-etiqueta.curioso .etiqueta { display: block; margin-bottom: 0.35rem; color: var(--rojo); font-style: normal; }

@@ -278,3 +278,13 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   recoge sola esos patrones en «Lo que enseña la historia». Una pieza
   propia los sábados queda para después, si sobra material. Ver
   prompt.md, «Inflexiones», y RUTINA.md, plantilla del Radar.
+- 2026-10-12 · Pedido de Mateo («la de hoy, desesperanzadora… una
+  noticia pesada para empezar el día; debe haber algo como curiosidades,
+  datos curiosos, historia»): desde el 2026-10-13 la edición diaria lleva
+  «El dato curioso» (60 a 100 palabras, con fuente) justo después de «En
+  pocas palabras» del primer nudo, en un recuadro liviano. Mejor si toca
+  el tema del día. El build avisa si falta. Ver prompt.md.
+- 2026-10-12 · Pedido de Mateo: buscador. La página Buscar (enlazada en
+  Secciones y en el pie) busca por palabra clave en títulos, temas,
+  lugares, resúmenes y texto de todas las ediciones, sin importar tildes.
+  El build genera solo el índice (buscar.json); no usa servicios externos.

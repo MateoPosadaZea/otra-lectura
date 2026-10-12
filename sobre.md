@@ -31,7 +31,9 @@ metodológica de cada edición, para que el criterio se pueda discutir.
 
 ## Cómo se lee una edición
 
-Cada edición abre con un **grabado de época** y **En pocas palabras**.
+Cada edición abre con un **grabado de época**, **En pocas palabras** y
+**El dato curioso**: algo de historia o una curiosidad que se lee con
+gusto, para que el día no arranque solo con lo pesado.
 Al cerrar la historia principal viene **Qué hacer con esto**: qué
 decisiones conviene ir pensando, cómo prepararse y cómo no dejarse meter
 el cuento; un enlace bajo «En pocas palabras» lleva directo allí. La
@@ -96,6 +98,9 @@ historia sigue este orden:
 - **Memoria** guarda lo que no se nos puede olvidar: las promesas que
   siguen esperando, desde cuándo y cuántos plazos llevan incumplidos, y
   los patrones para reconocer una promesa vacía.
+- **Buscar** encuentra cualquier palabra o nombre en todas las ediciones:
+  escriba, por ejemplo, «agua» o «Guajira», y aparecen las que hablan de
+  eso, con el fragmento donde se menciona.
 - Las **secciones** de arriba (Economía, Salud, Ambiente, Sociedad,
   Ciencia) agrupan las ediciones por área.
 

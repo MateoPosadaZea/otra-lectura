@@ -170,6 +170,7 @@ TIPOS_ETIQUETA = [
     (re.compile(r"sin salida conocida", re.I), "sin-salida"),
     (re.compile(r"conflicto de inter[eé]s", re.I), "conflicto"),
     (re.compile(r"cruce con mattriz", re.I), "cruce"),
+    (re.compile(r"el dato curioso", re.I), "curioso"),
 ]
 
 
@@ -854,6 +855,7 @@ def html_menu(raiz, seccion=None):
         return f'<li><a href="{href}"{marca}>{html.escape(nombre)}</a></li>'
     items = [item("inicio", f"{raiz}index.html", "Inicio")]
     items += [item(c, f"{raiz}categorias/{c}.html", CATEGORIAS[c]) for c in CATEGORIAS_ACTIVAS]
+    items.append(item("buscar", f"{raiz}buscar.html", "Buscar"))
     items.append(item("sobre", f"{raiz}sobre.html", "¿Qué es esto?"))
     return "<ul>" + "".join(items) + "</ul>"
 
@@ -1298,7 +1300,11 @@ def subir_que_hacer(cuerpo):
     pos = destino.start() if destino else len(sin)
     sin = sin[:pos] + bloque + sin[pos:]
     enlace = '<p class="ir-hacer"><a href="#que-hacer">Qué hacer con esto <span aria-hidden="true">↓</span></a></p>\n'
-    return sin[:ancla.end()] + enlace + sin[ancla.end():]
+    fin = ancla.end()
+    curioso = re.match(r'\s*<p class="con-etiqueta curioso[^"]*">.*?</p>\n?', sin[fin:], re.S)
+    if curioso:  # el enlace va después de «El dato curioso», que sigue a «En pocas palabras»
+        fin += curioso.end()
+    return sin[:fin] + enlace + sin[fin:]
 
 
 RE_CONEXION = re.compile(r'<p class="con-etiqueta[^"]*">\s*<strong class="etiqueta">'
@@ -1363,6 +1369,110 @@ def pagina_memoria(base, ediciones):
     return pagina(base, "Memoria · Otra lectura",
                   "Promesas que siguen esperando y patrones para no dejarse meter el cuento.", "",
                   contenido, "/memoria.html", seccion="memoria")
+
+
+def indice_busqueda(ediciones):
+    """buscar.json: lo que el buscador recorre. Título, fecha, temas, lugares,
+    resumen y el texto de lectura (sin fuentes, glosario ni nota metodológica)."""
+    filas = []
+    for e in ediciones:
+        lectura = re.split(r'<section class="carril cierre"', e["cuerpo"])[0]
+        lectura = re.sub(r'<h[1-3][^>]*>.*?</h[1-3]>', ' ', lectura, flags=re.S)  # los títulos ya van en "t" y "k"
+        filas.append({
+            "t": html.unescape(e["titulo"]),
+            "f": e["fecha"],
+            "d": fecha_legible(e["fecha"]),
+            "u": f"ediciones/{e['slug']}.html",
+            "k": " ".join(e["titulos_nudos"] + e["lugares"] + [CATEGORIAS.get(c, c) for c in e["categorias"]]),
+            "r": entradilla(e),
+            "x": " ".join(texto_plano(lectura).split()),
+        })
+    return json.dumps(filas, ensure_ascii=False, separators=(",", ":"))
+
+
+def pagina_buscar(base):
+    """buscar.html: busca por palabra clave en todas las ediciones. Necesita
+    JavaScript; sin él, remite al archivo de días anteriores."""
+    contenido = """<header class="cabecera">
+<h1>Buscar</h1>
+<p class="bajada">Escriba una palabra o un nombre y aparecen las ediciones que hablan de eso.</p>
+</header>
+<form class="buscador" action="buscar.html" method="get" role="search">
+<label for="q">Palabra clave</label>
+<div class="buscador-fila">
+<input id="q" name="q" type="search" autocomplete="off" placeholder="Por ejemplo: agua, EPS, Guajira">
+<button type="submit">Buscar</button>
+</div>
+</form>
+<p class="buscador-estado" role="status" aria-live="polite"></p>
+<ol class="resultados"></ol>
+<noscript><p class="buscador-sin-js">El buscador necesita JavaScript. Mientras tanto, puede recorrer los <a href="archivo.html">días anteriores</a>.</p></noscript>
+<script>
+(function () {
+  var form = document.querySelector(".buscador"), input = form.querySelector("input");
+  var estado = document.querySelector(".buscador-estado"), lista = document.querySelector(".resultados");
+  var datos = null, espera = null;
+  function plano(t) { return (t || "").normalize("NFD").replace(/[\\u0300-\\u036f]/g, "").toLowerCase(); }
+  function esc(t) { return t.replace(/[&<>"]/g, function (c) { return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]; }); }
+  function marcar(texto, terminos) {
+    var p = plano(texto), out = "", i = 0, rangos = [];
+    terminos.forEach(function (t) { var j = p.indexOf(t); while (j >= 0) { rangos.push([j, j + t.length]); j = p.indexOf(t, j + t.length); } });
+    rangos.sort(function (a, b) { return a[0] - b[0]; });
+    rangos.forEach(function (r) { if (r[0] < i) return; out += esc(texto.slice(i, r[0])) + "<mark>" + esc(texto.slice(r[0], r[1])) + "</mark>"; i = r[1]; });
+    return out + esc(texto.slice(i));
+  }
+  function fragmento(texto, terminos) {
+    var p = plano(texto), j = -1;
+    for (var k = 0; k < terminos.length && j < 0; k++) j = p.indexOf(terminos[k]);
+    if (j < 0) return "";
+    var ini = Math.max(0, j - 90), fin = Math.min(texto.length, j + 160);
+    while (ini > 0 && texto[ini] !== " ") ini--;
+    while (fin < texto.length && texto[fin] !== " ") fin++;
+    return (ini > 0 ? "… " : "") + texto.slice(ini, fin).trim() + (fin < texto.length ? " …" : "");
+  }
+  function buscar() {
+    var q = input.value.trim(), terminos = plano(q).split(/\\s+/).filter(function (t) { return t.length > 1; });
+    try { history.replaceState(null, "", q ? "?q=" + encodeURIComponent(q) : location.pathname); } catch (e) {}
+    lista.innerHTML = "";
+    if (!terminos.length) { estado.textContent = ""; return; }
+    var hallados = [];
+    datos.forEach(function (d) {
+      var t = plano(d.t), k = plano(d.k), r = plano(d.r), x = plano(d.x), puntos = 0;
+      for (var i = 0; i < terminos.length; i++) {
+        var w = terminos[i], en = 0;
+        if (t.indexOf(w) >= 0) en += 6;
+        if (k.indexOf(w) >= 0) en += 3;
+        if (r.indexOf(w) >= 0) en += 2;
+        if (x.indexOf(w) >= 0) en += 1 + Math.min(3, x.split(w).length - 2);
+        if (!en) return;
+        puntos += en;
+      }
+      hallados.push([puntos, d]);
+    });
+    hallados.sort(function (a, b) { return b[0] - a[0] || (a[1].f < b[1].f ? 1 : -1); });
+    var n = hallados.length;
+    estado.textContent = n ? (n === 1 ? "Una edición" : n + " ediciones") + " con «" + q + "»." : "Ninguna edición menciona «" + q + "». Pruebe con otra palabra.";
+    lista.innerHTML = hallados.slice(0, 40).map(function (h) {
+      var d = h[1], frag = fragmento(d.x, terminos) || d.r;
+      return '<li><a href="' + d.u + '">' + marcar(d.t, terminos) + '</a><p class="resultado-fecha"><time datetime="' + d.f + '">' + esc(d.d) + "</time></p>" +
+             '<p class="resultado-texto">' + marcar(frag, terminos) + "</p></li>";
+    }).join("");
+  }
+  form.addEventListener("submit", function (ev) { ev.preventDefault(); if (datos) buscar(); });
+  input.addEventListener("input", function () { clearTimeout(espera); espera = setTimeout(function () { if (datos) buscar(); }, 200); });
+  var inicial = new URLSearchParams(location.search).get("q");
+  if (inicial) input.value = inicial;
+  estado.textContent = "Cargando el archivo…";
+  fetch("buscar.json").then(function (r) { return r.json(); }).then(function (j) {
+    datos = j; estado.textContent = ""; if (input.value.trim()) buscar(); else input.focus();
+  }).catch(function () {
+    estado.innerHTML = 'No se pudo cargar el buscador. Puede recorrer los <a href="archivo.html">días anteriores</a>.';
+  });
+})();
+</script>"""
+    return pagina(base, "Buscar · Otra lectura",
+                  "Busque por palabra clave en todas las ediciones de Otra lectura.", "",
+                  contenido, "/buscar.html", seccion="buscar")
 
 
 def pagina_archivo(base, dias, hilos=None):
@@ -1563,6 +1673,11 @@ def main():
             print(f"  aviso: ediciones/{e['archivo']} tiene ~{e['palabras']} palabras de lectura "
                   f"(techo: {LARGO_MAXIMO}).", file=sys.stderr)
 
+    # Aviso: desde el 2026-10-13, la edición diaria trae «El dato curioso» (pedido de Mateo).
+    for e in ediciones:
+        if (e["fecha"] >= "2026-10-13" and e["archivo"].endswith("-radar.md")
+                and 'class="con-etiqueta curioso' not in e["cuerpo"]):
+            print(f"  aviso: ediciones/{e['archivo']} no trae «El dato curioso».", file=sys.stderr)
     # Aviso: desde el 2026-10-09, toda edición con seguimiento explica por qué se conecta.
     for e in ediciones:
         if e["seguimiento"] and e["fecha"] >= "2026-10-09" and not RE_CONEXION.search(e["cuerpo"]):
@@ -1617,6 +1732,8 @@ def main():
     (SITE / "archivo.html").write_text(pagina_archivo(base, dias, hilos), encoding="utf-8")
     (SITE / "decisiones.html").write_text(pagina_decisiones(base, ediciones), encoding="utf-8")
     (SITE / "memoria.html").write_text(pagina_memoria(base, ediciones), encoding="utf-8")
+    (SITE / "buscar.html").write_text(pagina_buscar(base), encoding="utf-8")
+    (SITE / "buscar.json").write_text(indice_busqueda(ediciones), encoding="utf-8")
     (SITE / "dias").mkdir()
     for i, (fecha, del_dia) in enumerate(dias):
         anterior = dias[i + 1][0] if i + 1 < len(dias) else None
@@ -1635,7 +1752,7 @@ def main():
         urls += [(f"/ediciones/{e['slug']}.html", e["ultimo_cambio"] or e["fecha"]) for e in ediciones]
         urls += [(f"/dias/{f}.html", "") for f, _ in dias]
         urls += [(f"/categorias/{c}.html", "") for c in CATEGORIAS_ACTIVAS]
-        urls += [("/archivo.html", ""), ("/sobre.html", "")]
+        urls += [("/archivo.html", ""), ("/sobre.html", ""), ("/buscar.html", "")]
         urls += [(f"/temas/{slug}.html", "") for slug in hilos]
         filas = "".join(f"<url><loc>{SITIO_URL}{u}</loc>" + (f"<lastmod>{f}</lastmod>" if f else "")
                         + "</url>\n" for u, f in urls)

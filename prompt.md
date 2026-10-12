@@ -168,6 +168,20 @@ otro país y, si existe, uno colombiano. «En pocas palabras» cierra con
 la salida, y «Para conversar» agrega «Qué podríamos hacer». Si de verdad
 no hay salida conocida, se dice (ver «sin salida conocida»).
 
+**El dato curioso (desde el 2026-10-13, pedido de Mateo: «una noticia
+pesada para empezar el día… debe haber algo como curiosidades, datos
+curiosos, historia»).** La edición diaria lleva, justo después de «En
+pocas palabras» del primer nudo, un párrafo en negrita **El dato
+curioso.** de 60 a 100 palabras: un dato histórico o curioso que se lea
+con gusto y enseñe algo (de dónde salió una medida, quién inventó qué,
+cómo se resolvió algo parecido hace décadas). Mejor si conecta con el
+tema del día; si no, del mismo campo. Es lo que aligera el arranque
+cuando el tema es duro, así que en días pesados es aún más importante.
+Tono amable y elegante; nunca chiste sobre víctimas. Verificable y con
+fuente en `fuentes`; si no se puede verificar, se cambia de dato, no se
+marca como no verificado. No reemplaza a «Ya pasó antes»: aquel explica
+el problema, este alivia la lectura. Cuenta dentro de las 1.200 palabras.
+
 **Lo que ya habíamos contado (desde el 2026-10-08; antes se llamaba «Cómo
 se conecta»).** Toda edición con `seguimiento`, o que comparte día con otra
 de tema vecino, lleva un párrafo corto en negrita **Lo que ya habíamos
