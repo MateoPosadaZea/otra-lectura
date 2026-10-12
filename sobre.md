@@ -31,9 +31,11 @@ metodológica de cada edición, para que el criterio se pueda discutir.
 
 ## Cómo se lee una edición
 
-Cada edición abre con un **grabado de época**, **En pocas palabras** y
-**Qué hacer con esto**: qué decisiones conviene ir pensando, cómo
-prepararse y cómo no dejarse meter el cuento. Después, en el mismo orden:
+Cada edición abre con un **grabado de época** y **En pocas palabras**.
+Al cerrar la historia principal viene **Qué hacer con esto**: qué
+decisiones conviene ir pensando, cómo prepararse y cómo no dejarse meter
+el cuento; un enlace bajo «En pocas palabras» lleva directo allí. La
+historia sigue este orden:
 
 - **Qué pasó.** El hecho, con sus cifras y sus fuentes.
 - **Por qué se repite.** Lo que sostiene el problema.

@@ -1512,3 +1512,11 @@ p, li, dd, blockquote { text-wrap: pretty; }
   .reticula-2 .reticula-principal .reticula-imagen,
   .reticula-3 .reticula-principal .reticula-imagen { max-width: 34rem; }
 }
+/* Enlace discreto, bajo «En pocas palabras», que baja a «Qué hacer con esto». */
+.edicion .ir-hacer { margin: -0.4rem 0 1.6rem; }
+.edicion .ir-hacer a {
+  color: var(--rojo); text-decoration: none;
+  font: 800 0.68rem/1.3 var(--sans); letter-spacing: 0.14em; text-transform: uppercase;
+}
+.edicion .ir-hacer a:hover, .edicion .ir-hacer a:focus-visible { text-decoration: underline; }
+#que-hacer { scroll-margin-top: 4.5rem; }

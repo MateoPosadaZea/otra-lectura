@@ -260,6 +260,10 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   Prueba: ediciones 24 y 25. Mateo: «lo veo muy al final, puede que ni
   lleguen»: el sitio muestra «Qué hacer con esto» justo después de «En
   pocas palabras» (en el markdown se sigue escribiendo al final).
+  2026-10-12, Mateo: arriba choca con quien apenas empieza a leer. Ahora
+  el sitio lo muestra al cerrar la historia principal, antes de «Dos
+  lecturas» y «Quién decide», y deja bajo «En pocas palabras» un enlace
+  discreto («Qué hacer con esto ↓») que baja hasta allí.
 - 2026-10-09 · Pedido de Mateo (datos curiosos que enseñan: la anestesia,
   Semmelweis, Haber-Bosch, el contenedor, las gafas, la hoja de cálculo;
   "lo útil es ver qué tenían en común"): cuando el tema lo permita, «Ya

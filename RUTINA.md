@@ -304,7 +304,7 @@ Dos a cuatro líneas sobre lo más absurdo de la edición, contado con
 ironía seca y con los hechos tal cual (ver AJUSTES.md, «Tono con humor»).
 Si hoy no hay una paradoja clara, se omite la sección.
 
-## Qué hacer con esto      ← obligatorio desde el 2026-10-08; el sitio lo muestra arriba, después de «En pocas palabras»
+## Qué hacer con esto      ← obligatorio desde el 2026-10-08; el sitio lo muestra al cerrar la historia principal, con un enlace bajo «En pocas palabras»
 
 **Para ir pensando.** Qué decisión de la casa, el bolsillo, el negocio o
 el voto conviene ir pensando por este tema, con plazo si lo hay.

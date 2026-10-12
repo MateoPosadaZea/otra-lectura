@@ -1279,16 +1279,26 @@ def pagina_decisiones(base, ediciones):
 
 
 def subir_que_hacer(cuerpo):
-    """«Qué hacer con esto» se escribe al final, pero se muestra arriba, justo
-    después de «En pocas palabras»: es lo práctico y no todos llegan al final."""
+    """«Qué hacer con esto» se escribe al final, pero se muestra al cerrar la
+    historia principal, antes de «Dos lecturas» y «Quién decide»: primero se
+    entiende el tema y después lo práctico. Para que nadie se lo pierda, debajo
+    de «En pocas palabras» queda un enlace discreto que baja hasta allí."""
     m = re.search(r'<section class="carril hacer"[^>]*>.*?</section>\n?', cuerpo, re.S)
     ancla = re.search(r'<p class="con-etiqueta[^"]*">\s*<strong class="etiqueta">En pocas palabras\.?</strong>.*?</p>\n?',
                       cuerpo, re.S)
     if not m or not ancla or ancla.start() > m.start():
         return cuerpo
     bloque = m.group(0)
+    if ' id=' not in bloque.split('>', 1)[0]:
+        bloque = bloque.replace('<section class="carril hacer"', '<section class="carril hacer" id="que-hacer"', 1)
     sin = cuerpo[:m.start()] + cuerpo[m.end():]
-    return sin[:ancla.end()] + bloque + sin[ancla.end():]
+    # Tras la historia: antes del primer carril secundario que siga a «En pocas palabras».
+    sig = re.compile(r'<section class="carril (?:lecturas|decide|paradoja|conversar|cierre)\b')
+    destino = sig.search(sin, ancla.end())
+    pos = destino.start() if destino else len(sin)
+    sin = sin[:pos] + bloque + sin[pos:]
+    enlace = '<p class="ir-hacer"><a href="#que-hacer">Qué hacer con esto <span aria-hidden="true">↓</span></a></p>\n'
+    return sin[:ancla.end()] + enlace + sin[ancla.end():]
 
 
 RE_PATRON = re.compile(r'<p class="con-etiqueta[^"]*">\s*<strong class="etiqueta">El patrón\.?</strong>\s*(.*?)</p>', re.S)
