@@ -13,6 +13,7 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 
 ## Ediciones
 
+- [Seis de cada diez muertos en las vías iban en moto, y mejores frenos, cascos y menos velocidad ya han salvado vidas](https://otralectura.co/ediciones/2026-10-14-radar.html): 14 de octubre de 2026.
 - [Lo que sube con el mínimo: los comparendos ya se soltaron del salario, y la vivienda social sigue amarrada](https://otralectura.co/ediciones/2026-10-13-radar.html): 13 de octubre de 2026.
 - [Agua para la niñez wayuu: nueve años de órdenes de la Corte, y en Brasil un millón de cisternas llevó el agua a cada casa](https://otralectura.co/ediciones/2026-10-12-radar.html): 12 de octubre de 2026.
 - [La semana en limpio · 5 al 10 de octubre](https://otralectura.co/ediciones/2026-10-11-radar.html): 11 de octubre de 2026.
@@ -68,3 +69,4 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 - [Subsidio al diésel: todos pagamos el tanqueo de las camionetas, y con la gasolina ya aprendimos a dejar de hacerlo](https://otralectura.co/temas/diesel-subsidio-fepc.html)
 - [Comida en el colegio: el contrato se acaba antes que las clases, y Brasil y Colombia ya probaron cómo cubrir el año](https://otralectura.co/temas/pae-alimentacion-escolar.html)
 - [Protesta: otro decreto antes de las marchas, y donde la policía conversa primero hay menos choques](https://otralectura.co/temas/protesta-social-reglas.html)
+- [Lo que sube con el mínimo: los comparendos ya se soltaron del salario, y la vivienda social sigue amarrada](https://otralectura.co/temas/salario-minimo-indexacion.html)
