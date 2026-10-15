@@ -1,7 +1,7 @@
 ---
 fecha: 2026-10-02
 edicion: 15
-titulo: "De lo que nadie habla: la violencia sexual y el silencio de los que saben"
+titulo: "De lo que nadie habla: violencia sexual, por qué callan quienes saben y qué ayuda a hablar"
 temas: [violencia-sexual-silencio]
 categorias: [sociedad, salud]
 lugares: [Colombia, Estados Unidos]
@@ -94,7 +94,7 @@ fuentes:
 
 ## Carril 1: Radar
 
-### La violencia sexual y el silencio de los que saben {#violencia-sexual-silencio}
+### Violencia sexual: por qué callan quienes saben y qué ayuda a hablar {#violencia-sexual-silencio}
 
 **En pocas palabras.** La violencia sexual casi nunca pasa sin que nadie
 se entere. Casi siempre alguien sabe algo: un amigo, un compañero, un
