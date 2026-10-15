@@ -1156,6 +1156,7 @@ def html_ediciones_dia(ediciones, raiz):
 {aviso_cambios(e, raiz)}
 {bajada}
 {temas}
+<p class="seguir-leyendo"><a class="boton-seguir" href="{href}">Seguir leyendo<span class="solo-lectores">: {html.escape(e['titulo'])}</span> <span aria-hidden="true">→</span></a></p>
 </li>""")
     n = min(len(orden), 3)
     return f'<ol class="indice dia reticula reticula-{n}">\n' + "\n".join(bloques) + "\n</ol>"

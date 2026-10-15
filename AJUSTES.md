@@ -294,3 +294,7 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   nuevo», «escándalo», «caos», exclamaciones ni coloquialismos que
   exageren («dos tubos»). La fuerza la pone el dato, no el adjetivo.
   Rige desde la edición 34; el título de la 33 se cambió el mismo día.
+- 2026-10-15 · Pedido de Mateo («un botón en cada noticia… seguir
+  leyendo, es más intuitivo»): en la portada y en cada día, cada edición
+  cierra con un botón «Seguir leyendo →» que abre la edición completa. El
+  título sigue siendo enlace; el botón no necesita JavaScript.
