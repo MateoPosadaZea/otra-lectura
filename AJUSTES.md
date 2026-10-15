@@ -288,3 +288,9 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   Secciones y en el pie) busca por palabra clave en títulos, temas,
   lugares, resúmenes y texto de todas las ediciones, sin importar tildes.
   El build genera solo el índice (buscar.json); no usa servicios externos.
+- 2026-10-15 · Comentario de un lector, vía Mateo (el título de la edición
+  33 «está muy amarillista»): títulos sobrios. El título describe el hecho
+  y, si se puede, la salida, sin dramatizar: nada de «otra vez», «de
+  nuevo», «escándalo», «caos», exclamaciones ni coloquialismos que
+  exageren («dos tubos»). La fuerza la pone el dato, no el adjetivo.
+  Rige desde la edición 34; el título de la 33 se cambió el mismo día.
