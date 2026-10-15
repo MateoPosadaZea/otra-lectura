@@ -293,8 +293,17 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   y, si se puede, la salida, sin dramatizar: nada de «otra vez», «de
   nuevo», «escándalo», «caos», exclamaciones ni coloquialismos que
   exageren («dos tubos»). La fuerza la pone el dato, no el adjetivo.
-  Rige desde la edición 34; el título de la 33 se cambió el mismo día.
+  Rige desde la edición 34. El mismo día se revisaron los títulos de
+  todas las ediciones publicadas y se cambiaron los que dramatizaban o
+  usaban metáforas poco claras (once ediciones, además de la 33).
 - 2026-10-15 · Pedido de Mateo («un botón en cada noticia… seguir
   leyendo, es más intuitivo»): en la portada y en cada día, cada edición
   cierra con un botón «Seguir leyendo →» que abre la edición completa. El
   título sigue siendo enlace; el botón no necesita JavaScript.
+- 2026-10-15 · Pedido de Mateo (sobre la edición de Cartagena: «no
+  necesariamente era subir una de Cartagena; si lo amerita, sí, si no,
+  no»): dónde está o qué pregunta un editor no decide los temas. Una
+  pregunta suya ("¿cómo está tal ciudad?") no se convierte en candidato
+  sugerido para la edición; los temas salen solo de la definición de
+  nudo y el puntaje, como siempre. Un tema regional entra si gana por
+  puntaje frente a los nacionales.

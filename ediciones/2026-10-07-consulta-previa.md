@@ -1,7 +1,7 @@
 ---
 fecha: 2026-10-07
 edicion: 23
-titulo: "Consulta previa: nadie sabe cuántas hay abiertas, y el Gobierno quiere destrabarlas en 90 días"
+titulo: "Consulta previa: no hay registro de cuántas están abiertas, y el Gobierno quiere destrabarlas en 90 días"
 temas: [consulta-previa-represada]
 categorias: [sociedad, ambiente]
 lugares: [Colombia, La Guajira, Perú, Bolivia]
@@ -83,7 +83,7 @@ fuentes:
 
 ## Carril 1: Radar
 
-### Consulta previa: nadie sabe cuántas hay abiertas, y el Gobierno quiere destrabarlas en 90 días {#consulta-previa-represada}
+### Consulta previa: no hay registro de cuántas están abiertas, y el Gobierno quiere destrabarlas en 90 días {#consulta-previa-represada}
 
 **En pocas palabras.** Antes de una carretera, una mina o una línea de
 energía en territorio de comunidades étnicas, el Estado debe
