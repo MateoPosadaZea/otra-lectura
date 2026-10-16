@@ -13,6 +13,7 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 
 ## Ediciones
 
+- [La semana: seis temas, lo que cambió y lo que viene](https://otralectura.co/ediciones/2026-10-16-semana.html): 16 de octubre de 2026.
 - [Más de tres de cada cuatro mayores no tienen pensión: la reforma podría correrse a 2028, y en Bolivia una renta para la vejez se asoció con menos pobreza](https://otralectura.co/ediciones/2026-10-16-radar.html): 16 de octubre de 2026.
 - [El agua de Cartagena depende de dos tuberías: por qué se repiten los cortes y qué puede cambiarlo](https://otralectura.co/ediciones/2026-10-15-radar.html): 15 de octubre de 2026.
 - [Seis de cada diez muertos en las vías iban en moto, y mejores frenos, cascos y menos velocidad ya han salvado vidas](https://otralectura.co/ediciones/2026-10-14-radar.html): 14 de octubre de 2026.
@@ -71,4 +72,8 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 - [Subsidio al diésel: lo paga el presupuesto de todos, y con la gasolina ya se desmontó uno parecido](https://otralectura.co/temas/diesel-subsidio-fepc.html)
 - [Comida en el colegio: el contrato se acaba antes que las clases, y Brasil y Colombia ya probaron cómo cubrir el año](https://otralectura.co/temas/pae-alimentacion-escolar.html)
 - [Protesta: un nuevo decreto antes de las marchas, y donde la policía dialoga primero hay menos choques](https://otralectura.co/temas/protesta-social-reglas.html)
+- [Agua para la niñez wayuu: nueve años de órdenes de la Corte, y en Brasil un millón de cisternas llevó el agua a cada casa](https://otralectura.co/temas/agua-ninez-wayuu.html)
 - [Lo que sube con el mínimo: las multas ya no dependen del salario, y el precio de la vivienda social todavía sí](https://otralectura.co/temas/salario-minimo-indexacion.html)
+- [Seis de cada diez muertos en las vías iban en moto, y mejores frenos, cascos y menos velocidad ya han salvado vidas](https://otralectura.co/temas/motos-muertes-viales.html)
+- [El agua de Cartagena depende de dos tuberías: por qué se repiten los cortes y qué puede cambiarlo](https://otralectura.co/temas/agua-cartagena-acueducto.html)
+- [Más de tres de cada cuatro mayores no tienen pensión: la reforma podría correrse a 2028, y en Bolivia una renta para la vejez se asoció con menos pobreza](https://otralectura.co/temas/pensiones-vejez-renta-basica.html)
