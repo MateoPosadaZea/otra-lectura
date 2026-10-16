@@ -14,6 +14,11 @@ decisiones:
     plazo: 2027-01-04
     estado: pendiente
     nota: "El ministro Rodrigo Lara anunció el plan el 5 y 6 de octubre: inventario en 30 días, tableros de control en 60 y una reducción sustancial del represamiento en 90. El plazo es nuestra cuenta de 90 días; no encontramos fecha para la directiva ni para el proyecto de ley."
+    revisada: 2026-10-16
+actualizaciones:
+  - fecha: 2026-10-16
+    nudo: consulta-previa-represada
+    texto: "El 14 de octubre, la Presidencia expidió la Directiva 06 de 2026 sobre consulta previa. Según la prensa, quita el test de proporcionalidad que se aplicaba cuando no había acuerdo, lo cambia por una reunión entre funcionarios después de la cual cada autoridad decide por su cuenta, y deroga las directivas anteriores, entre ellas la 08 de 2020. El inventario de las consultas represadas y el proyecto de ley siguen pendientes."
 grabado:
   - archivo: "2026-10-07-consulta-previa.webp"
     pie: "La Guajira, una canoa y un remo de los wayuu, dibujados durante la misión del explorador francés Joseph de Brettes, 1892"
