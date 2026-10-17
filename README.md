@@ -211,9 +211,11 @@ mejor viéndola. Se dibujan en el build y se leen completos sin JavaScript
 (como lista); con JavaScript se mueven al bajar, y «reducir movimiento» lo
 apaga. Formato completo en `scripts/recorridos.py`.
 
-- ` ```cronologia `: línea del tiempo que se dibuja al bajar. Cada hito
-  lleva `fecha`, `titulo`, `texto` opcional y `estado` (`hecho`,
-  `incumplido` en rojo, `pendiente` con borde punteado). De 2 a 12 hitos.
+- ` ```cronologia `: una ruta. Un camino de tinta serpentea entre mojones
+  y un caminante lo recorre al bajar; las notas aparecen a uno y otro lado.
+  Cada hito lleva `fecha`, `titulo`, `texto` opcional y `estado`: `hecho`
+  (piedra), `incumplido` (piedra partida, en rojo) o `pendiente` (bandera).
+  De 2 a 12 hitos.
 - ` ```pasos `: una cifra queda fija mientras el texto pasa por encima. Con
   `proporcion` (0 a 100), la cifra trae una cuadrícula de 100 puntos que se
   llena paso a paso. De 2 a 6 pasos.

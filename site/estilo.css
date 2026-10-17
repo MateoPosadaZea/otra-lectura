@@ -1583,46 +1583,89 @@ p, li, dd, blockquote { text-wrap: pretty; }
 .recorrido .g-sub { display: block; margin-top: 0.2rem; color: var(--tenue); font-size: 0.85em; }
 .recorrido .g-fuente { margin-top: 1rem; color: var(--tenue); font-size: 0.75rem; }
 
-/* Cronología */
-.cr-cuerpo { position: relative; --avance: 1; }
-.cr-cuerpo::before, .cr-avance {
+/* Cronología: una ruta con mojones. Sin JavaScript, lista con un camino
+   punteado a la izquierda; con JavaScript, el camino serpentea, se entinta
+   al bajar y un caminante lo recorre. */
+.cr-cuerpo { position: relative; }
+.cr-lista { list-style: none; margin: 0; padding: 0; position: relative; z-index: 1; }
+.cr-lista::before {
   content: "";
   position: absolute;
-  left: 0.45rem;
-  top: 0.5rem;
-  bottom: 0.5rem;
-  width: 2px;
-  background: var(--filete);
+  left: 1.15rem;
+  top: 1rem;
+  bottom: 1rem;
+  border-left: 2px dotted var(--tenue);
 }
-.cr-avance { background: var(--tinta); transform-origin: top; transform: scaleY(var(--avance)); }
-.cr-lista { list-style: none; margin: 0; padding: 0; }
-.cr-hito { position: relative; padding: 0 0 1.6rem 2.2rem; }
+.cr-hito { position: relative; padding: 0 0 1.8rem 3.4rem; }
 .cr-hito:last-child { padding-bottom: 0; }
-.cr-hito::before {
-  content: "";
+.cr-mojon {
   position: absolute;
   left: 0;
-  top: 0.15rem;
-  width: 0.95rem;
-  height: 0.95rem;
+  top: -0.2rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  display: grid;
+  place-items: center;
   border-radius: 50%;
-  border: 2px solid var(--tinta);
-  background: var(--tinta);
-  transition: background-color 0.4s ease, transform 0.4s ease;
+  background: var(--papel);
 }
-.cr-pendiente::before { background: var(--papel); border-style: dashed; }
-.cr-incumplido::before { background: var(--rojo); border-color: var(--rojo); }
-.cr-fecha { margin: 0; font: 700 0.7rem/1.4 var(--sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--tenue); }
-.cr-estado { margin-left: 0.6rem; padding: 0.1rem 0.4rem; border: 1px solid currentColor; letter-spacing: 0.08em; }
+.cr-icono { width: 2.1rem; height: 2.1rem; overflow: visible; }
+.cr-icono path { stroke: var(--tinta); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+.cr-icono .cr-piedra { fill: var(--tinta); }
+.cr-icono .cr-grabado { stroke: var(--papel); stroke-width: 1.3; }
+.cr-incumplido .cr-icono .cr-piedra { fill: var(--rojo); stroke: var(--rojo); }
+.cr-incumplido .cr-icono .cr-grieta { stroke: var(--papel); stroke-width: 1.8; }
+.cr-icono .cr-bandera { fill: var(--papel-claro); stroke-dasharray: 2.5 2; }
+.cr-icono .cr-suelo { stroke: var(--tenue); stroke-width: 1.2; }
+.cr-fecha { margin: 0; font: 700 0.7rem/1.4 var(--sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--rojo); }
+.cr-estado { display: inline-block; margin-left: 0.5rem; padding: 0.05rem 0.4rem; border: 1px solid currentColor; letter-spacing: 0.08em; color: var(--tenue); }
 .cr-incumplido .cr-estado { color: var(--rojo); }
-.cr-titulo { margin: 0.25rem 0 0; font-family: var(--serif); font-size: 1.3rem; line-height: 1.2; }
+.cr-titulo { margin: 0.25rem 0 0; font-family: var(--serif); font-size: 1.35rem; line-height: 1.15; }
 .cr-texto { margin: 0.35rem 0 0; color: var(--tenue); font-size: 0.95rem; line-height: 1.5; }
 
-.anima .cr-hito { opacity: 0.15; transform: translateY(1.2rem); transition: opacity 0.6s ease, transform 0.6s ease; }
-.anima .cr-hito::before { transform: scale(0.6); }
-.anima .cr-hito.visto { opacity: 1; transform: none; }
-.anima .cr-hito.visto::before { transform: none; }
-.anima .cr-avance { transition: transform 0.15s linear; }
+/* Con JavaScript: el camino es un SVG que dibuja la plantilla. */
+.cr-camino { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 0; }
+.cr-camino .cr-huella { fill: none; stroke: var(--tenue); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 0.5 9; opacity: 0.55; }
+.cr-camino .cr-tinta { fill: none; stroke: var(--tinta); stroke-width: 3.2; stroke-linecap: round; }
+.cr-camino .cr-borde { fill: none; stroke: var(--papel-claro); stroke-width: 14; stroke-linecap: round; opacity: 0.7; }
+.cr-caminante path, .cr-caminante circle { fill: none; stroke: var(--rojo); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.cr-caminante circle.cr-cabeza { fill: var(--rojo); }
+.cr-caminante .cr-sombra { fill: var(--tinta); opacity: 0.15; stroke: none; }
+
+.anima .cr-lista::before { display: none; }
+.anima .cr-hito { padding: 0; margin: 0 0 2.6rem; min-height: 3rem; }
+.anima .cr-mojon { position: absolute; left: var(--x, 1.2rem); top: 0; transform: translate(-50%, 0) scale(0.4); opacity: 0; transition: transform 0.5s cubic-bezier(.34,1.56,.64,1), opacity 0.3s ease; }
+.anima .cr-nota {
+  margin-left: 3.6rem;
+  padding: 0.85rem 1rem 0.95rem;
+  background: var(--papel-claro);
+  border: 1px solid var(--filete);
+  box-shadow: 0 2px 0 var(--filete);
+  opacity: 0;
+  transform: translateY(1rem) rotate(var(--giro, 0deg));
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.anima .cr-hito.visto .cr-mojon { opacity: 1; transform: translate(-50%, 0) scale(1); }
+.anima .cr-hito.visto .cr-nota { opacity: 1; transform: rotate(var(--giro, 0deg)); }
+.anima .cr-hito:nth-child(odd) { --giro: -0.6deg; }
+.anima .cr-hito:nth-child(even) { --giro: 0.5deg; }
+
+@media (min-width: 900px) {
+  /* En pantalla ancha la ruta sale de la columna de lectura y serpentea por
+     el centro, con las notas a uno y otro lado. */
+  .anima.cronologia {
+    width: min(50rem, calc(100vw - 2.5rem));
+    margin-inline: calc(50% - min(25rem, 50vw - 1.25rem));
+  }
+  .anima .cr-hito { margin-bottom: -1.2rem; padding-bottom: 3.2rem; }
+  .anima .cr-hito:last-child { padding-bottom: 0; margin-bottom: 0; }
+  .anima .cr-nota { width: 40%; margin-left: 0; }
+  .anima .cr-hito:nth-child(odd) .cr-nota { margin-right: auto; }
+  .anima .cr-hito:nth-child(even) .cr-nota { margin-left: auto; }
+  .anima .cr-hito:nth-child(odd) .cr-nota { transform: translateX(-1.5rem) rotate(var(--giro)); }
+  .anima .cr-hito:nth-child(even) .cr-nota { transform: translateX(1.5rem) rotate(var(--giro)); }
+  .anima .cr-hito.visto .cr-nota { transform: rotate(var(--giro)); }
+}
 
 /* Pasos: cifra fija y cuadrícula de 100 puntos */
 .ps-lista { list-style: none; margin: 0; padding: 0; }
@@ -1665,13 +1708,14 @@ p, li, dd, blockquote { text-wrap: pretty; }
 .anima .ps-cifra-paso, .anima .ps-tarjeta .ps-puntos { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .anima .cr-hito, .anima .cr-hito::before, .anima .cr-avance,
+  .anima .cr-mojon, .anima .cr-nota,
   .anima .ps-panel .ps-cifra, .anima .ps-panel .ps-puntos, .anima .ps-panel .ps-puntos i,
   .anima .ps-tarjeta { transition: none; }
 }
 @media print {
   .ps-panel { display: none !important; }
-  .anima .cr-hito { opacity: 1; transform: none; }
+  .anima .cr-mojon, .anima .cr-nota { opacity: 1; transform: none; }
+  .cr-camino { display: none; }
   .anima .ps-cifra-paso, .anima .ps-tarjeta .ps-puntos { display: block; }
   .anima .ps-tarjeta .ps-puntos { display: grid; }
   .anima .ps-paso { margin: 0 0 1.2rem; }

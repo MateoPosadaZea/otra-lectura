@@ -23,7 +23,9 @@ del frontmatter:
         texto: "Mayores de 60 con pensión por haber cotizado."
     ```
 
-La cronología es una línea del tiempo que se dibuja a medida que se baja; los
+La cronología es una ruta: un camino de tinta que serpentea entre mojones
+(piedra si pasó, piedra partida si fue un plazo incumplido, bandera si está
+pendiente) y que un caminante recorre a medida que se baja; los
 pasos dejan fija una cifra (y su cuadrícula de 100 puntos) mientras el texto
 pasa por encima. Todo sale en HTML desde el build: sin JavaScript se lee
 completo, como lista; el JavaScript de la plantilla solo agrega el movimiento
@@ -124,17 +126,33 @@ def cabecera(r):
     return f'<figcaption><strong>{e(r["titulo"])}</strong>{sub}</figcaption>\n'
 
 
+# Mojones de la ruta: piedra (hecho), piedra partida en rojo (incumplido),
+# bandera (pendiente). Dibujos de trazo, sin emojis.
+MOJONES = {
+    "hecho": ('<svg viewBox="0 0 32 32" class="cr-icono"><path class="cr-piedra" '
+              'd="M7 28V13c0-6 4-9 9-9s9 3 9 9v15z"/><path class="cr-grabado" d="M11 14h10M11 18h10M11 22h6"/>'
+              '<path class="cr-suelo" d="M3 28.5h26"/></svg>'),
+    "incumplido": ('<svg viewBox="0 0 32 32" class="cr-icono"><path class="cr-piedra" '
+                   'd="M7 28V13c0-6 4-9 9-9s9 3 9 9v15z"/><path class="cr-grieta" d="M17 4l-3 7 4 4-4 5 3 8"/>'
+                   '<path class="cr-suelo" d="M3 28.5h26"/></svg>'),
+    "pendiente": ('<svg viewBox="0 0 32 32" class="cr-icono"><path class="cr-asta" d="M10 29V4"/>'
+                  '<path class="cr-bandera" d="M10 5c4-2 8 2 13 0v10c-5 2-9-2-13 0z"/>'
+                  '<path class="cr-suelo" d="M5 29.5h12"/></svg>'),
+}
+
+
 def cronologia(r):
     hitos = []
     for h in r["hitos"]:
         aviso = ESTADOS[h["estado"]]
         marca = f'<span class="cr-estado">{aviso}</span>' if aviso else ""
         texto = f'<p class="cr-texto">{linea(h["texto"])}</p>' if h["texto"] else ""
-        hitos.append(f'<li class="cr-hito cr-{h["estado"]}"><p class="cr-fecha">{e(h["fecha"])}{marca}</p>'
-                     f'<p class="cr-titulo">{linea(h["titulo"])}</p>{texto}</li>')
+        hitos.append(f'<li class="cr-hito cr-{h["estado"]}"><span class="cr-mojon" aria-hidden="true">'
+                     f'{MOJONES[h["estado"]]}</span><div class="cr-nota">'
+                     f'<p class="cr-fecha">{e(h["fecha"])}{marca}</p>'
+                     f'<p class="cr-titulo">{linea(h["titulo"])}</p>{texto}</div></li>')
     return (f'<figure class="recorrido cronologia" data-recorrido="cronologia">\n{cabecera(r)}'
-            f'<div class="cr-cuerpo"><span class="cr-avance" aria-hidden="true"></span>'
-            f'<ol class="cr-lista">\n' + "\n".join(hitos) + '\n</ol></div>\n'
+            f'<div class="cr-cuerpo"><ol class="cr-lista">\n' + "\n".join(hitos) + '\n</ol></div>\n'
             f'<p class="g-fuente">Fuente: {e(r["fuente"])}</p>\n</figure>')
 
 

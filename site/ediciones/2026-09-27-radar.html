@@ -420,31 +420,100 @@ al menos dos de ellos cuando existían.</p>
   var figs = document.querySelectorAll("[data-recorrido]");
   if (!figs.length || !("IntersectionObserver" in window)) return;
   var quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  /* La ruta: un camino de tinta que serpentea entre los mojones y que un
+     caminante recorre al ritmo del scroll. */
+  var NS = "http://www.w3.org/2000/svg", cuenta = 0;
+  function suave(p) {
+    var d = "M" + p[0][0] + " " + p[0][1];
+    for (var i = 0; i < p.length - 1; i++) {
+      var a = p[i - 1] || p[i], b = p[i], c = p[i + 1], e = p[i + 2] || c;
+      d += " C" + (b[0] + (c[0] - a[0]) / 6) + " " + (b[1] + (c[1] - a[1]) / 6) + " " +
+        (c[0] - (e[0] - b[0]) / 6) + " " + (c[1] - (e[1] - b[1]) / 6) + " " + c[0] + " " + c[1];
+    }
+    return d;
+  }
+  function ruta(f, quieto) {
+    var cuerpo = f.querySelector(".cr-cuerpo"), lista = f.querySelector(".cr-lista");
+    var hitos = [].slice.call(f.querySelectorAll(".cr-hito"));
+    var id = "cr-tinta-" + (++cuenta);
+    var svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("class", "cr-camino");
+    svg.setAttribute("aria-hidden", "true");
+    svg.innerHTML = '<defs><filter id="' + id + '" x="-5%" y="-1%" width="110%" height="102%">' +
+      '<feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="2" seed="7"/>' +
+      '<feDisplacementMap in="SourceGraphic" scale="2.4"/></filter></defs>' +
+      '<path class="cr-borde" filter="url(#' + id + ')"/><path class="cr-huella"/>' +
+      '<path class="cr-tinta" filter="url(#' + id + ')"/>' +
+      '<g class="cr-caminante"><ellipse class="cr-sombra" cx="0" cy="1" rx="8" ry="2.2"/>' +
+      '<circle class="cr-cabeza" cx="0" cy="-23" r="3.4"/><path class="cr-cuerpo-c" d="M0 -18.5 L-1 -8"/>' +
+      '<path class="cr-brazos"/><path class="cr-piernas"/></g>';
+    cuerpo.insertBefore(svg, cuerpo.firstChild);
+    var borde = svg.querySelector(".cr-borde"), huella = svg.querySelector(".cr-huella");
+    var tinta = svg.querySelector(".cr-tinta"), caminante = svg.querySelector(".cr-caminante");
+    var brazos = svg.querySelector(".cr-brazos"), piernas = svg.querySelector(".cr-piernas");
+    var POSES = [["M0 -15 L-5 -9 M0 -15 L5 -12", "M-1 -8 L-6 0 M-1 -8 L4 0"],
+                 ["M0 -15 L-2 -9 M0 -15 L2 -9", "M-1 -8 L-2 0 M-1 -8 L0 0"]];
+    var pts = [], muestras = [], largo = 0, pendiente = false, escala = 1.5;
+
+    function trazar() {
+      var W = cuerpo.clientWidth, ancho = matchMedia("(min-width: 900px)").matches;
+      escala = ancho ? 1.5 : 1.25;
+      pts = hitos.map(function (h, i) {
+        var x = ancho ? W * (i % 2 ? 0.545 : 0.455) : (i % 2 ? 38 : 20);
+        h.style.setProperty("--x", x + "px");
+        return [x, lista.offsetTop + h.offsetTop + 19];
+      });
+      var vaiven = ancho ? W * 0.075 : 13, camino = [[pts[0][0], pts[0][1] - 46]];
+      pts.forEach(function (p, i) {
+        camino.push(p);
+        var q = pts[i + 1];
+        if (q) camino.push([(p[0] + q[0]) / 2 + (i % 2 ? vaiven : -vaiven), (p[1] + q[1]) / 2]);
+      });
+      var u = pts[pts.length - 1];
+      camino.push([u[0] + (ancho ? -vaiven : 6), u[1] + 50]);
+      var d = suave(camino);
+      [borde, huella, tinta].forEach(function (p) { p.setAttribute("d", d); });
+      largo = tinta.getTotalLength();
+      tinta.style.strokeDasharray = largo + " " + largo;
+      muestras = [];
+      for (var l = 0; l <= largo; l += 4) {
+        var q = tinta.getPointAtLength(l);
+        muestras.push([l, q.x, q.y]);
+      }
+      mover();
+    }
+
+    function mover() {
+      pendiente = false;
+      if (!muestras.length) return;
+      var meta = innerHeight * 0.62 - cuerpo.getBoundingClientRect().top;
+      if (quieto) meta = Infinity;
+      var lo = 0, hi = muestras.length - 1;
+      while (lo < hi) { var m = (lo + hi) >> 1; if (muestras[m][2] < meta) lo = m + 1; else hi = m; }
+      var s = muestras[lo], l = Math.min(s[0], largo);
+      tinta.style.strokeDashoffset = largo - l;
+      var t = muestras[Math.min(lo + 3, muestras.length - 1)];
+      var giro = lo > muestras.length - 5 ? 0 : Math.max(-18, Math.min(18, (t[1] - s[1]) * 2));
+      caminante.setAttribute("transform", "translate(" + s[1] + " " + s[2] + ") rotate(" + giro + ") scale(" + escala + ")");
+      var pose = POSES[Math.floor(l / 16) % 2];
+      brazos.setAttribute("d", pose[0]);
+      piernas.setAttribute("d", pose[1]);
+      caminante.style.opacity = quieto || lo === muestras.length - 1 ? 0 : 1;
+      hitos.forEach(function (h, i) { if (pts[i][1] <= meta + 12) h.classList.add("visto"); });
+    }
+
+    trazar();
+    addEventListener("scroll", function () {
+      if (!pendiente) { pendiente = true; requestAnimationFrame(mover); }
+    }, { passive: true });
+    var espera;
+    addEventListener("resize", function () { clearTimeout(espera); espera = setTimeout(trazar, 150); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(trazar);
+  }
   figs.forEach(function (f) {
     f.classList.add("anima");
     if (f.dataset.recorrido === "cronologia") {
-      var cuerpo = f.querySelector(".cr-cuerpo");
-      var vistos = new IntersectionObserver(function (es) {
-        es.forEach(function (x) {
-          if (x.isIntersecting || x.boundingClientRect.top < 0) {
-            x.target.classList.add("visto");
-            vistos.unobserve(x.target);
-          }
-        });
-      }, { rootMargin: "0px 0px -20% 0px" });
-      f.querySelectorAll(".cr-hito").forEach(function (h) { vistos.observe(h); });
-      var pendiente = false;
-      var medir = function () {
-        pendiente = false;
-        var r = cuerpo.getBoundingClientRect();
-        var v = (innerHeight * 0.75 - r.top) / r.height;
-        cuerpo.style.setProperty("--avance", Math.max(0, Math.min(1, v)).toFixed(3));
-      };
-      addEventListener("scroll", function () {
-        if (!pendiente) { pendiente = true; requestAnimationFrame(medir); }
-      }, { passive: true });
-      addEventListener("resize", medir);
-      medir();
+      ruta(f, quieto);
     } else {
       var panel = f.querySelector(".ps-panel");
       var cifra = panel.querySelector(".ps-cifra");
