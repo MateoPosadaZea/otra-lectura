@@ -157,7 +157,7 @@ def cronologia(r):
 
 
 def puntos(proporcion):
-    """Cuadrícula de 100 puntos; los primeros `proporcion` van llenos."""
+    """Cuadrícula de 100 personas (siluetas en el CSS); las primeras `proporcion` van llenas."""
     llenos = -1 if proporcion is None else proporcion
     celdas = "".join(('<i class="on"' if k < llenos else "<i") + f' style="--k:{k}"></i>' for k in range(100))
     clase = "ps-puntos" + (" ps-sin" if proporcion is None else "")

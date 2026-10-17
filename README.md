@@ -217,7 +217,7 @@ apaga. Formato completo en `scripts/recorridos.py`.
   (piedra), `incumplido` (piedra partida, en rojo) o `pendiente` (bandera).
   De 2 a 12 hitos.
 - ` ```pasos `: una cifra queda fija mientras el texto pasa por encima. Con
-  `proporcion` (0 a 100), la cifra trae una cuadrícula de 100 puntos que se
+  `proporcion` (0 a 100), la cifra trae una cuadrícula de 100 figuras de personas que se
   llena paso a paso. De 2 a 6 pasos.
 
 Cada hito o paso tiene como máximo 45 palabras; el texto de estos bloques
