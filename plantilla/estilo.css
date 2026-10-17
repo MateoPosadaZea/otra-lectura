@@ -1571,3 +1571,109 @@ p, li, dd, blockquote { text-wrap: pretty; }
   color: var(--papel);
 }
 .reticula-columna .boton-seguir { padding: 0.6rem 1rem; font-size: 0.75rem; }
+
+/* --- Recorridos (scripts/recorridos.py): historias que se cuentan al bajar --- */
+/* Sin JavaScript se leen completas, como lista. Con JavaScript (.anima) la línea
+   del tiempo se dibuja al bajar y los pasos dejan una cifra fija mientras el
+   texto pasa. «Reducir movimiento» apaga las transiciones. */
+
+.recorrido { margin: 2.4rem 0; padding: 1.1rem 0 0.4rem; border-top: 1px solid var(--tinta); }
+.recorrido figcaption { margin-bottom: 1.4rem; }
+.recorrido figcaption strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 1.35em; line-height: 1.15; }
+.recorrido .g-sub { display: block; margin-top: 0.2rem; color: var(--tenue); font-size: 0.85em; }
+.recorrido .g-fuente { margin-top: 1rem; color: var(--tenue); font-size: 0.75rem; }
+
+/* Cronología */
+.cr-cuerpo { position: relative; --avance: 1; }
+.cr-cuerpo::before, .cr-avance {
+  content: "";
+  position: absolute;
+  left: 0.45rem;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 2px;
+  background: var(--filete);
+}
+.cr-avance { background: var(--tinta); transform-origin: top; transform: scaleY(var(--avance)); }
+.cr-lista { list-style: none; margin: 0; padding: 0; }
+.cr-hito { position: relative; padding: 0 0 1.6rem 2.2rem; }
+.cr-hito:last-child { padding-bottom: 0; }
+.cr-hito::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.15rem;
+  width: 0.95rem;
+  height: 0.95rem;
+  border-radius: 50%;
+  border: 2px solid var(--tinta);
+  background: var(--tinta);
+  transition: background-color 0.4s ease, transform 0.4s ease;
+}
+.cr-pendiente::before { background: var(--papel); border-style: dashed; }
+.cr-incumplido::before { background: var(--rojo); border-color: var(--rojo); }
+.cr-fecha { margin: 0; font: 700 0.7rem/1.4 var(--sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--tenue); }
+.cr-estado { margin-left: 0.6rem; padding: 0.1rem 0.4rem; border: 1px solid currentColor; letter-spacing: 0.08em; }
+.cr-incumplido .cr-estado { color: var(--rojo); }
+.cr-titulo { margin: 0.25rem 0 0; font-family: var(--serif); font-size: 1.3rem; line-height: 1.2; }
+.cr-texto { margin: 0.35rem 0 0; color: var(--tenue); font-size: 0.95rem; line-height: 1.5; }
+
+.anima .cr-hito { opacity: 0.15; transform: translateY(1.2rem); transition: opacity 0.6s ease, transform 0.6s ease; }
+.anima .cr-hito::before { transform: scale(0.6); }
+.anima .cr-hito.visto { opacity: 1; transform: none; }
+.anima .cr-hito.visto::before { transform: none; }
+.anima .cr-avance { transition: transform 0.15s linear; }
+
+/* Pasos: cifra fija y cuadrícula de 100 puntos */
+.ps-lista { list-style: none; margin: 0; padding: 0; }
+.ps-paso { margin: 0 0 1.2rem; }
+.ps-tarjeta { padding: 1rem 1.1rem; border: 1px solid var(--filete); background: var(--papel-claro); }
+.ps-cifra, .ps-cifra-paso { margin: 0; font-family: var(--serif); font-size: clamp(1.8rem, 6vw, 2.6rem); line-height: 1.05; color: var(--rojo); }
+.ps-texto { margin: 0.5rem 0 0; font-size: 1rem; line-height: 1.5; }
+.ps-puntos {
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  gap: 3px;
+  max-width: 15rem;
+  margin: 0.8rem 0 0.2rem;
+}
+.ps-puntos i { aspect-ratio: 1; border-radius: 50%; border: 1px solid var(--tinta); background: transparent; }
+.ps-puntos i.on { background: var(--tinta); }
+.ps-panel { display: none; }
+
+.anima .ps-cuerpo { position: relative; }
+.anima .ps-panel {
+  position: sticky;
+  top: 4.5rem;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 52vh;
+  padding: 1.5rem 0 1rem;
+}
+.anima .ps-panel .ps-cifra { font-size: clamp(2.4rem, 9vw, 3.6rem); transition: opacity 0.3s ease; }
+.anima .ps-panel .ps-cifra.cambia { opacity: 0; }
+.anima .ps-panel .ps-puntos { max-width: 20rem; gap: 4px; transition: opacity 0.4s ease; }
+.anima .ps-panel .ps-puntos.ps-sin { opacity: 0.2; }
+.anima .ps-panel .ps-puntos i { transition: background-color 0.35s ease calc(var(--k) * 6ms); }
+.anima .ps-lista { position: relative; z-index: 1; margin-top: 4vh; }
+.anima .ps-paso { margin: 0 0 55vh; }
+.anima .ps-paso:last-child { margin-bottom: 20vh; }
+.anima .ps-tarjeta { box-shadow: 0 1px 0 var(--filete); opacity: 0.55; transition: opacity 0.4s ease; }
+.anima .ps-paso.activo .ps-tarjeta { opacity: 1; }
+.anima .ps-cifra-paso, .anima .ps-tarjeta .ps-puntos { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .anima .cr-hito, .anima .cr-hito::before, .anima .cr-avance,
+  .anima .ps-panel .ps-cifra, .anima .ps-panel .ps-puntos, .anima .ps-panel .ps-puntos i,
+  .anima .ps-tarjeta { transition: none; }
+}
+@media print {
+  .ps-panel { display: none !important; }
+  .anima .cr-hito { opacity: 1; transform: none; }
+  .anima .ps-cifra-paso, .anima .ps-tarjeta .ps-puntos { display: block; }
+  .anima .ps-tarjeta .ps-puntos { display: grid; }
+  .anima .ps-paso { margin: 0 0 1.2rem; }
+  .anima .ps-lista { margin-top: 0; }
+}

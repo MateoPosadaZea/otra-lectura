@@ -410,6 +410,11 @@ discutir en la sobremesa.
   magnitudes), `columnas` (pocos periodos), `lineas` (tendencia, hasta 3
   series), `puntos` con `escala: log` (magnitudes muy distintas). Formato
   y ejemplo en `scripts/graficos.py`; el build falla si el bloque está mal.
+- Recorridos (ver AJUSTES.md, 2026-10-17): cuando la historia tiene una
+  secuencia de fechas, usar un bloque ` ```cronologia ` en lugar de
+  contarla en párrafos; cuando una cifra o una proporción cambia, un bloque
+  ` ```pasos `. Solo si lo amerita, uno de cada tipo por nudo como máximo,
+  y reemplazando texto. Formato en `scripts/recorridos.py`.
 - Cada idea nueva en `cruce_mattriz` se agrega también a `candidatas.md`
   como sección `## Idea` (mismo texto), con `Estado: pendiente` y cuatro
   bloques breves: **Qué resolvería.**, **Cómo.**, **Por dónde empezar.**

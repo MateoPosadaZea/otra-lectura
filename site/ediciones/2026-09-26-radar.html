@@ -594,6 +594,67 @@ de diseño fuerte sobre el daño.</p></details>
     destino.focus({ preventScroll: true });
   });
 })();
+/* Recorridos: la línea del tiempo se dibuja al bajar y los pasos cambian la cifra fija.
+   Sin JavaScript se leen completos, como lista. */
+(function () {
+  var figs = document.querySelectorAll("[data-recorrido]");
+  if (!figs.length || !("IntersectionObserver" in window)) return;
+  var quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  figs.forEach(function (f) {
+    f.classList.add("anima");
+    if (f.dataset.recorrido === "cronologia") {
+      var cuerpo = f.querySelector(".cr-cuerpo");
+      var vistos = new IntersectionObserver(function (es) {
+        es.forEach(function (x) {
+          if (x.isIntersecting || x.boundingClientRect.top < 0) {
+            x.target.classList.add("visto");
+            vistos.unobserve(x.target);
+          }
+        });
+      }, { rootMargin: "0px 0px -20% 0px" });
+      f.querySelectorAll(".cr-hito").forEach(function (h) { vistos.observe(h); });
+      var pendiente = false;
+      var medir = function () {
+        pendiente = false;
+        var r = cuerpo.getBoundingClientRect();
+        var v = (innerHeight * 0.75 - r.top) / r.height;
+        cuerpo.style.setProperty("--avance", Math.max(0, Math.min(1, v)).toFixed(3));
+      };
+      addEventListener("scroll", function () {
+        if (!pendiente) { pendiente = true; requestAnimationFrame(medir); }
+      }, { passive: true });
+      addEventListener("resize", medir);
+      medir();
+    } else {
+      var panel = f.querySelector(".ps-panel");
+      var cifra = panel.querySelector(".ps-cifra");
+      var grilla = panel.querySelector(".ps-puntos");
+      var pasos = f.querySelectorAll(".ps-paso");
+      var activar = function (p) {
+        pasos.forEach(function (q) { q.classList.toggle("activo", q === p); });
+        var nueva = p.dataset.cifra;
+        if (cifra.textContent !== nueva) {
+          if (quieto) cifra.textContent = nueva;
+          else {
+            cifra.classList.add("cambia");
+            setTimeout(function () { cifra.textContent = nueva; cifra.classList.remove("cambia"); }, 300);
+          }
+        }
+        if (grilla) {
+          var n = p.dataset.proporcion;
+          var lleno = n === undefined ? -1 : +n;
+          grilla.classList.toggle("ps-sin", n === undefined);
+          grilla.querySelectorAll("i").forEach(function (i, k) { i.classList.toggle("on", k < lleno); });
+        }
+      };
+      var cambio = new IntersectionObserver(function (es) {
+        es.forEach(function (x) { if (x.isIntersecting) activar(x.target); });
+      }, { rootMargin: "-72% 0px -27% 0px" });
+      pasos.forEach(function (p) { cambio.observe(p); });
+      activar(pasos[0]);
+    }
+  });
+})();
 /* El glosario del final está plegado: se abre al ir a él (botón del celular o enlace). */
 (function () {
   function abrir() {

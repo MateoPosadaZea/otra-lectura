@@ -307,3 +307,13 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   sugerido para la edición; los temas salen solo de la definición de
   nudo y el puntaje, como siempre. Un tema regional entra si gana por
   puntaje frente a los nacionales.
+- 2026-10-17 · Pedido de Mateo («estoy sintiendo las noticias muy
+  pesadas… mucho bloque de texto que solo hacen que la gente baje»):
+  cuando la historia lo amerita, se cuenta con un recorrido en vez de
+  párrafos. Una secuencia de fechas (promesas, plazos, fallos, cortes que
+  se repiten) va en un bloque ` ```cronologia `; una cifra que cambia o una
+  proporción («14 de cada 100» frente a «91 de cada 100») va en un bloque
+  ` ```pasos `. Como máximo uno de cada tipo por nudo, con datos que estén
+  en las fuentes, y reemplazando texto, no sumándolo. Si la historia no
+  tiene secuencia ni cifra que mostrar, no se fuerza. Formato en el README
+  («Recorridos») y en `scripts/recorridos.py`.

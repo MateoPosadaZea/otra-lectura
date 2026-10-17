@@ -203,6 +203,50 @@ datos:
 ```
 ````
 
+## Recorridos: historias que se cuentan al bajar
+
+Dos bloques más para que el lector no tenga que atravesar un bloque de
+texto cuando la historia tiene una secuencia o una cifra que se entiende
+mejor viéndola. Se dibujan en el build y se leen completos sin JavaScript
+(como lista); con JavaScript se mueven al bajar, y «reducir movimiento» lo
+apaga. Formato completo en `scripts/recorridos.py`.
+
+- ` ```cronologia `: línea del tiempo que se dibuja al bajar. Cada hito
+  lleva `fecha`, `titulo`, `texto` opcional y `estado` (`hecho`,
+  `incumplido` en rojo, `pendiente` con borde punteado). De 2 a 12 hitos.
+- ` ```pasos `: una cifra queda fija mientras el texto pasa por encima. Con
+  `proporcion` (0 a 100), la cifra trae una cuadrícula de 100 puntos que se
+  llena paso a paso. De 2 a 6 pasos.
+
+Cada hito o paso tiene como máximo 45 palabras; el texto de estos bloques
+no cuenta para el techo de 1.200, así que se usan para reemplazar párrafos,
+no para sumar.
+
+````markdown
+```cronologia
+titulo: "Una reforma con el reloj corrido"
+fuente: "Corte Constitucional; La República"
+hitos:
+  - fecha: "16 de julio de 2024"
+    titulo: "Se publica la Ley 2381"
+  - fecha: "1 de julio de 2025"
+    titulo: "La fecha en que debía empezar"
+    estado: incumplido
+```
+
+```pasos
+titulo: "Bolivia, una renta para casi todos"
+fuente: "Udape"
+pasos:
+  - cifra: "14 de cada 100"
+    proporcion: 14
+    texto: "Mayores de 60 con pensión por haber cotizado."
+  - cifra: "91 de cada 100"
+    proporcion: 91
+    texto: "Mayores de 60 con la Renta Dignidad."
+```
+````
+
 ## Verificación
 
 `./build.sh` se detiene, sin publicar nada, y dice archivo, campo y motivo si:
@@ -215,6 +259,8 @@ datos:
   anterior;
 - una actualización apunta a un nudo que no existe en esa edición;
 - un bloque `grafico` está mal escrito (tipo, campos o números);
+- un bloque `cronologia` o `pasos` está mal escrito (campos, estado,
+  proporción, más de 45 palabras por hito o paso, o un «$»);
 - en `candidatas.md` una candidata no empieza con `Estado:` o tiene un
   estado inválido.
 
@@ -302,6 +348,7 @@ plantilla/          base.html, estilo.css y fuentes/ (Instrument Serif, Unifrakt
 scripts/build.py    markdown → HTML, verificación, candidatas
 scripts/frontmatter.py  lector del frontmatter (subconjunto de YAML, sin dependencias)
 scripts/graficos.py bloques ```grafico → gráficos HTML/SVG
+scripts/recorridos.py bloques ```cronologia y ```pasos → historias que se cuentan al bajar
 ayuda.md            página "Cómo participar" (instrucciones para lectores)
 sobre.md            página "¿Qué es esto?"
 PULSO.md            registro de valoraciones Liviana / Justa / Pesada

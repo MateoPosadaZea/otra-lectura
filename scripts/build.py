@@ -32,6 +32,7 @@ import markdown
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from frontmatter import ErrorFrontmatter, parsear  # noqa: E402
 import graficos  # noqa: E402
+import recorridos  # noqa: E402
 import og  # noqa: E402
 
 RAIZ = Path(__file__).resolve().parent.parent
@@ -529,6 +530,10 @@ def leer_edicion(ruta):
         cuerpo_md, figuras = graficos.extraer(cuerpo_md)
     except graficos.ErrorGrafico as err:
         raise ErrorEdicion(str(err))
+    try:
+        cuerpo_md, historias = recorridos.extraer(cuerpo_md)
+    except recorridos.ErrorRecorrido as err:
+        raise ErrorEdicion(str(err))
     cuerpo = convertir(cuerpo_md).strip()
 
     # El "# Radar · fecha" del cuerpo se omite: la cabecera sale del frontmatter.
@@ -550,7 +555,8 @@ def leer_edicion(ruta):
     lectura = re.split(r'<section class="carril cierre"', cuerpo)[0]
     e["palabras"] = len(texto_plano(lectura).split())
     e["minutos"] = max(1, round(e["palabras"] / 200))
-    e["cuerpo"] = bajar_conexion(subir_que_hacer(graficos.insertar(marcar_bloques(cuerpo), figuras)))
+    e["cuerpo"] = bajar_conexion(subir_que_hacer(recorridos.insertar(
+        graficos.insertar(marcar_bloques(cuerpo), figuras), historias)))
     e["cuerpo"], e["cruces"] = sacar_cruces(e["cuerpo"], dict(e["indice_nudos"]))
     e["glosario"] = extraer_glosario(e["cuerpo"])
 
