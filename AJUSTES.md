@@ -317,3 +317,12 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   en las fuentes, y reemplazando texto, no sumándolo. Si la historia no
   tiene secuencia ni cifra que mostrar, no se fuerza. Formato en el README
   («Recorridos») y en `scripts/recorridos.py`.
+
+- 2026-10-17 · Pedido de Mateo («solo mostramos una… podemos mostrar más,
+  así sean de días pasados, porque de lo contrario se pierden»): bajo la
+  edición del día, la portada muestra la plana «Días anteriores», una
+  retícula de periódico antiguo con las 11 notas más recientes de días
+  pasados (sin los repasos de la semana). La primera abre a dos columnas
+  con su grabado y capitular, otra la acompaña con el suyo y el resto va en
+  columnas de texto con filete. El enlace a todos los días anteriores
+  queda al final.

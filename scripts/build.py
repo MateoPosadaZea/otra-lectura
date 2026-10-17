@@ -1168,8 +1168,54 @@ def html_ediciones_dia(ediciones, raiz):
     return f'<ol class="indice dia reticula reticula-{n}">\n' + "\n".join(bloques) + "\n</ol>"
 
 
+def es_repaso(e):
+    """Los repasos de la semana resumen otras ediciones: no van en la plana de anteriores."""
+    return e["slug"].endswith("-semana") or e["titulo"].lower().startswith("la semana")
+
+
+def html_plana_anteriores(dias, raiz="", cuantas=11):
+    """Primera plana de días anteriores, como un periódico antiguo: la nota
+    más reciente abre a dos columnas con su grabado, otra la acompaña con el
+    suyo y el resto va en columnas de texto con filete. Así las ediciones de días
+    pasados no se pierden detrás de un enlace."""
+    previas = [e for _, del_dia in dias[1:]
+               for e in sorted(del_dia, key=lambda o: (o["orden"], o["slug"]))
+               if not es_repaso(e)][:cuantas]
+    if not previas:
+        return ""
+    notas = []
+    for i, e in enumerate(previas):
+        href = f"{raiz}ediciones/{e['slug']}.html"
+        d = date.fromisoformat(e["fecha"])
+        fecha = f"{DIAS_SEMANA[d.weekday()]} {d.day} de {MESES[d.month - 1]}"
+        seccion = CATEGORIAS.get((e["categorias"] or [""])[0], "")
+        ante = f'<time datetime="{e["fecha"]}">{fecha}</time>' + (f" · {html.escape(seccion)}" if seccion else "")
+        bajada = entradilla(e)
+        bajada = recortar(bajada, 300 if i == 0 else 190) if bajada else ""
+        clase = "plana-abre" if i == 0 else ("plana-acompana" if i == 1 else "plana-nota")
+        imagen = miniatura_grabado(e, raiz, False) if i < 2 else ""
+        notas.append(f"""<li class="{clase}">
+{imagen}<div class="plana-texto">
+<p class="plana-ante">{ante}</p>
+<h3 class="plana-titulo"><a href="{href}">{html.escape(e['titulo'])}</a></h3>
+{f'<p class="plana-bajada">{html.escape(bajada)}</p>' if bajada else ''}
+<p class="plana-seguir"><a href="{href}">Seguir leyendo<span class="solo-lectores">: {html.escape(e['titulo'])}</span> <span aria-hidden="true">→</span></a></p>
+</div>
+</li>""")
+    return f"""<section class="plana" aria-labelledby="plana-titulo">
+<header class="plana-cabeza">
+<h2 id="plana-titulo">Días anteriores</h2>
+<p>Lo que contamos y sigue en pie</p>
+</header>
+<ol class="plana-reticula">
+{chr(10).join(notas)}
+</ol>
+<p class="dias-anteriores"><a href="{raiz}archivo.html">Todos los días anteriores →</a></p>
+</section>"""
+
+
 def pagina_portada(base, dias):
-    """Portada: solo las ediciones del día más reciente y el camino a los anteriores."""
+    """Portada: las ediciones del día más reciente y, debajo, la plana de días anteriores."""
     # Cabecera compacta, como el lema bajo el nombre de un periódico: la cita
     # queda siempre visible, pero la primera plana del día sube a la vista.
     epigrafe = f"""<header class="cabecera portada portada-compacta">
@@ -1187,7 +1233,7 @@ def pagina_portada(base, dias):
 {html_ediciones_dia(del_dia, "")}
 </section>"""
         if len(dias) > 1:
-            cuerpo += '\n<p class="dias-anteriores"><a href="archivo.html">Días anteriores →</a></p>'
+            cuerpo += "\n" + html_plana_anteriores(dias)
     else:
         cuerpo = '<p class="bajada">Todavía no hay ediciones.</p>'
     ld = {"@type": "WebSite", "name": NOMBRE_SITIO, "alternateName": "Otra Lectura",

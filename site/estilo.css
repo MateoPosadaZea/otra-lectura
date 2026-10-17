@@ -1677,3 +1677,102 @@ p, li, dd, blockquote { text-wrap: pretty; }
   .anima .ps-paso { margin: 0 0 1.2rem; }
   .anima .ps-lista { margin-top: 0; }
 }
+
+/* --- Plana de días anteriores (desde el 17 de octubre de 2026): bajo la
+   edición del día, las notas de días pasados en retícula de periódico
+   antiguo, con filetes entre columnas, para que no se pierdan. --- */
+.plana { margin: 3rem 0 0; }
+.plana-cabeza {
+  margin: 0 0 1.4rem;
+  padding: 0.7rem 0 0.6rem;
+  border-top: 3px double var(--tinta);
+  border-bottom: 1px solid var(--tinta);
+  text-align: center;
+}
+.plana-cabeza h2 {
+  margin: 0;
+  font: 400 clamp(1.7rem, 1.2rem + 2vw, 2.4rem)/1.05 var(--serif);
+  letter-spacing: 0.01em;
+}
+.plana-cabeza p {
+  margin: 0.3rem 0 0;
+  font: 700 0.66rem/1.4 var(--sans);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tenue);
+}
+.plana-reticula { list-style: none; margin: 0; padding: 0; }
+.plana-reticula > li { padding: 1.1rem 0 1.2rem; border-top: 1px solid var(--filete); }
+.plana-reticula > li:first-child { border-top: 0; padding-top: 0; }
+.plana-ante {
+  margin: 0 0 0.35rem;
+  font: 700 0.64rem/1.4 var(--sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rojo);
+}
+.plana-titulo { margin: 0 0 0.5rem; font: 400 1.35rem/1.12 var(--serif); text-wrap: balance; }
+.plana-titulo a { color: inherit; text-decoration: none; }
+.plana-titulo a:hover, .plana-titulo a:focus-visible { text-decoration: underline; text-decoration-thickness: 1px; }
+.plana-bajada {
+  margin: 0 0 0.6rem;
+  font: 400 0.9rem/1.55 var(--sans);
+  color: var(--tenue);
+  hyphens: auto;
+}
+.plana-seguir { margin: 0; }
+.plana-seguir a {
+  color: var(--rojo);
+  text-decoration: none;
+  font: 800 0.66rem/1.3 var(--sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.plana-seguir a:hover, .plana-seguir a:focus-visible { text-decoration: underline; }
+.plana .reticula-imagen { margin: 0 0 0.9rem; }
+.plana .reticula-imagen img { aspect-ratio: 3 / 2; object-fit: cover; }
+.plana-abre .plana-titulo { font-size: clamp(1.7rem, 1.2rem + 1.8vw, 2.3rem); line-height: 1.05; }
+.plana-abre .plana-bajada { font-size: 1rem; color: var(--tinta); text-align: justify; }
+.plana-abre .plana-bajada::first-letter {
+  float: left;
+  margin: 0.08em 0.1em 0 0;
+  font: 400 3.4em/0.8 var(--serif);
+  color: var(--tinta);
+}
+.plana .dias-anteriores { margin-top: 1.4rem; padding-top: 1rem; border-top: 3px double var(--tinta); }
+
+@media (min-width: 640px) {
+  .plana {
+    width: min(64rem, calc(100vw - 2.5rem));
+    margin-inline: calc(50% - min(32rem, 50vw - 1.25rem));
+  }
+  /* Filetes: cada nota lleva filete arriba y a la izquierda; el contenedor
+     recorta los del borde, como en el papel. */
+  .plana-reticula {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-flow: row dense;
+    overflow: hidden;
+  }
+  .plana-reticula > li,
+  .plana-reticula > li:first-child {
+    margin: 0 0 0 -1px;
+    padding: 1.1rem 1.2rem 1.3rem;
+    border-top: 1px solid var(--filete);
+    border-left: 1px solid var(--filete);
+  }
+  .plana-reticula { margin-top: -1px; }
+  .plana-abre { grid-column: 1 / -1; }
+}
+@media (min-width: 960px) {
+  .plana-reticula { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .plana-abre {
+    grid-column: 1 / span 2;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 1.4rem;
+    align-items: start;
+  }
+  .plana-abre .reticula-imagen { margin: 0; }
+  .plana-abre .reticula-imagen img { aspect-ratio: 1; }
+}
