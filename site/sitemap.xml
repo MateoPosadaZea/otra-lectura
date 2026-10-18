@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url><loc>https://otralectura.co/</loc><lastmod>2026-10-17</lastmod></url>
+<url><loc>https://otralectura.co/</loc><lastmod>2026-10-18</lastmod></url>
+<url><loc>https://otralectura.co/ediciones/2026-10-18-radar.html</loc><lastmod>2026-10-18</lastmod></url>
 <url><loc>https://otralectura.co/ediciones/2026-10-17-radar.html</loc><lastmod>2026-10-17</lastmod></url>
-<url><loc>https://otralectura.co/ediciones/2026-10-16-semana.html</loc><lastmod>2026-10-16</lastmod></url>
+<url><loc>https://otralectura.co/ediciones/2026-10-16-semana.html</loc><lastmod>2026-10-18</lastmod></url>
 <url><loc>https://otralectura.co/ediciones/2026-10-16-radar.html</loc><lastmod>2026-10-16</lastmod></url>
 <url><loc>https://otralectura.co/ediciones/2026-10-15-radar.html</loc><lastmod>2026-10-15</lastmod></url>
-<url><loc>https://otralectura.co/ediciones/2026-10-14-radar.html</loc><lastmod>2026-10-14</lastmod></url>
+<url><loc>https://otralectura.co/ediciones/2026-10-14-radar.html</loc><lastmod>2026-10-18</lastmod></url>
 <url><loc>https://otralectura.co/ediciones/2026-10-13-radar.html</loc><lastmod>2026-10-14</lastmod></url>
 <url><loc>https://otralectura.co/ediciones/2026-10-12-radar.html</loc><lastmod>2026-10-12</lastmod></url>
 <url><loc>https://otralectura.co/ediciones/2026-10-11-radar.html</loc><lastmod>2026-10-11</lastmod></url>
@@ -37,6 +38,7 @@
 <url><loc>https://otralectura.co/ediciones/2026-09-23-radar.html</loc><lastmod>2026-09-30</lastmod></url>
 <url><loc>https://otralectura.co/ediciones/2026-09-22-radar-02.html</loc><lastmod>2026-09-30</lastmod></url>
 <url><loc>https://otralectura.co/ediciones/2026-09-22-radar-01.html</loc><lastmod>2026-09-30</lastmod></url>
+<url><loc>https://otralectura.co/dias/2026-10-18.html</loc></url>
 <url><loc>https://otralectura.co/dias/2026-10-17.html</loc></url>
 <url><loc>https://otralectura.co/dias/2026-10-16.html</loc></url>
 <url><loc>https://otralectura.co/dias/2026-10-15.html</loc></url>
@@ -97,4 +99,5 @@
 <url><loc>https://otralectura.co/temas/motos-muertes-viales.html</loc></url>
 <url><loc>https://otralectura.co/temas/agua-cartagena-acueducto.html</loc></url>
 <url><loc>https://otralectura.co/temas/pensiones-vejez-renta-basica.html</loc></url>
+<url><loc>https://otralectura.co/temas/papa-precios-ciclo.html</loc></url>
 </urlset>
