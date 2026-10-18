@@ -83,8 +83,12 @@ OMS, CEPAL → oficial; etc.). Al final de cada edición se muestra el conteo
 
 ## Navegación
 
-- **Portada** (`index.html`): el epígrafe y solo las ediciones del día más
-  reciente, cada una con sus nudos principales (enlazan a su ancla).
+- **Portada** (`index.html`): la primera plana, a todo el ancho y directo
+  a los titulares. Abre la edición del día con titular grande; al lado, en
+  negativo, «Lo que se decide» (las próximas decisiones con fecha, del campo
+  `decisiones`); debajo, dos notas recientes y las de días anteriores en
+  columnas con filete (sin los repasos de la semana). La cita de Spinoza y la
+  explicación del proyecto están en «¿Qué es esto?».
 - **Días anteriores** (`archivo.html`): todas las fechas agrupadas por mes,
   con sus temas; con JavaScript, además, un selector "Ir a una fecha".
 - **Un día** (`dias/AAAA-MM-DD.html`): las ediciones de esa fecha, con
@@ -346,7 +350,7 @@ ediciones/          fuente: una edición por archivo .md
 prompt.md           formato editorial del radar
 RUTINA.md           instrucciones de la edición diaria automática (5:00 a. m. Colombia)
 ESPECIFICACION.md   especificación técnica
-plantilla/          base.html, estilo.css y fuentes/ (Instrument Serif, UnifrakturMaguntia y Manrope, OFL)
+plantilla/          base.html, estilo.css y fuentes/ (Playfair Display, Instrument Serif, UnifrakturMaguntia y Manrope, OFL)
 scripts/build.py    markdown → HTML, verificación, candidatas
 scripts/frontmatter.py  lector del frontmatter (subconjunto de YAML, sin dependencias)
 scripts/graficos.py bloques ```grafico → gráficos HTML/SVG

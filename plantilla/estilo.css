@@ -1,5 +1,6 @@
 /* Otra lectura: diario en papel. Una columna de ~65 caracteres, claro/oscuro, sin JS.
-   Referentes: The Paper Portfolio (niccolomiranda.com) y National Geographic. */
+   Referentes: The Paper Portfolio (niccolomiranda.com) y National Geographic;
+   desde el 18 de octubre de 2026, la primera plana de los periódicos antiguos. */
 
 /* Fuentes servidas desde el sitio (OFL, ver fuentes/LICENSE-*.txt). */
 @font-face {
@@ -23,6 +24,13 @@
   font-display: swap;
 }
 @font-face {
+  font-family: "Playfair Display";
+  src: url("fuentes/playfair-display.woff2") format("woff2");
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
   font-family: "Manrope";
   src: url("fuentes/manrope.woff2") format("woff2");
   font-weight: 200 800;
@@ -30,22 +38,27 @@
 }
 
 :root {
-  --papel: #d8d1c7;
-  --papel-claro: #e2dcd3;
-  --tinta: #1c1b19;
-  --tenue: #57524b;
-  --filete: rgba(28, 27, 25, 0.28);
-  --rayado: rgba(28, 27, 25, 0.1);
-  --rojo: #b3401f;           /* etiqueta "NEW" del referente */
+  /* Sepia de periódico antiguo (desde el 18 de octubre de 2026; antes, gris
+     cálido de papel kraft). Contraste sobre el papel: tinta 11,3; tenue 5,1;
+     rojo 5,5 (el rojo anterior no llegaba a 4,5). */
+  --papel: #e6d3ad;
+  --papel-claro: #efe1c3;
+  --tinta: #2a1b0e;
+  --tenue: #6a5034;
+  --filete: rgba(42, 27, 14, 0.32);
+  --rayado: rgba(42, 27, 14, 0.1);
+  --rojo: #8c3410;
 
   /* Series de gráficos: validadas para daltonismo (todos los pares) sobre el papel. */
   --s1: #2a6ac4;
   --s2: #c2451c;
   --s3: #1c8a6a;
-  --gris-dato: #a39c92;
+  --gris-dato: #a8977a;
 
   --serif: "Instrument Serif", "Times New Roman", Georgia, serif;
   --gotica: "UnifrakturMaguntia", "Old English Text MT", serif;
+  /* Titulares de la primera plana: serif de alto contraste, en negrita, de diario. */
+  --titular: "Playfair Display", "Instrument Serif", Georgia, serif;
   --sans: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
   /* ~65 caracteres por línea con Manrope. */
@@ -57,13 +70,13 @@
 /* Oscuro: solo si el lector lo elige con el botón "Leer de noche"; por defecto, claro. */
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --papel: #1b1a18;
-  --papel-claro: #25231f;
-  --tinta: #e4ddd2;
-  --tenue: #a39b8f;
-  --filete: rgba(228, 221, 210, 0.25);
-  --rayado: rgba(228, 221, 210, 0.08);
-  --rojo: #e27a57;
+  --papel: #1c1610;
+  --papel-claro: #261e15;
+  --tinta: #eadcc0;
+  --tenue: #b39d7c;
+  --filete: rgba(234, 220, 192, 0.25);
+  --rayado: rgba(234, 220, 192, 0.08);
+  --rojo: #e3895f;
   --s1: #5b92e0;
   --s2: #e0663a;
   --s3: #27a07d;
@@ -193,7 +206,7 @@ header.sitio { border-bottom: 1px solid var(--tinta); }
 .menu li a { display: block; padding: 0.85rem 1.1rem; text-align: center; }
 .menu li a:hover { background: var(--tinta); color: var(--papel); }
 
-@media (max-width: 1360px) {
+@media (max-width: 1500px) {
   .principal { display: none; }
   .menu { display: block; }
   .barra { justify-content: flex-start; }
@@ -233,11 +246,11 @@ footer.sitio .cabezote { font-size: 1.6rem; color: var(--tinta); }
 }
 .cabecera h1 {
   margin: 0 0 1rem;
-  font-family: var(--serif);
-  font-weight: 400;
+  font-family: var(--titular);
+  font-weight: 800;
   font-size: clamp(2rem, 1.5rem + 2vw, 2.9rem);
   line-height: 1.05;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.02em;
   hyphens: manual;
   text-wrap: balance;
 }
@@ -840,6 +853,9 @@ footer.sitio .pie-enlaces { font-family: var(--sans); }
 }
 .texto p, .texto ul, .texto ol { margin: 0 0 0.9em; }
 .texto li + li { margin-top: 0.45em; }
+.texto blockquote { margin: 1.4em 0; padding: 0.2em 0 0.2em 1em; border-left: 3px double var(--tinta); }
+.texto blockquote p:first-child { font: italic 400 1.3em/1.35 var(--serif); }
+.texto blockquote p:last-child:not(:first-child) { margin: 0; color: var(--tenue); font-size: 0.9em; }
 
 /* --- Barra fija al bajar: solo el logotipo, pequeño --- */
 
@@ -1344,7 +1360,7 @@ p, li, dd, blockquote { text-wrap: pretty; }
 
 .editable { cursor: text; border-radius: 2px; }
 .editable:focus { outline: none; background: var(--papel-claro); box-shadow: 0 0 0 0.3rem var(--papel-claro); }
-.editable::selection, .editable *::selection { background: rgba(179, 64, 31, 0.25); }
+.editable::selection, .editable *::selection { background: rgba(140, 52, 16, 0.25); }
 .editado { box-shadow: -0.6rem 0 0 -0.4rem var(--s3); }
 .editado:focus { box-shadow: 0 0 0 0.3rem var(--papel-claro), -0.6rem 0 0 -0.4rem var(--s3); }
 .guardado {
@@ -1488,24 +1504,6 @@ p, li, dd, blockquote { text-wrap: pretty; }
   .reticula-2 .reticula-columna .aviso-cambios { justify-self: start; }
 }
 
-/* --- Portada compacta (desde el 5 de octubre de 2026): la cita como lema
-   bajo el nombre, siempre visible; la primera plana del día, a la vista. --- */
-.portada.portada-compacta {
-  display: block;
-  min-height: 0;
-  margin: 0 0 1.6rem;
-  padding: 1.8rem 0 1.4rem;
-  border-bottom: 1px solid var(--filete);
-}
-.portada-compacta .epigrafe blockquote p {
-  max-width: 34em;
-  font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.3rem);
-  line-height: 1.35;
-  font-style: italic;
-}
-.portada-compacta .epigrafe figcaption { margin-top: 0.4rem; font-size: 0.9em; }
-.portada-compacta .portada-intro { margin-top: 0.8rem; font-size: 0.85rem; line-height: 1.5; }
-.portada-compacta + .hoy .dia-fecha { margin-top: 0; }
 /* El grabado que abre la retícula, contenido para que el titular quede a la vista. */
 .reticula-principal .reticula-imagen { max-width: 34rem; margin-inline: auto; }
 @media (min-width: 760px) {
@@ -1542,7 +1540,7 @@ p, li, dd, blockquote { text-wrap: pretty; }
 .resultados li > a:hover, .resultados li > a:focus-visible { text-decoration: underline; }
 .resultado-fecha { margin: 0.3rem 0 0.4rem; color: var(--tenue); font: 700 0.7rem/1.3 var(--sans); letter-spacing: 0.1em; text-transform: uppercase; }
 .resultado-texto { margin: 0; color: var(--tenue); font-size: 0.95rem; line-height: 1.5; overflow-wrap: anywhere; }
-.resultados mark { background: rgba(176, 58, 46, 0.18); color: inherit; padding: 0 0.1em; }
+.resultados mark { background: rgba(140, 52, 16, 0.18); color: inherit; padding: 0 0.1em; }
 /* El dato curioso: recuadro liviano bajo «En pocas palabras». */
 .edicion .con-etiqueta.curioso {
   margin: 1.4rem 0 1.8rem; padding: 0.9rem 1.1rem;
@@ -1730,46 +1728,184 @@ p, li, dd, blockquote { text-wrap: pretty; }
   .anima .ps-lista { margin-top: 0; }
 }
 
-/* --- Plana de días anteriores (desde el 17 de octubre de 2026): bajo la
-   edición del día, las notas de días pasados en retícula de periódico
-   antiguo, con filetes entre columnas, para que no se pierdan. --- */
-.plana { margin: 3rem 0 0; }
-.plana-cabeza {
-  margin: 0 0 1.4rem;
-  padding: 0.7rem 0 0.6rem;
+/* --- Primera plana (desde el 18 de octubre de 2026): la portada a todo el
+   ancho, como un periódico. Abre la edición del día con titular grande; al
+   lado, en negativo, lo que se decide; debajo, las notas de días anteriores
+   en columnas con filete. Sin cita ni explicación: directo a los titulares. --- */
+main:has(> .primera) {
+  max-width: none;
+  padding-inline: clamp(1rem, 3vw, 3rem);
+  box-sizing: border-box;
+}
+.primera { padding-top: 1.1rem; }
+
+
+/* Banda bajo el cabezote: fecha, número de edición y qué es esto. */
+.pp-banda {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.3rem 1.2rem;
+  margin: 0 0 1.8rem;
+  padding: 0.55rem 0;
   border-top: 3px double var(--tinta);
   border-bottom: 1px solid var(--tinta);
-  text-align: center;
+  font: 700 0.68rem/1.3 var(--sans);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
-.plana-cabeza h2 {
-  margin: 0;
-  font: 400 clamp(1.7rem, 1.2rem + 2vw, 2.4rem)/1.05 var(--serif);
-  letter-spacing: 0.01em;
+.pp-banda a { text-decoration: none; color: var(--rojo); }
+.pp-banda a:hover { text-decoration: underline; }
+@media (max-width: 640px) {
+  .pp-banda { justify-content: center; text-align: center; letter-spacing: 0.12em; }
 }
-.plana-cabeza p {
-  margin: 0.3rem 0 0;
+
+.pp-ante, .plana-ante {
+  margin: 0 0 0.4rem;
   font: 700 0.66rem/1.4 var(--sans);
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--tenue);
-}
-.plana-reticula { list-style: none; margin: 0; padding: 0; }
-.plana-reticula > li { padding: 1.1rem 0 1.2rem; border-top: 1px solid var(--filete); }
-.plana-reticula > li:first-child { border-top: 0; padding-top: 0; }
-.plana-ante {
-  margin: 0 0 0.35rem;
-  font: 700 0.64rem/1.4 var(--sans);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
   color: var(--rojo);
 }
-.plana-titulo { margin: 0 0 0.5rem; font: 400 1.35rem/1.12 var(--serif); text-wrap: balance; }
+.pp-titular {
+  margin: 0 0 1.3rem;
+  font: 800 clamp(2.3rem, 1rem + 4.4vw, 5.8rem)/0.98 var(--titular);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  hyphens: manual;
+}
+.pp-titular.pp-largo { font-size: clamp(2rem, 0.9rem + 3vw, 4.2rem); line-height: 1.02; }
+.pp-titular a { color: inherit; text-decoration: none; }
+.pp-titular a:hover, .pp-titular a:focus-visible { text-decoration: underline; text-decoration-thickness: 2px; }
+.pp-abre .reticula-imagen { margin: 0 0 1.3rem; }
+.pp-abre .reticula-imagen img { aspect-ratio: 4 / 3; object-fit: cover; }
+.pp-bajada {
+  margin: 0 0 0.6rem;
+  font: 400 clamp(1.02rem, 0.95rem + 0.3vw, 1.18rem)/1.62 var(--sans);
+  text-align: justify;
+  hyphens: auto;
+}
+.pp-bajada::first-letter {
+  float: left;
+  margin: 0.06em 0.12em 0 0;
+  font: 900 3.6em/0.78 var(--titular);
+}
+.pp-abre .dia-temas { margin: 0.6rem 0 0; max-width: none; }
+.pp-abre .seguir-leyendo { margin-top: 1.1rem; }
+
+/* Dos notas bajo la que abre, lado a lado con filete. */
+.pp-segundas {
+  list-style: none;
+  margin: 1.8rem 0 0;
+  padding: 1.3rem 0 0;
+  border-top: 1px solid var(--tinta);
+}
+.pp-segundas .pp-nota:last-child { border-bottom: 0; margin-bottom: 0; }
+@media (min-width: 640px) {
+  .pp-segundas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2.6rem; }
+  .pp-segundas .pp-nota { margin: 0; padding: 0; border-bottom: 0; }
+  .pp-segundas .pp-nota + .pp-nota { border-left: 1px solid var(--filete); margin-left: -1.3rem; padding-left: 1.3rem; }
+}
+
+/* Lo que se decide: recuadro en negativo con doble marco. */
+.pp-decide {
+  margin: 2.2rem 0 0;
+  padding: 1.3rem 1.3rem 1.1rem;
+  background: var(--tinta);
+  color: var(--papel);
+  outline: 1px solid var(--tinta);
+  outline-offset: 4px;
+}
+.pp-decide h2 {
+  margin: 0;
+  font: 900 clamp(1.6rem, 1.2rem + 1vw, 2.2rem)/1 var(--titular);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.pp-decide-sub {
+  margin: 0.4rem 0 0.9rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid currentColor;
+  font: 700 0.62rem/1.4 var(--sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: center;
+  opacity: 0.85;
+}
+.pp-decide ol { list-style: none; margin: 0; padding: 0; }
+.pp-decide li + li { border-top: 1px dotted currentColor; }
+.pp-decide li a {
+  display: grid;
+  grid-template-columns: 3.6rem minmax(0, 1fr);
+  column-gap: 0.8rem;
+  padding: 0.75rem 0;
+  color: inherit;
+  text-decoration: none;
+}
+.pp-decide time {
+  grid-row: 1 / span 2;
+  text-align: center;
+  font: 700 0.66rem/1.1 var(--sans);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.pp-dia { display: block; font: 900 2.2rem/1 var(--titular); letter-spacing: 0; }
+.pp-quien { font: 800 0.68rem/1.35 var(--sans); letter-spacing: 0.1em; text-transform: uppercase; }
+.pp-que { font: 400 0.9rem/1.45 var(--sans); opacity: 0.9; }
+.pp-decide li a:hover .pp-que, .pp-decide li a:focus-visible .pp-que { text-decoration: underline; }
+.pp-decide-mas { margin: 0.4rem 0 0; padding-top: 0.7rem; border-top: 1px solid currentColor; text-align: center; }
+.pp-decide-mas a {
+  color: inherit;
+  text-decoration: none;
+  font: 800 0.66rem/1.3 var(--sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.pp-decide-mas a:hover { text-decoration: underline; }
+
+/* Banda de sección: «Días anteriores», entre filetes, como en el papel. */
+.pp-banda-sec {
+  margin: 3rem 0 1.6rem;
+  padding: 0.6rem 0 0.5rem;
+  border-top: 3px double var(--tinta);
+  border-bottom: 1px solid var(--tinta);
+  text-align: center;
+  font: 800 clamp(1.4rem, 1.1rem + 1vw, 2rem)/1.05 var(--titular);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.pp-banda-sec span {
+  display: block;
+  margin-top: 0.35rem;
+  font: 700 0.62rem/1.4 var(--sans);
+  letter-spacing: 0.16em;
+  color: var(--tenue);
+}
+
+/* Notas de días anteriores: columnas de periódico con filete entre ellas. */
+.pp-notas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  column-gap: 2.6rem;
+  column-rule: 1px solid var(--filete);
+}
+.pp-nota {
+  break-inside: avoid;
+  margin: 0 0 1.3rem;
+  padding: 0 0 1.3rem;
+  border-bottom: 1px solid var(--filete);
+}
+.plana-titulo { margin: 0 0 0.5rem; font: 700 1.38rem/1.12 var(--titular); letter-spacing: -0.005em; text-wrap: balance; }
 .plana-titulo a { color: inherit; text-decoration: none; }
 .plana-titulo a:hover, .plana-titulo a:focus-visible { text-decoration: underline; text-decoration-thickness: 1px; }
 .plana-bajada {
   margin: 0 0 0.6rem;
-  font: 400 0.9rem/1.55 var(--sans);
+  font: 400 0.92rem/1.55 var(--sans);
   color: var(--tenue);
+  text-align: justify;
   hyphens: auto;
 }
 .plana-seguir { margin: 0; }
@@ -1781,50 +1917,41 @@ p, li, dd, blockquote { text-wrap: pretty; }
   text-transform: uppercase;
 }
 .plana-seguir a:hover, .plana-seguir a:focus-visible { text-decoration: underline; }
-.plana .reticula-imagen { margin: 0 0 0.9rem; }
-.plana .reticula-imagen img { aspect-ratio: 3 / 2; object-fit: cover; }
-.plana-abre .plana-titulo { font-size: clamp(1.7rem, 1.2rem + 1.8vw, 2.3rem); line-height: 1.05; }
-.plana-abre .plana-bajada { font-size: 1rem; color: var(--tinta); text-align: justify; }
-.plana-abre .plana-bajada::first-letter {
-  float: left;
-  margin: 0.08em 0.1em 0 0;
-  font: 400 3.4em/0.8 var(--serif);
-  color: var(--tinta);
-}
-.plana .dias-anteriores { margin-top: 1.4rem; padding-top: 1rem; border-top: 3px double var(--tinta); }
+.pp-nota .reticula-imagen { margin: 0 0 0.9rem; }
+.pp-nota .reticula-imagen img { aspect-ratio: 3 / 2; object-fit: cover; }
+.primera .dias-anteriores { margin-top: 0.6rem; padding-top: 1rem; border-top: 3px double var(--tinta); }
+.primera .dias-anteriores a { font-family: var(--titular); font-weight: 700; }
 
 @media (min-width: 640px) {
-  .plana {
-    width: min(64rem, calc(100vw - 2.5rem));
-    margin-inline: calc(50% - min(32rem, 50vw - 1.25rem));
-  }
-  /* Filetes: cada nota lleva filete arriba y a la izquierda; el contenedor
-     recorta los del borde, como en el papel. */
-  .plana-reticula {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-auto-flow: row dense;
-    overflow: hidden;
-  }
-  .plana-reticula > li,
-  .plana-reticula > li:first-child {
-    margin: 0 0 0 -1px;
-    padding: 1.1rem 1.2rem 1.3rem;
-    border-top: 1px solid var(--filete);
-    border-left: 1px solid var(--filete);
-  }
-  .plana-reticula { margin-top: -1px; }
-  .plana-abre { grid-column: 1 / -1; }
+  .pp-notas { columns: 2; }
 }
-@media (min-width: 960px) {
-  .plana-reticula { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .plana-abre {
-    grid-column: 1 / span 2;
+@media (min-width: 900px) {
+  .pp-arriba {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    column-gap: 1.4rem;
+    grid-template-columns: minmax(0, 1fr) minmax(17rem, 24rem);
+    column-gap: 2.6rem;
     align-items: start;
   }
-  .plana-abre .reticula-imagen { margin: 0; }
-  .plana-abre .reticula-imagen img { aspect-ratio: 1; }
+  .pp-sin-recuadro { grid-template-columns: minmax(0, 1fr); }
+  .pp-decide { margin-top: 0.3rem; }
+  /* Con grabado: titular a todo el ancho; debajo, imagen y texto lado a lado. */
+  .pp-abre.pp-con-grabado {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 4fr);
+    column-gap: 2rem;
+    align-items: start;
+  }
+  .pp-con-grabado > .pp-ante, .pp-con-grabado > .pp-titular { grid-column: 1 / -1; }
+  .pp-abre.pp-con-grabado .reticula-imagen { margin: 0; }
+  /* Sin grabado, la bajada corre en dos columnas. */
+  .pp-abre:not(.pp-con-grabado) .pp-cuerpo { columns: 2 16rem; column-gap: 2.4rem; column-rule: 1px solid var(--filete); }
+  .pp-abre:not(.pp-con-grabado) .seguir-leyendo { break-inside: avoid; }
 }
+@media (min-width: 1100px) { .pp-notas { columns: 3; } }
+@media (min-width: 1650px) { .pp-notas { columns: 4; } }
+@media (min-width: 2300px) { .pp-notas { columns: 5; } }
+
+/* Cifras alineadas en los titulares: Playfair trae números «antiguos» por
+   omisión. Va al final porque el atajo `font` reinicia esta propiedad. */
+.pp-titular, .plana-titulo, .pp-dia, .pp-banda-sec, .pp-decide h2,
+.primera .dias-anteriores a, .cabecera h1 { font-variant-numeric: lining-nums; }

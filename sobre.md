@@ -4,6 +4,13 @@ Otra lectura es un periódico pequeño para entender los temas de gran
 impacto y formarse, poco a poco, un criterio propio. Apuesta por una
 ciudadanía informada y participativa.
 
+> «He procurado con esmero no ridiculizar, ni lamentar, ni detestar las
+> acciones humanas, sino entenderlas.»
+>
+> Baruch Spinoza, *Tratado político*, 1677.
+
+Esa frase es el punto de partida: entender antes de opinar.
+
 No busca contarlo todo ni llegar primero. Cada mañana elige los temas que
 de verdad mueven la aguja y se detiene en ellos. Casi siempre es uno; si
 el día lo pide, dos o tres. Nunca se rellena.

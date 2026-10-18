@@ -60,7 +60,8 @@ con qué contrapeso y qué patrón histórico ayuda a entenderlo.
   No inventar urgencia.
 - **Domingo** (`TZ=America/Bogota date +%u` da 7): no se abren temas
   nuevos. La edición es **"La semana en limpio"**:
-  - `titulo: "La semana en limpio · <fechas>"`; en `temas` y
+  - `titulo: "Lo que pasó esta semana · <fechas>"` (título claro, pedido
+    de Mateo, 2026-10-18); en `temas` y
     `seguimiento` van los slugs de la semana que se repasan (en `temas`
     solo si se escribe un nudo nuevo sobre ellos; lo normal es
     `seguimiento`).

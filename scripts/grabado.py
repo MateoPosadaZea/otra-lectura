@@ -21,7 +21,7 @@ from PIL import Image, ImageEnhance, ImageOps
 
 RAIZ = Path(__file__).resolve().parent.parent
 UA = "OtraLectura/1.0 (https://otralectura.co)"
-TINTA, PAPEL = (28, 27, 25), (216, 209, 199)
+TINTA, PAPEL = (42, 27, 14), (230, 211, 173)
 ANCHOS = [1280, 960, 500]  # tamaños de miniatura que Commons sirve sin límite
 
 

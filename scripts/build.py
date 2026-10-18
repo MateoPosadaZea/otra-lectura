@@ -935,8 +935,8 @@ def meta_etiquetas(titulo, descripcion, ruta, tipo, ld, imagen="og.png", alt=Non
          '<meta name="twitter:card" content="summary_large_image">',
          f'<meta name="twitter:title" content="{titulo}">',
          f'<meta name="twitter:description" content="{html.escape(desc)}">',
-         '<meta name="theme-color" content="#d8d1c7" media="(prefers-color-scheme: light)">',
-         '<meta name="theme-color" content="#1b1a18" media="(prefers-color-scheme: dark)">']
+         '<meta name="theme-color" content="#e6d3ad" media="(prefers-color-scheme: light)">',
+         '<meta name="theme-color" content="#1c1610" media="(prefers-color-scheme: dark)">']
     if not INDEXAR:
         m.append('<meta name="robots" content="noindex, nofollow">')
     if SITIO_URL:
@@ -1093,16 +1093,6 @@ def html_atajos(e):
             f'<ol>{"".join(items)}</ol></nav>')
 
 
-# Epígrafe de la portada: cita, autor y obra.
-EPIGRAFE = {
-    "cita": "He procurado con esmero no\u00a0ridiculizar, ni lamentar, ni detestar las acciones "
-            "humanas, sino entenderlas.",
-    "autor": "Baruch Spinoza",
-    "obra": "Tratado político",
-    "anio": "1677",
-}
-
-
 def por_dia(ediciones):
     """[(fecha, [ediciones de ese día])], del día más reciente al más antiguo."""
     dias = {}
@@ -1170,76 +1160,137 @@ def html_ediciones_dia(ediciones, raiz):
 
 def es_repaso(e):
     """Los repasos de la semana resumen otras ediciones: no van en la plana de anteriores."""
-    return e["slug"].endswith("-semana") or e["titulo"].lower().startswith("la semana")
+    titulo = e["titulo"].lower()
+    return e["slug"].endswith("-semana") or titulo.startswith(("la semana", "lo que pasó esta semana"))
 
 
-def html_plana_anteriores(dias, raiz="", cuantas=11):
-    """Primera plana de días anteriores, como un periódico antiguo: la nota
-    más reciente abre a dos columnas con su grabado, otra la acompaña con el
-    suyo y el resto va en columnas de texto con filete. Así las ediciones de días
-    pasados no se pierden detrás de un enlace."""
-    previas = [e for _, del_dia in dias[1:]
-               for e in sorted(del_dia, key=lambda o: (o["orden"], o["slug"]))
-               if not es_repaso(e)][:cuantas]
-    if not previas:
+def _ante_nota(e):
+    """«Sábado 17 de octubre · Economía»: la línea sobre el titular de cada nota."""
+    d = date.fromisoformat(e["fecha"])
+    fecha = f"{DIAS_SEMANA[d.weekday()]} {d.day} de {MESES[d.month - 1]}"
+    seccion = CATEGORIAS.get((e["categorias"] or [""])[0], "")
+    return f'<time datetime="{e["fecha"]}">{fecha}</time>' + (f" · {html.escape(seccion)}" if seccion else "")
+
+
+def html_recuadro_decisiones(ediciones, raiz="", cuantas=4):
+    """Recuadro en negativo de la primera plana: las próximas decisiones con
+    fecha sobre los temas que hemos contado, la más cercana primero."""
+    hoy = date.today().isoformat()
+    proximas, vistas = [], set()
+    for d, e in sorted(((d, e) for e in ediciones for d in e["decisiones"]
+                        if d["estado"] == "pendiente" and d["plazo"] and d["plazo"] >= hoy),
+                       key=lambda x: (x[0]["plazo"], x[1]["fecha"])):
+        clave = (d["plazo"], d["quien"].split()[0])
+        if clave in vistas:
+            continue
+        vistas.add(clave)
+        proximas.append((d, e))
+    if not proximas:
         return ""
-    notas = []
-    for i, e in enumerate(previas):
-        href = f"{raiz}ediciones/{e['slug']}.html"
-        d = date.fromisoformat(e["fecha"])
-        fecha = f"{DIAS_SEMANA[d.weekday()]} {d.day} de {MESES[d.month - 1]}"
-        seccion = CATEGORIAS.get((e["categorias"] or [""])[0], "")
-        ante = f'<time datetime="{e["fecha"]}">{fecha}</time>' + (f" · {html.escape(seccion)}" if seccion else "")
-        bajada = entradilla(e)
-        bajada = recortar(bajada, 300 if i == 0 else 190) if bajada else ""
-        clase = "plana-abre" if i == 0 else ("plana-acompana" if i == 1 else "plana-nota")
-        imagen = miniatura_grabado(e, raiz, False) if i < 2 else ""
-        notas.append(f"""<li class="{clase}">
-{imagen}<div class="plana-texto">
-<p class="plana-ante">{ante}</p>
-<h3 class="plana-titulo"><a href="{href}">{html.escape(e['titulo'])}</a></h3>
-{f'<p class="plana-bajada">{html.escape(bajada)}</p>' if bajada else ''}
-<p class="plana-seguir"><a href="{href}">Seguir leyendo<span class="solo-lectores">: {html.escape(e['titulo'])}</span> <span aria-hidden="true">→</span></a></p>
+    items = []
+    for d, e in proximas[:cuantas]:
+        f = date.fromisoformat(d["plazo"])
+        items.append(f"""<li><a href="{raiz}ediciones/{e['slug']}.html">
+<time datetime="{d['plazo']}"><span class="pp-dia">{f.day}</span> {MESES[f.month - 1][:3]}</time>
+<span class="pp-quien">{html.escape(d['quien'])}</span>
+<span class="pp-que">{html.escape(recortar(d['que'], 110))}</span>
+</a></li>""")
+    return f"""<aside class="pp-decide" aria-labelledby="pp-decide-titulo">
+<h2 id="pp-decide-titulo">Lo que se decide</h2>
+<p class="pp-decide-sub">Fechas que vienen en los temas que contamos</p>
+<ol>
+{chr(10).join(items)}
+</ol>
+<p class="pp-decide-mas"><a href="{raiz}decisiones.html">Todas las decisiones →</a></p>
+</aside>"""
+
+
+def html_primera_plana(dias, raiz="", cuantas=12):
+    """La portada como la primera plana de un periódico, a todo el ancho: la
+    edición del día abre con titular grande, al lado el recuadro de lo que se
+    decide, y debajo las notas de días anteriores en columnas con filete. Así
+    nada se pierde detrás de un enlace y se llega directo a los titulares."""
+    fecha, del_dia = dias[0]
+    hoy = sorted(del_dia, key=lambda o: (o["orden"], o["slug"]))
+    abre = hoy[0]
+    href = f"{raiz}ediciones/{abre['slug']}.html"
+    edicion = " · ".join((["Hoy"] + ([f"Edición {html.escape(abre['edicion'])}"] if abre["edicion"] else [])
+                          + [minutos_lectura(abre)]))
+    bajada = entradilla(abre)
+    temas = ""
+    if len(abre["indice_nudos"]) > 1:
+        temas = "".join(f'<li><a href="{href}#{slug}">{html.escape(t)}</a></li>'
+                        for slug, t in abre["indice_nudos"])
+        temas = f'<ul class="dia-temas" aria-label="Temas principales">{temas}</ul>'
+    largo = " pp-largo" if len(abre["titulo"]) > 90 else ""
+    portada = f"""<article class="pp-abre{' pp-con-grabado' if abre['grabado'] else ''}">
+<p class="pp-ante">{edicion}</p>
+<h2 class="pp-titular{largo}"><a href="{href}">{html.escape(abre['titulo'])}</a></h2>
+{miniatura_grabado(abre, raiz, True)}
+<div class="pp-cuerpo">
+{aviso_cambios(abre, raiz)}
+{f'<p class="pp-bajada">{html.escape(bajada)}</p>' if bajada else ''}
+{temas}
+<p class="seguir-leyendo"><a class="boton-seguir" href="{href}">Seguir leyendo<span class="solo-lectores">: {html.escape(abre['titulo'])}</span> <span aria-hidden="true">→</span></a></p>
 </div>
-</li>""")
-    return f"""<section class="plana" aria-labelledby="plana-titulo">
-<header class="plana-cabeza">
-<h2 id="plana-titulo">Días anteriores</h2>
-<p>Lo que contamos y sigue en pie</p>
-</header>
-<ol class="plana-reticula">
+</article>"""
+    todas = [e for _, d in dias for e in d]
+    recuadro = html_recuadro_decisiones(todas, raiz)
+
+    # Las demás del día y las de días anteriores (sin los repasos de la semana).
+    notas_ed = hoy[1:] + [e for _, d in dias[1:]
+                          for e in sorted(d, key=lambda o: (o["orden"], o["slug"])) if not es_repaso(e)]
+    def nota(e, con_imagen):
+        h = f"{raiz}ediciones/{e['slug']}.html"
+        b = entradilla(e)
+        b = recortar(b, 220) if b else ""
+        imagen = miniatura_grabado(e, raiz, False) if con_imagen else ""
+        ante = ("Hoy · " if e["fecha"] == fecha else "") + _ante_nota(e)
+        return f"""<li class="pp-nota{' pp-con-grabado' if imagen else ''}">
+{imagen}<p class="plana-ante">{ante}</p>
+<h3 class="plana-titulo"><a href="{h}">{html.escape(e['titulo'])}</a></h3>
+{f'<p class="plana-bajada">{html.escape(b)}</p>' if b else ''}
+<p class="plana-seguir"><a href="{h}">Seguir leyendo<span class="solo-lectores">: {html.escape(e['titulo'])}</span> <span aria-hidden="true">→</span></a></p>
+</li>"""
+
+    # Dos notas acompañan a la que abre, bajo ella; el resto va en columnas,
+    # con grabado una de cada tres para que la plana respire.
+    notas_ed = notas_ed[:cuantas]
+    segundas = ""
+    if len(notas_ed) > 4:
+        segundas = '<ol class="pp-segundas">\n' + "\n".join(nota(e, False) for e in notas_ed[:2]) + "\n</ol>"
+        notas_ed = notas_ed[2:]
+    notas = [nota(e, i % 3 == 0) for i, e in enumerate(notas_ed)]
+    anteriores = ""
+    if notas:
+        anteriores = f"""<h2 class="pp-banda-sec" id="anteriores">Días anteriores <span>Lo que contamos y sigue en pie</span></h2>
+<ol class="pp-notas">
 {chr(10).join(notas)}
 </ol>
-<p class="dias-anteriores"><a href="{raiz}archivo.html">Todos los días anteriores →</a></p>
+<p class="dias-anteriores"><a href="{raiz}archivo.html">Todos los días anteriores →</a></p>"""
+    numero = f'<span>Edición {html.escape(abre["edicion"])}</span>' if abre["edicion"] else ""
+    return f"""<section class="primera" aria-label="Primera plana">
+<h1 class="solo-lectores">Otra lectura</h1>
+<p class="pp-banda"><time datetime="{fecha}">{fecha_con_dia(fecha).capitalize()}</time>{numero}<a href="{raiz}sobre.html">¿Qué es esto?</a></p>
+<div class="pp-arriba{' pp-sin-recuadro' if not recuadro else ''}">
+<div class="pp-principal">
+{portada}
+{segundas}
+</div>
+{recuadro}
+</div>
+{anteriores}
 </section>"""
 
 
 def pagina_portada(base, dias):
-    """Portada: las ediciones del día más reciente y, debajo, la plana de días anteriores."""
-    # Cabecera compacta, como el lema bajo el nombre de un periódico: la cita
-    # queda siempre visible, pero la primera plana del día sube a la vista.
-    epigrafe = f"""<header class="cabecera portada portada-compacta">
-<h1 class="solo-lectores">Otra lectura</h1>
-<figure class="epigrafe">
-<blockquote><p>«{html.escape(EPIGRAFE['cita'])}»</p></blockquote>
-<figcaption>{html.escape(EPIGRAFE['autor'])} <cite>{html.escape(EPIGRAFE['obra'])}</cite>, {EPIGRAFE['anio']}</figcaption>
-</figure>
-<p class="portada-intro">Uno, dos o tres temas al día, los que de verdad mueven la aguja, contados con calma. <a href="sobre.html">¿Qué es esto?</a></p>
-</header>"""
-    if dias:
-        fecha, del_dia = dias[0]
-        cuerpo = f"""<section class="hoy" id="hoy" aria-labelledby="hoy-titulo">
-<h2 id="hoy-titulo" class="dia-fecha"><time datetime="{fecha}">{fecha_con_dia(fecha).capitalize()}</time></h2>
-{html_ediciones_dia(del_dia, "")}
-</section>"""
-        if len(dias) > 1:
-            cuerpo += "\n" + html_plana_anteriores(dias)
-    else:
-        cuerpo = '<p class="bajada">Todavía no hay ediciones.</p>'
+    """Portada: directo a los titulares, como la primera plana de un periódico.
+    La cita de Spinoza y la explicación del proyecto viven en «¿Qué es esto?»."""
+    cuerpo = html_primera_plana(dias) if dias else '<p class="bajada">Todavía no hay ediciones.</p>'
     ld = {"@type": "WebSite", "name": NOMBRE_SITIO, "alternateName": "Otra Lectura",
           "description": DESCRIPCION_SITIO, "slogan": FRASE_SITIO,
           "inLanguage": "es-CO", "publisher": editor_ld()}
-    return pagina(base, "Otra lectura", DESCRIPCION_SITIO, "", f"{epigrafe}\n{cuerpo}",
+    return pagina(base, "Otra lectura", DESCRIPCION_SITIO, "", cuerpo,
                   "/", "website", ld, seccion="inicio")
 
 
@@ -1753,7 +1804,7 @@ def main():
     (SITE / "site.webmanifest").write_text(json.dumps({
         "name": NOMBRE_SITIO, "short_name": NOMBRE_SITIO, "description": FRASE_SITIO,
         "lang": "es-CO", "start_url": "/", "display": "browser",
-        "background_color": "#d8d1c7", "theme_color": "#1c1b19",
+        "background_color": "#e6d3ad", "theme_color": "#2a1b0e",
         "icons": [{"src": "/icono-192.png", "sizes": "192x192", "type": "image/png"},
                   {"src": "/icono-512.png", "sizes": "512x512", "type": "image/png"}]},
         ensure_ascii=False, indent=1), encoding="utf-8")
