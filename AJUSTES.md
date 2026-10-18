@@ -332,16 +332,16 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   que merece, y así mismo al título»; «la gente quiere llegar y ver las
   noticias de una vez»): la portada es una primera plana a todo el ancho.
   Sin epígrafe ni descripción (pasan a «¿Qué es esto?»): banda con fecha y
-  número de edición, la edición del día con titular grande en Playfair
-  Display, el recuadro en negativo «Lo que se decide» con las próximas
+  número de edición, la edición del día con titular grande, el recuadro en negativo «Lo que se decide» con las próximas
   decisiones con fecha, y las notas de días anteriores en columnas con
-  filete, con grabado una de cada tres. Los titulares de las ediciones
-  también van en Playfair Display.
+  filete, con grabado una de cada tres.
 - 2026-10-18 · Mateo preguntó por qué esos colores y pidió probar otros: el
   gris cálido venía del rediseño del 24 de septiembre (referente: The Paper
-  Portfolio). Se probaron seis paletas sobre la portada y queda la sepia de
-  periódico antiguo (papel #e6d3ad, tinta #2a1b0e, rojo #8c3410), más
-  contrastada en el rojo. Los grabados, íconos e imágenes para compartir se
+  Portfolio). Se probaron seis paletas sobre la portada; primero quedó la
+  sepia y, a pedido de Mateo, queda el papel prensa (papel #efe7d6, tinta
+  #16130f, rojo #a1231b), más contrastado que el gris. Los titulares siguen
+  en Instrument Serif (se probó Playfair Display y Mateo prefirió la de
+  siempre). Los grabados, íconos e imágenes para compartir se
   tiñen con la misma tinta y papel (`scripts/grabado.py`, `scripts/og.py`).
 - 2026-10-18 · Mateo: «algo más claro, menos críptico». La edición del
   domingo se titula «Lo que pasó esta semana · <fechas>» en vez de «La

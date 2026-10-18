@@ -13,7 +13,7 @@ except ImportError:  # sin Pillow: se queda la imagen fija
 
 FUENTES = Path(__file__).resolve().parent.parent / "plantilla" / "fuentes-og"
 ANCHO, ALTO = 1200, 630
-PAPEL, TINTA, TENUE, ROJO = (230, 211, 173), (42, 27, 14), (106, 80, 52), (140, 52, 16)
+PAPEL, TINTA, TENUE, ROJO = (239, 231, 214), (22, 19, 15), (90, 81, 69), (161, 35, 27)
 MARGEN = 90
 
 

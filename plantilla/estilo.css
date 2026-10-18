@@ -24,13 +24,6 @@
   font-display: swap;
 }
 @font-face {
-  font-family: "Playfair Display";
-  src: url("fuentes/playfair-display.woff2") format("woff2");
-  font-weight: 400 900;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
   font-family: "Manrope";
   src: url("fuentes/manrope.woff2") format("woff2");
   font-weight: 200 800;
@@ -38,27 +31,26 @@
 }
 
 :root {
-  /* Sepia de periódico antiguo (desde el 18 de octubre de 2026; antes, gris
-     cálido de papel kraft). Contraste sobre el papel: tinta 11,3; tenue 5,1;
-     rojo 5,5 (el rojo anterior no llegaba a 4,5). */
-  --papel: #e6d3ad;
-  --papel-claro: #efe1c3;
-  --tinta: #2a1b0e;
-  --tenue: #6a5034;
-  --filete: rgba(42, 27, 14, 0.32);
-  --rayado: rgba(42, 27, 14, 0.1);
-  --rojo: #8c3410;
+  /* Papel prensa (desde el 18 de octubre de 2026; antes, gris cálido de papel
+     kraft). Contraste sobre el papel: tinta 15,1; tenue 6,3; rojo 6,2 (el
+     rojo anterior no llegaba a 4,5). */
+  --papel: #efe7d6;
+  --papel-claro: #f6f0e3;
+  --tinta: #16130f;
+  --tenue: #5a5145;
+  --filete: rgba(22, 19, 15, 0.3);
+  --rayado: rgba(22, 19, 15, 0.1);
+  --rojo: #a1231b;
 
   /* Series de gráficos: validadas para daltonismo (todos los pares) sobre el papel. */
   --s1: #2a6ac4;
   --s2: #c2451c;
   --s3: #1c8a6a;
-  --gris-dato: #a8977a;
+  --gris-dato: #a39c92;
 
   --serif: "Instrument Serif", "Times New Roman", Georgia, serif;
   --gotica: "UnifrakturMaguntia", "Old English Text MT", serif;
-  /* Titulares de la primera plana: serif de alto contraste, en negrita, de diario. */
-  --titular: "Playfair Display", "Instrument Serif", Georgia, serif;
+
   --sans: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
   /* ~65 caracteres por línea con Manrope. */
@@ -70,13 +62,13 @@
 /* Oscuro: solo si el lector lo elige con el botón "Leer de noche"; por defecto, claro. */
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --papel: #1c1610;
-  --papel-claro: #261e15;
-  --tinta: #eadcc0;
-  --tenue: #b39d7c;
-  --filete: rgba(234, 220, 192, 0.25);
-  --rayado: rgba(234, 220, 192, 0.08);
-  --rojo: #e3895f;
+  --papel: #181512;
+  --papel-claro: #221e19;
+  --tinta: #ece4d3;
+  --tenue: #aaa08f;
+  --filete: rgba(236, 228, 211, 0.25);
+  --rayado: rgba(236, 228, 211, 0.08);
+  --rojo: #e8806a;
   --s1: #5b92e0;
   --s2: #e0663a;
   --s3: #27a07d;
@@ -246,11 +238,11 @@ footer.sitio .cabezote { font-size: 1.6rem; color: var(--tinta); }
 }
 .cabecera h1 {
   margin: 0 0 1rem;
-  font-family: var(--titular);
-  font-weight: 800;
+  font-family: var(--serif);
+  font-weight: 400;
   font-size: clamp(2rem, 1.5rem + 2vw, 2.9rem);
   line-height: 1.05;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.015em;
   hyphens: manual;
   text-wrap: balance;
 }
@@ -1360,7 +1352,7 @@ p, li, dd, blockquote { text-wrap: pretty; }
 
 .editable { cursor: text; border-radius: 2px; }
 .editable:focus { outline: none; background: var(--papel-claro); box-shadow: 0 0 0 0.3rem var(--papel-claro); }
-.editable::selection, .editable *::selection { background: rgba(140, 52, 16, 0.25); }
+.editable::selection, .editable *::selection { background: rgba(161, 35, 27, 0.25); }
 .editado { box-shadow: -0.6rem 0 0 -0.4rem var(--s3); }
 .editado:focus { box-shadow: 0 0 0 0.3rem var(--papel-claro), -0.6rem 0 0 -0.4rem var(--s3); }
 .guardado {
@@ -1540,7 +1532,7 @@ p, li, dd, blockquote { text-wrap: pretty; }
 .resultados li > a:hover, .resultados li > a:focus-visible { text-decoration: underline; }
 .resultado-fecha { margin: 0.3rem 0 0.4rem; color: var(--tenue); font: 700 0.7rem/1.3 var(--sans); letter-spacing: 0.1em; text-transform: uppercase; }
 .resultado-texto { margin: 0; color: var(--tenue); font-size: 0.95rem; line-height: 1.5; overflow-wrap: anywhere; }
-.resultados mark { background: rgba(140, 52, 16, 0.18); color: inherit; padding: 0 0.1em; }
+.resultados mark { background: rgba(161, 35, 27, 0.18); color: inherit; padding: 0 0.1em; }
 /* El dato curioso: recuadro liviano bajo «En pocas palabras». */
 .edicion .con-etiqueta.curioso {
   margin: 1.4rem 0 1.8rem; padding: 0.9rem 1.1rem;
@@ -1770,12 +1762,12 @@ main:has(> .primera) {
 }
 .pp-titular {
   margin: 0 0 1.3rem;
-  font: 800 clamp(2.3rem, 1rem + 4.4vw, 5.8rem)/0.98 var(--titular);
+  font: 400 clamp(2.6rem, 1rem + 5vw, 6.6rem)/0.95 var(--serif);
   letter-spacing: -0.02em;
   text-wrap: balance;
   hyphens: manual;
 }
-.pp-titular.pp-largo { font-size: clamp(2rem, 0.9rem + 3vw, 4.2rem); line-height: 1.02; }
+.pp-titular.pp-largo { font-size: clamp(2.2rem, 1rem + 3.4vw, 4.8rem); line-height: 1; }
 .pp-titular a { color: inherit; text-decoration: none; }
 .pp-titular a:hover, .pp-titular a:focus-visible { text-decoration: underline; text-decoration-thickness: 2px; }
 .pp-abre .reticula-imagen { margin: 0 0 1.3rem; }
@@ -1789,7 +1781,7 @@ main:has(> .primera) {
 .pp-bajada::first-letter {
   float: left;
   margin: 0.06em 0.12em 0 0;
-  font: 900 3.6em/0.78 var(--titular);
+  font: 400 3.9em/0.78 var(--serif);
 }
 .pp-abre .dia-temas { margin: 0.6rem 0 0; max-width: none; }
 .pp-abre .seguir-leyendo { margin-top: 1.1rem; }
@@ -1819,7 +1811,7 @@ main:has(> .primera) {
 }
 .pp-decide h2 {
   margin: 0;
-  font: 900 clamp(1.6rem, 1.2rem + 1vw, 2.2rem)/1 var(--titular);
+  font: 400 clamp(1.9rem, 1.4rem + 1.2vw, 2.6rem)/1 var(--serif);
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.02em;
@@ -1851,7 +1843,7 @@ main:has(> .primera) {
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
-.pp-dia { display: block; font: 900 2.2rem/1 var(--titular); letter-spacing: 0; }
+.pp-dia { display: block; font: 400 2.5rem/1 var(--serif); letter-spacing: 0; }
 .pp-quien { font: 800 0.68rem/1.35 var(--sans); letter-spacing: 0.1em; text-transform: uppercase; }
 .pp-que { font: 400 0.9rem/1.45 var(--sans); opacity: 0.9; }
 .pp-decide li a:hover .pp-que, .pp-decide li a:focus-visible .pp-que { text-decoration: underline; }
@@ -1872,7 +1864,7 @@ main:has(> .primera) {
   border-top: 3px double var(--tinta);
   border-bottom: 1px solid var(--tinta);
   text-align: center;
-  font: 800 clamp(1.4rem, 1.1rem + 1vw, 2rem)/1.05 var(--titular);
+  font: 400 clamp(1.7rem, 1.3rem + 1.2vw, 2.4rem)/1.05 var(--serif);
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -1898,7 +1890,7 @@ main:has(> .primera) {
   padding: 0 0 1.3rem;
   border-bottom: 1px solid var(--filete);
 }
-.plana-titulo { margin: 0 0 0.5rem; font: 700 1.38rem/1.12 var(--titular); letter-spacing: -0.005em; text-wrap: balance; }
+.plana-titulo { margin: 0 0 0.5rem; font: 400 1.5rem/1.1 var(--serif); text-wrap: balance; }
 .plana-titulo a { color: inherit; text-decoration: none; }
 .plana-titulo a:hover, .plana-titulo a:focus-visible { text-decoration: underline; text-decoration-thickness: 1px; }
 .plana-bajada {
@@ -1920,7 +1912,7 @@ main:has(> .primera) {
 .pp-nota .reticula-imagen { margin: 0 0 0.9rem; }
 .pp-nota .reticula-imagen img { aspect-ratio: 3 / 2; object-fit: cover; }
 .primera .dias-anteriores { margin-top: 0.6rem; padding-top: 1rem; border-top: 3px double var(--tinta); }
-.primera .dias-anteriores a { font-family: var(--titular); font-weight: 700; }
+
 
 @media (min-width: 640px) {
   .pp-notas { columns: 2; }
@@ -1950,8 +1942,3 @@ main:has(> .primera) {
 @media (min-width: 1100px) { .pp-notas { columns: 3; } }
 @media (min-width: 1650px) { .pp-notas { columns: 4; } }
 @media (min-width: 2300px) { .pp-notas { columns: 5; } }
-
-/* Cifras alineadas en los titulares: Playfair trae números «antiguos» por
-   omisión. Va al final porque el atajo `font` reinicia esta propiedad. */
-.pp-titular, .plana-titulo, .pp-dia, .pp-banda-sec, .pp-decide h2,
-.primera .dias-anteriores a, .cabecera h1 { font-variant-numeric: lining-nums; }

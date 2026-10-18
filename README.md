@@ -350,7 +350,7 @@ ediciones/          fuente: una edición por archivo .md
 prompt.md           formato editorial del radar
 RUTINA.md           instrucciones de la edición diaria automática (5:00 a. m. Colombia)
 ESPECIFICACION.md   especificación técnica
-plantilla/          base.html, estilo.css y fuentes/ (Playfair Display, Instrument Serif, UnifrakturMaguntia y Manrope, OFL)
+plantilla/          base.html, estilo.css y fuentes/ (Instrument Serif, UnifrakturMaguntia y Manrope, OFL)
 scripts/build.py    markdown → HTML, verificación, candidatas
 scripts/frontmatter.py  lector del frontmatter (subconjunto de YAML, sin dependencias)
 scripts/graficos.py bloques ```grafico → gráficos HTML/SVG

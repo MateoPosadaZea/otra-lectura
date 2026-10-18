@@ -935,8 +935,8 @@ def meta_etiquetas(titulo, descripcion, ruta, tipo, ld, imagen="og.png", alt=Non
          '<meta name="twitter:card" content="summary_large_image">',
          f'<meta name="twitter:title" content="{titulo}">',
          f'<meta name="twitter:description" content="{html.escape(desc)}">',
-         '<meta name="theme-color" content="#e6d3ad" media="(prefers-color-scheme: light)">',
-         '<meta name="theme-color" content="#1c1610" media="(prefers-color-scheme: dark)">']
+         '<meta name="theme-color" content="#efe7d6" media="(prefers-color-scheme: light)">',
+         '<meta name="theme-color" content="#181512" media="(prefers-color-scheme: dark)">']
     if not INDEXAR:
         m.append('<meta name="robots" content="noindex, nofollow">')
     if SITIO_URL:
@@ -1804,7 +1804,7 @@ def main():
     (SITE / "site.webmanifest").write_text(json.dumps({
         "name": NOMBRE_SITIO, "short_name": NOMBRE_SITIO, "description": FRASE_SITIO,
         "lang": "es-CO", "start_url": "/", "display": "browser",
-        "background_color": "#e6d3ad", "theme_color": "#2a1b0e",
+        "background_color": "#efe7d6", "theme_color": "#16130f",
         "icons": [{"src": "/icono-192.png", "sizes": "192x192", "type": "image/png"},
                   {"src": "/icono-512.png", "sizes": "512x512", "type": "image/png"}]},
         ensure_ascii=False, indent=1), encoding="utf-8")
