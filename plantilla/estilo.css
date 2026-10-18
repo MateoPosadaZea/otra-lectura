@@ -1740,8 +1740,7 @@ main:has(> .primera) {
   align-items: center;
   gap: 0.3rem 1.2rem;
   margin: 0 0 1.8rem;
-  padding: 0.55rem 0;
-  border-top: 3px double var(--tinta);
+  padding: 0 0 0.55rem;
   border-bottom: 1px solid var(--tinta);
   font: 700 0.68rem/1.3 var(--sans);
   letter-spacing: 0.18em;
