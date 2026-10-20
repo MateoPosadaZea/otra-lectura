@@ -346,3 +346,7 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
 - 2026-10-18 · Mateo: «algo más claro, menos críptico». La edición del
   domingo se titula «Lo que pasó esta semana · <fechas>» en vez de «La
   semana en limpio» (RUTINA.md, «Días livianos y domingo»).
+- 2026-10-20 · Mateo: «se ve bonita pero un poco pesado de leer». El dato
+  curioso pasa de Instrument Serif en cursiva a la letra del cuerpo (Manrope),
+  recta. La Instrument Serif queda para titulares y frases cortas (bajada,
+  paradoja), no para párrafos.

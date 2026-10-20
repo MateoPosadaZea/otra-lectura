@@ -1533,11 +1533,13 @@ p, li, dd, blockquote { text-wrap: pretty; }
 .resultado-fecha { margin: 0.3rem 0 0.4rem; color: var(--tenue); font: 700 0.7rem/1.3 var(--sans); letter-spacing: 0.1em; text-transform: uppercase; }
 .resultado-texto { margin: 0; color: var(--tenue); font-size: 0.95rem; line-height: 1.5; overflow-wrap: anywhere; }
 .resultados mark { background: rgba(161, 35, 27, 0.18); color: inherit; padding: 0 0.1em; }
-/* El dato curioso: recuadro liviano bajo «En pocas palabras». */
+/* El dato curioso: recuadro liviano bajo «En pocas palabras». Va en la letra
+   del cuerpo, recta: la Instrument Serif es de titulares, y en cursiva, en un
+   párrafo de 60 palabras en el celular, cansa (Mateo, 2026-10-20). */
 .edicion .con-etiqueta.curioso {
-  margin: 1.4rem 0 1.8rem; padding: 0.9rem 1.1rem;
+  margin: 1.4rem 0 1.8rem; padding: 0.95rem 1.1rem;
   background: var(--papel-claro); border-top: 1px dotted var(--tinta); border-bottom: 1px dotted var(--tinta);
-  font-family: var(--serif); font-style: italic; font-size: 1.02em; line-height: 1.5;
+  font-family: var(--sans); font-style: normal; font-size: 0.97em; line-height: 1.62;
 }
 .edicion .con-etiqueta.curioso .etiqueta { display: block; margin-bottom: 0.35rem; color: var(--rojo); font-style: normal; }
 
