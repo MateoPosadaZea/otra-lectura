@@ -55,7 +55,8 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
 - 2026-09-25 · Pedido de Mateo ("temas de mayor impacto en la sociedad";
   en calibración): la selección se ordena por un puntaje de impacto
   (alcance, gravedad, duración, cercanía, decisión en curso; 1 a 3 cada
-  uno; gravedad y cercanía valen doble, máximo 21). Al menos un tema
+  uno; gravedad y cercanía valen doble, máximo 21; reemplazado por el
+  puntaje del 2026-10-22, ver abajo). Al menos un tema
   colombiano de alto impacto. El tema puede ser estructural con un hecho
   reciente que lo reactive. La nota metodológica
   muestra el puntaje de elegidos y descartados. Ver RUTINA.md, sección 2b.
@@ -63,7 +64,7 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   una definición precisa de cuatro condiciones (se repite o persiste,
   tiene un mecanismo, alguien lo puede cambiar, causa daño comprobable).
   Si falla una, no entra. El filtro va antes del puntaje de impacto. Ver
-  prompt.md, "Definición de nudo". En el frontmatter, `actualizaciones`
+  prompt.md, "Qué entra al Radar". En el frontmatter, `actualizaciones`
   usa `nudo` (se acepta `friccion` en ediciones viejas).
 - 2026-09-26 · Pedido de Mateo: se quitan del sitio las herramientas de
   comentar, hablar, corregir el texto y valorar la edición; los ajustes se
@@ -350,3 +351,21 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   curioso pasa de Instrument Serif en cursiva a la letra del cuerpo (Manrope),
   recta. La Instrument Serif queda para titulares y frases cortas (bajada,
   paradoja), no para párrafos.
+- 2026-10-21 · Mateo: «no sé si estamos apuntándole a donde queremos
+  ir… el filtro debe ser mucho más crítico». Las últimas 20 ediciones
+  eran todas problemas de Colombia con la misma forma. Rige desde la
+  edición del 2026-10-22 (prompt.md, «Proporción» y «Qué entra al
+  Radar»; RUTINA.md, sección 2b):
+  - **Pregunta de entrada** antes de todo filtro: ¿seguirá importando en
+    diez años?, ¿cambia la vida de muchas personas aunque no haga ruido?,
+    ¿alguien puede hacer algo, incluido el lector? Si falla dos, no entra.
+  - **Tres puertas**: nudo (lo que falla y se repite), avance (lo que
+    mejora y qué lo sostiene) y cambio de fondo (una tendencia larga). Va
+    en el campo `puerta` del frontmatter.
+  - **Puntaje nuevo** (máximo 24): alcance + 2 × peso en la vida + 2 ×
+    horizonte + cercanía + margen de acción + mirada propia. El umbral
+    para un segundo o tercer tema pasa de 17 a 19.
+  - **Mezcla de lunes a sábado**: al menos un avance, un cambio de fondo y
+    un tema del mundo; máximo tres nudos.
+  - El caso individual que ya cubren todos los medios deja de ser tema
+    del día: va a `actualizaciones` o a «Lo que descartamos».

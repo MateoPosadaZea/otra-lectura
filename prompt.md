@@ -1,6 +1,6 @@
 # Otra lectura — especificación del radar
 
-Versión: 2.1 · 25 de septiembre de 2026
+Versión: 2.2 · 21 de octubre de 2026
 
 Fuente de verdad del formato. Sirve como prompt en la generación manual
 y como parte del input del script cuando se automatice.
@@ -17,13 +17,60 @@ tareas.
 Alcance: global. Colombia y América Latina tienen peso, pero no
 constituyen el límite.
 
+**Proporción (desde el 2026-10-22, pedido de Mateo: «el filtro debe ser
+mucho más crítico… como aliada, qué noticias nos mostrarías»).** El
+lector debe salir con una imagen proporcionada del mundo: qué está
+fallando, pero también qué está mejorando y qué está cambiando de fondo.
+Los medios eligen por lo reciente y lo alarmante; Otra lectura elige por
+lo que seguirá importando dentro de diez años. Un periódico que solo
+muestra lo que se rompe enseña que nada sirve, y eso es falso y paraliza.
+
 ---
 
-## Definición de nudo
+## Qué entra al Radar
+
+**La pregunta de entrada (desde el 2026-10-22).** Antes de cualquier otro
+filtro, todo candidato responde tres preguntas. Si falla dos, no entra,
+por importante que parezca hoy:
+
+1. **¿Seguirá importando en diez años?** Un caso puntual, una pelea de
+   declaraciones o un trámite judicial del día casi nunca pasan.
+2. **¿Cambia la vida de muchas personas, aunque no haga ruido?** Lo
+   lento y masivo (cuántos niños aprenden a leer, cuánta gente muere en
+   las vías, cuánto bosque queda) pesa más que lo ruidoso y pequeño.
+3. **¿Alguien puede hacer algo, incluido el lector?** Una decisión
+   pública, una costumbre, un dato que conviene saber para decidir.
+
+**Tres puertas.** Lo que pasa la pregunta de entrada entra por una de
+estas tres puertas, cada una con su filtro. La puerta va en el campo
+`puerta` del frontmatter (`nudo`, `avance` o `fondo`).
+
+- **Nudo**: algo que falla y se repite. Las cuatro condiciones de abajo.
+- **Avance**: algo que mejora de verdad. Entra si (1) hay una serie de
+  datos que muestra la mejora en el tiempo, no un anuncio; (2) se puede
+  decir por qué mejoró (una regla, un programa, una tecnología, un
+  cambio de costumbre); (3) hay algo que la amenaza o una decisión que
+  puede sostenerla o desmontarla. No es «noticia positiva»: es entender
+  qué funcionó para no perderlo. Se cuenta con el mismo escepticismo que
+  un nudo, con su «Pero ojo».
+- **Cambio de fondo** (`fondo`): una tendencia larga que está cambiando
+  la vida en Colombia o en el mundo (envejecimiento, clima, inteligencia
+  artificial y trabajo, energía, migración, ciudades, salud). Entra si
+  (1) hay una serie de al menos diez años o una proyección institucional;
+  (2) toca a Colombia por un canal concreto; (3) hay algo que se decide
+  o se puede preparar ahora. Basta un hecho reciente que lo reactive (un
+  informe, una cifra, una decisión).
+
+**Lo que ya no entra como tema del día:** el caso individual que ya
+cubren todos los medios (una captura, una audiencia, una declaración),
+salvo que abra algo que nadie está explicando. Su lugar es
+`actualizaciones` de una edición anterior o «Lo que descartamos».
+
+### La puerta del nudo
 
 Un **nudo** es un problema que se repite porque algo lo sostiene, y que
-alguien podría desatar. (Antes se llamaba "fricción".) Un tema entra al
-Radar solo si cumple las **cuatro condiciones**; si falla una, no entra.
+alguien podría desatar. (Antes se llamaba "fricción".) Un tema entra por
+esta puerta solo si cumple las **cuatro condiciones**; si falla una, no entra.
 
 | Condición | Prueba | No cumple si… |
 |---|---|---|
@@ -62,10 +109,11 @@ por el que llega a Colombia (RUTINA.md, sección 2b), y ese canal se
 explica en «En pocas palabras». Si no hay nada del mundo que llegue al
 umbral, no entra.
 
-**Dos pasos distintos.** Primero el filtro (¿es un nudo? las cuatro
-condiciones). Después el orden (¿qué tan importante? el puntaje de
-impacto de RUTINA.md, sección 2b). El puntaje nunca rescata un tema que
-no pasó el filtro.
+**Tres pasos distintos.** Primero la pregunta de entrada. Después el
+filtro de su puerta (las cuatro condiciones del nudo, o las tres del
+avance o del cambio de fondo). Al final el orden (¿qué tan importante? el
+puntaje de impacto de RUTINA.md, sección 2b, y la mezcla de la semana).
+El puntaje nunca rescata un tema que no pasó los filtros.
 
 ---
 
@@ -116,6 +164,22 @@ canales que no existen.
 cambio sustantivo, no se agrega a la edición del día: va como entrada en
 `actualizaciones` de la edición original. Solo si la novedad es de
 fondo y es lo más importante del día, puede ser el nudo de la edición.
+
+**Avance y cambio de fondo (desde el 2026-10-22).** La estructura de
+arriba es la del nudo. Las otras dos puertas cambian las etiquetas del
+cuerpo; las demás secciones (el dato curioso, «Quién decide y cuándo»,
+«Qué hacer con esto», «Para conversar») no cambian:
+
+- **Avance:** **En pocas palabras.** · **El dato curioso.** ·
+  **Qué mejoró.** (la serie, a escala humana) · **Por qué mejoró.** (el
+  mecanismo, en viñetas) · **Ya pasó antes.** (opcional) ·
+  **Qué lo amenaza.** · **Pero ojo.** (lo que la cifra no muestra, quién
+  se quedó por fuera).
+- **Cambio de fondo:** **En pocas palabras.** · **El dato curioso.** ·
+  **Qué está cambiando.** (la serie larga) · **Por qué.** ·
+  **Qué significa para Colombia.** (canal por canal) ·
+  **Quién se está preparando.** (casos de otros países) ·
+  **Pero ojo.** (incertidumbre de la proyección, lo que se exagera).
 
 ---
 

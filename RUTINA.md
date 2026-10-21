@@ -47,6 +47,8 @@ con qué contrapeso y qué patrón histórico ayuda a entenderlo.
   dejan al final de cada edición. Si las últimas dicen "Pesada", hacer la
   de hoy más corta (menos palabras); si dicen "Liviana"
   de forma sostenida, se puede profundizar un poco, sin pasar el techo.
+- El campo `puerta` de las ediciones principales desde el lunes, para
+  cumplir la mezcla de la semana (sección 2b).
 - Las cinco ediciones más recientes: sus `temas`, `seguimiento`,
   `cruce_mattriz` y "Lo que descartamos", para no repetir temas (salvo como
   seguimiento) y mantener diversidad geográfica.
@@ -100,27 +102,36 @@ con qué contrapeso y qué patrón histórico ayuda a entenderlo.
 ## 2b. Elegir los temas: los de mayor impacto en la sociedad
 
 El sitio trata **los temas de mayor impacto en la sociedad**, no los más
-comentados del día. Antes de escribir, reunir de 6 a 10 candidatos que
-cumplan las **cuatro condiciones de nudo** de prompt.md (el que falle una
-queda fuera, sin importar su puntaje) y puntuar cada uno de 1 a 3 en cinco
-criterios:
+comentados del día. Antes de escribir, reunir de 6 a 10 candidatos de las
+tres puertas (nudo, avance, cambio de fondo; prompt.md, «Qué entra al
+Radar»), no solo problemas. Cada uno pasa primero la **pregunta de
+entrada** y luego el filtro de su puerta (el que falle queda fuera, sin
+importar su puntaje). Después se puntúa cada uno de 1 a 3 en seis
+criterios (desde el 2026-10-22, pedido de Mateo: «el filtro debe ser
+mucho más crítico»):
 
 | Criterio | Pregunta | 1 | 3 |
 |---|---|---|---|
-| Alcance | ¿A cuántas personas afecta? | miles | millones / todo un país |
-| Gravedad | ¿Toca vida, salud, ingreso, derechos o seguridad? | molestia | vida o salud |
-| Duración | ¿Es reversible o deja efectos por años? | pasajero | generaciones |
-| Cercanía | ¿Qué tanto toca a Colombia o América Latina? | lejano | directo |
-| Decisión | ¿Se está decidiendo algo ahora (ley, presupuesto, fallo, elección)? | nada en curso | decisión inminente |
+| Alcance | ¿A cuántas personas toca? | miles | millones / todo un país |
+| Peso en la vida | ¿Toca vida, salud, ingreso, aprendizaje, derechos o seguridad? Vale igual si mejora o si empeora | molestia | vida o salud |
+| Horizonte | ¿Seguirá importando en diez años? | pasa en semanas | décadas o generaciones |
+| Cercanía | ¿Qué tanto toca a Colombia, por un canal real? | sin canal claro | directo |
+| Margen de acción | ¿Se decide algo ahora o hay algo que preparar? | nada | decisión inminente o algo concreto que hacer |
+| Mirada propia | ¿Lo está explicando alguien más? | está en todas las portadas | casi nadie lo explica |
 
-**Gravedad y cercanía valen doble** (pedido de Mateo, 2026-09-25):
-total = alcance + 2 × gravedad + duración + 2 × cercanía + decisión.
-Se elige **el de mayor puntaje** (máximo 21). Cada edición trata un solo
-tema.
+**Peso en la vida y horizonte valen doble:**
+total = alcance + 2 × peso + 2 × horizonte + cercanía + margen + mirada.
+Se elige **el de mayor puntaje** (máximo 24), respetando la mezcla de la
+semana (abajo). Cada edición trata un solo tema.
+
+Por qué así: antes la cercanía valía doble y dejaba por fuera casi todo lo
+del mundo; la «decisión» premiaba lo que estaba en la agenda del día; y
+nada castigaba repetir lo que ya contaban todos. El horizonte reemplaza a
+la duración y pesa el doble.
 
 **Uno, dos o tres temas por día (desde el 2026-10-05, pedido de Mateo).**
 El día no tiene que ser de un solo tema. Después del principal, entra un
-segundo y un tercero solo si también mueven la aguja: **17 puntos o más**
+segundo y un tercero solo si también mueven la aguja: **19 puntos o más**
 y que no sea el mismo asunto que otro del día ni uno tratado en los
 últimos siete días (salvo novedad de fondo). Si solo uno llega, se
 publica uno y ya: no se rellena. Reglas:
@@ -133,14 +144,14 @@ publica uno y ya: no se rellena. Reglas:
   noticias del mundo… que muevan la aguja… si hay algo importante, si no
   no").** El barrido incluye siempre el mundo, no solo como fuente de
   casos. Un hecho de otro país entra (como nudo o como tema de contexto)
-  con los mismos filtros y el mismo umbral de 17 puntos. Para que la
+  con los mismos filtros y el mismo umbral de 19 puntos. Para que la
   geografía no lo deje fuera por defecto, la **cercanía** de un tema del
   mundo se puntúa por el canal real por el que llega a Colombia, no por
   la distancia: 3 si cambia ya precios, clima, salud, migración,
   seguridad o tecnología que se usan aquí; 2 si los cambiará en meses;
   1 si no hay canal claro. Siempre se dice ese canal en «En pocas
   palabras» (qué tiene que ver con nosotros). Como máximo uno al día;
-  si ninguno llega a 17, no entra. Nunca se rellena.
+  si ninguno llega a 19, no entra. Nunca se rellena.
 - Cada tema va en su propia edición, con su número, su grabado y su
   «Para leer más». El principal es `ediciones/<fecha>-radar.md` y lleva
   el número más bajo del día (abre la retícula de la portada); los demás
@@ -162,9 +173,24 @@ Reglas de selección:
 - La diversidad geográfica se busca entre temas de impacto comparable, no
   a costa del impacto.
 - En la **Nota metodológica** va una tabla corta con el puntaje de los
-  tema elegido y de los principales descartados (los criterios en 1 a 3,
-  y el total ya ponderado), para que el criterio se
+  tema elegido y de los principales descartados (la puerta, los criterios
+  en 1 a 3 y el total ya ponderado), para que el criterio se
   pueda discutir y calibrar.
+
+**La mezcla de la semana (desde el 2026-10-22).** De lunes a sábado,
+entre las ediciones principales del día (`<fecha>-radar.md` y las
+secundarias, no «La semana» del viernes) debe haber como mínimo:
+
+- **un avance**;
+- **un cambio de fondo**;
+- **un tema del mundo** (puede ser el mismo cambio de fondo);
+
+y como máximo **tres nudos**. Antes de elegir, mirar el campo `puerta`
+de las ediciones desde el lunes: si quedan pocos días para cumplir la
+mezcla, la puerta que falta tiene prioridad sobre el puntaje, siempre
+que el candidato pase la pregunta de entrada y su filtro. Si de verdad
+no hay un avance o un cambio de fondo que valga la pena, se dice en la
+nota metodológica; no se rellena con uno flojo.
 
 ## 3. Investigar (sin prisa: la calidad de las fuentes es lo que distingue al sitio)
 
@@ -231,6 +257,7 @@ categorias: [economia, salud]
 lugares: [Colombia, ...]
 cruce_mattriz: []
 seguimiento: []
+puerta: nudo   # nudo | avance | fondo (prompt.md, «Qué entra al Radar»)
 fuentes:
   - medio: "Institución, revista o medio"
     titulo: "Título del documento o artículo"

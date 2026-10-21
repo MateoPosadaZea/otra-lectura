@@ -117,9 +117,14 @@ CATEGORIAS_ACTIVAS = []
 
 ESTADOS_CANDIDATA = ["pendiente", "evaluada", "descartada", "activa"]
 
+# Por qué puerta entró el tema (prompt.md, «Qué entra al Radar»). Opcional:
+# las ediciones anteriores al 2026-10-22 no lo llevan.
+PUERTAS = ["nudo", "avance", "fondo"]
+
 CAMPOS_LISTA = ["temas", "categorias", "lugares", "cruce_mattriz", "seguimiento"]
 CAMPOS_CONOCIDOS = {"fecha", "edicion", "titulo", "slug", "nota",
-                    "actualizaciones", "correcciones", "fuentes", "decisiones", "grabado", *CAMPOS_LISTA}
+                    "actualizaciones", "correcciones", "fuentes", "decisiones", "grabado", "puerta",
+                    *CAMPOS_LISTA}
 
 # Seguimiento de decisiones (campo `decisiones`): quién decide qué y para
 # cuándo, y en qué quedó. El estado lo actualiza la rutina cuando hay noticia.
@@ -278,7 +283,10 @@ def validar(meta, ruta):
         "edicion": edicion,
         "orden": int(edicion),
         "nota": _texto(meta.get("nota"), "nota", requerido=False),
+        "puerta": _texto(meta.get("puerta"), "puerta", requerido=False),
     }
+    if datos["puerta"] and datos["puerta"] not in PUERTAS:
+        raise ErrorEdicion(f"puerta: «{datos['puerta']}» no existe (válidas: {', '.join(PUERTAS)})")
     for campo in CAMPOS_LISTA:
         datos[campo] = _lista_textos(meta.get(campo), campo)
     malas = [c for c in datos["categorias"] if c not in CATEGORIAS]
