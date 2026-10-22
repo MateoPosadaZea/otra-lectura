@@ -87,9 +87,12 @@ OMS, CEPAL → oficial; etc.). Al final de cada edición se muestra el conteo
   a los titulares. Abre la edición del día con titular grande; al lado, en
   negativo, «Lo que se decide» (las próximas decisiones con fecha, del campo
   `decisiones`). Arriba va sola la edición del día. Debajo, «Días
-  anteriores»: un calendario de un mes a la vista (cada día con edición
-  enlaza a su página; los meses anteriores se abren sin JavaScript) junto a
-  las notas recientes en columnas con filete (sin los repasos de la semana).
+  anteriores»: un calendario de un mes a la vista junto a las notas
+  recientes, en filas que se leen de izquierda a derecha, de la más reciente
+  a la más antigua (sin los repasos de la semana). Tocar un día del
+  calendario muestra sus noticias ahí mismo, sin cambiar de página (sin
+  JavaScript, el día enlaza a su página); los meses anteriores se abren con
+  «← mes».
   Al final, «Por secciones»: una columna por categoría con sus cuatro
   ediciones más recientes, cada edición una sola vez (en su categoría
   principal). La cita de Spinoza y la explicación del proyecto están en
@@ -99,9 +102,9 @@ OMS, CEPAL → oficial; etc.). Al final de cada edición se muestra el conteo
 - **Un día** (`dias/AAAA-MM-DD.html`): las ediciones de esa fecha, con
   paso al día anterior y al siguiente.
 - **Categorías** (`categorias/*.html`) y **¿Qué es esto?** (`sobre.html`,
-  desde `sobre.md`) en la barra de secciones. En pantallas de menos de
-  1.500 px, Inicio, Buscar y ¿Qué es esto? pasan al menú, pero las
-  categorías siguen a la vista en una franja propia.
+  desde `sobre.md`) en la barra de secciones. Todos los enlaces se ven
+  siempre, sin menú desplegable: en pantallas angostas se parten en dos
+  filas y los botones bajan a una fila propia.
 
 Accesibilidad y lectura (todo gratis y sin dependencias; lo que usa
 JavaScript simplemente no aparece sin él):

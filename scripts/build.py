@@ -866,8 +866,7 @@ def html_menu(raiz, seccion=None):
     """Barra de secciones: Inicio y categorías; la actual va marcada."""
     def item(clave, href, nombre):
         marca = ' aria-current="page"' if clave == seccion else ""
-        clase = "" if clave in CATEGORIAS else ' class="nav-extra"'
-        return f'<li{clase}><a href="{href}"{marca}>{html.escape(nombre)}</a></li>'
+        return f'<li><a href="{href}"{marca}>{html.escape(nombre)}</a></li>'
     items = [item("inicio", f"{raiz}index.html", "Inicio")]
     items += [item(c, f"{raiz}categorias/{c}.html", CATEGORIAS[c]) for c in CATEGORIAS_ACTIVAS]
     items.append(item("buscar", f"{raiz}buscar.html", "Buscar"))
@@ -1215,9 +1214,10 @@ def html_recuadro_decisiones(ediciones, raiz="", cuantas=4):
 
 
 def html_calendario(dias, raiz=""):
-    """Calendario de los días con edición, un mes a la vista: cada día con
-    edición enlaza a su página. Sin JavaScript: los meses anteriores se abren
-    con enlaces a su ancla (:target) y por defecto se ve el mes más reciente."""
+    """Calendario de los días con edición, un mes a la vista. Con JavaScript,
+    tocar un día muestra sus noticias ahí mismo, en la portada; sin él, el
+    enlace lleva a la página del día. Los meses anteriores se abren con
+    enlaces a su ancla (:target); por defecto se ve el mes más reciente."""
     titulares = {f: sorted(d, key=lambda o: (o["orden"], o["slug"]))[0]["titulo"] for f, d in dias}
     fechas = sorted(titulares)
     hoy = date.today().isoformat()
@@ -1237,7 +1237,9 @@ def html_calendario(dias, raiz=""):
             f = d.isoformat()
             hoy_attr = ' aria-current="date"' if f == hoy else ""
             if f in titulares:
-                celdas.append(f'<td><a href="{raiz}dias/{f}.html" title="{html.escape(titulares[f])}"{hoy_attr}>'
+                celdas.append(f'<td><a href="{raiz}dias/{f}.html" data-dia="{f}" '
+                              f'data-fecha="{html.escape(fecha_con_dia(f).capitalize())}" '
+                              f'title="{html.escape(titulares[f])}"{hoy_attr}>'
                               f'<span class="solo-lectores">{fecha_con_dia(f)}: </span>{d.day}</a></td>')
             else:
                 celdas.append(f'<td><span class="cal-vacio"{hoy_attr}>{d.day}</span></td>')
@@ -1260,7 +1262,7 @@ def html_calendario(dias, raiz=""):
 <p class="cal-nav">{''.join(nav)}</p>
 </section>""")
     return f"""<div class="calendario" aria-label="Calendario de ediciones">
-<p class="cal-ayuda">Busque el día: los días marcados tienen edición.</p>
+<p class="cal-ayuda">Toque un día marcado para ver sus noticias.</p>
 {chr(10).join(bloques)}
 </div>"""
 
@@ -1363,17 +1365,58 @@ def html_primera_plana(dias, raiz="", cuantas=12):
 </li>"""
 
     # Arriba va sola la edición del día (pedido de Mateo, 2026-10-22); las
-    # demás van en columnas, con grabado una de cada tres, junto al calendario.
+    # demás van junto al calendario, de la más reciente a la más antigua, en
+    # filas que se leen de izquierda a derecha. Cada día del calendario trae
+    # sus notas ya en la página (ocultas) para mostrarlas sin cambiar de página.
     notas = [nota(e, i % 3 == 0) for i, e in enumerate(notas_ed[:cuantas])]
+    por_fecha = "\n".join(
+        f'<ol class="pp-notas pp-del-dia" data-dia="{f}" hidden>\n'
+        + "\n".join(nota(e, i == 0) for i, e in enumerate(sorted(d, key=lambda o: (o["orden"], o["slug"]))))
+        + "\n</ol>" for f, d in dias)
     anteriores = ""
     if notas:
         anteriores = f"""<h2 class="pp-banda-sec" id="anteriores">Días anteriores <span>Lo que contamos y sigue en pie</span></h2>
 <div class="pp-anteriores">
 {html_calendario(dias, raiz)}
-<ol class="pp-notas">
+<div class="pp-lista">
+<div class="pp-lista-cabeza" hidden>
+<p class="pp-lista-fecha" tabindex="-1"></p>
+<button class="pp-lista-volver" type="button">← Volver a lo más reciente</button>
+</div>
+<ol class="pp-notas pp-recientes">
 {chr(10).join(notas)}
 </ol>
+{por_fecha}
 </div>
+</div>
+<script>
+/* Calendario: tocar un día muestra sus noticias aquí mismo, sin cambiar de página. */
+(function () {{
+  var cal = document.querySelector(".calendario"), lista = document.querySelector(".pp-lista");
+  if (!cal || !lista) return;
+  var recientes = lista.querySelector(".pp-recientes"), cabeza = lista.querySelector(".pp-lista-cabeza"),
+      fecha = cabeza.querySelector(".pp-lista-fecha");
+  function mostrar(a) {{
+    var dia = a ? a.getAttribute("data-dia") : "";
+    lista.querySelectorAll(".pp-del-dia").forEach(function (o) {{ o.hidden = o.getAttribute("data-dia") !== dia; }});
+    recientes.hidden = !!dia;
+    cabeza.hidden = !dia;
+    cal.querySelectorAll("a[data-dia]").forEach(function (x) {{ x.classList.toggle("cal-elegido", x === a); }});
+    if (!a) return;
+    fecha.textContent = "Noticias del " + a.getAttribute("data-fecha").replace(/^./, function (c) {{ return c.toLowerCase(); }});
+    var r = lista.getBoundingClientRect();
+    if (r.top < 0 || r.top > innerHeight * 0.5) lista.scrollIntoView({{ behavior: "smooth", block: "start" }});
+    fecha.focus({{ preventScroll: true }});
+  }}
+  cal.addEventListener("click", function (ev) {{
+    var a = ev.target.closest("a[data-dia]");
+    if (!a) return;
+    ev.preventDefault();
+    mostrar(a);
+  }});
+  cabeza.querySelector(".pp-lista-volver").addEventListener("click", function () {{ mostrar(null); }});
+}})();
+</script>
 <p class="dias-anteriores"><a href="{raiz}archivo.html">Todos los días anteriores →</a></p>"""
     numero = f'<span>Edición {html.escape(abre["edicion"])}</span>' if abre["edicion"] else ""
     return f"""<section class="primera" aria-label="Primera plana">

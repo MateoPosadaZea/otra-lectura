@@ -141,7 +141,7 @@ header.sitio { border-bottom: 1px solid var(--tinta); }
   border-top: 1px solid var(--tinta);
 }
 .principal ul { list-style: none; margin: 0; padding: 0; display: flex; gap: clamp(1.4rem, 3.5vw, 3.2rem); }
-.principal a, .menu li a {
+.principal a {
   font: 700 0.7rem/1 var(--sans);
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -149,7 +149,7 @@ header.sitio { border-bottom: 1px solid var(--tinta); }
 }
 .principal a { display: block; padding: 1.2rem 0; }
 .principal a:hover { color: var(--rojo); }
-.principal a[aria-current="page"], .menu a[aria-current="page"] { color: var(--rojo); }
+.principal a[aria-current="page"] { color: var(--rojo); }
 
 .acciones {
   position: absolute;
@@ -173,69 +173,28 @@ header.sitio { border-bottom: 1px solid var(--tinta); }
 }
 .tema:hover, .corregir:hover, .corregir[aria-pressed="true"] { background: var(--tinta); color: var(--papel); }
 
-/* En pantallas angostas la barra se vuelve un menú desplegable (<details>, sin JS). */
-.menu { display: none; }
-.menu summary {
-  list-style: none;
-  cursor: pointer;
-  padding: 0.9rem 0;
-  font: 700 0.7rem/1 var(--sans);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-}
-.menu summary::-webkit-details-marker { display: none; }
-.menu nav {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 6;
-  padding: 0.4rem 0;
-  background: var(--papel);
-  border-top: 1px solid var(--tinta);
-  border-bottom: 1px solid var(--tinta);
-}
-.menu ul { list-style: none; margin: 0; padding: 0; }
-.menu li a { display: block; padding: 0.85rem 1.1rem; text-align: center; }
-.menu li a:hover { background: var(--tinta); color: var(--papel); }
-
+/* Todos los enlaces siempre a la vista, sin menú desplegable (pedido de
+   Mateo, 2026-10-22). Cuando no caben junto a los botones, los enlaces
+   ocupan su fila (y se parten en dos o tres en el teléfono) y los botones
+   bajan a una fila propia. */
 @media (max-width: 1500px) {
-  .menu { display: block; }
-  .barra { justify-content: flex-start; flex-wrap: wrap; }
+  .barra { flex-wrap: wrap; justify-content: center; padding-block: 0.2rem 0.6rem; }
+  .principal { flex: 1 0 100%; }
+  .principal ul { flex-wrap: wrap; justify-content: center; gap: 0 clamp(1rem, 2.6vw, 2.4rem); }
+  .principal a { padding: 0.95rem 0; letter-spacing: 0.16em; }
+  .acciones { position: static; transform: none; justify-content: center; }
   .marca .lema { font-size: 0.5rem; letter-spacing: 0.24em; }
-  /* Las categorías siguen a la vista (pedido de Mateo, 2026-10-22): una
-     franja propia bajo el menú; Inicio, Buscar y ¿Qué es esto? quedan en él. */
-  .principal {
-    order: 3;
-    flex: 1 0 100%;
-    margin: 0 calc(-1 * var(--barra-pad));
-    border-top: 1px solid var(--filete);
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-  .principal::-webkit-scrollbar { display: none; }
-  .principal ul {
-    justify-content: center;
-    gap: clamp(1rem, 4vw, 2.6rem);
-    width: max-content;
-    min-width: 100%;
-    padding: 0 1.1rem;
-    box-sizing: border-box;
-  }
-  .principal .nav-extra { display: none; }
-  .principal a { padding: 0.85rem 0; letter-spacing: 0.16em; }
-  .acciones { top: 1.6rem; }
+}
 @media (max-width: 640px) {
-  .principal ul { flex-wrap: wrap; width: auto; gap: 0 clamp(0.7rem, 3.2vw, 1.2rem); padding: 0.1rem 0.6rem; }
-  .principal a { padding: 0.7rem 0; font-size: 0.64rem; letter-spacing: 0.08em; }
+  .principal ul { gap: 0 clamp(0.8rem, 3.4vw, 1.3rem); padding: 0 0.4rem; }
+  .principal a { padding: 0.75rem 0; font-size: 0.64rem; letter-spacing: 0.08em; }
 }
 
-/* Teléfonos angostos: menú y botones más compactos para que no se monten. */
+/* Teléfonos angostos: botones más compactos. */
 @media (max-width: 400px) {
   .barra { --barra-pad: 0.8rem; }
-  .menu summary { letter-spacing: 0.1em; }
   .tema, .corregir { padding: 0.3rem 0.45rem; letter-spacing: 0.06em; }
-  .acciones { right: 0.8rem; gap: 0.3rem; }
+  .acciones { gap: 0.3rem; }
 }
 
 footer.sitio {
@@ -1888,16 +1847,19 @@ main:has(> .primera) {
   color: var(--tenue);
 }
 
-/* Notas de días anteriores: columnas de periódico con filete entre ellas. */
+/* Notas de días anteriores: filas que se leen de izquierda a derecha, de la
+   más reciente a la más antigua (2026-10-22: «en orden cronológico»). */
 .pp-notas {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
   column-gap: 2.6rem;
-  column-rule: 1px solid var(--filete);
+  align-items: start;
 }
+.pp-notas[hidden] { display: none; }
 .pp-nota {
-  break-inside: avoid;
   margin: 0 0 1.3rem;
   padding: 0 0 1.3rem;
   border-bottom: 1px solid var(--filete);
@@ -1927,7 +1889,7 @@ main:has(> .primera) {
 
 
 @media (min-width: 640px) {
-  .pp-notas { columns: 2; }
+  .pp-notas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (min-width: 900px) {
   .pp-arriba {
@@ -1951,9 +1913,9 @@ main:has(> .primera) {
   .pp-abre:not(.pp-con-grabado) .pp-cuerpo { columns: 2 16rem; column-gap: 2.4rem; column-rule: 1px solid var(--filete); }
   .pp-abre:not(.pp-con-grabado) .seguir-leyendo { break-inside: avoid; }
 }
-@media (min-width: 1100px) { .pp-notas { columns: 3; } }
-@media (min-width: 1650px) { .pp-notas { columns: 4; } }
-@media (min-width: 2300px) { .pp-notas { columns: 5; } }
+@media (min-width: 1100px) { .pp-notas { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1650px) { .pp-notas { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (min-width: 2300px) { .pp-notas { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
 
 /* --- Calendario de días anteriores (desde el 22 de octubre de 2026, pedido
    de Mateo: «un calendario amigable, fácil de usar»). Un mes a la vista; los
@@ -2077,3 +2039,29 @@ main:has(> .primera) {
   text-transform: uppercase;
 }
 .sec-mas a:hover, .sec-mas a:focus-visible { text-decoration: underline; }
+
+/* Día elegido en el calendario: sus noticias se muestran ahí mismo. */
+.cal-tabla td a.cal-elegido { background: var(--rojo); color: var(--papel); }
+.pp-lista-cabeza {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem 1.2rem;
+  margin: 0 0 1.2rem;
+  padding: 0 0 0.6rem;
+  border-bottom: 1px solid var(--tinta);
+}
+.pp-lista-cabeza[hidden] { display: none; }
+.pp-lista-fecha { margin: 0; font: 400 clamp(1.5rem, 1.2rem + 1vw, 2.1rem)/1.1 var(--serif); outline: none; }
+.pp-lista-volver {
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--tinta);
+  background: none;
+  color: var(--tinta);
+  font: 700 0.64rem/1 var(--sans);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.pp-lista-volver:hover, .pp-lista-volver:focus-visible { background: var(--tinta); color: var(--papel); }

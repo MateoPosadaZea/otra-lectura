@@ -377,3 +377,10 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   enlazados; al final, «Por secciones», una columna por categoría con sus
   cuatro ediciones más recientes. En la cabecera, las categorías se ven en
   cualquier ancho (antes, por debajo de 1.500 px, quedaban dentro del menú).
+- 2026-10-22 · Mateo: «que no redirija a otra página cuando se cambia el
+  día… organízalas en orden cronológico… el header como estaba antes, sin
+  la hamburguesa». Tocar un día del calendario muestra sus noticias en la
+  misma portada (cada día trae sus notas ya en la página; sin JavaScript,
+  el día enlaza a su página). Las notas de días anteriores van en filas que
+  se leen de izquierda a derecha, de la más reciente a la más antigua. La
+  cabecera muestra siempre todos los enlaces, sin menú desplegable.
