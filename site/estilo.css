@@ -136,7 +136,8 @@ header.sitio { border-bottom: 1px solid var(--tinta); }
   justify-content: center;
   align-items: center;
   min-height: 3.2rem;
-  padding: 0 clamp(1.1rem, 3vw, 2.5rem);
+  --barra-pad: clamp(1.1rem, 3vw, 2.5rem);
+  padding: 0 var(--barra-pad);
   border-top: 1px solid var(--tinta);
 }
 .principal ul { list-style: none; margin: 0; padding: 0; display: flex; gap: clamp(1.4rem, 3.5vw, 3.2rem); }
@@ -199,15 +200,39 @@ header.sitio { border-bottom: 1px solid var(--tinta); }
 .menu li a:hover { background: var(--tinta); color: var(--papel); }
 
 @media (max-width: 1500px) {
-  .principal { display: none; }
   .menu { display: block; }
-  .barra { justify-content: flex-start; }
+  .barra { justify-content: flex-start; flex-wrap: wrap; }
   .marca .lema { font-size: 0.5rem; letter-spacing: 0.24em; }
+  /* Las categorías siguen a la vista (pedido de Mateo, 2026-10-22): una
+     franja propia bajo el menú; Inicio, Buscar y ¿Qué es esto? quedan en él. */
+  .principal {
+    order: 3;
+    flex: 1 0 100%;
+    margin: 0 calc(-1 * var(--barra-pad));
+    border-top: 1px solid var(--filete);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .principal::-webkit-scrollbar { display: none; }
+  .principal ul {
+    justify-content: center;
+    gap: clamp(1rem, 4vw, 2.6rem);
+    width: max-content;
+    min-width: 100%;
+    padding: 0 1.1rem;
+    box-sizing: border-box;
+  }
+  .principal .nav-extra { display: none; }
+  .principal a { padding: 0.85rem 0; letter-spacing: 0.16em; }
+  .acciones { top: 1.6rem; }
+@media (max-width: 640px) {
+  .principal ul { flex-wrap: wrap; width: auto; gap: 0 clamp(0.7rem, 3.2vw, 1.2rem); padding: 0.1rem 0.6rem; }
+  .principal a { padding: 0.7rem 0; font-size: 0.64rem; letter-spacing: 0.08em; }
 }
 
 /* Teléfonos angostos: menú y botones más compactos para que no se monten. */
 @media (max-width: 400px) {
-  .barra { padding: 0 0.8rem; }
+  .barra { --barra-pad: 0.8rem; }
   .menu summary { letter-spacing: 0.1em; }
   .tema, .corregir { padding: 0.3rem 0.45rem; letter-spacing: 0.06em; }
   .acciones { right: 0.8rem; gap: 0.3rem; }
@@ -1787,20 +1812,6 @@ main:has(> .primera) {
 .pp-abre .dia-temas { margin: 0.6rem 0 0; max-width: none; }
 .pp-abre .seguir-leyendo { margin-top: 1.1rem; }
 
-/* Dos notas bajo la que abre, lado a lado con filete. */
-.pp-segundas {
-  list-style: none;
-  margin: 1.8rem 0 0;
-  padding: 1.3rem 0 0;
-  border-top: 1px solid var(--tinta);
-}
-.pp-segundas .pp-nota:last-child { border-bottom: 0; margin-bottom: 0; }
-@media (min-width: 640px) {
-  .pp-segundas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2.6rem; }
-  .pp-segundas .pp-nota { margin: 0; padding: 0; border-bottom: 0; }
-  .pp-segundas .pp-nota + .pp-nota { border-left: 1px solid var(--filete); margin-left: -1.3rem; padding-left: 1.3rem; }
-}
-
 /* Lo que se decide: recuadro en negativo con doble marco. */
 .pp-decide {
   margin: 2.2rem 0 0;
@@ -1943,3 +1954,126 @@ main:has(> .primera) {
 @media (min-width: 1100px) { .pp-notas { columns: 3; } }
 @media (min-width: 1650px) { .pp-notas { columns: 4; } }
 @media (min-width: 2300px) { .pp-notas { columns: 5; } }
+
+/* --- Calendario de días anteriores (desde el 22 de octubre de 2026, pedido
+   de Mateo: «un calendario amigable, fácil de usar»). Un mes a la vista; los
+   días con edición son enlaces. Sin JavaScript: :target cambia de mes. --- */
+.calendario {
+  margin: 0 0 2rem;
+  padding: 1.1rem 1.1rem 0.9rem;
+  border: 1px solid var(--tinta);
+  background: var(--papel-claro);
+  font-family: var(--sans);
+}
+.cal-ayuda { margin: 0 0 0.8rem; font-size: 0.82rem; line-height: 1.4; color: var(--tenue); text-align: center; }
+.cal-mes { display: none; }
+.cal-mes.cal-actual, .cal-mes:target { display: block; }
+.calendario:has(.cal-mes:target) .cal-actual:not(:target) { display: none; }
+.cal-titulo {
+  margin: 0 0 0.6rem;
+  text-align: center;
+  font: 400 1.7rem/1 var(--serif);
+}
+.cal-tabla { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.cal-tabla th {
+  padding: 0 0 0.4rem;
+  font: 700 0.62rem/1 var(--sans);
+  letter-spacing: 0.1em;
+  color: var(--tenue);
+}
+.cal-tabla abbr { text-decoration: none; }
+.cal-tabla td { padding: 2px; text-align: center; }
+.cal-tabla td a, .cal-vacio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  min-height: 2.3rem;
+  font: 700 0.95rem/1 var(--sans);
+  font-variant-numeric: tabular-nums;
+}
+.cal-vacio { color: var(--gris-dato); font-weight: 400; }
+.cal-tabla td a {
+  background: var(--tinta);
+  color: var(--papel);
+  text-decoration: none;
+}
+.cal-tabla td a:hover, .cal-tabla td a:focus-visible { background: var(--rojo); color: var(--papel); }
+.cal-tabla [aria-current="date"] { outline: 2px solid var(--rojo); outline-offset: 1px; }
+.cal-nav {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.8rem 0 0;
+  min-height: 1rem;
+}
+.cal-nav a {
+  color: var(--rojo);
+  text-decoration: none;
+  font: 800 0.66rem/1.3 var(--sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.cal-nav .cal-sig { margin-left: auto; }
+.cal-nav a:hover { text-decoration: underline; }
+@media (min-width: 900px) {
+  .pp-anteriores {
+    display: grid;
+    grid-template-columns: minmax(16rem, 20rem) minmax(0, 1fr);
+    column-gap: 2.6rem;
+    align-items: start;
+  }
+  .calendario { position: sticky; top: 4.5rem; margin: 0; }
+}
+@media (max-width: 899px) {
+  .calendario { max-width: 26rem; margin-inline: auto; }
+}
+
+/* --- Por secciones (desde el 22 de octubre de 2026, pedido de Mateo: «que
+   sea evidente… aquí solo noticias de salud, aquí solo de economía»). Una
+   columna por categoría, con su nombre grande y sus ediciones más recientes. --- */
+.pp-secciones {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.4rem 2.6rem;
+}
+@media (min-width: 640px) { .pp-secciones { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .pp-secciones { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1500px) { .pp-secciones { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+.sec-col { border-top: 4px solid var(--tinta); padding-top: 0.7rem; }
+.sec-nombre {
+  margin: 0 0 1rem;
+  font: 400 clamp(2rem, 1.6rem + 1vw, 2.6rem)/1 var(--serif);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.sec-nombre a { color: inherit; text-decoration: none; }
+.sec-nombre a:hover, .sec-nombre a:focus-visible { color: var(--rojo); }
+.sec-lista { list-style: none; margin: 0; padding: 0; }
+.sec-lista li { padding: 0 0 0.85rem; margin: 0 0 0.85rem; border-bottom: 1px solid var(--filete); }
+.sec-lista .reticula-imagen { display: block; margin: 0 0 0.7rem; }
+.sec-lista .reticula-imagen img { aspect-ratio: 3 / 2; object-fit: cover; }
+.sec-fecha {
+  margin: 0 0 0.25rem;
+  font: 700 0.62rem/1.3 var(--sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rojo);
+}
+.sec-titulo {
+  display: block;
+  font: 400 1.18rem/1.15 var(--serif);
+  color: inherit;
+  text-decoration: none;
+  text-wrap: balance;
+}
+.sec-primera .sec-titulo { font-size: 1.45rem; }
+.sec-titulo:hover, .sec-titulo:focus-visible { text-decoration: underline; text-decoration-thickness: 1px; }
+.sec-mas { margin: 0; }
+.sec-mas a {
+  color: var(--rojo);
+  text-decoration: none;
+  font: 800 0.66rem/1.3 var(--sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.sec-mas a:hover, .sec-mas a:focus-visible { text-decoration: underline; }

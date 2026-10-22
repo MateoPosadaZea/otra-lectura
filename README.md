@@ -86,15 +86,22 @@ OMS, CEPAL → oficial; etc.). Al final de cada edición se muestra el conteo
 - **Portada** (`index.html`): la primera plana, a todo el ancho y directo
   a los titulares. Abre la edición del día con titular grande; al lado, en
   negativo, «Lo que se decide» (las próximas decisiones con fecha, del campo
-  `decisiones`); debajo, dos notas recientes y las de días anteriores en
-  columnas con filete (sin los repasos de la semana). La cita de Spinoza y la
-  explicación del proyecto están en «¿Qué es esto?».
+  `decisiones`). Arriba va sola la edición del día. Debajo, «Días
+  anteriores»: un calendario de un mes a la vista (cada día con edición
+  enlaza a su página; los meses anteriores se abren sin JavaScript) junto a
+  las notas recientes en columnas con filete (sin los repasos de la semana).
+  Al final, «Por secciones»: una columna por categoría con sus cuatro
+  ediciones más recientes, cada edición una sola vez (en su categoría
+  principal). La cita de Spinoza y la explicación del proyecto están en
+  «¿Qué es esto?».
 - **Días anteriores** (`archivo.html`): todas las fechas agrupadas por mes,
   con sus temas; con JavaScript, además, un selector "Ir a una fecha".
 - **Un día** (`dias/AAAA-MM-DD.html`): las ediciones de esa fecha, con
   paso al día anterior y al siguiente.
 - **Categorías** (`categorias/*.html`) y **¿Qué es esto?** (`sobre.html`,
-  desde `sobre.md`) en la barra de secciones.
+  desde `sobre.md`) en la barra de secciones. En pantallas de menos de
+  1.500 px, Inicio, Buscar y ¿Qué es esto? pasan al menú, pero las
+  categorías siguen a la vista en una franja propia.
 
 Accesibilidad y lectura (todo gratis y sin dependencias; lo que usa
 JavaScript simplemente no aparece sin él):

@@ -369,3 +369,11 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
     un tema del mundo; máximo tres nudos.
   - El caso individual que ya cubren todos los medios deja de ser tema
     del día: va a `actualizaciones` o a «Lo que descartamos».
+- 2026-10-22 · Mateo: «dejar solo la noticia del día en la parte superior…
+  un calendario amigable… volvamos a mostrar todas las categorías… que se
+  vea la variedad pero también el orden». En la portada, arriba va sola la
+  edición del día (sin las dos notas que la acompañaban); «Días anteriores»
+  lleva un calendario de un mes a la vista, con los días con edición
+  enlazados; al final, «Por secciones», una columna por categoría con sus
+  cuatro ediciones más recientes. En la cabecera, las categorías se ven en
+  cualquier ancho (antes, por debajo de 1.500 px, quedaban dentro del menú).

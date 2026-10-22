@@ -23,7 +23,7 @@ import re
 import shutil
 import sys
 import unicodedata
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 from string import Template
 
@@ -866,7 +866,8 @@ def html_menu(raiz, seccion=None):
     """Barra de secciones: Inicio y categorías; la actual va marcada."""
     def item(clave, href, nombre):
         marca = ' aria-current="page"' if clave == seccion else ""
-        return f'<li><a href="{href}"{marca}>{html.escape(nombre)}</a></li>'
+        clase = "" if clave in CATEGORIAS else ' class="nav-extra"'
+        return f'<li{clase}><a href="{href}"{marca}>{html.escape(nombre)}</a></li>'
     items = [item("inicio", f"{raiz}index.html", "Inicio")]
     items += [item(c, f"{raiz}categorias/{c}.html", CATEGORIAS[c]) for c in CATEGORIAS_ACTIVAS]
     items.append(item("buscar", f"{raiz}buscar.html", "Buscar"))
@@ -1213,6 +1214,106 @@ def html_recuadro_decisiones(ediciones, raiz="", cuantas=4):
 </aside>"""
 
 
+def html_calendario(dias, raiz=""):
+    """Calendario de los días con edición, un mes a la vista: cada día con
+    edición enlaza a su página. Sin JavaScript: los meses anteriores se abren
+    con enlaces a su ancla (:target) y por defecto se ve el mes más reciente."""
+    titulares = {f: sorted(d, key=lambda o: (o["orden"], o["slug"]))[0]["titulo"] for f, d in dias}
+    fechas = sorted(titulares)
+    hoy = date.today().isoformat()
+    primero, ultimo = date.fromisoformat(fechas[0]), date.fromisoformat(fechas[-1])
+    meses, a, m = [], primero.year, primero.month
+    while (a, m) <= (ultimo.year, ultimo.month):
+        meses.append((a, m))
+        a, m = (a + 1, 1) if m == 12 else (a, m + 1)
+    bloques = []
+    for i, (a, m) in enumerate(meses):
+        ident = f"cal-{a}-{m:02d}"
+        inicio = date(a, m, 1)
+        fin = date(a + 1, 1, 1) if m == 12 else date(a, m + 1, 1)
+        celdas = ['<td></td>'] * inicio.weekday()
+        d = inicio
+        while d < fin:
+            f = d.isoformat()
+            hoy_attr = ' aria-current="date"' if f == hoy else ""
+            if f in titulares:
+                celdas.append(f'<td><a href="{raiz}dias/{f}.html" title="{html.escape(titulares[f])}"{hoy_attr}>'
+                              f'<span class="solo-lectores">{fecha_con_dia(f)}: </span>{d.day}</a></td>')
+            else:
+                celdas.append(f'<td><span class="cal-vacio"{hoy_attr}>{d.day}</span></td>')
+            d += timedelta(days=1)
+        celdas += ['<td></td>'] * (-len(celdas) % 7)
+        filas = "".join("<tr>" + "".join(celdas[j:j + 7]) + "</tr>" for j in range(0, len(celdas), 7))
+        nav = []
+        if i > 0:
+            pa, pm = meses[i - 1]
+            nav.append(f'<a class="cal-ant" href="#cal-{pa}-{pm:02d}">← {MESES[pm - 1]}</a>')
+        if i < len(meses) - 1:
+            sa, sm = meses[i + 1]
+            nav.append(f'<a class="cal-sig" href="#cal-{sa}-{sm:02d}">{MESES[sm - 1]} →</a>')
+        cabeza = "".join(f'<th scope="col"><abbr title="{dia}">{dia[0].upper() if dia != "miércoles" else "X"}</abbr></th>'
+                         for dia in DIAS_SEMANA)
+        actual = " cal-actual" if i == len(meses) - 1 else ""
+        bloques.append(f"""<section class="cal-mes{actual}" id="{ident}" aria-label="{MESES[m - 1]} de {a}">
+<p class="cal-titulo">{MESES[m - 1].capitalize()} {a}</p>
+<table class="cal-tabla"><thead><tr>{cabeza}</tr></thead><tbody>{filas}</tbody></table>
+<p class="cal-nav">{''.join(nav)}</p>
+</section>""")
+    return f"""<div class="calendario" aria-label="Calendario de ediciones">
+<p class="cal-ayuda">Busque el día: los días marcados tienen edición.</p>
+{chr(10).join(bloques)}
+</div>"""
+
+
+SECCION_RECIENTES = 4
+
+
+def html_por_seccion(dias, raiz=""):
+    """Una columna por categoría con sus ediciones más recientes: aquí solo
+    salud, aquí solo economía. Se ve la variedad y cada cosa en su lugar."""
+    todas = [e for _, d in dias for e in sorted(d, key=lambda o: (o["orden"], o["slug"])) if not es_repaso(e)]
+    # Cada edición sale una sola vez: en su categoría principal (la primera);
+    # una sección con pocas se completa con las que la tienen de segunda.
+    elegidas = {c: [e for e in todas if e["categorias"][:1] == [c]][:SECCION_RECIENTES] for c in CATEGORIAS_ACTIVAS}
+    vistas = {e["slug"] for l in elegidas.values() for e in l}
+    for c in CATEGORIAS_ACTIVAS:
+        for e in todas:
+            if len(elegidas[c]) >= SECCION_RECIENTES:
+                break
+            if c in e["categorias"] and e["slug"] not in vistas:
+                elegidas[c].append(e)
+                vistas.add(e["slug"])
+        elegidas[c].sort(key=lambda e: (e["fecha"], e["orden"]), reverse=True)
+    columnas = []
+    for c in CATEGORIAS_ACTIVAS:
+        de_esta = [e for e in todas if c in e["categorias"]]
+        if not elegidas[c]:
+            continue
+        items = []
+        for i, e in enumerate(elegidas[c]):
+            h = f"{raiz}ediciones/{e['slug']}.html"
+            d = date.fromisoformat(e["fecha"])
+            imagen = miniatura_grabado(e, raiz, False) if i == 0 else ""
+            items.append(f"""<li{' class="sec-primera"' if i == 0 else ''}>
+{imagen}<p class="sec-fecha"><time datetime="{e['fecha']}">{d.day} de {MESES[d.month - 1]}</time></p>
+<a class="sec-titulo" href="{h}">{html.escape(e['titulo'])}</a>
+</li>""")
+        n = len(de_esta)
+        columnas.append(f"""<section class="sec-col sec-{c}" aria-labelledby="sec-{c}">
+<h3 class="sec-nombre" id="sec-{c}"><a href="{raiz}categorias/{c}.html">{html.escape(CATEGORIAS[c])}</a></h3>
+<ol class="sec-lista">
+{chr(10).join(items)}
+</ol>
+<p class="sec-mas"><a href="{raiz}categorias/{c}.html">{'La edición' if n == 1 else f'Las {n} ediciones'} de {html.escape(CATEGORIAS[c].lower())} →</a></p>
+</section>""")
+    if not columnas:
+        return ""
+    return f"""<h2 class="pp-banda-sec" id="secciones">Por secciones <span>Cada tema en su lugar</span></h2>
+<div class="pp-secciones">
+{chr(10).join(columnas)}
+</div>"""
+
+
 def html_primera_plana(dias, raiz="", cuantas=12):
     """La portada como la primera plana de un periódico, a todo el ancho: la
     edición del día abre con titular grande, al lado el recuadro de lo que se
@@ -1261,20 +1362,18 @@ def html_primera_plana(dias, raiz="", cuantas=12):
 <p class="plana-seguir"><a href="{h}">Seguir leyendo<span class="solo-lectores">: {html.escape(e['titulo'])}</span> <span aria-hidden="true">→</span></a></p>
 </li>"""
 
-    # Dos notas acompañan a la que abre, bajo ella; el resto va en columnas,
-    # con grabado una de cada tres para que la plana respire.
-    notas_ed = notas_ed[:cuantas]
-    segundas = ""
-    if len(notas_ed) > 4:
-        segundas = '<ol class="pp-segundas">\n' + "\n".join(nota(e, False) for e in notas_ed[:2]) + "\n</ol>"
-        notas_ed = notas_ed[2:]
-    notas = [nota(e, i % 3 == 0) for i, e in enumerate(notas_ed)]
+    # Arriba va sola la edición del día (pedido de Mateo, 2026-10-22); las
+    # demás van en columnas, con grabado una de cada tres, junto al calendario.
+    notas = [nota(e, i % 3 == 0) for i, e in enumerate(notas_ed[:cuantas])]
     anteriores = ""
     if notas:
         anteriores = f"""<h2 class="pp-banda-sec" id="anteriores">Días anteriores <span>Lo que contamos y sigue en pie</span></h2>
+<div class="pp-anteriores">
+{html_calendario(dias, raiz)}
 <ol class="pp-notas">
 {chr(10).join(notas)}
 </ol>
+</div>
 <p class="dias-anteriores"><a href="{raiz}archivo.html">Todos los días anteriores →</a></p>"""
     numero = f'<span>Edición {html.escape(abre["edicion"])}</span>' if abre["edicion"] else ""
     return f"""<section class="primera" aria-label="Primera plana">
@@ -1283,11 +1382,11 @@ def html_primera_plana(dias, raiz="", cuantas=12):
 <div class="pp-arriba{' pp-sin-recuadro' if not recuadro else ''}">
 <div class="pp-principal">
 {portada}
-{segundas}
 </div>
 {recuadro}
 </div>
 {anteriores}
+{html_por_seccion(dias, raiz)}
 </section>"""
 
 
