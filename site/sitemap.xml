@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url><loc>https://otralectura.co/</loc><lastmod>2026-10-21</lastmod></url>
+<url><loc>https://otralectura.co/</loc><lastmod>2026-10-22</lastmod></url>
+<url><loc>https://otralectura.co/ediciones/2026-10-22-radar.html</loc><lastmod>2026-10-22</lastmod></url>
 <url><loc>https://otralectura.co/ediciones/2026-10-21-radar.html</loc><lastmod>2026-10-21</lastmod></url>
-<url><loc>https://otralectura.co/ediciones/2026-10-20-radar.html</loc><lastmod>2026-10-20</lastmod></url>
+<url><loc>https://otralectura.co/ediciones/2026-10-20-radar.html</loc><lastmod>2026-10-22</lastmod></url>
 <url><loc>https://otralectura.co/ediciones/2026-10-19-radar.html</loc><lastmod>2026-10-21</lastmod></url>
 <url><loc>https://otralectura.co/ediciones/2026-10-18-radar.html</loc><lastmod>2026-10-18</lastmod></url>
 <url><loc>https://otralectura.co/ediciones/2026-10-17-radar.html</loc><lastmod>2026-10-17</lastmod></url>
@@ -41,6 +42,7 @@
 <url><loc>https://otralectura.co/ediciones/2026-09-23-radar.html</loc><lastmod>2026-10-20</lastmod></url>
 <url><loc>https://otralectura.co/ediciones/2026-09-22-radar-02.html</loc><lastmod>2026-09-30</lastmod></url>
 <url><loc>https://otralectura.co/ediciones/2026-09-22-radar-01.html</loc><lastmod>2026-09-30</lastmod></url>
+<url><loc>https://otralectura.co/dias/2026-10-22.html</loc></url>
 <url><loc>https://otralectura.co/dias/2026-10-21.html</loc></url>
 <url><loc>https://otralectura.co/dias/2026-10-20.html</loc></url>
 <url><loc>https://otralectura.co/dias/2026-10-19.html</loc></url>
@@ -89,6 +91,7 @@
 <url><loc>https://otralectura.co/temas/air-e-deuda-caribe.html</loc></url>
 <url><loc>https://otralectura.co/temas/informalidad-empleo.html</loc></url>
 <url><loc>https://otralectura.co/temas/reconstruccion-fondo-milagro.html</loc></url>
+<url><loc>https://otralectura.co/temas/violencia-sexual-silencio.html</loc></url>
 <url><loc>https://otralectura.co/temas/imaginemos-gas-natural.html</loc></url>
 <url><loc>https://otralectura.co/temas/agua-racionamiento-el-nino.html</loc></url>
 <url><loc>https://otralectura.co/temas/brasil-elecciones-colombia.html</loc></url>
@@ -107,4 +110,5 @@
 <url><loc>https://otralectura.co/temas/pensiones-vejez-renta-basica.html</loc></url>
 <url><loc>https://otralectura.co/temas/papa-precios-ciclo.html</loc></url>
 <url><loc>https://otralectura.co/temas/votos-por-contratos-credito-publico.html</loc></url>
+<url><loc>https://otralectura.co/temas/uso-fuerza-policial-taser.html</loc></url>
 </urlset>
