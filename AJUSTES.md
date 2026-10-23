@@ -437,3 +437,7 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   confundirse con que sea la noticia». El pie del grabado va en letra
   pequeña y cursiva (ya no en mayúsculas espaciadas), y el crédito, más
   pequeño aún, en su propia línea.
+- 2026-10-23 · Mateo: «ajustar el estado hover de estos botones, que el
+  texto sea blanco… unificarlos». En los botones de categoría de cada
+  edición, toda la caja es el enlace y tiene un solo estado al pasar el
+  puntero: fondo de tinta y letra clara.

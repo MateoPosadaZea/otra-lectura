@@ -471,8 +471,12 @@ footer.sitio .cabezote { font-size: 1.6rem; color: var(--tinta); }
 
 /* --- Categorías --- */
 
-.temas a { text-decoration: none; }
-.temas li:has(a):hover { background: var(--tinta); color: var(--papel); }
+/* Toda la caja es el enlace, con un solo estado al pasar el puntero: fondo
+   de tinta y letra clara (2026-10-23; antes la caja y el texto cambiaban
+   por separado). */
+.temas li:has(a) { padding: 0; }
+.temas a { display: block; padding: 0.2rem 0.5rem; color: var(--tinta); text-decoration: none; }
+.temas a:hover, .temas a:focus-visible { background: var(--tinta); color: var(--papel); }
 
 nav.categorias { margin: 0 0 1.5rem; }
 nav.categorias ul {
