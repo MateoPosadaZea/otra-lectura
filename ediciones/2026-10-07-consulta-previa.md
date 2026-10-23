@@ -1,7 +1,7 @@
 ---
 fecha: 2026-10-07
 edicion: 23
-titulo: "Consulta previa: no hay registro de cuántas están abiertas, y el Gobierno quiere destrabarlas en 90 días"
+titulo: "Consultas previas sin inventario: el Gobierno promete destrabarlas en 90 días"
 temas: [consulta-previa-represada]
 categorias: [sociedad, ambiente]
 lugares: [Colombia, La Guajira, Perú, Bolivia]
@@ -88,30 +88,32 @@ fuentes:
 
 ## Carril 1: Radar
 
-### Consulta previa: no hay registro de cuántas están abiertas, y el Gobierno quiere destrabarlas en 90 días {#consulta-previa-represada}
+### Consultas previas sin inventario: el Gobierno promete destrabarlas en 90 días {#consulta-previa-represada}
 
 **En pocas palabras.** Antes de una carretera, una mina o una línea de
 energía en territorio de comunidades étnicas, el Estado debe
-consultarlas. Es un derecho. Pero miles de consultas siguen abiertas por
-años, y el Gobierno ni siquiera sabe cuántas hay. Ahora promete
-destrabarlas sin pasar por encima del derecho.
+consultarlas: es un derecho. Miles de consultas siguen abiertas por años,
+y el Gobierno ni siquiera sabe cuántas hay. Ahora promete destrabarlas
+en 90 días sin pasar por encima del derecho.
 
-**Qué pasó.** Imagine una notaría donde los expedientes se apilan en el
-piso, sin número ni responsable. Nadie dice que no; los trámites
-simplemente no terminan.
+**Qué pasó.** Colectora, la línea de 475 kilómetros que llevaría la
+energía de los parques eólicos de La Guajira, pasó de 235 consultas
+previstas a más de 250. Iba a operar en agosto de 2026; ahora apunta a
+abril de 2027.
 
 El 5 y 6 de octubre, el ministro del Interior, Rodrigo Lara, anunció un
 plan para la consulta previa: el diálogo obligatorio con pueblos
 indígenas, comunidades negras, raizales, palenqueras y el pueblo Rom
-antes de decidir algo que los afecte directamente. Las cifras del
-debate, según El Colombiano:
+antes de decidir algo que los afecte directamente.
+
+Las cifras del debate, según El Colombiano:
 
 - Desde 2011 se han hecho más de 13.000 consultas; unas 1.350 en 2026.
 - En los últimos cuatro años, solo 16 de cada 100 llegaron a firmar
-  acuerdos. Unas 77 de cada 100 siguen abiertas.
-- De las abiertas, 31 de cada 100 llevan más de cuatro años sin decisión.
-- Según el ministro, hoy nadie sabe con certeza cuántas consultas están en
-  curso: la oficina no tiene un sistema que las cuente.
+  acuerdos y unas 77 siguen abiertas. De las abiertas, 31 de cada 100
+  llevan más de cuatro años sin decisión.
+- Según el ministro, nadie sabe con certeza cuántas están en curso: la
+  oficina no tiene un sistema que las cuente.
 
 ```grafico
 tipo: barras
@@ -127,80 +129,76 @@ datos:
     valor: 77
 ```
 
-El plan: en 30 días, digitalizar todos los expedientes y hacer un
-inventario por sector, etapa y antigüedad; en 60, tableros de control con
-un responsable y una fecha para cada caso; en 90, una reducción
+El plan: en 30 días, digitalizar los expedientes y hacer un inventario;
+en 60, un responsable y una fecha para cada caso; en 90, una reducción
 "sustancial" del represamiento. Además, una directiva presidencial y un
-proyecto de ley. El punto más discutido: quitar o limitar el "test de
+proyecto de ley.
+
+El punto más discutido: quitar o limitar el "test de
 proporcionalidad", el paso que se usa cuando la comunidad y el Estado no
 llegan a un acuerdo. El ministro ha dicho "eliminarlo" y también
 "limitarlo".
 
-Un ejemplo de lo que cuesta la espera: Colectora, la línea de 475
-kilómetros que llevaría la energía de los parques eólicos de La Guajira,
-pasó de 235 consultas previstas a más de 250. Iba a operar en agosto de
-2026; ahora apunta a abril de 2027.
+**¿Por qué pasa?**
 
-**Cómo llegamos aquí.**
-
-- **Un derecho sin ley propia.** Colombia firmó en 1991 el Convenio 169 de
-  la OIT, que obliga a consultar. *(Conocimiento general.)* Pero el
+- **Un derecho sin ley propia.** Colombia firmó en 1991 el Convenio 169
+  de la OIT, que obliga a consultar. *(Conocimiento general.)* Pero el
   Congreso nunca expidió la ley estatutaria, la ley especial que exige la
   Constitución para regular un derecho fundamental. En 2018, la Corte
   Constitucional, en la sentencia SU-123, les pidió al Gobierno y al
-  Congreso regular la materia y crear una entidad independiente.
+  Congreso regularla y crear una entidad independiente.
 - **Lo que no se cuenta, no se cierra.** Sin inventario, ningún
   funcionario responde por un expediente viejo.
 - **Cada quien paga una parte.** La empresa paga la demora, la comunidad
   espera sin respuesta y el usuario, la energía que no llega. Nadie carga
   el costo completo.
 
-**Ya pasó antes.** Los gobiernos han intentado ordenar la consulta por
-directivas, que son instrucciones del presidente a sus entidades: en
-2010, 2013 y 2020. En agosto de 2023, el Consejo de Estado anuló partes
-de la de 2013, por una demanda del pueblo kankuamo. Dijo que una
-directiva no puede regular un derecho fundamental, que eso exige ley
-estatutaria, y que el presidente no consultó a los pueblos antes de
-expedirla. En 2021, organizaciones indígenas rechazaron otro proyecto de
-ley para reglamentarla.
+**Ya pasó antes.** Los gobiernos han intentado ordenar la consulta con
+directivas, instrucciones del presidente a sus entidades, en 2010, 2013
+y 2020. En agosto de 2023, por una demanda del pueblo kankuamo, el
+Consejo de Estado anuló partes de la de 2013.
 
-**¿Hay salida?** Perú tiene una ley de consulta desde 2011. Su reglamento
-fija un plazo máximo de 120 días desde que se entrega la propuesta hasta
-que se firma el acta. Según la prensa minera peruana, allá los procesos
-toman entre cuatro y seis meses; en Colombia, algunos llegan a diez
-años.
+Dijo que una directiva no puede regular un derecho fundamental, que eso
+exige ley estatutaria, y que el presidente no consultó a los pueblos
+antes de expedirla.
+
+**¿Alguien lo ha resuelto?** Perú tiene una ley de consulta desde 2011.
+Su reglamento fija un plazo máximo de 120 días desde que se entrega la
+propuesta hasta que se firma el acta. Según la prensa minera peruana,
+allá los procesos toman entre cuatro y seis meses; en Colombia, algunos
+llegan a diez años.
 
 **Pero ojo.** Rápido no es lo mismo que bien hecho. Un estudio de 2016,
-de Riccarda Flemmer y Almut Schilling-Vacaflor, revisó las primeras
-consultas en el petróleo y el gas de Bolivia y Perú: la participación
-real fue limitada, por la diferencia de poder y porque las comunidades no
-sentían el proceso como propio. Y en Colombia, un estudio de 2020 de
-Maiah Jaskoski, sobre cinco conflictos mineros y petroleros, encontró
-que las comunidades movilizadas no usaron las reuniones: se negaron a ser
-consultadas o reclamaron por quedar por fuera. Cerrar el expediente no
-cierra el conflicto; puede mandarlo a los juzgados.
+de Riccarda Flemmer y Almut Schilling-Vacaflor, sobre las primeras
+consultas petroleras y de gas en Bolivia y Perú, encontró una
+participación real limitada, por la diferencia de poder.
+
+En Colombia, un estudio de 2020 de Maiah Jaskoski sobre cinco conflictos
+mineros y petroleros encontró que las comunidades movilizadas se negaron
+a ser consultadas o reclamaron por quedar por fuera. Cerrar el
+expediente no cierra el conflicto; puede mandarlo a los juzgados.
 
 ## Dos lecturas
 
 **Destrabar es proteger el derecho.** Una consulta de cuatro años no le
-sirve a nadie: ni a la comunidad, que no recibe respuesta, ni al país, que
-espera la carretera o la energía. Contar expedientes y poner responsables
-y fechas es lo mínimo. Un trámite que no termina también decide.
+sirve a nadie: ni a la comunidad, que no recibe respuesta, ni al país,
+que espera la carretera o la energía. Un trámite que no termina también
+decide.
 
 **Acelerar sin consultar repite el error.** Si el cambio llega por
-directiva, sin ley estatutaria y sin consultar a los pueblos, puede caer
-en los tribunales como en 2023. Y sin el paso para cuando no hay acuerdo,
-la última palabra queda en la autoridad que también quiere el proyecto.
+directiva, sin ley estatutaria ni consulta, puede caer en los tribunales
+como en 2023. Y sin el paso para cuando no hay acuerdo, la última
+palabra queda en quien también quiere el proyecto.
 
 ## Quién decide y cuándo
 
 **Quién decide.** El Ministerio del Interior, con la Dirección de la
 Autoridad Nacional de Consulta Previa, ejecuta el plan y prepara la
-directiva. El Congreso tendría que aprobar el proyecto de ley.
+directiva. El Congreso tendría que aprobar la ley.
 
-**Cuándo.** El inventario debería estar en 30 días y la meta de reducción
-en 90, es decir, a comienzos de enero. No encontramos fecha para la
-directiva ni para el proyecto de ley.
+**Cuándo.** El inventario, en 30 días; la meta de reducción, en 90, a
+comienzos de enero. No encontramos fecha para la directiva ni para la
+ley.
 
 **Cómo participar.** Los pueblos indígenas tienen la Mesa Permanente de
 Concertación con el Gobierno. *(Conocimiento general.)* Cualquier persona
@@ -208,9 +206,9 @@ puede seguir el proyecto cuando se radique en el Congreso.
 
 ## La paradoja del día
 
-El Gobierno quiere ordenar la consulta previa con una directiva. En 2023,
-el Consejo de Estado anuló parte de una directiva sobre consulta previa,
-entre otras cosas, porque no la consultaron.
+El Gobierno quiere ordenar la consulta previa con una directiva. En
+2023, el Consejo de Estado anuló parte de otra, entre otras cosas,
+porque no la consultaron.
 
 ## Para conversar
 
