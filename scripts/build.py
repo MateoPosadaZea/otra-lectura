@@ -499,7 +499,9 @@ def marcar_parrafo(m):
     clases, etiqueta = [], ""
 
     e = re.match(r"\s*<strong>(.{1,80}?)</strong>\s*", interior, re.S)
-    if e and texto_plano(e.group(1)).rstrip().endswith((".", ":")):
+    # Un rótulo termina en punto, dos puntos o, desde el 2026-10-23, en
+    # signo de pregunta («¿Por qué pasa?», «¿Alguien lo ha resuelto?»).
+    if e and texto_plano(e.group(1)).rstrip().endswith((".", ":", "?")):
         clases.append("con-etiqueta")
         label = texto_plano(e.group(1))
         for patron, clase in TIPOS_ETIQUETA:

@@ -1,7 +1,7 @@
 ---
 fecha: 2026-10-02
 edicion: 15
-titulo: "De lo que nadie habla: violencia sexual, por qué callan quienes saben y qué ayuda a hablar"
+titulo: "De lo que nadie habla: violencia sexual, alguien sabe y calla"
 temas: [violencia-sexual-silencio]
 categorias: [sociedad, salud]
 lugares: [Colombia, Estados Unidos]
@@ -94,114 +94,84 @@ fuentes:
 
 ## Carril 1: Radar
 
-### Violencia sexual: por qué callan quienes saben y qué ayuda a hablar {#violencia-sexual-silencio}
+### Violencia sexual: casi siempre alguien sabe y se queda callado {#violencia-sexual-silencio}
 
-**En pocas palabras.** La violencia sexual casi nunca pasa sin que nadie
-se entere. Casi siempre alguien sabe algo: un amigo, un compañero, un
-familiar, un profesor. Y casi siempre ese alguien se queda callado. Este
-texto no es sobre un caso. Es sobre por qué callamos y qué sí ayuda a
-romper ese silencio.
+**En pocas palabras.** En la violencia sexual casi siempre alguien sabe
+algo: un amigo, un familiar, un profesor. Y casi siempre calla. Aquí, por
+qué callamos y qué ayuda a romper ese silencio.
 
-**Qué pasó.** Piense en un chat de grupo, como el del colegio o el de los
-amigos del fútbol. Alguien manda algo grave. Nadie responde. Cada uno
-supone que otro hará algo. Al final, nadie hace nada.
+**Qué pasó.** Una demanda presentada el 16 de septiembre en Estados
+Unidos describe un chat de grupo. Una exestudiante de la Universidad de
+Cornell dice que en octubre de 2024 fue drogada y violada por siete
+miembros de una fraternidad.
 
-Algo así es lo que describe una demanda presentada el 16 de septiembre en
-Estados Unidos. Una exestudiante de la Universidad de Cornell, en Nueva
-York, dice que en octubre de 2024 fue drogada y violada por siete miembros
-de una fraternidad, una especie de club de estudiantes que viven juntos.
-Según la demanda, mientras pasaba, uno de ellos invitó a otros por el chat
-del grupo. Varios medios cuentan que ese chat tenía unos 57 miembros.
-*(Cifra de prensa; no verificado en la demanda.)*
+Según la demanda, mientras pasaba, uno de ellos invitó a otros por el
+chat del grupo. Varios medios cuentan que ese chat tenía unos 57
+miembros. *(Cifra de prensa; no verificado en la demanda.)*
 
-Son acusaciones: nadie ha sido condenado y los señalados son presuntos
-responsables. Al menos uno, por medio de su abogado, dijo que solo hizo un
-comentario inmaduro en el chat. En 2024 la Fiscalía del condado no presentó
-cargos. Tras la demanda, reabrió el caso y dijo que lo llevará a un gran
-jurado. La universidad aceptó una revisión independiente de cómo lo manejó.
-Expertos en derecho consultados por la prensa dicen que los demás miembros
-del chat no pueden ser acusados: en Nueva York, ver un delito y callar no
-es delito. Ahí está el punto. Lo legal y lo correcto no siempre coinciden.
+Son acusaciones: nadie ha sido condenado, y al menos uno de los señalados
+dijo, por medio de su abogado, que solo hizo un comentario inmaduro. La
+Fiscalía del condado reabrió el caso y lo llevará a un gran jurado.
 
-**Cómo llegamos aquí.** Callar no es raro. Tiene causas que se repiten:
+Según expertos consultados por la prensa, en Nueva York ver un delito y
+callar no es delito. Lo legal y lo correcto no siempre coinciden.
+
+**¿Por qué pasa?** Callar tiene causas que se repiten:
 
 - **"Alguien más hará algo".** Mientras más personas saben, más fácil es
-  creer que la responsabilidad es de otro. Es el llamado efecto espectador.
-  Una revisión de 105 experimentos, publicada en 2011, lo confirmó. También
-  encontró algo esperanzador: cuando la situación se ve claramente
-  peligrosa, la gente ayuda más.
-- **"Nadie más lo ve mal".** Cada uno se calla porque cree que los demás lo
-  aprueban. Estudios con hombres jóvenes encontraron que creen que sus
-  amigos aceptan la agresión más de lo que en realidad la aceptan. Muchos
-  piensan igual, pero cada uno se siente solo.
-- **La lealtad al grupo.** Hablar se siente como traicionar al amigo, al
-  equipo o a la familia.
-- **El miedo y la desconfianza.** Miedo a la venganza, a quedar mal, a que
-  no le crean. Y la sensación de que denunciar no sirve para nada.
-- **Cuando el agresor es de la casa.** En Colombia, la mayoría de los casos
-  pasa en la vivienda y con alguien conocido. Denunciar a un tío o a un
-  padrastro parte a la familia en dos. Ese costo hace callar.
+  creer que la responsabilidad es de otro: el efecto espectador. Una
+  revisión de 105 experimentos, de 2011, lo confirmó.
+- **"Nadie más lo ve mal".** Estudios con hombres jóvenes encontraron que
+  creen que sus amigos aceptan la agresión más de lo que en realidad la
+  aceptan. Muchos piensan igual, pero cada uno se siente solo.
+- **Lealtad y miedo.** Hablar se siente como traicionar. En Colombia, la
+  mayoría de los casos pasa en la vivienda y con alguien conocido:
+  denunciar a un tío o a un padrastro parte a la familia en dos.
 
-**Las cifras.** En Colombia, la principal medida que existe son los
-exámenes de Medicina Legal, la entidad que revisa a las víctimas para la
-justicia:
+**Las cifras.** La principal medida en Colombia son los exámenes de
+Medicina Legal, que revisa a las víctimas para la justicia:
 
-- **En 2023 hizo 23.612 exámenes por presunto delito sexual.** Son unos 65
-  al día. Casi 9 de cada 10 fueron a mujeres.
-- **La mayoría son niñas.** De cada 10 mujeres examinadas, 8 eran menores
-  de 18 años.
-- **El patrón sigue en 2026.** De enero a marzo hubo 4.572 exámenes. De cada
-  4, 3 fueron a menores de edad. Unos 450 fueron a niños menores de cinco
-  años.
-- **Y eso es solo lo que se cuenta.** En una encuesta en 142 municipios con
-  presencia de grupos armados (2010 a 2015), de cada 100 mujeres víctimas,
-  78 no denunciaron.
+- **En 2023 hizo 23.612 exámenes por presunto delito sexual,** unos 65 al
+  día. Casi 9 de cada 10 fueron a mujeres; de ellas, 8 de cada 10 eran
+  menores de 18 años.
+- **En 2026 sigue igual.** De enero a marzo hubo 4.572 exámenes; 3 de
+  cada 4, a menores de edad.
+- **Y eso es solo lo que se cuenta.** En una encuesta en 142 municipios
+  con presencia de grupos armados (2010 a 2015), de cada 100 mujeres
+  víctimas, 78 no denunciaron.
 
-**¿Hay salida?** Sí, y lo interesante es que no depende de héroes, sino de
-gente común con un poco de entrenamiento:
+**¿Alguien lo ha resuelto?** Sí, y no depende de héroes, sino de gente
+común con un poco de entrenamiento:
 
-- **Enseñar a intervenir funciona.** En Kentucky, Estados Unidos, se hizo
-  un ensayo con 26 colegios, sorteados al azar. En la mitad se aplicó Green
-  Dot: charlas para todos y entrenamiento a estudiantes con influencia
-  entre sus compañeros, para que supieran cómo actuar. Cuando el programa
-  ya estaba completo, la violencia sexual cometida por estudiantes bajó
-  cerca de 2 de cada 10 casos frente a los otros colegios.
-- **Los entrenadores también enseñan.** En California, un programa en el
-  que los entrenadores deportivos hablaban con sus jugadores sobre respeto
-  (Coaching Boys into Men) mejoró la disposición a intervenir. Un año
-  después, los jugadores reportaban menos maltrato a sus parejas.
-- **El colegio como lugar seguro.** En 30 colegios de Nueva York se probó
-  mapear con los estudiantes los rincones donde se sentían inseguros y
-  poner más adultos ahí. Junto con clases sobre relaciones sanas, redujo
-  el acoso y la violencia.
-- **Creerle a quien cuenta.** Una revisión de 2019 encontró que las
-  reacciones negativas (culpar, dudar, controlar) se asocian con más daño
-  emocional en la víctima. La primera reacción importa.
+- **Enseñar a intervenir.** En Kentucky, un ensayo con 26 colegios
+  sorteados al azar probó Green Dot, que entrena a estudiantes con
+  influencia. Con el programa completo, la violencia sexual cometida por
+  estudiantes bajó cerca de 2 de cada 10 casos.
+- **Los entrenadores también enseñan.** En California, con Coaching Boys
+  into Men, los jugadores reportaban un año después menos maltrato a sus
+  parejas.
+- **Creerle a quien cuenta.** Una revisión de 2019 encontró que culpar o
+  dudar se asocia con más daño emocional en la víctima.
 
-**Pero ojo.** Ningún programa es una vacuna. Una revisión de 27 estudios de
-buena calidad, publicada en 2019, encontró que estos programas sí hacen que
-la gente intervenga más. Pero no halló pruebas de que bajen las agresiones
-en general. Además, el efecto se desgasta: a los seis meses ya se nota
-menos. Por eso se repiten cada año. Casi todos los estudios son de Estados
-Unidos; en Colombia no encontramos evaluaciones serias de este tipo.
+**Pero ojo.** Ningún programa es una vacuna. Una revisión de 27 estudios
+de buena calidad, de 2019, encontró que la gente interviene más, pero no
+halló pruebas de que bajen las agresiones en general.
 
-**Qué puede hacer usted.** Cosas pequeñas y concretas, según su lugar:
+El efecto se desgasta a los seis meses. Y en Colombia no encontramos
+evaluaciones serias.
 
-- **Como amigo o compañero.** Si ve algo, use una de estas cuatro salidas: **directo**
-  ("eso no está bien, para"); **distraer** (interrumpa, invente que la
-  buscan, sáquela de ahí); **delegar** (avise a un adulto, un vigilante, la
-  policía); **después** (si no pudo actuar, búsquela luego y pregúntele cómo
-  está). No comparta fotos ni videos de nadie, aunque circulen en el chat.
-  Salirse del grupo en silencio no basta: decir "esto no" sí cuenta.
+**Qué puede hacer usted.** Cosas pequeñas, según su lugar:
+
+- **Como amigo o compañero.** Si ve algo: **directo** ("eso no está
+  bien, para"); **distraer** (interrumpa, sáquela de ahí); **delegar**
+  (avise a un adulto o a la policía); **después** (búsquela y pregúntele
+  cómo está). No comparta fotos ni videos.
 - **Como papá o mamá.** Hable con sus hijos, también con los varones, de
-  qué es el consentimiento: sin un sí claro, es no; y quien está borracho o
-  dormido no puede decir sí. Pregúnteles qué harían si en su chat aparece
-  algo así. Y si su hija o su hijo le cuenta algo, primero créale: "te creo,
-  no es tu culpa, vamos a buscar ayuda".
-- **Como colegio o universidad.** Tenga una ruta clara, conocida por todos,
-  para recibir un relato y activar a la Fiscalía o al ICBF. En Colombia, si
-  la víctima es menor de edad, la ley llama a todos a denunciar y les exige
-  a los colegios actuar (Ley 1146 de 2007).
+  consentimiento: sin un sí claro, es no. Si su hija o su hijo le cuenta
+  algo, primero créale: "te creo, no es tu culpa, vamos a buscar ayuda".
+- **Como colegio o universidad.** Tenga una ruta clara para recibir un
+  relato y activar a la Fiscalía o al ICBF. Si la víctima es menor de
+  edad, la ley les exige actuar (Ley 1146 de 2007).
 
 ## Para conversar
 

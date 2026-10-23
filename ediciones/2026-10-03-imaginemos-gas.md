@@ -102,26 +102,23 @@ fuentes:
 
 ### Imaginemos: una regla del gas que dure más que un gobierno {#imaginemos-gas-natural}
 
-**En pocas palabras.** Colombia se está quedando sin gas propio y cada vez
-lo compra más caro afuera. Parte del problema es que las reglas para buscar
-gas cambian con cada gobierno, y encontrar gas toma casi diez años. Hoy
+**En pocas palabras.** Colombia se está quedando sin gas propio y lo
+compra cada vez más caro afuera, y eso se paga en la factura. Encontrar
+gas toma casi diez años, pero las reglas cambian con cada gobierno. Hoy
 imaginamos una regla que dure más que un gobierno.
 
-**Cuál es el problema.** Piense en una finca de mangos. Un árbol tarda años
-en dar fruta. Si cada cuatro años llega un dueño nuevo que cambia las
-reglas (hoy se siembra, mañana se prohíbe, pasado se vuelve a sembrar), la
-finca nunca cosecha.
-
-Eso le pasa al gas. Un yacimiento tarda casi diez años en producir, pero la
-regla cambia cada cuatro. Según la Agencia Nacional de Hidrocarburos, el
+**Cuál es el problema.** Según la Agencia Nacional de Hidrocarburos, el
 gas que tenemos comprobado alcanza para 5,9 años. Y en agosto, de cada 3
 unidades de gas que usamos, 1 llegó en barco.
 
-**Por qué importa en su casa.** El gas de afuera es mucho más caro. En
-2026, el gas colombiano se vendió a unos 8 dólares (medido en millones de
-BTU, la unidad con que se negocia el gas). El importado, en contratos
-nuevos para septiembre a noviembre, a casi 25 *(Fuente única; no
-verificado.)*. Es decir, unas tres veces más.
+Un yacimiento tarda casi diez años en producir, pero la regla cambia cada
+cuatro. Es como una finca de mangos con un dueño nuevo cada cuatro años:
+nunca cosecha.
+
+**Por qué importa en su casa.** En 2026, el gas colombiano se vendió a
+unos 8 dólares por millón de BTU, la unidad con que se negocia. El
+importado, en contratos nuevos para septiembre a noviembre, a casi 25
+*(Fuente única; no verificado.)*: unas tres veces más.
 
 ```grafico
 tipo: barras
@@ -145,81 +142,73 @@ de dólares al año, y se paga en la factura.
 **Qué han hecho otros países.**
 
 - **Noruega** abre cada año, desde 2003, una convocatoria para buscar gas
-  en zonas que se conocen de antemano. Las empresas saben qué viene, y el
-  Gobierno dice que esa previsibilidad es la clave. Un estudio de la
-  Universidad de Chicago, con datos de Texas, encontró algo parecido:
-  cuando hay incertidumbre, las empresas perforan menos.
+  en zonas conocidas de antemano. El Gobierno dice que esa previsibilidad
+  es la clave.
 - **Argentina** creó en 2020 subastas de contratos a cuatro años con
-  precio fijo. Parece que frenó la caída de la producción, aunque nadie lo
-  ha medido de forma independiente. Tuvo un costo: el Estado pagó parte
-  del precio.
+  precio fijo. Parece que frenó la caída de la producción, aunque nadie
+  lo ha medido de forma independiente. El Estado pagó parte del precio.
 - **Chile** construyó un puerto para recibir gas en barco después de que
-  Argentina le cortara el suministro en 2004. Empezó a operar en 2009 y
-  costó hasta 1.200 millones de dólares. Sirvió de puente.
+  Argentina le cortara el suministro en 2004. Costó hasta 1.200 millones
+  de dólares y sirvió de puente.
 
-**Y el fracking.** El fracking es sacar gas rompiendo la roca con agua a
-presión. Una revisión de 52 estudios, publicada en 2024, encontró que casi
-todos los que miraron nacimientos cerca de pozos (22 de 24) hallaron al
-menos un efecto dañino, como bebés con bajo peso. En Colorado, Estados
-Unidos, respondieron en 2020 exigiendo unos 600 metros entre pozos nuevos
-y casas, con excepciones.
+**Y el fracking.** Es sacar gas rompiendo la roca con agua a presión. Una
+revisión de 52 estudios, de 2024, encontró que casi todos los que miraron
+nacimientos cerca de pozos (22 de 24) hallaron al menos un efecto dañino,
+como bebés con bajo peso.
+
+En Colorado, Estados Unidos, respondieron en 2020 exigiendo unos 600
+metros entre pozos nuevos y casas, con excepciones.
 
 **Imaginemos.** Una ley del gas que dure diez años, con cuatro piezas:
 
-1. **Buscar gas todos los años.** Cada año se abre una convocatoria para
-   explorar, en zonas anunciadas con dos años de anticipación. Un gobierno
-   puede agregar zonas, pero no suspenderla sin una ley nueva.
+1. **Buscar gas todos los años.** Cada año se abre una convocatoria, en
+   zonas anunciadas con dos años de anticipación. Ningún gobierno puede suspenderlo sin una ley nueva.
 2. **Contratos largos para el gas de las casas.** Cada año se subastan
-   contratos de cinco a ocho años, con un precio máximo atado al del gas
-   importado. El gas colombiano compite contra el del barco.
-3. **Los barcos, como puente.** Los puertos para recibir gas en el Caribe
-   y el Pacífico se contratan con fecha de revisión, no para siempre.
-4. **Fracking solo con reglas claras.** Antes de empezar, universidades
-   públicas y el Instituto Nacional de Salud miden la salud, el agua y los
-   temblores de la zona, y lo publican. Hay una distancia mínima a casas y
-   escuelas. Y si la medición encuentra daño, se para automáticamente.
+   contratos de cinco a ocho años, con un precio máximo atado al del gas importado.
+3. **Los barcos, como puente.** Los puertos de gas en el Caribe y el
+   Pacífico se contratan con fecha de revisión, no para siempre.
+4. **Fracking solo con reglas claras.** Antes, universidades públicas y
+   el Instituto Nacional de Salud miden la salud, el agua y los temblores
+   de la zona, y lo publican. Hay distancia mínima a casas y escuelas. Si
+   se encuentra daño, se para automáticamente.
 
-Los hogares de estratos 1 y 2 conservan el subsidio al gas básico. La idea
-es que un ambientalista y un petrolero salgan igual de incómodos.
+Los estratos 1 y 2 conservan el subsidio al gas básico. La idea es que un
+ambientalista y un petrolero salgan igual de incómodos.
 
-**Cuánto costaría.** Lo nuevo sale relativamente barato. El puerto del
-Pacífico cuesta entre 150 y 172 millones de dólares. Medir la salud y el
-agua cuesta, por nuestra cuenta, unas decenas de millones, que pagarían
-las empresas con un cobro por pozo. El subsidio a estratos 1 y 2 ya
-existe. Lo caro es no hacer nada: esos 1.000 millones al año.
+**Cuánto costaría.** El puerto del Pacífico cuesta entre 150 y 172
+millones de dólares. Medir la salud y el agua cuesta, por nuestra cuenta,
+unas decenas de millones, que pagarían las empresas con un cobro por
+pozo.
+
+Lo caro es no hacer nada: esos 1.000 millones al año.
 
 **Pero ojo.**
 
 - Una ley también se puede tumbar: el Congreso de 2030 puede deshacer lo
   que apruebe el de 2027.
-- Los ambientalistas dirían que amarrar diez años de exploración choca con
-  los compromisos contra el cambio climático.
-- La industria diría que tantas mediciones y distancias demoran justo lo
-  que se necesita rápido.
-- Si el precio máximo queda muy bajo, nadie ofrece gas; si queda muy alto,
-  el usuario paga de más.
+- Los ambientalistas dirían que choca con los compromisos contra el
+  cambio climático; la industria, que tantas mediciones demoran lo que
+  se necesita rápido.
+- Si el precio máximo queda muy bajo, nadie ofrece gas; si queda muy
+  alto, el usuario paga de más.
 - Y ningún contrato firmado en 2027 prende una estufa antes de 2030.
 
 ## Quién decide y cuándo
 
-**Quién decide.** La ley la aprueba el Congreso, empezando por las
-comisiones quintas, que tratan minas y energía. Las subastas las hace la
-CREG, la comisión que pone las reglas de la energía y el gas. Las
-convocatorias para buscar gas, la Agencia Nacional de Hidrocarburos. Los
-permisos de fracking, la ANLA (la autoridad de licencias ambientales) y el
-Consejo de Estado.
+**Quién decide.** La ley, el Congreso (comisiones quintas). Las subastas,
+la CREG. Las convocatorias, la Agencia Nacional de Hidrocarburos. Los
+permisos de fracking, la ANLA y el Consejo de Estado.
 
 **Cuándo.** No conocemos ningún proyecto de ley como este. No hay fecha.
 
-**Cómo participar.** La CREG publica sus borradores para que cualquier
-persona los comente. La ANLA hace audiencias públicas. Y a los
-congresistas se les puede escribir con un derecho de petición.
+**Cómo participar.** La CREG publica borradores para comentar y la ANLA
+hace audiencias públicas.
 
 ## La paradoja del día
 
-Quien compra poco gas lo paga más caro que quien compra mucho. En 2025, los
-hogares pagaron en promedio 48,9% más que las grandes empresas, según la
-Superservicios. La empresa negocia; la estufa no tiene quién la represente.
+En 2025, los hogares pagaron el gas en promedio 48,9% más caro que las
+grandes empresas, según la Superservicios. La estufa no tiene quién la
+represente.
 
 ## Para conversar
 
