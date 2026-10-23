@@ -1360,18 +1360,20 @@ def html_primera_plana(dias, raiz="", cuantas=12):
         return f"""<li class="pp-nota{' pp-con-grabado' if imagen else ''}">
 {imagen}<p class="plana-ante">{ante}</p>
 <h3 class="plana-titulo"><a href="{h}">{html.escape(e['titulo'])}</a></h3>
-{f'<p class="plana-bajada">{html.escape(b)}</p>' if b else ''}
+<p class="plana-bajada">{html.escape(b)}</p>
 <p class="plana-seguir"><a href="{h}">Seguir leyendo<span class="solo-lectores">: {html.escape(e['titulo'])}</span> <span aria-hidden="true">→</span></a></p>
 </li>"""
 
     # Arriba va sola la edición del día (pedido de Mateo, 2026-10-22); las
     # demás van junto al calendario, de la más reciente a la más antigua, en
-    # filas que se leen de izquierda a derecha. Cada día del calendario trae
-    # sus notas ya en la página (ocultas) para mostrarlas sin cambiar de página.
-    notas = [nota(e, i % 3 == 0) for i, e in enumerate(notas_ed[:cuantas])]
+    # filas que se leen de izquierda a derecha y siempre alineadas: sin
+    # grabados, para que todas tengan la misma forma (2026-10-23). Cada día
+    # del calendario trae sus notas ya en la página (ocultas) para mostrarlas
+    # sin cambiar de página.
+    notas = [nota(e, False) for e in notas_ed[:cuantas]]
     por_fecha = "\n".join(
         f'<ol class="pp-notas pp-del-dia" data-dia="{f}" hidden>\n'
-        + "\n".join(nota(e, i == 0) for i, e in enumerate(sorted(d, key=lambda o: (o["orden"], o["slug"]))))
+        + "\n".join(nota(e, False) for e in sorted(d, key=lambda o: (o["orden"], o["slug"])))
         + "\n</ol>" for f, d in dias)
     anteriores = ""
     if notas:
@@ -1421,15 +1423,15 @@ def html_primera_plana(dias, raiz="", cuantas=12):
     numero = f'<span>Edición {html.escape(abre["edicion"])}</span>' if abre["edicion"] else ""
     return f"""<section class="primera" aria-label="Primera plana">
 <h1 class="solo-lectores">Otra lectura</h1>
-<p class="pp-banda"><time datetime="{fecha}">{fecha_con_dia(fecha).capitalize()}</time>{numero}<a href="{raiz}sobre.html">¿Qué es esto?</a></p>
+<p class="pp-banda"><time datetime="{fecha}">{fecha_con_dia(fecha).capitalize()}</time>{numero}</p>
 <div class="pp-arriba{' pp-sin-recuadro' if not recuadro else ''}">
 <div class="pp-principal">
 {portada}
 </div>
 {recuadro}
 </div>
-{anteriores}
 {html_por_seccion(dias, raiz)}
+{anteriores}
 </section>"""
 
 

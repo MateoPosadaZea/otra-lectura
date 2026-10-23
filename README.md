@@ -93,9 +93,10 @@ OMS, CEPAL → oficial; etc.). Al final de cada edición se muestra el conteo
   calendario muestra sus noticias ahí mismo, sin cambiar de página (sin
   JavaScript, el día enlaza a su página); los meses anteriores se abren con
   «← mes».
-  Al final, «Por secciones»: una columna por categoría con sus cuatro
-  ediciones más recientes, cada edición una sola vez (en su categoría
-  principal). La cita de Spinoza y la explicación del proyecto están en
+  Justo después de la edición del día va «Por secciones»: una columna por
+  categoría con sus cuatro ediciones más recientes, cada edición una sola
+  vez (en su categoría principal). Los títulos pequeños de noticias van en
+  la letra del cuerpo; la Instrument Serif queda para los titulares grandes. La cita de Spinoza y la explicación del proyecto están en
   «¿Qué es esto?».
 - **Días anteriores** (`archivo.html`): todas las fechas agrupadas por mes,
   con sus temas; con JavaScript, además, un selector "Ir a una fecha".

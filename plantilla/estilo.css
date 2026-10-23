@@ -2065,3 +2065,28 @@ main:has(> .primera) {
   cursor: pointer;
 }
 .pp-lista-volver:hover, .pp-lista-volver:focus-visible { background: var(--tinta); color: var(--papel); }
+
+/* Notas de días anteriores siempre alineadas (2026-10-23): cada nota ocupa
+   cuatro filas de la grilla (fecha, título, resumen, seguir leyendo) y las
+   comparte con sus vecinas, así cada parte queda a la misma altura en toda
+   la fila. */
+.pp-notas { row-gap: 0; }
+.pp-nota { display: grid; grid-row: span 4; grid-template-rows: subgrid; align-content: start; }
+.pp-nota .plana-seguir { align-self: end; }
+
+/* Títulos de noticias en tamaño pequeño, en la letra del cuerpo (pedido de
+   Mateo, 2026-10-23: «esa tipografía en ese tamaño no se lee muy bien»).
+   La Instrument Serif queda para los titulares grandes: la noticia del día,
+   las bandas de sección, los nombres de categoría y los títulos de edición. */
+.plana-titulo, .sec-titulo, .archivo-dias > li > a, .hilo li > p:last-child a,
+.temas-seguidos a, .tambien a, .resultados li > a, .entre-ediciones {
+  font-family: var(--sans);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.plana-titulo { font-size: 1.14rem; line-height: 1.32; hyphens: manual; }
+.sec-titulo { font-size: 1rem; line-height: 1.36; }
+.sec-primera .sec-titulo { font-size: 1.14rem; line-height: 1.32; }
+.archivo-dias > li > a, .hilo li > p:last-child a, .resultados li > a { font-size: 1.06rem; line-height: 1.35; }
+.temas-seguidos a, .tambien a { font-size: 1rem; line-height: 1.35; }
+.entre-ediciones { font-size: 0.95rem; line-height: 1.4; }

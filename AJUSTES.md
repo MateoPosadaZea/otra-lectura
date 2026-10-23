@@ -384,3 +384,14 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   el día enlaza a su página). Las notas de días anteriores van en filas que
   se leen de izquierda a derecha, de la más reciente a la más antigua. La
   cabecera muestra siempre todos los enlaces, sin menú desplegable.
+- 2026-10-23 · Mateo: «se ve desorganizado… que queden siempre alineadas»,
+  «esa tipografía del título de las noticias en ese tamaño no se lee muy
+  bien», «esta sección puede ir antes de la del calendario» y «quitar el
+  ¿qué es esto? de abajo… y poner a ese lado el número de la edición». Las
+  notas de días anteriores van sin grabado y alineadas por filas (fecha,
+  título, resumen y «Seguir leyendo» a la misma altura). Los títulos
+  pequeños de noticias (portada, secciones, archivo, búsqueda, temas)
+  pasan a Manrope en negrita; la Instrument Serif queda para los titulares
+  grandes. «Por secciones» va justo después de la edición del día, antes
+  de «Días anteriores». La banda de la fecha lleva a la derecha el número
+  de la edición, sin el enlace a «¿Qué es esto?» (ya está en la cabecera).
