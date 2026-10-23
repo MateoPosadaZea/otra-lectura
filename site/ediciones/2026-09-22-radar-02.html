@@ -62,6 +62,11 @@
 <ul class="temas" aria-label="Categorías"><li><a href="../categorias/salud.html">Salud</a></li><li><a href="../categorias/ambiente.html">Ambiente</a></li></ul>
 <p class="aviso-cambios">Revisada el <time datetime="2026-09-30">30 de septiembre de 2026</time> · <a href="#correcciones">1 corrección posteriores a la publicación</a></p>
 <figure class="grabado"><img src="../imagenes/2026-09-22-radar-02.webp" width="1000" height="1468" alt="Grabado de 1876: un boticario anciano, de bata larga y gorro, levanta un vaso para mirar de cerca la mezcla que prepara. En la mesa hay un mortero y frascos; en la pared, láminas de anatomía y los huesos de un brazo." decoding="async"><figcaption>Un boticario prueba una mezcla en su laboratorio; grabado de 1876 según un cuadro de H. S. Marks<br><a href="https://commons.wikimedia.org/wiki/File:An_apothecary_in_his_laboratory_concocting_a_mixture._Wood_e_Wellcome_L0006853.jpg">Grabado de F. McF. según H. S. Marks, 1876 · CC BY 4.0, vía Wikimedia Commons</a></figcaption></figure>
+<div class="herramientas">
+<button class="escuchar" type="button" hidden aria-pressed="false"><span aria-hidden="true">▶</span> Escuchar</button>
+<button class="escuchar-parar" type="button" hidden>Detener</button>
+<a class="whatsapp" href="https://wa.me/?text=%2AUn%20medicamento%20de%20casi%20un%20bill%C3%B3n%20y%20una%20isla%20sin%20lluvia%2A%0A%0AEn%20Colombia%2C%20un%20solo%20medicamento%2C%20el%20pembrolizumab%2C%20se%20llev%C3%B3%20casi%20un%20bill%C3%B3n%20de%20pesos%20en%20un%20a%C3%B1o.%20En%20la%20India%2C%20un%20hospital%20prob%C3%B3%20un%20medicamento%20de%20la%20misma%20familia%20en%20una%20dosis%20muy%20peque%C3%B1a%2C%20y%20a%20los%20pacientes%20les%20fue%20mejor%20que%20sin%20%C3%A9l.%20La%20pregunta%20es%20si%20Colombia%20est%C3%A1%20mirando%20solo%20el%20precio%20del%20frasco%20y%20no%20cu%C3%A1nto%20se%20usa.%0A%0AL%C3%A9ala%20completa%20en%20Otra%20lectura%3A%20https%3A%2F%2Fotralectura.co%2Fediciones%2F2026-09-22-radar-02.html" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+</div>
 <nav class="indice-edicion" aria-label="En esta edición"><p>En esta edición</p><ol><li><a href="#un-solo-medicamento-casi-un-billon-de-pesos-colombia-india">Un solo medicamento, casi un billón de pesos</a></li><li><a href="#una-isla-sin-lluvia-y-una-ciudad-que-redujo-su-consumo-a-la-mitad-puerto-rico-ciudad-del-cabo">Una isla sin lluvia y una ciudad que redujo su consumo a la mitad</a></li></ol></nav>
 </header>
 <p>Primera edición con el formato de soluciones: quién lo está resolviendo,
@@ -227,12 +232,14 @@ del Vesubio liberó sus datos y su código y creó un premio de un millón
 de dólares. Los dados salieron de una red informal de colaboradores. El
 trabajo abierto también da resultados, aunque más despacio.</p>
 </section>
-<section class="carril paradoja">
-<h2>La paradoja del día</h2>
+<section class="carril paradoja plegable plegable-extra">
+<details>
+<summary><span class="plegable-mas">Para quien quiera más</span><h2>La paradoja del día</h2></summary>
 <p>En Mumbai, un 6% de la dosis aprobada, a menos de la décima parte del
 costo, le dio a más pacientes un año de vida. En Colombia, la discusión
 sigue en el precio de cada frasco. Y en Ciudad del Cabo, lo que hizo
-volver a subir el consumo fue la noticia de que el ahorro funcionaba.</p></section>
+volver a subir el consumo fue la noticia de que el ahorro funcionaba.</p></details>
+</section>
 <section class="carril cierre avisos" id="correcciones">
 <h2>Correcciones</h2>
 <p class="aviso-nota">Datos corregidos después de publicar; cada corrección lleva su fecha.</p>
@@ -246,7 +253,7 @@ volver a subir el consumo fue la noticia de que el ahorro funcionaba.</p></secti
 <aside class="siguiente" aria-label="Seguir leyendo">
 <p class="siguiente-pregunta">¿Le gustaría seguir leyendo? Tenemos esta otra lectura:</p>
 <a class="siguiente-titulo" href="2026-10-05-radar.html">El Niño se anunció en junio y aun así hay racionamiento de agua</a>
-<p class="fecha">5 de octubre de 2026 · 6 min de lectura</p>
+<p class="fecha">5 de octubre de 2026 · 5 min de lectura</p>
 </aside>
 </main>
 <footer class="sitio">
@@ -678,6 +685,73 @@ volver a subir el consumo fue la noticia de que el ahorro funcionaba.</p></secti
   window.addEventListener("beforeunload", function (ev) {
     if (activo && cambiados().length) { ev.preventDefault(); ev.returnValue = ""; }
   });
+})();
+/* Escuchar la edición con la voz del propio dispositivo (Web Speech API).
+   Sin costo ni servicios externos; si el navegador no la tiene, el botón no
+   aparece. Lee párrafo por párrafo y marca el que va leyendo. */
+(function () {
+  var boton = document.querySelector(".escuchar"), parar = document.querySelector(".escuchar-parar");
+  if (!boton || !("speechSynthesis" in window) || !window.SpeechSynthesisUtterance) return;
+  var voz = speechSynthesis, cola = [], i = 0, activo = false, actual = null;
+  function vozEs() {
+    var vs = voz.getVoices();
+    return vs.filter(function (v) { return /^es[-_]CO/i.test(v.lang); })[0] ||
+           vs.filter(function (v) { return /^es[-_](419|MX|US)/i.test(v.lang); })[0] ||
+           vs.filter(function (v) { return /^es/i.test(v.lang); })[0] || null;
+  }
+  /* Solo si el dispositivo tiene una voz en español (las voces cargan tarde). */
+  function revisar() { if (vozEs()) boton.hidden = false; }
+  revisar();
+  if (voz.addEventListener) voz.addEventListener("voiceschanged", revisar);
+  function bloques() {
+    var art = document.querySelector("article.edicion");
+    var titulo = art.querySelector(".cabecera h1");
+    var partes = [].slice.call(art.querySelectorAll("p, li, h2, h3"))
+      .filter(function (el) {
+        return !el.closest(".cabecera, .plegable, .cierre, figure, nav, .herramientas, .recorrido, .grafico, .avisos, details") &&
+               el.offsetParent !== null && el.textContent.trim();
+      });
+    return (titulo ? [titulo] : []).concat(partes);
+  }
+  function marcar(el) {
+    if (actual) actual.classList.remove("leyendo");
+    actual = el;
+    if (el) { el.classList.add("leyendo"); }
+  }
+  function siguiente() {
+    if (!activo) return;
+    if (i >= cola.length) { terminar(); return; }
+    var el = cola[i++];
+    var u = new SpeechSynthesisUtterance(el.textContent.replace(/\s+/g, " ").trim());
+    var v = vozEs();
+    u.lang = v ? v.lang : "es-CO";
+    if (v) u.voice = v;
+    u.rate = 1;
+    u.onend = siguiente;
+    u.onerror = function () { siguiente(); };
+    marcar(el);
+    voz.speak(u);
+  }
+  function estado(t, pulsado) {
+    boton.innerHTML = '<span aria-hidden="true">' + (pulsado ? "❚❚" : "▶") + "</span> " + t;
+    boton.setAttribute("aria-pressed", pulsado ? "true" : "false");
+  }
+  function terminar() {
+    activo = false; i = 0; voz.cancel(); marcar(null);
+    parar.hidden = true; estado("Escuchar", false);
+  }
+  boton.addEventListener("click", function () {
+    if (!activo) {
+      cola = bloques(); i = 0; activo = true; voz.cancel();
+      parar.hidden = false; estado("Pausar", true); siguiente();
+    } else if (voz.paused) {
+      voz.resume(); estado("Pausar", true);
+    } else {
+      voz.pause(); estado("Seguir", false);
+    }
+  });
+  parar.addEventListener("click", terminar);
+  window.addEventListener("pagehide", function () { voz.cancel(); });
 })();
 </script>
 </body>

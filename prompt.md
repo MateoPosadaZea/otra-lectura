@@ -275,6 +275,27 @@ incumplieron, en el texto y en `decisiones` (`prometido_desde`,
 
 ## Registro y estilo
 
+**Para que se lea (desde el 2026-10-24, pedido de Mateo: «en Colombia no se
+lee mucho… hacer que la gente entienda, que no se canse después de un par
+de párrafos»).** La edición se escribe para alguien que no lee por
+costumbre y la abre en el celular. Manda sobre lo que sigue en esta
+sección cuando choquen:
+
+- Se entiende en tres capas: el titular (8 a 12 palabras), «En pocas
+  palabras» (tres frases: qué pasa, por qué le importa, qué se puede
+  hacer) y el resto, para quien quiera seguir.
+- Se abre con una persona o una escena real y verificada; la cifra viene
+  después, a escala humana.
+- Párrafos de dos o tres líneas; una idea por párrafo; subtítulos en
+  forma de pregunta.
+- Unas 750 palabras visibles como máximo; lo que no es esencial (Dos
+  lecturas, la paradoja, Para leer más) va plegado.
+- Siempre que haya una cifra que cambia o una comparación, un gráfico o
+  un recorrido que la muestre en vez de contarla.
+- El registro sigue siendo serio y verificado, pero cercano: se puede
+  hablar al lector («usted») en «En pocas palabras» y en «Qué hacer con
+  esto».
+
 - Español colombiano, sin voseo.
 - Registro formal, tercera persona. No se apela al lector dentro del
   análisis.

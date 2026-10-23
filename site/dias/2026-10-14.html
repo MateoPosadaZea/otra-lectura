@@ -62,7 +62,7 @@
 <ol class="indice dia reticula reticula-1">
 <li class="reticula-principal">
 <a class="reticula-imagen" href="../ediciones/2026-10-14-radar.html" tabindex="-1" aria-hidden="true"><img src="../imagenes/2026-10-14-radar.webp" width="960" height="664" alt="" decoding="async"></a>
-<p class="fecha">Edición 32 · 6 min de lectura</p>
+<p class="fecha">Edición 32 · 5 min de lectura</p>
 <a class="dia-titulo" href="../ediciones/2026-10-14-radar.html">Seis de cada diez muertos en las vías iban en moto, y mejores frenos, cascos y menos velocidad ya han salvado vidas</a>
 <p class="aviso-cambios"><a href="../ediciones/2026-10-14-radar.html#correcciones">Revisada el <time datetime="2026-10-18">18 de octubre de 2026</time></a> · 1 corrección</p>
 <p class="reticula-bajada">En Colombia mueren más de 8.000 personas al año en las vías, y seis de cada diez iban en moto: casi el doble de la proporción mundial. Hay salida, y ya se probó: frenos que no traban la rueda, cascos y menos velocidad han salvado vidas en Estados Unidos, Vietnam y Bogotá. Una norma que exige mejores frenos en las…</p>
@@ -501,6 +501,73 @@
   window.addEventListener("beforeunload", function (ev) {
     if (activo && cambiados().length) { ev.preventDefault(); ev.returnValue = ""; }
   });
+})();
+/* Escuchar la edición con la voz del propio dispositivo (Web Speech API).
+   Sin costo ni servicios externos; si el navegador no la tiene, el botón no
+   aparece. Lee párrafo por párrafo y marca el que va leyendo. */
+(function () {
+  var boton = document.querySelector(".escuchar"), parar = document.querySelector(".escuchar-parar");
+  if (!boton || !("speechSynthesis" in window) || !window.SpeechSynthesisUtterance) return;
+  var voz = speechSynthesis, cola = [], i = 0, activo = false, actual = null;
+  function vozEs() {
+    var vs = voz.getVoices();
+    return vs.filter(function (v) { return /^es[-_]CO/i.test(v.lang); })[0] ||
+           vs.filter(function (v) { return /^es[-_](419|MX|US)/i.test(v.lang); })[0] ||
+           vs.filter(function (v) { return /^es/i.test(v.lang); })[0] || null;
+  }
+  /* Solo si el dispositivo tiene una voz en español (las voces cargan tarde). */
+  function revisar() { if (vozEs()) boton.hidden = false; }
+  revisar();
+  if (voz.addEventListener) voz.addEventListener("voiceschanged", revisar);
+  function bloques() {
+    var art = document.querySelector("article.edicion");
+    var titulo = art.querySelector(".cabecera h1");
+    var partes = [].slice.call(art.querySelectorAll("p, li, h2, h3"))
+      .filter(function (el) {
+        return !el.closest(".cabecera, .plegable, .cierre, figure, nav, .herramientas, .recorrido, .grafico, .avisos, details") &&
+               el.offsetParent !== null && el.textContent.trim();
+      });
+    return (titulo ? [titulo] : []).concat(partes);
+  }
+  function marcar(el) {
+    if (actual) actual.classList.remove("leyendo");
+    actual = el;
+    if (el) { el.classList.add("leyendo"); }
+  }
+  function siguiente() {
+    if (!activo) return;
+    if (i >= cola.length) { terminar(); return; }
+    var el = cola[i++];
+    var u = new SpeechSynthesisUtterance(el.textContent.replace(/\s+/g, " ").trim());
+    var v = vozEs();
+    u.lang = v ? v.lang : "es-CO";
+    if (v) u.voice = v;
+    u.rate = 1;
+    u.onend = siguiente;
+    u.onerror = function () { siguiente(); };
+    marcar(el);
+    voz.speak(u);
+  }
+  function estado(t, pulsado) {
+    boton.innerHTML = '<span aria-hidden="true">' + (pulsado ? "❚❚" : "▶") + "</span> " + t;
+    boton.setAttribute("aria-pressed", pulsado ? "true" : "false");
+  }
+  function terminar() {
+    activo = false; i = 0; voz.cancel(); marcar(null);
+    parar.hidden = true; estado("Escuchar", false);
+  }
+  boton.addEventListener("click", function () {
+    if (!activo) {
+      cola = bloques(); i = 0; activo = true; voz.cancel();
+      parar.hidden = false; estado("Pausar", true); siguiente();
+    } else if (voz.paused) {
+      voz.resume(); estado("Pausar", true);
+    } else {
+      voz.pause(); estado("Seguir", false);
+    }
+  });
+  parar.addEventListener("click", terminar);
+  window.addEventListener("pagehide", function () { voz.cancel(); });
 })();
 </script>
 </body>

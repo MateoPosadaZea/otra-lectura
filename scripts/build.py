@@ -137,6 +137,12 @@ ESTADOS_DECISION = {
 
 # Techo editorial de una edición (palabras de lectura, sin el cierre).
 LARGO_MAXIMO = 1200
+# Desde el 2026-10-24 (pedido de Mateo: «en Colombia no se lee mucho… que no
+# se canse»), las ediciones son más cortas: unas 750 palabras visibles (sin
+# lo plegado) y titulares de máximo unas 12 palabras.
+FORMATO_CORTO_DESDE = "2026-10-24"
+LARGO_MAXIMO_CORTO = 750
+TITULO_MAXIMO_PALABRAS = 14
 
 # Tipos de fuente (campo `tipo` en `fuentes`). Si falta, se deduce del dominio.
 TIPOS_FUENTE = {
@@ -561,6 +567,8 @@ def leer_edicion(ruta):
     # Tiempo de lectura: ~200 palabras por minuto, sin contar descartes,
     # glosario ni nota metodológica (van al cierre y son de consulta).
     lectura = re.split(r'<section class="carril cierre"', cuerpo)[0]
+    # Dos lecturas y la paradoja van plegadas: no cuentan en el largo.
+    lectura = re.sub(r'<section class="carril (?:lecturas|paradoja)[^"]*".*?</section>', "", lectura, flags=re.S)
     e["palabras"] = len(texto_plano(lectura).split())
     e["minutos"] = max(1, round(e["palabras"] / 200))
     e["cuerpo"] = bajar_conexion(subir_que_hacer(recorridos.insertar(
@@ -855,11 +863,22 @@ def plegar_cierre(cuerpo):
         t = texto_plano(titulo).lower()
         if "descart" in t:
             return ""
-        if "fuentes" in t or "metodol" in t or "lo que hice" in t or "lo que hicimos" in t or "glosario" in t:
+        if ("fuentes" in t or "metodol" in t or "lo que hice" in t or "lo que hicimos" in t
+                or "glosario" in t or "para leer más" in t or "para leer mas" in t):
             return (f'<section class="{clases} plegable"{attrs}>\n<details>\n<summary>{h2}</summary>'
                     f'{resto}</details>\n</section>\n')
         return m.group(0)
+    # Para que la edición no canse (2026-10-23): Dos lecturas y la paradoja
+    # quedan plegadas, para quien quiera más; se abren con un toque.
+    cuerpo = RE_SECCION_EXTRA.sub(
+        lambda m: (f'<section class="{m.group(1)} plegable plegable-extra"{m.group(2)}>\n<details>\n'
+                   f'<summary><span class="plegable-mas">Para quien quiera más</span>{m.group(3)}</summary>'
+                   f'{m.group(5)}</details>\n</section>\n'), cuerpo)
     return RE_SECCION_CIERRE.sub(cambiar, cuerpo)
+
+
+RE_SECCION_EXTRA = re.compile(
+    r'<section class="(carril (?:lecturas|paradoja)[^"]*)"([^>]*)>\s*(<h2[^>]*>(.*?)</h2>)(.*?)</section>\n?', re.S)
 
 
 def html_menu(raiz, seccion=None):
@@ -1047,6 +1066,7 @@ def pagina_edicion(base, e, ediciones):
 {html_categorias(e['categorias'], '../')}
 {aviso_cambios(e)}
 {html_grabado(e)}
+{html_herramientas(e)}
 {html_atajos(e)}
 </header>
 {cuerpo_edicion(e)}
@@ -1070,6 +1090,21 @@ def pagina_edicion(base, e, ediciones):
     return pagina(base, html.escape(f"{e['titulo']} · Otra lectura"), descripcion, "../",
                   contenido, f"/ediciones/{e['slug']}.html", "article", ld,
                   compartir=(e["titulo"], rotulo, cats))
+
+
+def html_herramientas(e):
+    """Escuchar la edición (voz del propio dispositivo; solo con JavaScript y
+    si el navegador la tiene) y enviarla por WhatsApp (un enlace, sin JS)."""
+    url = f"{SITIO_URL}/ediciones/{e['slug']}.html" if SITIO_URL else f"ediciones/{e['slug']}.html"
+    pocas = entradilla(e)
+    texto = f"*{e['titulo']}*\n\n" + (f"{pocas}\n\n" if pocas else "") + f"Léala completa en Otra lectura: {url}"
+    from urllib.parse import quote
+    wa = "https://wa.me/?text=" + quote(texto, safe="")
+    return f"""<div class="herramientas">
+<button class="escuchar" type="button" hidden aria-pressed="false"><span aria-hidden="true">▶</span> Escuchar</button>
+<button class="escuchar-parar" type="button" hidden>Detener</button>
+<a class="whatsapp" href="{html.escape(wa)}" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+</div>"""
 
 
 def html_grabado(e):
@@ -1922,12 +1957,18 @@ def main():
             print(f"  error: {err}", file=sys.stderr)
         sys.exit(1)
 
-    # Aviso (no detiene el build): el techo editorial es de ~1.200 palabras.
+    # Aviso (no detiene el build): el techo editorial es de ~1.200 palabras,
+    # y de ~750 visibles desde el 2026-10-24.
     for e in ediciones:
         # Las ediciones anteriores al 28 de septiembre de 2026 tenían otro techo (1.500).
-        if e["palabras"] > LARGO_MAXIMO and e["fecha"] >= "2026-09-28":
+        techo = LARGO_MAXIMO_CORTO if e["fecha"] >= FORMATO_CORTO_DESDE else LARGO_MAXIMO
+        if e["palabras"] > techo and e["fecha"] >= "2026-09-28":
             print(f"  aviso: ediciones/{e['archivo']} tiene ~{e['palabras']} palabras de lectura "
-                  f"(techo: {LARGO_MAXIMO}).", file=sys.stderr)
+                  f"(techo: {techo}).", file=sys.stderr)
+        n = len(e["titulo"].split())
+        if e["fecha"] >= FORMATO_CORTO_DESDE and n > TITULO_MAXIMO_PALABRAS and not es_repaso(e):
+            print(f"  aviso: ediciones/{e['archivo']} tiene un titular de {n} palabras "
+                  f"(máximo: unas 12).", file=sys.stderr)
 
     # Aviso: desde el 2026-10-13, la edición diaria trae «El dato curioso» (pedido de Mateo).
     for e in ediciones:

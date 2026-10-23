@@ -62,6 +62,11 @@
 <ul class="temas" aria-label="Categorías"><li><a href="../categorias/sociedad.html">Sociedad</a></li><li><a href="../categorias/salud.html">Salud</a></li><li><a href="../categorias/economia.html">Economía</a></li></ul>
 
 
+<div class="herramientas">
+<button class="escuchar" type="button" hidden aria-pressed="false"><span aria-hidden="true">▶</span> Escuchar</button>
+<button class="escuchar-parar" type="button" hidden>Detener</button>
+<a class="whatsapp" href="https://wa.me/?text=%2ALa%20semana%3A%20cinco%20temas%2C%20lo%20que%20cambi%C3%B3%20y%20lo%20que%20viene%2A%0A%0AQu%C3%A9%20contamos%2C%20qu%C3%A9%20se%20movi%C3%B3%20y%20qu%C3%A9%20se%20decide%20pronto.%20Fue%20la%20primera%20semana%20con%20la%20mezcla%20nueva%3A%20tres%20temas%20de%20lo%20que%20falla%2C%20uno%20de%20lo%20que%20mejora%20y%20uno%20de%20lo%20que%20cambia%20de%20fondo.%0A%0AL%C3%A9ala%20completa%20en%20Otra%20lectura%3A%20https%3A%2F%2Fotralectura.co%2Fediciones%2F2026-10-23-semana.html" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+</div>
 <nav class="indice-edicion" aria-label="En esta edición"><p>En esta edición</p><ol><li><a href="#semana-2026-10-23">Cinco temas, lo que cambió y lo que viene</a></li><li><a href="#para-conversar">Para conversar</a></li></ol></nav>
 </header>
 <section class="carril carril-radar">
@@ -176,7 +181,7 @@ repaso, esta edición sale sin grabado.</p></details>
 <aside class="siguiente" aria-label="Seguir leyendo">
 <p class="siguiente-pregunta">¿Le gustaría seguir leyendo? Tenemos esta otra lectura:</p>
 <a class="siguiente-titulo" href="2026-10-23-radar.html">En 2036 Colombia tendrá más mayores de 60 años que niños: quién los va a cuidar y qué hicieron Japón y Uruguay.</a>
-<p class="fecha">23 de octubre de 2026 · 6 min de lectura</p>
+<p class="fecha">23 de octubre de 2026 · 5 min de lectura</p>
 </aside>
 </main>
 <footer class="sitio">
@@ -608,6 +613,73 @@ repaso, esta edición sale sin grabado.</p></details>
   window.addEventListener("beforeunload", function (ev) {
     if (activo && cambiados().length) { ev.preventDefault(); ev.returnValue = ""; }
   });
+})();
+/* Escuchar la edición con la voz del propio dispositivo (Web Speech API).
+   Sin costo ni servicios externos; si el navegador no la tiene, el botón no
+   aparece. Lee párrafo por párrafo y marca el que va leyendo. */
+(function () {
+  var boton = document.querySelector(".escuchar"), parar = document.querySelector(".escuchar-parar");
+  if (!boton || !("speechSynthesis" in window) || !window.SpeechSynthesisUtterance) return;
+  var voz = speechSynthesis, cola = [], i = 0, activo = false, actual = null;
+  function vozEs() {
+    var vs = voz.getVoices();
+    return vs.filter(function (v) { return /^es[-_]CO/i.test(v.lang); })[0] ||
+           vs.filter(function (v) { return /^es[-_](419|MX|US)/i.test(v.lang); })[0] ||
+           vs.filter(function (v) { return /^es/i.test(v.lang); })[0] || null;
+  }
+  /* Solo si el dispositivo tiene una voz en español (las voces cargan tarde). */
+  function revisar() { if (vozEs()) boton.hidden = false; }
+  revisar();
+  if (voz.addEventListener) voz.addEventListener("voiceschanged", revisar);
+  function bloques() {
+    var art = document.querySelector("article.edicion");
+    var titulo = art.querySelector(".cabecera h1");
+    var partes = [].slice.call(art.querySelectorAll("p, li, h2, h3"))
+      .filter(function (el) {
+        return !el.closest(".cabecera, .plegable, .cierre, figure, nav, .herramientas, .recorrido, .grafico, .avisos, details") &&
+               el.offsetParent !== null && el.textContent.trim();
+      });
+    return (titulo ? [titulo] : []).concat(partes);
+  }
+  function marcar(el) {
+    if (actual) actual.classList.remove("leyendo");
+    actual = el;
+    if (el) { el.classList.add("leyendo"); }
+  }
+  function siguiente() {
+    if (!activo) return;
+    if (i >= cola.length) { terminar(); return; }
+    var el = cola[i++];
+    var u = new SpeechSynthesisUtterance(el.textContent.replace(/\s+/g, " ").trim());
+    var v = vozEs();
+    u.lang = v ? v.lang : "es-CO";
+    if (v) u.voice = v;
+    u.rate = 1;
+    u.onend = siguiente;
+    u.onerror = function () { siguiente(); };
+    marcar(el);
+    voz.speak(u);
+  }
+  function estado(t, pulsado) {
+    boton.innerHTML = '<span aria-hidden="true">' + (pulsado ? "❚❚" : "▶") + "</span> " + t;
+    boton.setAttribute("aria-pressed", pulsado ? "true" : "false");
+  }
+  function terminar() {
+    activo = false; i = 0; voz.cancel(); marcar(null);
+    parar.hidden = true; estado("Escuchar", false);
+  }
+  boton.addEventListener("click", function () {
+    if (!activo) {
+      cola = bloques(); i = 0; activo = true; voz.cancel();
+      parar.hidden = false; estado("Pausar", true); siguiente();
+    } else if (voz.paused) {
+      voz.resume(); estado("Pausar", true);
+    } else {
+      voz.pause(); estado("Seguir", false);
+    }
+  });
+  parar.addEventListener("click", terminar);
+  window.addEventListener("pagehide", function () { voz.cancel(); });
 })();
 </script>
 </body>

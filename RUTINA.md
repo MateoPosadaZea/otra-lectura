@@ -287,25 +287,26 @@ Cuerpo, en este orden (ver `prompt.md` 2.0 para el contenido de cada parte):
 
 ## Carril 1: Radar
 
-### Título del nudo {#tema-uno}
+### Titular corto, de 8 a 12 palabras {#tema-uno}
 
-**En pocas palabras.** Dos o tres frases: de qué se trata y por qué
-importa. Quien lea solo esto ya entendió.
+**En pocas palabras.** Tres frases cortas, una por idea: qué pasa, por qué
+le importa al lector y qué se puede hacer (o qué viene). Máximo unas 60
+palabras. Quien lea solo esto, en 30 segundos, ya entendió.
 **El dato curioso.** Obligatorio desde el 2026-10-13, solo en el primer
 nudo. Un dato histórico o curioso, de 60 a 100 palabras, que se lea con
 gusto y deje algo: de dónde salió una medida, quién inventó qué, cómo lo
 resolvieron otros hace un siglo. Mejor si toca el tema del día; si no hay
 uno así, uno del mismo campo. Con fuente en `fuentes`, como todo.
-**Qué pasó.** Con un ejemplo cotidiano que haga de puente (la tienda de
-barrio, la recarga del celular) y luego los hechos.
-**Cómo llegamos aquí.** El mecanismo, en pocas viñetas cortas.
-**Ya pasó antes.** El antecedente, si lo hay. *(Conocimiento general.)*
-Cuando el tema lo permita, una inflexión: un momento en que algo cambió
-de verdad (en Colombia o en el mundo), con el dato que lo muestra.
-**El patrón.** Opcional, una o dos frases: qué enseña esa inflexión
-para el problema de hoy. Se recopila sola en la página Memoria.
-**¿Hay salida?** Lo que ha funcionado en otras partes, dicho simple.
-**Pero ojo.** El contrapeso: por qué no es mágico.
+**Qué pasa.** Abre con una escena: una persona, un lugar o un momento
+real y verificado (con fuente), en dos o tres frases. Luego la cifra
+principal, a escala humana. Nada de abrir con una cifra o una institución.
+**¿Por qué pasa?** El mecanismo, en máximo tres viñetas cortas.
+**Ya pasó antes.** Opcional y corto (máximo unas 60 palabras): solo si el
+antecedente ayuda de verdad a entender. *(Conocimiento general.)*
+**El patrón.** Opcional, una frase. Se recopila sola en la página Memoria.
+**¿Alguien lo ha resuelto?** Lo que ha funcionado, en uno o dos casos,
+dicho simple.
+**Pero ojo.** El contrapeso: por qué no es mágico, en dos o tres frases.
 **Cruce con Mattriz.** … (solo si aplica)
 
 Escribir como si se le explicara a un niño (AJUSTES.md, 2026-09-30):
@@ -367,14 +368,31 @@ discutir en la sobremesa.
 ## Nota metodológica
 ```
 
-- **Largo (para no desgastar):** la edición completa, sin contar Descartes,
-  Glosario ni Nota metodológica, no pasa de unas 1.200 palabras (unos 5
-  minutos de lectura). El build avisa si se pasa: en ese caso recortar,
-  no justificar. Un solo tema bien entendido, que el lector alcance a
-  llegar a la paradoja y a Para conversar.
-- Sin resúmenes rápidos al comienzo ("En tres minutos" ya no existe): el
-  sitio apuesta por la profundidad. El índice de la edición lo genera la
-  plantilla a partir de los títulos de los nudos.
+- **Para que se lea (desde el 2026-10-24, pedido de Mateo: «en Colombia no
+  se lee mucho… que la gente entienda, que no se canse»).** Rige sobre todo
+  lo demás de esta lista:
+  - **Largo:** unas 750 palabras visibles como máximo (unos 4 minutos). No
+    cuentan lo plegado (Dos lecturas, la paradoja, Para leer más, glosario,
+    fuentes, nota metodológica) ni los recorridos. El build avisa si se
+    pasa: recortar, no justificar.
+  - **Titular:** de 8 a 12 palabras, con el dato o la idea fuerte; el
+    contexto va en «En pocas palabras». El build avisa si pasa de 14.
+  - **En 30 segundos:** «En pocas palabras» son tres frases cortas (qué
+    pasa, por qué le importa, qué se puede hacer). Quien lea solo eso ya
+    se lleva lo esencial.
+  - **Abrir con una persona, no con una cifra:** una escena real y
+    verificada al comienzo de «Qué pasa».
+  - **Párrafos de dos o tres líneas**, una idea por párrafo, frases
+    cortas. Subtítulos en forma de pregunta (¿Por qué pasa?, ¿Alguien lo
+    ha resuelto?).
+  - **Un gráfico o un recorrido por edición**, casi siempre: si hay una
+    cifra que cambia o una comparación, se dibuja (y reemplaza texto).
+  - **Dos lecturas y la paradoja van plegadas** («Para quien quiera
+    más»): cortas (unas 40 palabras por postura; la paradoja en dos
+    líneas). «Quién decide y cuándo» y «Qué hacer con esto» siguen a la
+    vista, pero cortos: unas 50 palabras cada uno.
+- El índice de la edición lo genera la plantilla a partir de los títulos
+  de los nudos.
 - **Dos lecturas** (pedido de Mateo, 2026-09-29, idea de *Imaginar la
   democracia*): cuando el tema divide opiniones (una política, una ley, un
   límite, un programa), después del nudo van las dos posturas principales,

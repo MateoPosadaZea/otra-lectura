@@ -62,6 +62,11 @@
 <ul class="temas" aria-label="Categorías"><li><a href="../categorias/economia.html">Economía</a></li></ul>
 <p class="aviso-cambios">Revisada el <time datetime="2026-10-13">13 de octubre de 2026</time> · <a href="#actualizacion-1">1 actualización y 1 corrección posteriores a la publicación</a></p>
 <figure class="grabado"><img src="../imagenes/2026-10-01-radar.webp" width="1200" height="943" alt="Acuarela de 1860: en el mercado de Bogotá, una vendedora sentada entre bultos de papas atiende a dos mujeres, una con sombrilla y otra con sombrero de paja que escoge papas de un costal; al fondo, más gente del mercado." decoding="async"><figcaption>Bogotá, vendedoras de papas en el mercado, 1860<br><a href="https://commons.wikimedia.org/wiki/File:Vendedoras_de_Papas_by_Ram%C3%B3n_Torres_M%C3%A9ndez.jpg">Acuarela de Ramón Torres Méndez, 1860 · Dominio público, vía Wikimedia Commons</a></figcaption></figure>
+<div class="herramientas">
+<button class="escuchar" type="button" hidden aria-pressed="false"><span aria-hidden="true">▶</span> Escuchar</button>
+<button class="escuchar-parar" type="button" hidden>Detener</button>
+<a class="whatsapp" href="https://wa.me/?text=%2AUno%20de%20cada%20dos%20trabajadores%20sin%20pensi%C3%B3n%3A%20el%20desempleo%20sube%20y%20la%20informalidad%20casi%20no%20se%20mueve%2A%0A%0AEn%20agosto%2C%20m%C3%A1s%20colombianos%20se%20quedaron%20sin%20trabajo.%20Y%20de%20los%20que%20trabajan%2C%20m%C3%A1s%20de%20la%20mitad%20lo%20hace%20en%20la%20informalidad%3A%20sin%20contrato%2C%20sin%20aportes%20a%20pensi%C3%B3n%20y%20sin%20protecci%C3%B3n%20si%20se%20enferman%20o%20los%20despiden.%20Ese%20n%C3%BAmero%20casi%20no%20cambia%20desde%20hace%20a%C3%B1os.%20En%20diciembre%20se%20decide%20el%20salario%20m%C3%ADnimo%20de%202027%2C%20y%20esa%20decisi%C3%B3n%20toca%E2%80%A6%0A%0AL%C3%A9ala%20completa%20en%20Otra%20lectura%3A%20https%3A%2F%2Fotralectura.co%2Fediciones%2F2026-10-01-radar.html" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+</div>
 <nav class="indice-edicion" aria-label="En esta edición"><p>En esta edición</p><ol><li><a href="#informalidad-empleo">Uno de cada dos trabajadores sin pensión: el desempleo sube y la informalidad casi no se mueve</a></li><li><a href="#para-conversar">Para conversar</a></li></ol></nav>
 </header>
 <section class="carril carril-radar">
@@ -158,8 +163,9 @@ el alza lo señalan. El terremoto, además, revuelve los números de este mes.</
 </aside>
 </article>
 </section>
-<section class="carril lecturas">
-<h2>Dos lecturas</h2>
+<section class="carril lecturas plegable plegable-extra">
+<details>
+<summary><span class="plegable-mas">Para quien quiera más</span><h2>Dos lecturas</h2></summary>
 <p class="con-etiqueta"><strong class="etiqueta">Subir el mínimo protege a quien trabaja.</strong> Millones de personas viven
 del mínimo. Con la inflación en 6,2%, un alza grande les devuelve poder
 de compra. Y en agosto la informalidad no subió: bajó.</p>
@@ -167,6 +173,7 @@ de compra. Y en agosto la informalidad no subió: bajó.</p>
 más de lo que produce un trabajador, el negocio contrata sin papeles o no
 contrata. Los primeros en quedar por fuera son los jóvenes, las mujeres
 mayores y quienes tienen menos estudio.</p>
+</details>
 </section>
 <section class="carril decide" id="quien-decide">
 <h2>Quién decide y cuándo</h2>
@@ -183,11 +190,13 @@ una jornada de movilización para el 14 de octubre. <em class="marca-nv">(Fuente
 verificado.)</em></p>
 <div class="decision-seguimiento"><p class="decision-rotulo">Seguimiento de la decisión</p><ul class="decisiones"><li class="decision decision-pendiente"><p class="decision-estado"><span class="estado">Pendiente</span> · plazo: <time datetime="2026-12-30">30 de diciembre de 2026</time></p><p class="decision-que"><strong>Comisión de Concertación de Políticas Salariales (Gobierno, gremios y centrales obreras); si no hay acuerdo, el Gobierno por decreto</strong>: Fijar el salario mínimo de 2027, después del alza de 23,7% de 2026.</p><p class="decision-nota">La Comisión empezó el 1 de octubre: propuestas hasta el 9 y nueva reunión el 13. Tiene hasta el 15 de diciembre para un acuerdo; si no, decreto antes del 30. El Gobierno no ha dado cifra.</p></li></ul><p class="decision-mas"><a href="../decisiones.html">Ver todas las decisiones en seguimiento →</a></p></div>
 </section>
-<section class="carril paradoja">
-<h2>La paradoja del día</h2>
+<section class="carril paradoja plegable plegable-extra">
+<details>
+<summary><span class="plegable-mas">Para quien quiera más</span><h2>La paradoja del día</h2></summary>
 <p>En agosto hubo 254.000 trabajadores informales menos. Buena noticia, hasta
 que se mira el otro lado: aparecieron apenas unos 128.000 formales más. La
 informalidad bajó, en parte, porque hay menos gente trabajando.</p>
+</details>
 </section>
 <section class="carril conversar" id="para-conversar">
 <h2>Para conversar</h2>
@@ -824,6 +833,73 @@ alto en 20 meses y la informalidad sigue casi en el mismo lugar.</p></details>
   window.addEventListener("beforeunload", function (ev) {
     if (activo && cambiados().length) { ev.preventDefault(); ev.returnValue = ""; }
   });
+})();
+/* Escuchar la edición con la voz del propio dispositivo (Web Speech API).
+   Sin costo ni servicios externos; si el navegador no la tiene, el botón no
+   aparece. Lee párrafo por párrafo y marca el que va leyendo. */
+(function () {
+  var boton = document.querySelector(".escuchar"), parar = document.querySelector(".escuchar-parar");
+  if (!boton || !("speechSynthesis" in window) || !window.SpeechSynthesisUtterance) return;
+  var voz = speechSynthesis, cola = [], i = 0, activo = false, actual = null;
+  function vozEs() {
+    var vs = voz.getVoices();
+    return vs.filter(function (v) { return /^es[-_]CO/i.test(v.lang); })[0] ||
+           vs.filter(function (v) { return /^es[-_](419|MX|US)/i.test(v.lang); })[0] ||
+           vs.filter(function (v) { return /^es/i.test(v.lang); })[0] || null;
+  }
+  /* Solo si el dispositivo tiene una voz en español (las voces cargan tarde). */
+  function revisar() { if (vozEs()) boton.hidden = false; }
+  revisar();
+  if (voz.addEventListener) voz.addEventListener("voiceschanged", revisar);
+  function bloques() {
+    var art = document.querySelector("article.edicion");
+    var titulo = art.querySelector(".cabecera h1");
+    var partes = [].slice.call(art.querySelectorAll("p, li, h2, h3"))
+      .filter(function (el) {
+        return !el.closest(".cabecera, .plegable, .cierre, figure, nav, .herramientas, .recorrido, .grafico, .avisos, details") &&
+               el.offsetParent !== null && el.textContent.trim();
+      });
+    return (titulo ? [titulo] : []).concat(partes);
+  }
+  function marcar(el) {
+    if (actual) actual.classList.remove("leyendo");
+    actual = el;
+    if (el) { el.classList.add("leyendo"); }
+  }
+  function siguiente() {
+    if (!activo) return;
+    if (i >= cola.length) { terminar(); return; }
+    var el = cola[i++];
+    var u = new SpeechSynthesisUtterance(el.textContent.replace(/\s+/g, " ").trim());
+    var v = vozEs();
+    u.lang = v ? v.lang : "es-CO";
+    if (v) u.voice = v;
+    u.rate = 1;
+    u.onend = siguiente;
+    u.onerror = function () { siguiente(); };
+    marcar(el);
+    voz.speak(u);
+  }
+  function estado(t, pulsado) {
+    boton.innerHTML = '<span aria-hidden="true">' + (pulsado ? "❚❚" : "▶") + "</span> " + t;
+    boton.setAttribute("aria-pressed", pulsado ? "true" : "false");
+  }
+  function terminar() {
+    activo = false; i = 0; voz.cancel(); marcar(null);
+    parar.hidden = true; estado("Escuchar", false);
+  }
+  boton.addEventListener("click", function () {
+    if (!activo) {
+      cola = bloques(); i = 0; activo = true; voz.cancel();
+      parar.hidden = false; estado("Pausar", true); siguiente();
+    } else if (voz.paused) {
+      voz.resume(); estado("Pausar", true);
+    } else {
+      voz.pause(); estado("Seguir", false);
+    }
+  });
+  parar.addEventListener("click", terminar);
+  window.addEventListener("pagehide", function () { voz.cancel(); });
 })();
 </script>
 </body>

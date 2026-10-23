@@ -74,7 +74,14 @@ OMS, CEPAL → oficial; etc.). Al final de cada edición se muestra el conteo
 
 - "Lo que descarté" sigue en el markdown (la rutina lo usa para no
   repetir temas) pero no se muestra.
-- Fuentes y nota metodológica aparecen plegadas; se abren con un toque.
+- Fuentes, nota metodológica, glosario y Para leer más aparecen plegadas;
+  Dos lecturas y la paradoja también, bajo «Para quien quiera más». Se
+  abren con un toque y no cuentan en el largo de la edición.
+- Desde el 2026-10-24 el techo es de unas 750 palabras visibles y el
+  titular, de unas 12 palabras (el build avisa).
+- Cada edición trae «Escuchar» (lee la edición en voz alta con la voz del
+  propio dispositivo; solo aparece si tiene una voz en español) y «Enviar
+  por WhatsApp» (un enlace con el titular, «En pocas palabras» y la URL).
 - Al final de cada edición, en lugar de la lista de ediciones, hay una
   **Siguiente lectura** (la que comparte más temas o categorías, prefiriendo
   la más reciente) y hasta dos "También le puede interesar".

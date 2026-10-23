@@ -395,3 +395,14 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   grandes. «Por secciones» va justo después de la edición del día, antes
   de «Días anteriores». La banda de la fecha lleva a la derecha el número
   de la edición, sin el enlace a «¿Qué es esto?» (ya está en la cabecera).
+- 2026-10-23 · Mateo: «en Colombia no se lee mucho… hay que adaptarnos…
+  que no se canse después de un par de líneas». Rige desde la edición del
+  2026-10-24 (RUTINA.md, sección 4, «Para que se lea»; prompt.md, «Registro
+  y estilo»): titular de 8 a 12 palabras; «En pocas palabras» en tres
+  frases (qué pasa, por qué le importa, qué se puede hacer); abrir con una
+  persona o escena real; párrafos de dos o tres líneas; subtítulos en
+  pregunta; unas 750 palabras visibles; Dos lecturas, la paradoja y Para
+  leer más plegadas («Para quien quiera más»); un gráfico o recorrido casi
+  siempre. En el sitio, cada edición trae «Escuchar» (la voz del propio
+  dispositivo, si tiene una en español) y «Enviar por WhatsApp» (titular,
+  las tres frases y el enlace).

@@ -57,11 +57,16 @@
 <main id="contenido">
 <article class="edicion">
 <header class="cabecera">
-<p class="fecha"><time datetime="2026-09-28">28 de septiembre de 2026</time> · Edición 8 · 5 min de lectura</p>
+<p class="fecha"><time datetime="2026-09-28">28 de septiembre de 2026</time> · Edición 8 · 4 min de lectura</p>
 <h1>El gas que Colombia ahora compra en barco</h1>
 <ul class="temas" aria-label="Categorías"><li><a href="../categorias/economia.html">Economía</a></li><li><a href="../categorias/ambiente.html">Ambiente</a></li></ul>
 <p class="aviso-cambios">Revisada el <time datetime="2026-10-04">4 de octubre de 2026</time> · <a href="#actualizacion-1">1 actualización y 1 corrección posteriores a la publicación</a></p>
 <figure class="grabado"><img src="../imagenes/2026-09-28-radar.webp" width="1200" height="960" alt="Litografía de 1856: el edificio largo de la fábrica de gas de Río de Janeiro, con una chimenea alta que echa humo; delante pasan jinetes y carruajes, y un hombre lleva un caballo de la rienda." decoding="async"><figcaption>Río de Janeiro, la fábrica de gas del Aterrado, 1856<br><a href="https://commons.wikimedia.org/wiki/File:Bertichem_1856_gasometro_aterrado.jpg">Litografía de P. G. Bertichem, 1856 · Dominio público, vía Wikimedia Commons</a></figcaption></figure>
+<div class="herramientas">
+<button class="escuchar" type="button" hidden aria-pressed="false"><span aria-hidden="true">▶</span> Escuchar</button>
+<button class="escuchar-parar" type="button" hidden>Detener</button>
+<a class="whatsapp" href="https://wa.me/?text=%2AEl%20gas%20que%20Colombia%20ahora%20compra%20en%20barco%2A%0A%0AColombia%20ya%20no%20produce%20todo%20el%20gas%20que%20usa.%20De%20cada%20100%20unidades%20de%20gas%20que%20se%20consumieron%20en%20agosto%2C%2034%20llegaron%20de%20afuera.%20El%20Gobierno%20anunci%C3%B3%20que%20vuelve%20a%20buscar%20gas%2C%20pero%20el%20gas%20nuevo%20tarda%20casi%20diez%20a%C3%B1os%20en%20llegar%2C%20y%20la%20regla%20para%20buscarlo%20cambia%20cada%20cuatro.%0A%0AL%C3%A9ala%20completa%20en%20Otra%20lectura%3A%20https%3A%2F%2Fotralectura.co%2Fediciones%2F2026-09-28-radar.html" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+</div>
 <nav class="indice-edicion" aria-label="En esta edición"><p>En esta edición</p><ol><li><a href="#gas-natural-deficit">Colombia importa un tercio de su gas mientras cada gobierno cambia la regla para buscarlo</a></li><li><a href="#para-conversar">Para conversar</a></li></ol></nav>
 </header>
 <section class="carril carril-radar">
@@ -159,12 +164,14 @@ proveedor.</p>
 </aside>
 </article>
 </section>
-<section class="carril paradoja">
-<h2>La paradoja del día</h2>
+<section class="carril paradoja plegable plegable-extra">
+<details>
+<summary><span class="plegable-mas">Para quien quiera más</span><h2>La paradoja del día</h2></summary>
 <p>El anuncio de que Colombia volverá a buscar gas se hizo en Santa Marta,
 frente al mar Caribe. Bajo ese mismo mar ya se encontró el yacimiento de
 gas más grande del país. Pero ese gas sigue esperando permisos y no
 llegará antes de 2030. El que se usa hoy llega en barco.</p>
+</details>
 </section>
 <section class="carril conversar" id="para-conversar">
 <h2>Para conversar</h2>
@@ -797,6 +804,73 @@ colegio.</p></details>
   window.addEventListener("beforeunload", function (ev) {
     if (activo && cambiados().length) { ev.preventDefault(); ev.returnValue = ""; }
   });
+})();
+/* Escuchar la edición con la voz del propio dispositivo (Web Speech API).
+   Sin costo ni servicios externos; si el navegador no la tiene, el botón no
+   aparece. Lee párrafo por párrafo y marca el que va leyendo. */
+(function () {
+  var boton = document.querySelector(".escuchar"), parar = document.querySelector(".escuchar-parar");
+  if (!boton || !("speechSynthesis" in window) || !window.SpeechSynthesisUtterance) return;
+  var voz = speechSynthesis, cola = [], i = 0, activo = false, actual = null;
+  function vozEs() {
+    var vs = voz.getVoices();
+    return vs.filter(function (v) { return /^es[-_]CO/i.test(v.lang); })[0] ||
+           vs.filter(function (v) { return /^es[-_](419|MX|US)/i.test(v.lang); })[0] ||
+           vs.filter(function (v) { return /^es/i.test(v.lang); })[0] || null;
+  }
+  /* Solo si el dispositivo tiene una voz en español (las voces cargan tarde). */
+  function revisar() { if (vozEs()) boton.hidden = false; }
+  revisar();
+  if (voz.addEventListener) voz.addEventListener("voiceschanged", revisar);
+  function bloques() {
+    var art = document.querySelector("article.edicion");
+    var titulo = art.querySelector(".cabecera h1");
+    var partes = [].slice.call(art.querySelectorAll("p, li, h2, h3"))
+      .filter(function (el) {
+        return !el.closest(".cabecera, .plegable, .cierre, figure, nav, .herramientas, .recorrido, .grafico, .avisos, details") &&
+               el.offsetParent !== null && el.textContent.trim();
+      });
+    return (titulo ? [titulo] : []).concat(partes);
+  }
+  function marcar(el) {
+    if (actual) actual.classList.remove("leyendo");
+    actual = el;
+    if (el) { el.classList.add("leyendo"); }
+  }
+  function siguiente() {
+    if (!activo) return;
+    if (i >= cola.length) { terminar(); return; }
+    var el = cola[i++];
+    var u = new SpeechSynthesisUtterance(el.textContent.replace(/\s+/g, " ").trim());
+    var v = vozEs();
+    u.lang = v ? v.lang : "es-CO";
+    if (v) u.voice = v;
+    u.rate = 1;
+    u.onend = siguiente;
+    u.onerror = function () { siguiente(); };
+    marcar(el);
+    voz.speak(u);
+  }
+  function estado(t, pulsado) {
+    boton.innerHTML = '<span aria-hidden="true">' + (pulsado ? "❚❚" : "▶") + "</span> " + t;
+    boton.setAttribute("aria-pressed", pulsado ? "true" : "false");
+  }
+  function terminar() {
+    activo = false; i = 0; voz.cancel(); marcar(null);
+    parar.hidden = true; estado("Escuchar", false);
+  }
+  boton.addEventListener("click", function () {
+    if (!activo) {
+      cola = bloques(); i = 0; activo = true; voz.cancel();
+      parar.hidden = false; estado("Pausar", true); siguiente();
+    } else if (voz.paused) {
+      voz.resume(); estado("Pausar", true);
+    } else {
+      voz.pause(); estado("Seguir", false);
+    }
+  });
+  parar.addEventListener("click", terminar);
+  window.addEventListener("pagehide", function () { voz.cancel(); });
 })();
 </script>
 </body>
