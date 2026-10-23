@@ -416,3 +416,14 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   decisiones con otras fechas (campo `viene`), con máximo dos decisiones
   de cuatro cuando haya otras (prompt.md, «Más allá de la política»;
   RUTINA.md, 2 y 2b).
+- 2026-10-23 · Mateo: «apliquemos todo esto… en todas las noticias que
+  tenemos actualmente». Las 35 ediciones de noticias publicadas hasta el 23
+  de octubre se reescribieron con el formato «Para que se lea»: titular de
+  9 a 12 palabras, «En pocas palabras» en tres frases, rótulos en pregunta,
+  párrafos cortos y unas 750 palabras visibles (unas 950 en las primeras,
+  que traían varios temas). Sin datos nuevos: solo se reorganizó y se
+  recortó lo ya verificado; las fuentes, las decisiones y las secciones de
+  cierre quedaron intactas. Cuando una afirmación marcada como no
+  verificada salió del texto, salió con su marca. Los repasos semanales
+  no se tocaron. El build ahora reconoce como rótulo una negrita que
+  termina en «?».
