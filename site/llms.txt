@@ -13,6 +13,7 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 
 ## Ediciones
 
+- [En 2036 Colombia tendrá más mayores de 60 años que niños: quién los va a cuidar y qué hicieron Japón y Uruguay](https://otralectura.co/ediciones/2026-10-23-radar.html): 23 de octubre de 2026.
 - [La tasa de madres adolescentes cayó a menos de la mitad en diez años: qué la hizo bajar y qué puede frenarla](https://otralectura.co/ediciones/2026-10-22-radar.html): 22 de octubre de 2026.
 - [La Defensoría contó 130 niños reclutados este año y el Congreso discute pedir su entrega a cambio de rebajas de pena: qué ha funcionado en otros países](https://otralectura.co/ediciones/2026-10-21-radar.html): 21 de octubre de 2026.
 - [Un hombre murió bajo custodia policial tras descargas de táser y hay cuatro policías capturados: qué ha reducido el uso de la fuerza en otros países](https://otralectura.co/ediciones/2026-10-20-radar.html): 20 de octubre de 2026.
@@ -87,3 +88,4 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 - [La papa subió 78% en un año, después de venderse a pérdida en 2025: por qué el precio va y viene, y cómo los contratos de siembra protegen a quien cultiva](https://otralectura.co/temas/papa-precios-ciclo.html)
 - [Votos a cambio de obras: seis miembros de la comisión que revisa la deuda van a juicio, y lo que ha frenado ese trueque en otros países](https://otralectura.co/temas/votos-por-contratos-credito-publico.html)
 - [Un hombre murió bajo custodia policial tras descargas de táser y hay cuatro policías capturados: qué ha reducido el uso de la fuerza en otros países](https://otralectura.co/temas/uso-fuerza-policial-taser.html)
+- [La tasa de madres adolescentes cayó a menos de la mitad en diez años: qué la hizo bajar y qué puede frenarla](https://otralectura.co/temas/embarazo-adolescente-descenso.html)
