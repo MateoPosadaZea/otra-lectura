@@ -63,8 +63,6 @@
 
 <figure class="grabado"><img src="../imagenes/2026-10-22-radar.webp" width="960" height="1166" alt="Grabado de un salón de clase largo, con filas de pupitres a ambos lados de un pasillo. Al fondo, una pared cubierta de cuadros y una tarima; a la derecha, un mapa colgado. Una niña con delantal y gorro mira de frente, mientras tres hombres de traje oscuro, dos con sombrero de copa, recorren el salón." decoding="async"><figcaption>Clase de niñas de la Escuela Modelo de Madrid, inaugurada en septiembre de 1885<a class="grabado-credito" href="https://commons.wikimedia.org/wiki/File%3AMadrid%2C_Escuela-Modelo%2C_inaugurada_el_21_de_septiembre_de_1885%2C_clase_de_ni%C3%B1as_en_el_piso_principal%2C_de_Comba%2C_La_Ilustraci%C3%B3n_Espa%C3%B1ola_y_Americana%2C_30-09-1885_%28cropped%29.jpg">Grabado de Juan Comba García y Arturo Carretero, 1885, en La Ilustración Española y Americana · Dominio público, vía Wikimedia Commons</a></figcaption></figure>
 <div class="herramientas">
-<button class="escuchar" type="button" hidden aria-pressed="false"><span aria-hidden="true">▶</span> Escuchar</button>
-<button class="escuchar-parar" type="button" hidden>Detener</button>
 <a class="whatsapp" href="https://wa.me/?text=%2ALa%20tasa%20de%20madres%20adolescentes%20cay%C3%B3%20a%20menos%20de%20la%20mitad%2A%0A%0AEn%202015%2C%20de%20cada%201.000%20muchachas%20de%2015%20a%2019%20a%C3%B1os%2C%2066%20tuvieron%20un%20beb%C3%A9%3B%20en%202025%20fueron%20unas%2028%2C%20seg%C3%BAn%20el%20DANE.%20Ayudaron%20los%20anticonceptivos%20de%20larga%20duraci%C3%B3n%2C%20m%C3%A1s%20a%C3%B1os%20en%20el%20colegio%20y%20una%20estrategia%20nacional%20que%20ya%20venci%C3%B3%2C%20pero%20las%20ni%C3%B1as%20de%2010%20a%2014%20a%C3%B1os%20y%20La%20Guajira%20van%20muy%20por%20detr%C3%A1s.%20Ahora%20el%20Gobierno%20estudia%20derogar%E2%80%A6%0A%0AL%C3%A9ala%20completa%20en%20Otra%20lectura%3A%20https%3A%2F%2Fotralectura.co%2Fediciones%2F2026-10-22-radar.html" target="_blank" rel="noopener">Enviar por WhatsApp</a>
 </div>
 <nav class="indice-edicion" aria-label="En esta edición"><p>En esta edición</p><ol><li><a href="#embarazo-adolescente-descenso">La tasa de madres adolescentes cayó a menos de la mitad</a></li><li><a href="#para-conversar">Para conversar</a></li></ol></nav>
@@ -456,6 +454,7 @@ de Marcial Pons y los de la autora, de su página en Harvard.</p></details>
 </section>
 
 </article>
+<a class="sigue-leyendo" href="#embarazo-adolescente-descenso" hidden><span class="sigue-flecha" aria-hidden="true">↓</span> Baje para seguir leyendo</a>
 <aside class="glosario-flotante" aria-label="Glosario de la edición">
 <button type="button" class="cerrar-panel" aria-label="Cerrar el glosario" hidden>×</button>
 <details open>
@@ -914,72 +913,20 @@ de Marcial Pons y los de la autora, de su página en Harvard.</p></details>
     if (activo && cambiados().length) { ev.preventDefault(); ev.returnValue = ""; }
   });
 })();
-/* Escuchar la edición con la voz del propio dispositivo (Web Speech API).
-   Sin costo ni servicios externos; si el navegador no la tiene, el botón no
-   aparece. Lee párrafo por párrafo y marca el que va leyendo. */
+/* «Baje para seguir leyendo»: aparece al abrir una edición y se va en
+   cuanto el lector empieza a bajar. */
 (function () {
-  var boton = document.querySelector(".escuchar"), parar = document.querySelector(".escuchar-parar");
-  if (!boton || !("speechSynthesis" in window) || !window.SpeechSynthesisUtterance) return;
-  var voz = speechSynthesis, cola = [], i = 0, activo = false, actual = null;
-  function vozEs() {
-    var vs = voz.getVoices();
-    return vs.filter(function (v) { return /^es[-_]CO/i.test(v.lang); })[0] ||
-           vs.filter(function (v) { return /^es[-_](419|MX|US)/i.test(v.lang); })[0] ||
-           vs.filter(function (v) { return /^es/i.test(v.lang); })[0] || null;
+  var aviso = document.querySelector(".sigue-leyendo");
+  if (!aviso) return;
+  function revisar() {
+    var falta = document.documentElement.scrollHeight - innerHeight > 400;
+    var arriba = scrollY < 120;
+    aviso.hidden = !falta;
+    aviso.classList.toggle("oculto", !arriba);
   }
-  /* Solo si el dispositivo tiene una voz en español (las voces cargan tarde). */
-  function revisar() { if (vozEs()) boton.hidden = false; }
   revisar();
-  if (voz.addEventListener) voz.addEventListener("voiceschanged", revisar);
-  function bloques() {
-    var art = document.querySelector("article.edicion");
-    var titulo = art.querySelector(".cabecera h1");
-    var partes = [].slice.call(art.querySelectorAll("p, li, h2, h3"))
-      .filter(function (el) {
-        return !el.closest(".cabecera, .plegable, .cierre, figure, nav, .herramientas, .recorrido, .grafico, .avisos, details") &&
-               el.offsetParent !== null && el.textContent.trim();
-      });
-    return (titulo ? [titulo] : []).concat(partes);
-  }
-  function marcar(el) {
-    if (actual) actual.classList.remove("leyendo");
-    actual = el;
-    if (el) { el.classList.add("leyendo"); }
-  }
-  function siguiente() {
-    if (!activo) return;
-    if (i >= cola.length) { terminar(); return; }
-    var el = cola[i++];
-    var u = new SpeechSynthesisUtterance(el.textContent.replace(/\s+/g, " ").trim());
-    var v = vozEs();
-    u.lang = v ? v.lang : "es-CO";
-    if (v) u.voice = v;
-    u.rate = 1;
-    u.onend = siguiente;
-    u.onerror = function () { siguiente(); };
-    marcar(el);
-    voz.speak(u);
-  }
-  function estado(t, pulsado) {
-    boton.innerHTML = '<span aria-hidden="true">' + (pulsado ? "❚❚" : "▶") + "</span> " + t;
-    boton.setAttribute("aria-pressed", pulsado ? "true" : "false");
-  }
-  function terminar() {
-    activo = false; i = 0; voz.cancel(); marcar(null);
-    parar.hidden = true; estado("Escuchar", false);
-  }
-  boton.addEventListener("click", function () {
-    if (!activo) {
-      cola = bloques(); i = 0; activo = true; voz.cancel();
-      parar.hidden = false; estado("Pausar", true); siguiente();
-    } else if (voz.paused) {
-      voz.resume(); estado("Pausar", true);
-    } else {
-      voz.pause(); estado("Seguir", false);
-    }
-  });
-  parar.addEventListener("click", terminar);
-  window.addEventListener("pagehide", function () { voz.cancel(); });
+  addEventListener("scroll", revisar, { passive: true });
+  addEventListener("resize", revisar);
 })();
 </script>
 </body>

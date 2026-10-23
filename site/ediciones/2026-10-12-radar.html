@@ -63,8 +63,6 @@
 
 
 <div class="herramientas">
-<button class="escuchar" type="button" hidden aria-pressed="false"><span aria-hidden="true">▶</span> Escuchar</button>
-<button class="escuchar-parar" type="button" hidden>Detener</button>
 <a class="whatsapp" href="https://wa.me/?text=%2ALa%20Corte%20solo%20verific%C3%B3%20agua%20para%2022%20de%20cada%20100%20ni%C3%B1os%20wayuu%2A%0A%0AEn%202017%2C%20la%20Corte%20Constitucional%20orden%C3%B3%20garantizar%20agua%2C%20comida%20y%20salud%20a%20los%20ni%C3%B1os%20wayuu%20de%20La%20Guajira.%20Nueve%20a%C3%B1os%20despu%C3%A9s%2C%20solo%20pudo%20verificar%20que%2022%20de%20cada%20100%20reciben%20el%20m%C3%ADnimo%2C%2020%20litros%20diarios%2C%20y%20el%20da%C3%B1o%20se%20ve%20en%20su%20salud.%20Ma%C3%B1ana%20la%20Corte%20revisa%20el%20caso%3B%20en%20Brasil%2C%20un%20mill%C3%B3n%20de%20cisternas%20mostr%C3%B3%20otro%20camino.%0A%0AL%C3%A9ala%20completa%20en%20Otra%20lectura%3A%20https%3A%2F%2Fotralectura.co%2Fediciones%2F2026-10-12-radar.html" target="_blank" rel="noopener">Enviar por WhatsApp</a>
 </div>
 <nav class="indice-edicion" aria-label="En esta edición"><p>En esta edición</p><ol><li><a href="#agua-ninez-wayuu">La Corte solo verificó agua para 22 de cada 100 niños wayuu</a></li><li><a href="#para-conversar">Para conversar</a></li></ol></nav>
@@ -439,6 +437,7 @@ bibliotecas y en reseñas académicas.</p></details>
 </section>
 
 </article>
+<a class="sigue-leyendo" href="#agua-ninez-wayuu" hidden><span class="sigue-flecha" aria-hidden="true">↓</span> Baje para seguir leyendo</a>
 <aside class="glosario-flotante" aria-label="Glosario de la edición">
 <button type="button" class="cerrar-panel" aria-label="Cerrar el glosario" hidden>×</button>
 <details open>
@@ -905,72 +904,20 @@ bibliotecas y en reseñas académicas.</p></details>
     if (activo && cambiados().length) { ev.preventDefault(); ev.returnValue = ""; }
   });
 })();
-/* Escuchar la edición con la voz del propio dispositivo (Web Speech API).
-   Sin costo ni servicios externos; si el navegador no la tiene, el botón no
-   aparece. Lee párrafo por párrafo y marca el que va leyendo. */
+/* «Baje para seguir leyendo»: aparece al abrir una edición y se va en
+   cuanto el lector empieza a bajar. */
 (function () {
-  var boton = document.querySelector(".escuchar"), parar = document.querySelector(".escuchar-parar");
-  if (!boton || !("speechSynthesis" in window) || !window.SpeechSynthesisUtterance) return;
-  var voz = speechSynthesis, cola = [], i = 0, activo = false, actual = null;
-  function vozEs() {
-    var vs = voz.getVoices();
-    return vs.filter(function (v) { return /^es[-_]CO/i.test(v.lang); })[0] ||
-           vs.filter(function (v) { return /^es[-_](419|MX|US)/i.test(v.lang); })[0] ||
-           vs.filter(function (v) { return /^es/i.test(v.lang); })[0] || null;
+  var aviso = document.querySelector(".sigue-leyendo");
+  if (!aviso) return;
+  function revisar() {
+    var falta = document.documentElement.scrollHeight - innerHeight > 400;
+    var arriba = scrollY < 120;
+    aviso.hidden = !falta;
+    aviso.classList.toggle("oculto", !arriba);
   }
-  /* Solo si el dispositivo tiene una voz en español (las voces cargan tarde). */
-  function revisar() { if (vozEs()) boton.hidden = false; }
   revisar();
-  if (voz.addEventListener) voz.addEventListener("voiceschanged", revisar);
-  function bloques() {
-    var art = document.querySelector("article.edicion");
-    var titulo = art.querySelector(".cabecera h1");
-    var partes = [].slice.call(art.querySelectorAll("p, li, h2, h3"))
-      .filter(function (el) {
-        return !el.closest(".cabecera, .plegable, .cierre, figure, nav, .herramientas, .recorrido, .grafico, .avisos, details") &&
-               el.offsetParent !== null && el.textContent.trim();
-      });
-    return (titulo ? [titulo] : []).concat(partes);
-  }
-  function marcar(el) {
-    if (actual) actual.classList.remove("leyendo");
-    actual = el;
-    if (el) { el.classList.add("leyendo"); }
-  }
-  function siguiente() {
-    if (!activo) return;
-    if (i >= cola.length) { terminar(); return; }
-    var el = cola[i++];
-    var u = new SpeechSynthesisUtterance(el.textContent.replace(/\s+/g, " ").trim());
-    var v = vozEs();
-    u.lang = v ? v.lang : "es-CO";
-    if (v) u.voice = v;
-    u.rate = 1;
-    u.onend = siguiente;
-    u.onerror = function () { siguiente(); };
-    marcar(el);
-    voz.speak(u);
-  }
-  function estado(t, pulsado) {
-    boton.innerHTML = '<span aria-hidden="true">' + (pulsado ? "❚❚" : "▶") + "</span> " + t;
-    boton.setAttribute("aria-pressed", pulsado ? "true" : "false");
-  }
-  function terminar() {
-    activo = false; i = 0; voz.cancel(); marcar(null);
-    parar.hidden = true; estado("Escuchar", false);
-  }
-  boton.addEventListener("click", function () {
-    if (!activo) {
-      cola = bloques(); i = 0; activo = true; voz.cancel();
-      parar.hidden = false; estado("Pausar", true); siguiente();
-    } else if (voz.paused) {
-      voz.resume(); estado("Pausar", true);
-    } else {
-      voz.pause(); estado("Seguir", false);
-    }
-  });
-  parar.addEventListener("click", terminar);
-  window.addEventListener("pagehide", function () { voz.cancel(); });
+  addEventListener("scroll", revisar, { passive: true });
+  addEventListener("resize", revisar);
 })();
 </script>
 </body>

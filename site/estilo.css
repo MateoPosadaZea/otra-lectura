@@ -2137,8 +2137,8 @@ main:has(> .primera) {
 .temas-seguidos a, .tambien a { font-size: 1rem; line-height: 1.35; }
 .entre-ediciones { font-size: 0.95rem; line-height: 1.4; }
 
-/* Escuchar y enviar por WhatsApp (2026-10-23, para un país que lee poco:
-   también se puede oír, y compartir donde circula la información). */
+/* Enviar por WhatsApp (2026-10-23): compartir donde circula la información.
+   («Escuchar» se quitó por ahora.) */
 .herramientas {
   display: flex;
   flex-wrap: wrap;
@@ -2160,9 +2160,32 @@ main:has(> .primera) {
   text-decoration: none;
   cursor: pointer;
 }
-.herramientas .escuchar { background: var(--tinta); color: var(--papel); }
 .herramientas button:hover, .herramientas a:hover, .herramientas a:focus-visible { background: var(--rojo); border-color: var(--rojo); color: var(--papel); }
 .herramientas [hidden] { display: none; }
-.leyendo { background: color-mix(in srgb, var(--rojo) 12%, transparent); box-shadow: -0.6rem 0 0 color-mix(in srgb, var(--rojo) 12%, transparent); }
 
-
+/* «Baje para seguir leyendo» (2026-10-23): abajo a la izquierda al abrir
+   una edición; se desvanece al empezar a bajar. */
+.sigue-leyendo {
+  position: fixed;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 0.95rem;
+  background: var(--tinta);
+  color: var(--papel);
+  font: 800 0.72rem/1 var(--sans);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.sigue-leyendo:hover, .sigue-leyendo:focus-visible { background: var(--rojo); color: var(--papel); }
+.sigue-leyendo[hidden] { display: none; }
+.sigue-leyendo.oculto { opacity: 0; transform: translateY(0.5rem); pointer-events: none; }
+.sigue-flecha { display: inline-block; font-size: 1rem; animation: sigue-baja 1.6s ease-in-out infinite; }
+@keyframes sigue-baja { 0%, 100% { transform: translateY(-2px); } 50% { transform: translateY(3px); } }
+@media (prefers-reduced-motion: reduce) { .sigue-flecha { animation: none; } .sigue-leyendo { transition: none; } }
+@media print { .sigue-leyendo { display: none !important; } }

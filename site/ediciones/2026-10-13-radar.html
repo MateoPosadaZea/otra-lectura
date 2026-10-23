@@ -63,8 +63,6 @@
 <p class="aviso-cambios">Revisada el <time datetime="2026-10-14">14 de octubre de 2026</time> · <a href="#actualizacion-1">1 actualización posteriores a la publicación</a></p>
 <figure class="grabado"><img src="../imagenes/2026-10-13-radar.webp" width="960" height="641" alt="Grabado a doble página con las palabras «Pay day» en grande: abajo, una multitud de soldados se agolpa ante una mesa donde un pagador reparte billetes; arriba, en medallones con estrellas, un soldado entrega dinero para enviar a casa, una fila de hombres espera turno y una mujer lee una carta junto a un niño." decoding="async"><figcaption>Día de pago en el Ejército del Potomac, Estados Unidos, en Harper&#x27;s Weekly, 1863<a class="grabado-credito" href="https://commons.wikimedia.org/wiki/File%3APay-day_in_the_Army_of_the_Potomac_-_drawn_by_Mr._Homer._LCCN89706305.jpg">Grabado sobre dibujo de Winslow Homer, 1863 · Dominio público, Biblioteca del Congreso de Estados Unidos, vía Wikimedia Commons</a></figcaption></figure>
 <div class="herramientas">
-<button class="escuchar" type="button" hidden aria-pressed="false"><span aria-hidden="true">▶</span> Escuchar</button>
-<button class="escuchar-parar" type="button" hidden>Detener</button>
 <a class="whatsapp" href="https://wa.me/?text=%2AAtado%20al%20m%C3%ADnimo%2C%20el%20techo%20de%20la%20vivienda%20social%20subi%C3%B3%2023%25%2A%0A%0AHoy%20se%20re%C3%BAne%20la%20mesa%20que%20negocia%20el%20salario%20m%C3%ADnimo%20de%202027.%20Esa%20cifra%20no%20solo%20cambia%20sueldos%3A%20mueve%20lo%20que%20la%20ley%20amarr%C3%B3%20a%20ella%2C%20como%20el%20techo%20de%20precio%20de%20la%20vivienda%20social.%20Muchos%20cobros%20del%20Estado%20ya%20suben%20con%20una%20unidad%20atada%20a%20los%20precios%2C%20y%20en%202026%20eso%20les%20evit%C3%B3%20subir%2023%25.%0A%0AL%C3%A9ala%20completa%20en%20Otra%20lectura%3A%20https%3A%2F%2Fotralectura.co%2Fediciones%2F2026-10-13-radar.html" target="_blank" rel="noopener">Enviar por WhatsApp</a>
 </div>
 <nav class="indice-edicion" aria-label="En esta edición"><p>En esta edición</p><ol><li><a href="#salario-minimo-indexacion">Atado al mínimo, el techo de la vivienda social subió 23%</a></li><li><a href="#para-conversar">Para conversar</a></li></ol></nav>
@@ -409,6 +407,7 @@ bibliotecas y en la ficha de la editorial.</p></details>
 </section>
 
 </article>
+<a class="sigue-leyendo" href="#salario-minimo-indexacion" hidden><span class="sigue-flecha" aria-hidden="true">↓</span> Baje para seguir leyendo</a>
 <aside class="glosario-flotante" aria-label="Glosario de la edición">
 <button type="button" class="cerrar-panel" aria-label="Cerrar el glosario" hidden>×</button>
 <details open>
@@ -871,72 +870,20 @@ bibliotecas y en la ficha de la editorial.</p></details>
     if (activo && cambiados().length) { ev.preventDefault(); ev.returnValue = ""; }
   });
 })();
-/* Escuchar la edición con la voz del propio dispositivo (Web Speech API).
-   Sin costo ni servicios externos; si el navegador no la tiene, el botón no
-   aparece. Lee párrafo por párrafo y marca el que va leyendo. */
+/* «Baje para seguir leyendo»: aparece al abrir una edición y se va en
+   cuanto el lector empieza a bajar. */
 (function () {
-  var boton = document.querySelector(".escuchar"), parar = document.querySelector(".escuchar-parar");
-  if (!boton || !("speechSynthesis" in window) || !window.SpeechSynthesisUtterance) return;
-  var voz = speechSynthesis, cola = [], i = 0, activo = false, actual = null;
-  function vozEs() {
-    var vs = voz.getVoices();
-    return vs.filter(function (v) { return /^es[-_]CO/i.test(v.lang); })[0] ||
-           vs.filter(function (v) { return /^es[-_](419|MX|US)/i.test(v.lang); })[0] ||
-           vs.filter(function (v) { return /^es/i.test(v.lang); })[0] || null;
+  var aviso = document.querySelector(".sigue-leyendo");
+  if (!aviso) return;
+  function revisar() {
+    var falta = document.documentElement.scrollHeight - innerHeight > 400;
+    var arriba = scrollY < 120;
+    aviso.hidden = !falta;
+    aviso.classList.toggle("oculto", !arriba);
   }
-  /* Solo si el dispositivo tiene una voz en español (las voces cargan tarde). */
-  function revisar() { if (vozEs()) boton.hidden = false; }
   revisar();
-  if (voz.addEventListener) voz.addEventListener("voiceschanged", revisar);
-  function bloques() {
-    var art = document.querySelector("article.edicion");
-    var titulo = art.querySelector(".cabecera h1");
-    var partes = [].slice.call(art.querySelectorAll("p, li, h2, h3"))
-      .filter(function (el) {
-        return !el.closest(".cabecera, .plegable, .cierre, figure, nav, .herramientas, .recorrido, .grafico, .avisos, details") &&
-               el.offsetParent !== null && el.textContent.trim();
-      });
-    return (titulo ? [titulo] : []).concat(partes);
-  }
-  function marcar(el) {
-    if (actual) actual.classList.remove("leyendo");
-    actual = el;
-    if (el) { el.classList.add("leyendo"); }
-  }
-  function siguiente() {
-    if (!activo) return;
-    if (i >= cola.length) { terminar(); return; }
-    var el = cola[i++];
-    var u = new SpeechSynthesisUtterance(el.textContent.replace(/\s+/g, " ").trim());
-    var v = vozEs();
-    u.lang = v ? v.lang : "es-CO";
-    if (v) u.voice = v;
-    u.rate = 1;
-    u.onend = siguiente;
-    u.onerror = function () { siguiente(); };
-    marcar(el);
-    voz.speak(u);
-  }
-  function estado(t, pulsado) {
-    boton.innerHTML = '<span aria-hidden="true">' + (pulsado ? "❚❚" : "▶") + "</span> " + t;
-    boton.setAttribute("aria-pressed", pulsado ? "true" : "false");
-  }
-  function terminar() {
-    activo = false; i = 0; voz.cancel(); marcar(null);
-    parar.hidden = true; estado("Escuchar", false);
-  }
-  boton.addEventListener("click", function () {
-    if (!activo) {
-      cola = bloques(); i = 0; activo = true; voz.cancel();
-      parar.hidden = false; estado("Pausar", true); siguiente();
-    } else if (voz.paused) {
-      voz.resume(); estado("Pausar", true);
-    } else {
-      voz.pause(); estado("Seguir", false);
-    }
-  });
-  parar.addEventListener("click", terminar);
-  window.addEventListener("pagehide", function () { voz.cancel(); });
+  addEventListener("scroll", revisar, { passive: true });
+  addEventListener("resize", revisar);
 })();
 </script>
 </body>

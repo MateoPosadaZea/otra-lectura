@@ -1108,6 +1108,7 @@ def pagina_edicion(base, e, ediciones):
 </header>
 {cuerpo_edicion(e)}
 </article>
+{html_sigue_leyendo(e)}
 {html_glosario_flotante(e['glosario'])}
 {html_siguiente(e, ediciones)}"""
     descripcion = descripcion_edicion(e)
@@ -1129,17 +1130,25 @@ def pagina_edicion(base, e, ediciones):
                   compartir=(e["titulo"], rotulo, cats))
 
 
+def html_sigue_leyendo(e):
+    """Aviso abajo a la izquierda al abrir una edición: «Baje para seguir
+    leyendo» (pedido de Mateo, 2026-10-23: «hay que ser lo más obvio
+    posible»). Lo muestra el JavaScript mientras no se ha bajado; sin JS no
+    aparece. Lleva al comienzo del texto."""
+    destino = e["indice_nudos"][0][0] if e["indice_nudos"] else "contenido"
+    return (f'<a class="sigue-leyendo" href="#{destino}" hidden>'
+            f'<span class="sigue-flecha" aria-hidden="true">↓</span> Baje para seguir leyendo</a>')
+
+
 def html_herramientas(e):
-    """Escuchar la edición (voz del propio dispositivo; solo con JavaScript y
-    si el navegador la tiene) y enviarla por WhatsApp (un enlace, sin JS)."""
+    """Enviar la edición por WhatsApp (un enlace, sin JS). El botón «Escuchar»
+    se quitó por ahora (pedido de Mateo, 2026-10-23)."""
     url = f"{SITIO_URL}/ediciones/{e['slug']}.html" if SITIO_URL else f"ediciones/{e['slug']}.html"
     pocas = entradilla(e)
     texto = f"*{e['titulo']}*\n\n" + (f"{pocas}\n\n" if pocas else "") + f"Léala completa en Otra lectura: {url}"
     from urllib.parse import quote
     wa = "https://wa.me/?text=" + quote(texto, safe="")
     return f"""<div class="herramientas">
-<button class="escuchar" type="button" hidden aria-pressed="false"><span aria-hidden="true">▶</span> Escuchar</button>
-<button class="escuchar-parar" type="button" hidden>Detener</button>
 <a class="whatsapp" href="{html.escape(wa)}" target="_blank" rel="noopener">Enviar por WhatsApp</a>
 </div>"""
 

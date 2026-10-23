@@ -441,3 +441,8 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   texto sea blanco… unificarlos». En los botones de categoría de cada
   edición, toda la caja es el enlace y tiene un solo estado al pasar el
   puntero: fondo de tinta y letra clara.
+- 2026-10-23 · Mateo: «un texto que diga baje para seguir leyendo… hay que
+  ser lo más obvio posible» y «quitemos la opción de escuchar por ahora».
+  Al abrir una edición aparece abajo a la izquierda «↓ Baje para seguir
+  leyendo» (lleva al comienzo del texto y se desvanece al empezar a
+  bajar). Se quitó el botón «Escuchar»; queda «Enviar por WhatsApp».

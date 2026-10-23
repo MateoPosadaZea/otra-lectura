@@ -63,8 +63,6 @@
 <p class="aviso-cambios">Revisada el <time datetime="2026-10-16">16 de octubre de 2026</time> · <a href="#actualizacion-1">1 actualización posteriores a la publicación</a></p>
 <figure class="grabado"><img src="../imagenes/2026-10-07-consulta-previa.webp" width="1000" height="301" alt="Dibujo a tinta de una canoa larga de madera, tallada en un solo tronco, con las puntas levantadas; encima, un remo de pala en forma de hoja." decoding="async"><figcaption>La Guajira, una canoa y un remo de los wayuu, dibujados durante la misión del explorador francés Joseph de Brettes, 1892<a class="grabado-credito" href="https://commons.wikimedia.org/wiki/File%3AColombie._Venezuela._%28...%29%2C_Indiens_goajires_%28pirogue%29_-_%28mission%29_J._de_Brettes_%3B_%28dessin%29_%3B_%28dessin_reprod._par%29_Molt%C3%A9ni_%28pour_la_conf%C3%A9rence_donn%C3%A9e_par%29_J._de_Brettes_-_btv1b59647444.jpg">Dibujo de la misión de Joseph de Brettes, reproducido por Molteni, 1892 · Dominio público, Biblioteca Nacional de Francia, vía Wikimedia Commons</a></figcaption></figure>
 <div class="herramientas">
-<button class="escuchar" type="button" hidden aria-pressed="false"><span aria-hidden="true">▶</span> Escuchar</button>
-<button class="escuchar-parar" type="button" hidden>Detener</button>
 <a class="whatsapp" href="https://wa.me/?text=%2AConsultas%20previas%20sin%20inventario%3A%20el%20Gobierno%20promete%20destrabarlas%20en%2090%20d%C3%ADas%2A%0A%0AAntes%20de%20una%20carretera%2C%20una%20mina%20o%20una%20l%C3%ADnea%20de%20energ%C3%ADa%20en%20territorio%20de%20comunidades%20%C3%A9tnicas%2C%20el%20Estado%20debe%20consultarlas%3A%20es%20un%20derecho.%20Miles%20de%20consultas%20siguen%20abiertas%20por%20a%C3%B1os%2C%20y%20el%20Gobierno%20ni%20siquiera%20sabe%20cu%C3%A1ntas%20hay.%20Ahora%20promete%20destrabarlas%20en%2090%20d%C3%ADas%20sin%20pasar%20por%20encima%20del%20derecho.%0A%0AL%C3%A9ala%20completa%20en%20Otra%20lectura%3A%20https%3A%2F%2Fotralectura.co%2Fediciones%2F2026-10-07-consulta-previa.html" target="_blank" rel="noopener">Enviar por WhatsApp</a>
 </div>
 <nav class="indice-edicion" aria-label="En esta edición"><p>En esta edición</p><ol><li><a href="#consulta-previa-represada">Consultas previas sin inventario: el Gobierno promete destrabarlas en 90 días</a></li><li><a href="#para-conversar">Para conversar</a></li></ol></nav>
@@ -295,6 +293,7 @@ Dejusticia.</p></details>
 </section>
 
 </article>
+<a class="sigue-leyendo" href="#consulta-previa-represada" hidden><span class="sigue-flecha" aria-hidden="true">↓</span> Baje para seguir leyendo</a>
 <aside class="glosario-flotante" aria-label="Glosario de la edición">
 <button type="button" class="cerrar-panel" aria-label="Cerrar el glosario" hidden>×</button>
 <details open>
@@ -755,72 +754,20 @@ Dejusticia.</p></details>
     if (activo && cambiados().length) { ev.preventDefault(); ev.returnValue = ""; }
   });
 })();
-/* Escuchar la edición con la voz del propio dispositivo (Web Speech API).
-   Sin costo ni servicios externos; si el navegador no la tiene, el botón no
-   aparece. Lee párrafo por párrafo y marca el que va leyendo. */
+/* «Baje para seguir leyendo»: aparece al abrir una edición y se va en
+   cuanto el lector empieza a bajar. */
 (function () {
-  var boton = document.querySelector(".escuchar"), parar = document.querySelector(".escuchar-parar");
-  if (!boton || !("speechSynthesis" in window) || !window.SpeechSynthesisUtterance) return;
-  var voz = speechSynthesis, cola = [], i = 0, activo = false, actual = null;
-  function vozEs() {
-    var vs = voz.getVoices();
-    return vs.filter(function (v) { return /^es[-_]CO/i.test(v.lang); })[0] ||
-           vs.filter(function (v) { return /^es[-_](419|MX|US)/i.test(v.lang); })[0] ||
-           vs.filter(function (v) { return /^es/i.test(v.lang); })[0] || null;
+  var aviso = document.querySelector(".sigue-leyendo");
+  if (!aviso) return;
+  function revisar() {
+    var falta = document.documentElement.scrollHeight - innerHeight > 400;
+    var arriba = scrollY < 120;
+    aviso.hidden = !falta;
+    aviso.classList.toggle("oculto", !arriba);
   }
-  /* Solo si el dispositivo tiene una voz en español (las voces cargan tarde). */
-  function revisar() { if (vozEs()) boton.hidden = false; }
   revisar();
-  if (voz.addEventListener) voz.addEventListener("voiceschanged", revisar);
-  function bloques() {
-    var art = document.querySelector("article.edicion");
-    var titulo = art.querySelector(".cabecera h1");
-    var partes = [].slice.call(art.querySelectorAll("p, li, h2, h3"))
-      .filter(function (el) {
-        return !el.closest(".cabecera, .plegable, .cierre, figure, nav, .herramientas, .recorrido, .grafico, .avisos, details") &&
-               el.offsetParent !== null && el.textContent.trim();
-      });
-    return (titulo ? [titulo] : []).concat(partes);
-  }
-  function marcar(el) {
-    if (actual) actual.classList.remove("leyendo");
-    actual = el;
-    if (el) { el.classList.add("leyendo"); }
-  }
-  function siguiente() {
-    if (!activo) return;
-    if (i >= cola.length) { terminar(); return; }
-    var el = cola[i++];
-    var u = new SpeechSynthesisUtterance(el.textContent.replace(/\s+/g, " ").trim());
-    var v = vozEs();
-    u.lang = v ? v.lang : "es-CO";
-    if (v) u.voice = v;
-    u.rate = 1;
-    u.onend = siguiente;
-    u.onerror = function () { siguiente(); };
-    marcar(el);
-    voz.speak(u);
-  }
-  function estado(t, pulsado) {
-    boton.innerHTML = '<span aria-hidden="true">' + (pulsado ? "❚❚" : "▶") + "</span> " + t;
-    boton.setAttribute("aria-pressed", pulsado ? "true" : "false");
-  }
-  function terminar() {
-    activo = false; i = 0; voz.cancel(); marcar(null);
-    parar.hidden = true; estado("Escuchar", false);
-  }
-  boton.addEventListener("click", function () {
-    if (!activo) {
-      cola = bloques(); i = 0; activo = true; voz.cancel();
-      parar.hidden = false; estado("Pausar", true); siguiente();
-    } else if (voz.paused) {
-      voz.resume(); estado("Pausar", true);
-    } else {
-      voz.pause(); estado("Seguir", false);
-    }
-  });
-  parar.addEventListener("click", terminar);
-  window.addEventListener("pagehide", function () { voz.cancel(); });
+  addEventListener("scroll", revisar, { passive: true });
+  addEventListener("resize", revisar);
 })();
 </script>
 </body>

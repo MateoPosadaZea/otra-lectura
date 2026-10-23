@@ -63,8 +63,6 @@
 <p class="aviso-cambios">Revisada el <time datetime="2026-10-13">13 de octubre de 2026</time> · <a href="#actualizacion-1">1 actualización y 1 corrección posteriores a la publicación</a></p>
 <figure class="grabado"><img src="../imagenes/2026-10-01-radar.webp" width="1200" height="943" alt="Acuarela de 1860: en el mercado de Bogotá, una vendedora sentada entre bultos de papas atiende a dos mujeres, una con sombrilla y otra con sombrero de paja que escoge papas de un costal; al fondo, más gente del mercado." decoding="async"><figcaption>Bogotá, vendedoras de papas en el mercado, 1860<a class="grabado-credito" href="https://commons.wikimedia.org/wiki/File:Vendedoras_de_Papas_by_Ram%C3%B3n_Torres_M%C3%A9ndez.jpg">Acuarela de Ramón Torres Méndez, 1860 · Dominio público, vía Wikimedia Commons</a></figcaption></figure>
 <div class="herramientas">
-<button class="escuchar" type="button" hidden aria-pressed="false"><span aria-hidden="true">▶</span> Escuchar</button>
-<button class="escuchar-parar" type="button" hidden>Detener</button>
 <a class="whatsapp" href="https://wa.me/?text=%2AEl%20desempleo%20sube%20a%209%2C4%25%20y%20la%20informalidad%20casi%20no%20se%20mueve%2A%0A%0AEn%20agosto%2C%20m%C3%A1s%20colombianos%20se%20quedaron%20sin%20trabajo%2C%20y%20m%C3%A1s%20de%20la%20mitad%20de%20los%20que%20trabajan%20lo%20hace%20sin%20contrato%20ni%20aportes%20a%20pensi%C3%B3n.%20Eso%20deja%20a%20millones%20sin%20protecci%C3%B3n%20hoy%20y%20sin%20pensi%C3%B3n%20ma%C3%B1ana.%20En%20diciembre%20se%20decide%20el%20salario%20m%C3%ADnimo%20de%202027%2C%20que%20toca%20justo%20este%20problema.%0A%0AL%C3%A9ala%20completa%20en%20Otra%20lectura%3A%20https%3A%2F%2Fotralectura.co%2Fediciones%2F2026-10-01-radar.html" target="_blank" rel="noopener">Enviar por WhatsApp</a>
 </div>
 <nav class="indice-edicion" aria-label="En esta edición"><p>En esta edición</p><ol><li><a href="#informalidad-empleo">El desempleo sube a 9,4% y la informalidad casi no se mueve</a></li><li><a href="#para-conversar">Para conversar</a></li></ol></nav>
@@ -350,6 +348,7 @@ alto en 20 meses y la informalidad sigue casi en el mismo lugar.</p></details>
 </section>
 
 </article>
+<a class="sigue-leyendo" href="#informalidad-empleo" hidden><span class="sigue-flecha" aria-hidden="true">↓</span> Baje para seguir leyendo</a>
 <aside class="glosario-flotante" aria-label="Glosario de la edición">
 <button type="button" class="cerrar-panel" aria-label="Cerrar el glosario" hidden>×</button>
 <details open>
@@ -809,72 +808,20 @@ alto en 20 meses y la informalidad sigue casi en el mismo lugar.</p></details>
     if (activo && cambiados().length) { ev.preventDefault(); ev.returnValue = ""; }
   });
 })();
-/* Escuchar la edición con la voz del propio dispositivo (Web Speech API).
-   Sin costo ni servicios externos; si el navegador no la tiene, el botón no
-   aparece. Lee párrafo por párrafo y marca el que va leyendo. */
+/* «Baje para seguir leyendo»: aparece al abrir una edición y se va en
+   cuanto el lector empieza a bajar. */
 (function () {
-  var boton = document.querySelector(".escuchar"), parar = document.querySelector(".escuchar-parar");
-  if (!boton || !("speechSynthesis" in window) || !window.SpeechSynthesisUtterance) return;
-  var voz = speechSynthesis, cola = [], i = 0, activo = false, actual = null;
-  function vozEs() {
-    var vs = voz.getVoices();
-    return vs.filter(function (v) { return /^es[-_]CO/i.test(v.lang); })[0] ||
-           vs.filter(function (v) { return /^es[-_](419|MX|US)/i.test(v.lang); })[0] ||
-           vs.filter(function (v) { return /^es/i.test(v.lang); })[0] || null;
+  var aviso = document.querySelector(".sigue-leyendo");
+  if (!aviso) return;
+  function revisar() {
+    var falta = document.documentElement.scrollHeight - innerHeight > 400;
+    var arriba = scrollY < 120;
+    aviso.hidden = !falta;
+    aviso.classList.toggle("oculto", !arriba);
   }
-  /* Solo si el dispositivo tiene una voz en español (las voces cargan tarde). */
-  function revisar() { if (vozEs()) boton.hidden = false; }
   revisar();
-  if (voz.addEventListener) voz.addEventListener("voiceschanged", revisar);
-  function bloques() {
-    var art = document.querySelector("article.edicion");
-    var titulo = art.querySelector(".cabecera h1");
-    var partes = [].slice.call(art.querySelectorAll("p, li, h2, h3"))
-      .filter(function (el) {
-        return !el.closest(".cabecera, .plegable, .cierre, figure, nav, .herramientas, .recorrido, .grafico, .avisos, details") &&
-               el.offsetParent !== null && el.textContent.trim();
-      });
-    return (titulo ? [titulo] : []).concat(partes);
-  }
-  function marcar(el) {
-    if (actual) actual.classList.remove("leyendo");
-    actual = el;
-    if (el) { el.classList.add("leyendo"); }
-  }
-  function siguiente() {
-    if (!activo) return;
-    if (i >= cola.length) { terminar(); return; }
-    var el = cola[i++];
-    var u = new SpeechSynthesisUtterance(el.textContent.replace(/\s+/g, " ").trim());
-    var v = vozEs();
-    u.lang = v ? v.lang : "es-CO";
-    if (v) u.voice = v;
-    u.rate = 1;
-    u.onend = siguiente;
-    u.onerror = function () { siguiente(); };
-    marcar(el);
-    voz.speak(u);
-  }
-  function estado(t, pulsado) {
-    boton.innerHTML = '<span aria-hidden="true">' + (pulsado ? "❚❚" : "▶") + "</span> " + t;
-    boton.setAttribute("aria-pressed", pulsado ? "true" : "false");
-  }
-  function terminar() {
-    activo = false; i = 0; voz.cancel(); marcar(null);
-    parar.hidden = true; estado("Escuchar", false);
-  }
-  boton.addEventListener("click", function () {
-    if (!activo) {
-      cola = bloques(); i = 0; activo = true; voz.cancel();
-      parar.hidden = false; estado("Pausar", true); siguiente();
-    } else if (voz.paused) {
-      voz.resume(); estado("Pausar", true);
-    } else {
-      voz.pause(); estado("Seguir", false);
-    }
-  });
-  parar.addEventListener("click", terminar);
-  window.addEventListener("pagehide", function () { voz.cancel(); });
+  addEventListener("scroll", revisar, { passive: true });
+  addEventListener("resize", revisar);
 })();
 </script>
 </body>

@@ -63,8 +63,6 @@
 <p class="aviso-cambios">Revisada el <time datetime="2026-10-22">22 de octubre de 2026</time> · <a href="#actualizacion-1">1 actualización posteriores a la publicación</a></p>
 <figure class="grabado"><img src="../imagenes/2026-10-20-radar.webp" width="1200" height="1524" alt="Retrato en grabado de un hombre joven, de pie y de medio cuerpo, con el cabello rizado, corbatín blanco, chaleco y levita oscura. Tiene la mano derecha en la cintura y la izquierda apoyada sobre una mesa con un libro; detrás cuelga una cortina." decoding="async"><figcaption>Robert Peel, el ministro británico que en 1829 impulsó la ley que creó la Policía Metropolitana de Londres, en un grabado de 1836<a class="grabado-credito" href="https://commons.wikimedia.org/wiki/File%3A1837-10-Sir_Robert_Peel.png">Grabado de John Cochran, 1836, a partir de un retrato de Thomas Lawrence · Dominio público (CC0), vía Wikimedia Commons</a></figcaption></figure>
 <div class="herramientas">
-<button class="escuchar" type="button" hidden aria-pressed="false"><span aria-hidden="true">▶</span> Escuchar</button>
-<button class="escuchar-parar" type="button" hidden>Detener</button>
 <a class="whatsapp" href="https://wa.me/?text=%2AUn%20detenido%20muri%C3%B3%20tras%20descargas%20de%20t%C3%A1ser%20y%20hay%20cuatro%20polic%C3%ADas%20capturados%2A%0A%0ADonovan%20Balanta%2C%20de%2034%20a%C3%B1os%2C%20muri%C3%B3%20en%20septiembre%20tras%20ser%20detenido%20en%20Soacha%3B%20seg%C3%BAn%20la%20Fiscal%C3%ADa%2C%20recibi%C3%B3%20golpes%20y%20descargas%20de%20t%C3%A1ser%20ya%20esposado.%20Cuatro%20polic%C3%ADas%20fueron%20capturados%2C%20seis%20a%C3%B1os%20despu%C3%A9s%20de%20la%20muerte%20de%20Javier%20Ord%C3%B3%C3%B1ez%20en%20un%20caso%20parecido.%20En%20Louisville%20%28Estados%20Unidos%29%2C%20un%20entrenamiento%20para%20bajar%20la%E2%80%A6%0A%0AL%C3%A9ala%20completa%20en%20Otra%20lectura%3A%20https%3A%2F%2Fotralectura.co%2Fediciones%2F2026-10-20-radar.html" target="_blank" rel="noopener">Enviar por WhatsApp</a>
 </div>
 <nav class="indice-edicion" aria-label="En esta edición"><p>En esta edición</p><ol><li><a href="#uso-fuerza-policial-taser">Un detenido murió tras descargas de táser y hay cuatro policías capturados</a></li><li><a href="#para-conversar">Para conversar</a></li></ol></nav>
@@ -390,6 +388,7 @@ KrimDok de la Universidad de Tubinga.</p></details>
 </section>
 
 </article>
+<a class="sigue-leyendo" href="#uso-fuerza-policial-taser" hidden><span class="sigue-flecha" aria-hidden="true">↓</span> Baje para seguir leyendo</a>
 <aside class="glosario-flotante" aria-label="Glosario de la edición">
 <button type="button" class="cerrar-panel" aria-label="Cerrar el glosario" hidden>×</button>
 <details open>
@@ -847,72 +846,20 @@ KrimDok de la Universidad de Tubinga.</p></details>
     if (activo && cambiados().length) { ev.preventDefault(); ev.returnValue = ""; }
   });
 })();
-/* Escuchar la edición con la voz del propio dispositivo (Web Speech API).
-   Sin costo ni servicios externos; si el navegador no la tiene, el botón no
-   aparece. Lee párrafo por párrafo y marca el que va leyendo. */
+/* «Baje para seguir leyendo»: aparece al abrir una edición y se va en
+   cuanto el lector empieza a bajar. */
 (function () {
-  var boton = document.querySelector(".escuchar"), parar = document.querySelector(".escuchar-parar");
-  if (!boton || !("speechSynthesis" in window) || !window.SpeechSynthesisUtterance) return;
-  var voz = speechSynthesis, cola = [], i = 0, activo = false, actual = null;
-  function vozEs() {
-    var vs = voz.getVoices();
-    return vs.filter(function (v) { return /^es[-_]CO/i.test(v.lang); })[0] ||
-           vs.filter(function (v) { return /^es[-_](419|MX|US)/i.test(v.lang); })[0] ||
-           vs.filter(function (v) { return /^es/i.test(v.lang); })[0] || null;
+  var aviso = document.querySelector(".sigue-leyendo");
+  if (!aviso) return;
+  function revisar() {
+    var falta = document.documentElement.scrollHeight - innerHeight > 400;
+    var arriba = scrollY < 120;
+    aviso.hidden = !falta;
+    aviso.classList.toggle("oculto", !arriba);
   }
-  /* Solo si el dispositivo tiene una voz en español (las voces cargan tarde). */
-  function revisar() { if (vozEs()) boton.hidden = false; }
   revisar();
-  if (voz.addEventListener) voz.addEventListener("voiceschanged", revisar);
-  function bloques() {
-    var art = document.querySelector("article.edicion");
-    var titulo = art.querySelector(".cabecera h1");
-    var partes = [].slice.call(art.querySelectorAll("p, li, h2, h3"))
-      .filter(function (el) {
-        return !el.closest(".cabecera, .plegable, .cierre, figure, nav, .herramientas, .recorrido, .grafico, .avisos, details") &&
-               el.offsetParent !== null && el.textContent.trim();
-      });
-    return (titulo ? [titulo] : []).concat(partes);
-  }
-  function marcar(el) {
-    if (actual) actual.classList.remove("leyendo");
-    actual = el;
-    if (el) { el.classList.add("leyendo"); }
-  }
-  function siguiente() {
-    if (!activo) return;
-    if (i >= cola.length) { terminar(); return; }
-    var el = cola[i++];
-    var u = new SpeechSynthesisUtterance(el.textContent.replace(/\s+/g, " ").trim());
-    var v = vozEs();
-    u.lang = v ? v.lang : "es-CO";
-    if (v) u.voice = v;
-    u.rate = 1;
-    u.onend = siguiente;
-    u.onerror = function () { siguiente(); };
-    marcar(el);
-    voz.speak(u);
-  }
-  function estado(t, pulsado) {
-    boton.innerHTML = '<span aria-hidden="true">' + (pulsado ? "❚❚" : "▶") + "</span> " + t;
-    boton.setAttribute("aria-pressed", pulsado ? "true" : "false");
-  }
-  function terminar() {
-    activo = false; i = 0; voz.cancel(); marcar(null);
-    parar.hidden = true; estado("Escuchar", false);
-  }
-  boton.addEventListener("click", function () {
-    if (!activo) {
-      cola = bloques(); i = 0; activo = true; voz.cancel();
-      parar.hidden = false; estado("Pausar", true); siguiente();
-    } else if (voz.paused) {
-      voz.resume(); estado("Pausar", true);
-    } else {
-      voz.pause(); estado("Seguir", false);
-    }
-  });
-  parar.addEventListener("click", terminar);
-  window.addEventListener("pagehide", function () { voz.cancel(); });
+  addEventListener("scroll", revisar, { passive: true });
+  addEventListener("resize", revisar);
 })();
 </script>
 </body>
