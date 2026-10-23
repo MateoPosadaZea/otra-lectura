@@ -432,14 +432,14 @@ footer.sitio .cabezote { font-size: 1.6rem; color: var(--tinta); }
   gap: 1rem;
   margin-top: 3.5rem;
   padding-top: 0.8rem;
-  border-top: 3px double var(--tinta);
+  border-top: 1px solid var(--tinta);
   font-family: var(--serif);
   font-size: 1.2em;
 }
 .entre-ediciones a { text-decoration: none; }
 .entre-ediciones a[rel="next"] { margin-left: auto; text-align: right; }
 
-.indice { list-style: none; padding: 0; margin: 0; border-top: 3px double var(--tinta); }
+.indice { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--tinta); }
 .indice > li { padding: 1.6rem 0 1.7rem; border-bottom: 1px solid var(--tinta); text-align: center; }
 .indice .fecha {
   margin: 0 0 0.5rem;
@@ -962,7 +962,7 @@ html:not(.js) .barra-fija { display: none; }
 .archivo-mes h2 {
   margin: 0 0 0.4rem;
   padding-bottom: 0.5rem;
-  border-bottom: 3px double var(--tinta);
+  border-bottom: 1px solid var(--tinta);
   font: 400 1.9em/1.1 var(--serif);
   text-align: center;
 }
@@ -1151,7 +1151,7 @@ html:not(.js) .barra-fija { display: none; }
 .siguiente {
   margin: 3.5rem 0 0;
   padding: 1.6rem 0 0;
-  border-top: 3px double var(--tinta);
+  border-top: 1px solid var(--tinta);
   text-align: center;
 }
 .siguiente-pregunta {
@@ -1276,7 +1276,7 @@ html:not(.js) .barra-fija { display: none; }
 /* Candidatas: archivo de cruces con Mattriz */
 .cruces { max-width: var(--medida); margin: 3.5rem auto 0; }
 .cruces h2 { margin: 0 0 0.5rem; font: 400 1.8em/1.1 var(--serif); text-align: center; }
-.cruces-lista { list-style: none; margin: 1.2rem 0 0; padding: 0; border-top: 3px double var(--tinta); }
+.cruces-lista { list-style: none; margin: 1.2rem 0 0; padding: 0; border-top: 1px solid var(--tinta); }
 .cruces-lista li { padding: 1rem 0; border-bottom: 1px solid var(--filete); }
 .cruces-lista .origen { margin: 0 0 0.3rem; font-size: 0.85em; color: var(--tenue); }
 .cruces-lista p { margin: 0; }
@@ -1832,7 +1832,7 @@ main:has(> .primera) {
 .pp-banda-sec {
   margin: 3rem 0 1.6rem;
   padding: 0.6rem 0 0.5rem;
-  border-top: 3px double var(--tinta);
+  border-top: 1px solid var(--tinta);
   border-bottom: 1px solid var(--tinta);
   text-align: center;
   font: 400 clamp(1.7rem, 1.3rem + 1.2vw, 2.4rem)/1.05 var(--serif);
@@ -1885,7 +1885,7 @@ main:has(> .primera) {
 .plana-seguir a:hover, .plana-seguir a:focus-visible { text-decoration: underline; }
 .pp-nota .reticula-imagen { margin: 0 0 0.9rem; }
 .pp-nota .reticula-imagen img { aspect-ratio: 3 / 2; object-fit: cover; }
-.primera .dias-anteriores { margin-top: 0.6rem; padding-top: 1rem; border-top: 3px double var(--tinta); }
+.primera .dias-anteriores { margin-top: 0.6rem; padding-top: 1rem; border-top: 1px solid var(--tinta); }
 
 
 @media (min-width: 640px) {
