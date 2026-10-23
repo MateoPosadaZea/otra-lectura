@@ -92,8 +92,10 @@ OMS, CEPAL → oficial; etc.). Al final de cada edición se muestra el conteo
 
 - **Portada** (`index.html`): la primera plana, a todo el ancho y directo
   a los titulares. Abre la edición del día con titular grande; al lado, en
-  negativo, «Lo que se decide» (las próximas decisiones con fecha, del campo
-  `decisiones`). Arriba va sola la edición del día. Debajo, «Días
+  negativo, «Lo que viene»: las próximas fechas, mezclando decisiones
+  (campo `decisiones`) con otras fechas que no son políticas (campo
+  `viene`: `fecha`, `que`, `quien` opcional); si hay de estas, las
+  decisiones ocupan como máximo dos de los cuatro puestos. Arriba va sola la edición del día. Debajo, «Días
   anteriores»: un calendario de un mes a la vista junto a las notas
   recientes, en filas que se leen de izquierda a derecha, de la más reciente
   a la más antigua (sin los repasos de la semana). Tocar un día del

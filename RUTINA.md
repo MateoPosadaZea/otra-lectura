@@ -72,6 +72,15 @@ con qué contrapeso y qué patrón histórico ayuda a entenderlo.
   - "Para conversar": una pregunta de fondo que conecte dos o más temas
     de la semana.
   - Máximo unas 1.000 palabras. Sin Asombro nuevo si no hace falta.
+- **Sábados: ciencia y tecnología** (desde el 2026-10-24, pedido de Mateo:
+  «más noticias de ciencia, deporte, tecnología, que no solo fuera
+  política»). Salvo el primer sábado del mes («Imaginemos»), el sábado se
+  dedica a un tema de ciencia o tecnología, o a una historia del deporte
+  que vaya más allá del resultado. Edición más liviana (unas 600 palabras
+  visibles), que deje algo para contar en la casa: un descubrimiento, una
+  técnica que cambia la vida diaria, un hito. Pasa los mismos filtros
+  (pregunta de entrada y la puerta que le corresponda, casi siempre avance
+  o cambio de fondo) y cuenta para la mezcla de la semana.
 - **Primer sábado de cada mes: "Imaginemos"** (pedido de Mateo,
   2026-09-29, inspirado en *Imaginar la democracia*). Ese día no se busca
   un tema nuevo: se toma un nudo ya tratado (el de mayor puntaje o el que
@@ -184,6 +193,8 @@ secundarias, no «La semana» del viernes) debe haber como mínimo:
 - **un avance**;
 - **un cambio de fondo**;
 - **un tema del mundo** (puede ser el mismo cambio de fondo);
+- **un tema de ciencia o tecnología** (desde el 2026-10-24; puede ser el
+  mismo avance o cambio de fondo);
 
 y como máximo **tres nudos**. Antes de elegir, mirar el campo `puerta`
 de las ediciones desde el lunes: si quedan pocos días para cumplir la
@@ -275,7 +286,9 @@ nudo):
 | `salud` | Salud | salud pública, medicamentos, sistemas de salud |
 | `ambiente` | Ambiente | clima, agua, energía, minería, biodiversidad |
 | `sociedad` | Sociedad | justicia, seguridad, Estado, ciudades, territorio, educación |
-| `ciencia` | Ciencia | ciencia, tecnología, inteligencia artificial, descubrimientos |
+| `ciencia` | Ciencia | ciencia, descubrimientos, investigación, espacio |
+| `tecnologia` | Tecnología | tecnología, inteligencia artificial, internet, transición energética |
+| `deporte` | Deporte | historias e hitos del deporte, más allá de los resultados |
 
 `temas` sigue siendo libre y específico (sirve para no repetir); las
 categorías son para navegar el archivo.
@@ -400,6 +413,13 @@ discutir en la sobremesa.
   palabras cada una). Los rótulos son las posturas mismas, no partidos ni
   personas. No se dice cuál gana: lo decide el lector. Si el tema no
   divide (un dato técnico, un desastre), se omite. El humor no va aquí.
+- **Lo que viene (campo `viene`, desde el 2026-10-24):** fechas que vienen
+  y no son decisiones de una autoridad: una campaña de vacunación, el
+  inicio de un servicio, un lanzamiento, una conferencia científica, un
+  evento deportivo con historia. Cada entrada lleva `fecha`, `que` (una
+  frase) y, si aplica, `quien`. La portada las mezcla con las decisiones
+  en el recuadro «Lo que viene», para que no sea solo política. Solo
+  fechas verificadas con fuente.
 - **Seguimiento de decisiones**: cada edición lleva en el frontmatter el
   campo `decisiones` con las decisiones pendientes que cuenta la sección
   «Quién decide y cuándo» (`nudo`, `quien`, `que`, `plazo` si hay fecha,

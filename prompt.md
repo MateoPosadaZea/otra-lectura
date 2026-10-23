@@ -323,3 +323,22 @@ sección cuando choquen:
 - Excepción: el cierre y el glosario mantienen registro directo. El
   cierre devuelve una decisión o una pregunta abierta, nunca un llamado
   a la acción.
+
+## Más allá de la política (desde el 2026-10-24)
+
+Pedido de Mateo, a partir de la idea de un lector: «más noticias de
+ciencia, deporte, tecnología, que no solo fuera política». La puerta del
+nudo empuja hacia decisiones de gobierno; las otras puertas (avance y
+cambio de fondo) dejan entrar con naturalidad la ciencia y la tecnología.
+
+- **Ciencia y tecnología:** al menos un tema por semana (RUTINA.md, 2b), y
+  los sábados son su día. Lo que se busca: qué cambia en la vida diaria,
+  qué se probó y con qué evidencia, qué falta. Sin entusiasmo de
+  comunicado de prensa: «Pero ojo» va siempre.
+- **Deporte:** entra cuando la historia es más grande que el partido: un
+  hito, una trayectoria, la brecha de pago en el deporte femenino, las
+  apuestas en línea, la plata pública en escenarios, la salud de los
+  deportistas, cómo un deporte cambió un barrio. Nunca resultados ni
+  previas de partidos: eso ya lo cuentan todos.
+- **«Lo que viene»:** además de las decisiones, cada edición puede traer
+  fechas que no son políticas en el campo `viene` (RUTINA.md, sección 4).

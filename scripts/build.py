@@ -97,13 +97,19 @@ MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
 #   salud     → salud pública, medicamentos, sistemas de salud
 #   ambiente  → clima, agua, energía, minería, biodiversidad
 #   sociedad  → justicia, seguridad, Estado, ciudades, territorio, educación
-#   ciencia   → ciencia, tecnología, inteligencia artificial, descubrimientos
+#   ciencia     → ciencia, descubrimientos, investigación, espacio
+#   tecnologia  → tecnología, inteligencia artificial, internet, energía nueva
+#   deporte     → historias e hitos del deporte, más allá de los resultados
+# (Tecnología y Deporte desde el 2026-10-23; una categoría aparece en el menú
+# cuando tiene al menos una edición.)
 CATEGORIAS = {
     "economia": "Economía",
     "salud": "Salud",
     "ambiente": "Ambiente",
     "sociedad": "Sociedad",
     "ciencia": "Ciencia",
+    "tecnologia": "Tecnología",
+    "deporte": "Deporte",
 }
 
 # Explicación corta bajo la banda de cada carril (el markdown dice "Carril 1: Radar";
@@ -123,7 +129,7 @@ PUERTAS = ["nudo", "avance", "fondo"]
 
 CAMPOS_LISTA = ["temas", "categorias", "lugares", "cruce_mattriz", "seguimiento"]
 CAMPOS_CONOCIDOS = {"fecha", "edicion", "titulo", "slug", "nota",
-                    "actualizaciones", "correcciones", "fuentes", "decisiones", "grabado", "puerta",
+                    "actualizaciones", "correcciones", "fuentes", "decisiones", "grabado", "puerta", "viene",
                     *CAMPOS_LISTA}
 
 # Seguimiento de decisiones (campo `decisiones`): quién decide qué y para
@@ -358,6 +364,13 @@ def validar(meta, ruta):
             "incumplidos": _entero_no_negativo(d.get("incumplidos"), f"decisiones[{i}].incumplidos"),
         })
     datos["decisiones"] = decisiones
+    # Fechas que vienen y no son decisiones (una campaña, un lanzamiento, un
+    # evento científico o deportivo): van al recuadro «Lo que viene».
+    datos["viene"] = [
+        {"fecha": _fecha(v.get("fecha"), f"viene[{i}].fecha"),
+         "que": _texto(v.get("que"), f"viene[{i}].que"),
+         "quien": _texto(v.get("quien"), f"viene[{i}].quien", requerido=False)}
+        for i, v in enumerate(_lista_mapas(meta.get("viene"), "viene", ["fecha", "que", "quien"]), 1)]
     return datos
 
 
@@ -1215,11 +1228,17 @@ def _ante_nota(e):
     return f'<time datetime="{e["fecha"]}">{fecha}</time>' + (f" · {html.escape(seccion)}" if seccion else "")
 
 
+DECISIONES_EN_RECUADRO = 2
+
+
 def html_recuadro_decisiones(ediciones, raiz="", cuantas=4):
-    """Recuadro en negativo de la primera plana: las próximas decisiones con
-    fecha sobre los temas que hemos contado, la más cercana primero."""
+    """Recuadro en negativo de la primera plana: «Lo que viene», las próximas
+    fechas de los temas que hemos contado, la más cercana primero. Mezcla
+    decisiones (casi siempre políticas) con otras fechas (campo `viene`):
+    si hay de las otras, las decisiones ocupan como máximo dos de cuatro
+    puestos (pedido de Mateo, 2026-10-23: «que no solo fuera política»)."""
     hoy = date.today().isoformat()
-    proximas, vistas = [], set()
+    decisiones, vistas = [], set()
     for d, e in sorted(((d, e) for e in ediciones for d in e["decisiones"]
                         if d["estado"] == "pendiente" and d["plazo"] and d["plazo"] >= hoy),
                        key=lambda x: (x[0]["plazo"], x[1]["fecha"])):
@@ -1227,11 +1246,20 @@ def html_recuadro_decisiones(ediciones, raiz="", cuantas=4):
         if clave in vistas:
             continue
         vistas.add(clave)
-        proximas.append((d, e))
+        decisiones.append(({"plazo": d["plazo"], "quien": d["quien"], "que": d["que"]}, e))
+    otras = sorted((({"plazo": v["fecha"], "quien": v["quien"] or "Para el calendario", "que": v["que"]}, e)
+                    for e in ediciones for v in e["viene"] if v["fecha"] >= hoy),
+                   key=lambda x: (x[0]["plazo"], x[1]["fecha"]))
+    if otras:
+        cupo = max(DECISIONES_EN_RECUADRO, cuantas - len(otras))
+        proximas = sorted(decisiones[:cupo] + otras[:cuantas - min(cupo, len(decisiones))],
+                          key=lambda x: x[0]["plazo"])[:cuantas]
+    else:
+        proximas = decisiones[:cuantas]
     if not proximas:
         return ""
     items = []
-    for d, e in proximas[:cuantas]:
+    for d, e in proximas:
         f = date.fromisoformat(d["plazo"])
         items.append(f"""<li><a href="{raiz}ediciones/{e['slug']}.html">
 <time datetime="{d['plazo']}"><span class="pp-dia">{f.day}</span> {MESES[f.month - 1][:3]}</time>
@@ -1239,7 +1267,7 @@ def html_recuadro_decisiones(ediciones, raiz="", cuantas=4):
 <span class="pp-que">{html.escape(recortar(d['que'], 110))}</span>
 </a></li>""")
     return f"""<aside class="pp-decide" aria-labelledby="pp-decide-titulo">
-<h2 id="pp-decide-titulo">Lo que se decide</h2>
+<h2 id="pp-decide-titulo">Lo que viene</h2>
 <p class="pp-decide-sub">Fechas que vienen en los temas que contamos</p>
 <ol>
 {chr(10).join(items)}

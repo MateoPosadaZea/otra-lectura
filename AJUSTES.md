@@ -406,3 +406,13 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   siempre. En el sitio, cada edición trae «Escuchar» (la voz del propio
   dispositivo, si tiene una en español) y «Enviar por WhatsApp» (titular,
   las tres frases y el enlace).
+- 2026-10-23 · Mateo, con la idea de un amigo: «más noticias de ciencia,
+  deporte, tecnología, que no solo fuera política… el deporte más allá de
+  los resultados, las historias, los hitos». Rige desde el 2026-10-24: la
+  mezcla de la semana pide además un tema de ciencia o tecnología; los
+  sábados (salvo «Imaginemos») son de ciencia y tecnología o de una
+  historia del deporte, más livianos; nuevas categorías Tecnología y
+  Deporte; el recuadro de la portada pasa a «Lo que viene» y mezcla las
+  decisiones con otras fechas (campo `viene`), con máximo dos decisiones
+  de cuatro cuando haya otras (prompt.md, «Más allá de la política»;
+  RUTINA.md, 2 y 2b).

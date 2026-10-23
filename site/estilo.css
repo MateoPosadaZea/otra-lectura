@@ -1771,7 +1771,7 @@ main:has(> .primera) {
 .pp-abre .dia-temas { margin: 0.6rem 0 0; max-width: none; }
 .pp-abre .seguir-leyendo { margin-top: 1.1rem; }
 
-/* Lo que se decide: recuadro en negativo con doble marco. */
+/* Lo que viene (antes «Lo que se decide»): recuadro en negativo con doble marco. */
 .pp-decide {
   margin: 2.2rem 0 0;
   padding: 1.3rem 1.3rem 1.1rem;
