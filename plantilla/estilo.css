@@ -1117,36 +1117,73 @@ html:not(.js) .barra-fija { display: none; }
 .temas-seguidos a { display: inline-block; font-family: var(--serif); font-size: 1.3em; line-height: 1.15; text-decoration: none; }
 .temas-seguidos span { display: block; margin-top: 0.3rem; color: var(--tenue); font-size: 0.8em; }
 
-/* --- Cierre plegado (fuentes, nota metodológica) --- */
+/* --- Secciones plegadas: todas con el mismo botón (2026-10-23) ---
+   Una caja del ancho del texto: el título a la izquierda, debajo una pista
+   de qué hay adentro y, a la derecha, «+» (cerrada) o «−» (abierta). */
 
 .plegable details > summary { list-style: none; cursor: pointer; }
 .plegable details > summary::-webkit-details-marker { display: none; }
-.plegable h2 { position: relative; }
-.plegable h2::after { content: " +"; }
-.plegable details[open] h2::after { content: " −"; }
 
-/* Cierre en voz baja: después de Para conversar no hay nada que grite.
-   Fuentes en un recuadro («¿Le interesa ver las fuentes?»); glosario y
-   nota como líneas discretas. */
-.edicion .plegable { margin-top: 1.2rem; }
-.edicion .plegable h2 {
-  margin: 0;
-  padding: 0.3rem 0;
+.edicion .plegable,
+.edicion .fuentes.plegable,
+.edicion .lecturas.plegable,
+.edicion .paradoja.plegable {
+  display: block;
+  max-width: none;
+  margin: 0.9rem 0 0;
+  padding: 0;
+  border: 1px solid var(--tinta);
+  border-radius: 0;
   background: none;
-  color: var(--tenue);
-  font: 600 0.9rem/1.35 var(--sans);
-  letter-spacing: 0.02em;
+  text-align: left;
+}
+.edicion .plegable + .plegable { margin-top: -1px; }
+.edicion .plegable > details > summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 1rem;
+  align-items: center;
+  padding: 0.85rem 1.1rem;
+}
+.edicion .plegable > details > summary:hover,
+.edicion .plegable > details > summary:focus-visible { background: var(--papel-claro); }
+.edicion .plegable h2,
+.edicion .fuentes.plegable h2,
+.edicion .lecturas.plegable h2,
+.edicion .paradoja.plegable h2 {
+  grid-column: 1;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--tinta);
+  font: 700 0.98rem/1.3 var(--sans);
+  letter-spacing: 0;
   text-transform: none;
-  text-align: center;
+  text-align: left;
 }
-.edicion .fuentes.plegable {
-  margin-top: 3rem;
-  padding: 0.9rem 1.25rem;
-  border: 1px solid var(--filete);
-  border-radius: 4px;
+.plegable-pista {
+  grid-column: 1;
+  display: block;
+  margin-top: 0.15rem;
+  font: 400 0.82rem/1.35 var(--sans);
+  color: var(--tenue);
 }
-.edicion .fuentes.plegable h2 { color: var(--tinta); font-size: 1rem; }
-.edicion .plegable details[open] h2 { margin-bottom: 0.6rem; }
+.plegable-signo {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  font: 400 1.5rem/1 var(--sans);
+  color: var(--rojo);
+}
+.plegable-signo::before { content: "+"; }
+.plegable details[open] .plegable-signo::before { content: "−"; }
+.edicion .plegable details[open] > summary { border-bottom: 1px solid var(--filete); }
+.edicion .plegable details > :not(summary) { margin-inline: 1.1rem; }
+.edicion .plegable details[open] { padding-bottom: 0.9rem; }
+.edicion .plegable details > summary + * { margin-top: 0.9rem; }
+/* Contenido de Dos lecturas y la paradoja, ya abiertos. */
+.edicion .lecturas.plegable .plegable-contenido p { margin: 0.9rem 0 0; padding: 0.8rem 0 0; border-top: 1px solid var(--filete); }
+.edicion .paradoja.plegable .plegable-contenido p { margin: 0.9rem 0 0; text-align: left; }
 
 /* --- Siguiente lectura --- */
 
@@ -2121,13 +2158,4 @@ main:has(> .primera) {
 .herramientas [hidden] { display: none; }
 .leyendo { background: color-mix(in srgb, var(--rojo) 12%, transparent); box-shadow: -0.6rem 0 0 color-mix(in srgb, var(--rojo) 12%, transparent); }
 
-/* Lo plegado para quien quiera más: Dos lecturas y la paradoja. */
-.plegable-mas {
-  display: block;
-  margin-bottom: 0.25rem;
-  font: 700 0.62rem/1.3 var(--sans);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--rojo);
-}
-.plegable-extra summary { display: block; }
+

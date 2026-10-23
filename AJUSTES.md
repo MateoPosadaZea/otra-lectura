@@ -427,3 +427,9 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   verificada salió del texto, salió con su marca. Los repasos semanales
   no se tocaron. El build ahora reconoce como rótulo una negrita que
   termina en «?».
+- 2026-10-23 · Mateo: «este botón no se entiende muy bien… se ve
+  desorganizado, si son botones que se vean iguales todos». Todas las
+  secciones plegadas (Dos lecturas, la paradoja, Para leer más, fuentes,
+  glosario, nota metodológica) usan el mismo botón: una caja del ancho del
+  texto con el título, una línea que dice qué hay adentro y «+» o «−» a la
+  derecha. Se quitó el rótulo «Para quien quiera más».

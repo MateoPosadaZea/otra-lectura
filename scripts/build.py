@@ -872,6 +872,28 @@ RE_SECCION_CIERRE = re.compile(
     r'<section class="(carril cierre[^"]*)"([^>]*)>\s*(<h2[^>]*>(.*?)</h2>)(.*?)</section>\n?', re.S)
 
 
+# Todas las secciones plegadas se ven igual (2026-10-23, pedido de Mateo:
+# «si son botones, que se vean iguales todos»): el título y, debajo, una
+# pista corta de qué hay adentro, para que se entienda antes de abrir.
+PISTAS_PLEGABLE = [
+    ("dos lecturas", "Las dos posturas sobre el tema, en su mejor versión"),
+    ("paradoja", "Lo más absurdo de la edición, en dos líneas"),
+    ("para leer más", "Libros para seguir con el tema"),
+    ("para leer mas", "Libros para seguir con el tema"),
+    ("fuentes", "Todos los documentos y datos que usamos"),
+    ("glosario", "Las palabras técnicas, explicadas"),
+    ("metodol", "Cómo se hizo esta edición y qué no pudimos verificar"),
+    ("lo que hic", "Cómo se hizo esta edición y qué no pudimos verificar"),
+]
+
+
+def resumen_plegable(h2, titulo):
+    t = texto_plano(titulo).lower()
+    pista = next((p for clave, p in PISTAS_PLEGABLE if clave in t), "")
+    return (f'<summary>{h2}' + (f'<span class="plegable-pista">{pista}</span>' if pista else "")
+            + '<span class="plegable-signo" aria-hidden="true"></span></summary>')
+
+
 def plegar_cierre(cuerpo):
     def cambiar(m):
         clases, attrs, h2, titulo, resto = m.groups()
@@ -880,15 +902,15 @@ def plegar_cierre(cuerpo):
             return ""
         if ("fuentes" in t or "metodol" in t or "lo que hice" in t or "lo que hicimos" in t
                 or "glosario" in t or "para leer más" in t or "para leer mas" in t):
-            return (f'<section class="{clases} plegable"{attrs}>\n<details>\n<summary>{h2}</summary>'
+            return (f'<section class="{clases} plegable"{attrs}>\n<details>\n{resumen_plegable(h2, titulo)}'
                     f'{resto}</details>\n</section>\n')
         return m.group(0)
     # Para que la edición no canse (2026-10-23): Dos lecturas y la paradoja
     # quedan plegadas, para quien quiera más; se abren con un toque.
     cuerpo = RE_SECCION_EXTRA.sub(
         lambda m: (f'<section class="{m.group(1)} plegable plegable-extra"{m.group(2)}>\n<details>\n'
-                   f'<summary><span class="plegable-mas">Para quien quiera más</span>{m.group(3)}</summary>'
-                   f'{m.group(5)}</details>\n</section>\n'), cuerpo)
+                   f'{resumen_plegable(m.group(3), m.group(4))}'
+                   f'<div class="plegable-contenido">{m.group(5)}</div></details>\n</section>\n'), cuerpo)
     return RE_SECCION_CIERRE.sub(cambiar, cuerpo)
 
 
