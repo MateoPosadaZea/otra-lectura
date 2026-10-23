@@ -1158,8 +1158,8 @@ def html_grabado(e):
         pass
     return (f'<figure class="grabado"><img src="../imagenes/{html.escape(g["archivo"])}"{medidas} '
             f'alt="{html.escape(g["alt"])}" decoding="async">'
-            f'<figcaption>{html.escape(g["pie"])}<br>'
-            f'<a href="{html.escape(g["url"])}">{html.escape(g["credito"])}</a></figcaption></figure>')
+            f'<figcaption>{html.escape(g["pie"])}'
+            f'<a class="grabado-credito" href="{html.escape(g["url"])}">{html.escape(g["credito"])}</a></figcaption></figure>')
 
 
 def html_atajos(e):

@@ -433,3 +433,7 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   glosario, nota metodológica) usan el mismo botón: una caja del ancho del
   texto con el título, una línea que dice qué hay adentro y «+» o «−» a la
   derecha. Se quitó el rótulo «Para quien quiera más».
+- 2026-10-23 · Mateo: «colocar más pequeño el pie de foto, que pueden
+  confundirse con que sea la noticia». El pie del grabado va en letra
+  pequeña y cursiva (ya no en mayúsculas espaciadas), y el crédito, más
+  pequeño aún, en su propia línea.
