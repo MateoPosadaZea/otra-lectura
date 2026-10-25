@@ -13,6 +13,7 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 
 ## Ediciones
 
+- [Lo que pasó esta semana · 19 al 24 de octubre](https://otralectura.co/ediciones/2026-10-25-radar.html): 25 de octubre de 2026.
 - [Mosquitos con una bacteria bajaron el dengue 95% en Medellín y Bello](https://otralectura.co/ediciones/2026-10-24-radar.html): 24 de octubre de 2026.
 - [La semana: cinco temas, lo que cambió y lo que viene](https://otralectura.co/ediciones/2026-10-23-semana.html): 23 de octubre de 2026.
 - [En 2036 Colombia tendrá más mayores de 60 años que niños.](https://otralectura.co/ediciones/2026-10-23-radar.html): 23 de octubre de 2026.
@@ -93,3 +94,4 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 - [La Defensoría contó 130 niños reclutados por grupos armados este año](https://otralectura.co/temas/reclutamiento-ninos-grupos-armados.html)
 - [La tasa de madres adolescentes cayó a menos de la mitad](https://otralectura.co/temas/embarazo-adolescente-descenso.html)
 - [En 2036 Colombia tendrá más mayores de 60 años que niños](https://otralectura.co/temas/envejecimiento-cuidado.html)
+- [Mosquitos con una bacteria bajaron el dengue 95% en Medellín y Bello](https://otralectura.co/temas/wolbachia-dengue-mosquitos.html)
