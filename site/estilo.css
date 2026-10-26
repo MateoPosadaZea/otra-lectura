@@ -629,6 +629,8 @@ nav.categorias span { color: var(--tenue); font-weight: 500; }
 .estado-evaluada { border-style: dashed; }
 
 footer.sitio .pie-enlaces { font-family: var(--sans); }
+footer.sitio .pie-credito { margin-top: 0.8rem; font-family: var(--sans); font-size: 0.72rem; color: var(--tenue); }
+footer.sitio .pie-credito a { color: inherit; }
 
 @media print {
   .glosario-flotante, .glosario-boton { display: none !important; }
