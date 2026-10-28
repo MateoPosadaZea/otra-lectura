@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-10-28-radar-v1@otralectura.co
+DTSTAMP:20261028T000000Z
+DTSTART;VALUE=DATE:20261109
+DTEND;VALUE=DATE:20261110
+SUMMARY:Empieza en Antalya (Turquía) la COP31\, la cumbre del clima de la 
+ ONU\, que va hasta el 20…
+DESCRIPTION:Convención Marco de las Naciones Unidas sobre el Cambio Climá
+ tico: Empieza en Antalya (Turquía) la COP31\, la cumbre del clima de la O
+ NU\, que va hasta el 20 de noviembre.\n\nLo contamos en Otra lectura\, «L
+ as muertes por calor crecen y Colombia aún no tiene alertas»: https://ot
+ ralectura.co/ediciones/2026-10-28-radar.html
+URL:https://otralectura.co/ediciones/2026-10-28-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Empieza en Antalya (Turquía) la COP31\, la cumbre del clima de
+  la ONU\, que va hasta el 20…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

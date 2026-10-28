@@ -6,8 +6,8 @@ METHOD:PUBLISH
 BEGIN:VEVENT
 UID:2026-10-16-radar-d2@otralectura.co
 DTSTAMP:20261028T000000Z
-DTSTART;VALUE=DATE:20261029
-DTEND;VALUE=DATE:20261030
+DTSTART;VALUE=DATE:20261030
+DTEND;VALUE=DATE:20261031
 SUMMARY:Volver a votar los nueve apartes de la reforma pensional que la Cor
  te devolvió por fallas…
 DESCRIPTION:Plenaria de la Cámara de Representantes: Volver a votar los nu
