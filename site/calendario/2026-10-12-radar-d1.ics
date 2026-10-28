@@ -1,0 +1,28 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-10-12-radar-d1@otralectura.co
+DTSTAMP:20261028T000000Z
+DTSTART;VALUE=DATE:20261105
+DTEND;VALUE=DATE:20261106
+SUMMARY:Demostrar ante la Corte Constitucional que al menos 66 de cada 100 
+ niños wayuu…
+DESCRIPTION:Ministerio de Vivienda\, Ciudad y Territorio\, con las alcaldí
+ as de Riohacha\, Manaure\, Maicao y Uribia: Demostrar ante la Corte Consti
+ tucional que al menos 66 de cada 100 niños wayuu identificados en los cua
+ tro municipios reciben agua potable\, con el mínimo de 20 litros diarios 
+ que fijó la Corte.\n\nLo contamos en Otra lectura\, «La Corte solo verif
+ icó agua para 22 de cada 100 niños wayuu»: https://otralectura.co/edici
+ ones/2026-10-12-radar.html
+URL:https://otralectura.co/ediciones/2026-10-12-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Demostrar ante la Corte Constitucional que al menos 66 de cada 
+ 100 niños wayuu…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

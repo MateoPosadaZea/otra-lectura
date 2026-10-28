@@ -1,0 +1,27 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-10-15-radar-d1@otralectura.co
+DTSTAMP:20261028T000000Z
+DTSTART;VALUE=DATE:20261130
+DTEND;VALUE=DATE:20261201
+SUMMARY:Votar el proyecto del alcalde que autoriza crear la Empresa Oficial
+  de Servicios Públicos…
+DESCRIPTION:Concejo Distrital de Cartagena: Votar el proyecto del alcalde q
+ ue autoriza crear la Empresa Oficial de Servicios Públicos de Cartagena\,
+  cien por ciento del Distrito\, para asumir el acueducto y el alcantarilla
+ do que hoy presta Aguas de Cartagena.\n\nLo contamos en Otra lectura\, «U
+ na sola tubería rota puede dejar sin agua a media Cartagena»: https://ot
+ ralectura.co/ediciones/2026-10-15-radar.html
+URL:https://otralectura.co/ediciones/2026-10-15-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Votar el proyecto del alcalde que autoriza crear la Empresa Ofi
+ cial de Servicios Públicos…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

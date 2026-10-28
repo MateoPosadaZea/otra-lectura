@@ -1,0 +1,29 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-10-21-radar-d1@otralectura.co
+DTSTAMP:20261028T000000Z
+DTSTART;VALUE=DATE:20261104
+DTEND;VALUE=DATE:20261105
+SUMMARY:Aprobar o no el proyecto de ley de sometimiento a la justicia (433 
+ de 2026 Cámara\, 296 de…
+DESCRIPTION:Congreso de la República: primero las comisiones primeras de S
+ enado y Cámara\, en sesión conjunta\, y luego las plenarias: Aprobar o n
+ o el proyecto de ley de sometimiento a la justicia (433 de 2026 Cámara\, 
+ 296 de 2026 Senado)\, que condiciona los beneficios a la entrega de los ni
+ ños reclutados y deroga la regla que excluye de todo beneficio a los cond
+ enados por reclutarlos.\n\nLo contamos en Otra lectura\, «La Defensoría 
+ contó 130 niños reclutados por grupos armados este año»: https://otral
+ ectura.co/ediciones/2026-10-21-radar.html
+URL:https://otralectura.co/ediciones/2026-10-21-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Aprobar o no el proyecto de ley de sometimiento a la justicia (
+ 433 de 2026 Cámara\, 296 de…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

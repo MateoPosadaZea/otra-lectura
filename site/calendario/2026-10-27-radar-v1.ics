@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-10-27-radar-v1@otralectura.co
+DTSTAMP:20261028T000000Z
+DTSTART;VALUE=DATE:20261125
+DTEND;VALUE=DATE:20261126
+SUMMARY:Día Internacional de la Eliminación de la Violencia contra la Muj
+ er: empiezan 16 días de…
+DESCRIPTION:Naciones Unidas (ONU Mujeres): Día Internacional de la Elimina
+ ción de la Violencia contra la Mujer: empiezan 16 días de campaña que t
+ erminan el 10 de diciembre\, Día de los Derechos Humanos.\n\nLo contamos 
+ en Otra lectura\, «Una de cada tres víctimas de feminicidio ya había pe
+ dido protección»: https://otralectura.co/ediciones/2026-10-27-radar.html
+URL:https://otralectura.co/ediciones/2026-10-27-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Día Internacional de la Eliminación de la Violencia contra la
+  Mujer: empiezan 16 días de…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

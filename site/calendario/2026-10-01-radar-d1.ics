@@ -1,0 +1,27 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-10-01-radar-d1@otralectura.co
+DTSTAMP:20261028T000000Z
+DTSTART;VALUE=DATE:20261230
+DTEND;VALUE=DATE:20261231
+SUMMARY:Fijar el salario mínimo de 2027\, después del alza de 23\,7% de 2
+ 026.
+DESCRIPTION:Comisión de Concertación de Políticas Salariales (Gobierno\,
+  gremios y centrales obreras)\; si no hay acuerdo\, el Gobierno por decret
+ o: Fijar el salario mínimo de 2027\, después del alza de 23\,7% de 2026.
+ \n\nLo contamos en Otra lectura\, «El desempleo sube a 9\,4% y la informa
+ lidad casi no se mueve»: https://otralectura.co/ediciones/2026-10-01-rada
+ r.html
+URL:https://otralectura.co/ediciones/2026-10-01-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Fijar el salario mínimo de 2027\, después del alza de 23\,7% 
+ de 2026.
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

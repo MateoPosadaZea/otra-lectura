@@ -1450,6 +1450,37 @@ p, li, dd, blockquote { text-wrap: pretty; }
 .decision-seguimiento { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--filete); }
 .decision-rotulo { margin: 0 0 0.6rem; font: 800 0.68rem/1.3 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--rojo); }
 .decision-mas { margin: 0.6rem 0 0; font-size: 0.85em; }
+.decision-cal { margin: 0.4rem 0 0; }
+.decision-cal a {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--tinta);
+  color: var(--tinta);
+  font: 700 0.7rem/1.4 var(--sans);
+  letter-spacing: 0.06em;
+  text-decoration: none;
+}
+.decision-cal a::before { content: "+ "; }
+.decision-cal a:hover, .decision-cal a:focus-visible { background: var(--tinta); color: var(--papel); }
+
+/* Compartir hoy: el mensaje de WhatsApp de la edición del día. */
+.compartir-item { margin: 1.6rem 0 2.2rem; padding-top: 1.2rem; border-top: 1px solid var(--filete); }
+.compartir-item h2 { margin: 0 0 0.8rem; font: 700 1.25rem/1.25 var(--sans); hyphens: manual; }
+.compartir-item h2 a { color: var(--tinta); text-decoration: none; }
+.compartir-item h2 a:hover { text-decoration: underline; }
+.compartir-rotulo { display: block; margin-bottom: 0.3rem; font: 800 0.66rem/1.3 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--tenue); }
+.compartir-texto {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--tinta);
+  background: var(--papel);
+  color: var(--tinta);
+  font: 400 0.92rem/1.5 var(--sans);
+  resize: vertical;
+  hyphens: manual;
+}
+.compartir-nota { font-size: 0.85em; color: var(--tenue); text-align: center; }
 .decisiones-grupo { max-width: var(--medida); margin: 0 auto 2.5rem; }
 .decisiones-grupo h2 { font: 800 0.75rem/1.3 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--rojo); border-bottom: 1px solid var(--tinta); padding-bottom: 0.4rem; margin: 0 0 1rem; }
 .edicion .decisiones { padding-left: 0; margin-left: 0; } .edicion .decision { list-style: none; }
@@ -1866,6 +1897,17 @@ main:has(> .primera) {
 .pp-quien { font: 800 0.68rem/1.35 var(--sans); letter-spacing: 0.1em; text-transform: uppercase; }
 .pp-que { font: 400 0.9rem/1.45 var(--sans); opacity: 0.9; }
 .pp-decide li a:hover .pp-que, .pp-decide li a:focus-visible .pp-que { text-decoration: underline; }
+/* «+ Al calendario»: descarga un .ics con recordatorio (pedido de Mateo, 2026-10-28). */
+.pp-decide li a.pp-cal {
+  display: inline-block;
+  margin: -0.35rem 0 0.7rem 4.4rem;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid currentColor;
+  font: 700 0.62rem/1.4 var(--sans);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.pp-decide li a.pp-cal:hover, .pp-decide li a.pp-cal:focus-visible { background: var(--papel); color: var(--tinta); }
 .pp-decide-mas { margin: 0.4rem 0 0; padding-top: 0.7rem; border-top: 1px solid currentColor; text-align: center; }
 .pp-decide-mas a {
   color: inherit;

@@ -82,6 +82,13 @@ OMS, CEPAL → oficial; etc.). Al final de cada edición se muestra el conteo
 - Cada edición trae «Enviar por WhatsApp» (un enlace con el titular, «En
   pocas palabras» y la URL) y, al abrirla, el aviso «Baje para seguir
   leyendo» abajo a la izquierda, que se va al empezar a bajar.
+- **Compartir hoy** (`/compartir`): la edición del día con su mensaje de
+  WhatsApp listo: un botón para enviarlo y otro para copiarlo. La dirección
+  no cambia; el mensaje se renueva solo cada mañana.
+- **Agregar a mi calendario**: cada fecha futura de «Lo que viene» (en la
+  portada, en las ediciones y en Decisiones) descarga un `.ics` de día
+  completo con aviso a las 9 de la mañana del día anterior
+  (`site/calendario/`).
 - Al final de cada edición, en lugar de la lista de ediciones, hay una
   **Siguiente lectura** (la que comparte más temas o categorías, prefiriendo
   la más reciente) y hasta dos "También le puede interesar".

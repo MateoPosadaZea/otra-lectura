@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-10-22-radar-d2@otralectura.co
+DTSTAMP:20261028T000000Z
+DTSTART;VALUE=DATE:20270110
+DTEND;VALUE=DATE:20270111
+SUMMARY:Presentar el plan de acción para aplicar la Política Nacional de 
+ Sexualidad\, que la…
+DESCRIPTION:Ministerio de Salud y Protección Social: Presentar el plan de 
+ acción para aplicar la Política Nacional de Sexualidad\, que la resoluci
+ ón le encarga dentro de los seis meses siguientes a su expedición.\n\nLo
+  contamos en Otra lectura\, «La tasa de madres adolescentes cayó a menos
+  de la mitad»: https://otralectura.co/ediciones/2026-10-22-radar.html
+URL:https://otralectura.co/ediciones/2026-10-22-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Presentar el plan de acción para aplicar la Política Nacional
+  de Sexualidad\, que la…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

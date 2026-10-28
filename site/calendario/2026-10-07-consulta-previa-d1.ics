@@ -1,0 +1,28 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-10-07-consulta-previa-d1@otralectura.co
+DTSTAMP:20261028T000000Z
+DTSTART;VALUE=DATE:20270104
+DTEND;VALUE=DATE:20270105
+SUMMARY:Digitalizar e inventariar las consultas previas represadas\, expedi
+ r la directiva…
+DESCRIPTION:Ministerio del Interior (Dirección de la Autoridad Nacional de
+  Consulta Previa)\; para la ley\, el Congreso: Digitalizar e inventariar l
+ as consultas previas represadas\, expedir la directiva presidencial anunci
+ ada y radicar el proyecto de ley que cambiaría el procedimiento\, incluid
+ o el test de proporcionalidad.\n\nLo contamos en Otra lectura\, «Consulta
+ s previas sin inventario: el Gobierno promete destrabarlas en 90 días»: 
+ https://otralectura.co/ediciones/2026-10-07-consulta-previa.html
+URL:https://otralectura.co/ediciones/2026-10-07-consulta-previa.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Digitalizar e inventariar las consultas previas represadas\, ex
+ pedir la directiva…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

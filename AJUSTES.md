@@ -446,3 +446,12 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   Al abrir una edición aparece abajo a la izquierda «↓ Baje para seguir
   leyendo» (lleva al comienzo del texto y se desvanece al empezar a
   bajar). Se quitó el botón «Escuchar»; queda «Enviar por WhatsApp».
+- 2026-10-28 · Mateo: «¿es posible crear recordatorios o que compartir a
+  WhatsApp se automatice?… probémoslo». WhatsApp no deja publicar solo en
+  grupos o canales sin la API de pago de Meta, así que el envío queda a un
+  toque: la página **Compartir hoy** (`/compartir`) trae cada mañana el
+  mensaje de la edición del día, con «Enviar por WhatsApp» y «Copiar el
+  mensaje». Recordatorios para los lectores: cada fecha futura de «Lo que
+  viene» tiene «Agregar a mi calendario» (un `.ics` de día completo con
+  aviso a las 9 de la mañana del día anterior), en la portada, en la
+  edición y en Decisiones. Sin servicios externos ni costo.

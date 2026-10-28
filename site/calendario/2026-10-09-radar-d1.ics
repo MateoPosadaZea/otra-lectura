@@ -1,0 +1,29 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-10-09-radar-d1@otralectura.co
+DTSTAMP:20261028T000000Z
+DTSTART;VALUE=DATE:20261130
+DTEND;VALUE=DATE:20261201
+SUMMARY:Contratar el PAE de 2027 con vigencias futuras para que empiece el 
+ primer día de clases y…
+DESCRIPTION:Gobernaciones y alcaldías de las 97 entidades territoriales ce
+ rtificadas en educación\, con aprobación de asambleas y concejos\; la Un
+ idad Alimentos para Aprender cofinancia: Contratar el PAE de 2027 con vige
+ ncias futuras para que empiece el primer día de clases y cubra todo el ca
+ lendario\, y asegurar la comida hasta el final de 2026 en las 13 entidades
+  que señaló la Contraloría.\n\nLo contamos en Otra lectura\, «Unos 600
+ .000 estudiantes podrían terminar el año sin comida escolar»: https://o
+ tralectura.co/ediciones/2026-10-09-radar.html
+URL:https://otralectura.co/ediciones/2026-10-09-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Contratar el PAE de 2027 con vigencias futuras para que empiece
+  el primer día de clases y…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

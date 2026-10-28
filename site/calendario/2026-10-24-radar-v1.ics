@@ -1,0 +1,27 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-10-24-radar-v1@otralectura.co
+DTSTAMP:20261028T000000Z
+DTSTART;VALUE=DATE:20261118
+DTEND;VALUE=DATE:20261119
+SUMMARY:Empieza el congreso anual de medicina tropical en National Harbor (
+ Estados Unidos)\, hasta…
+DESCRIPTION:Sociedad Estadounidense de Medicina Tropical e Higiene (ASTMH):
+  Empieza el congreso anual de medicina tropical en National Harbor (Estado
+ s Unidos)\, hasta el 22 de noviembre: allí se presentan los estudios nuev
+ os sobre dengue y mosquitos.\n\nLo contamos en Otra lectura\, «Mosquitos 
+ con una bacteria bajaron el dengue 95% en Medellín y Bello»: https://otr
+ alectura.co/ediciones/2026-10-24-radar.html
+URL:https://otralectura.co/ediciones/2026-10-24-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Empieza el congreso anual de medicina tropical en National Harb
+ or (Estados Unidos)\, hasta…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

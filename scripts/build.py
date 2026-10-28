@@ -838,7 +838,7 @@ def cuerpo_edicion(e):
                         rf'de principio a fin →</a></p>', cuerpo, count=1, flags=re.S)
 
     if e["decisiones"]:
-        items = "".join(html_decision(d) for d in e["decisiones"])
+        items = "".join(html_decision(d, "../") for d in e["decisiones"])
         bloque = (f'<div class="decision-seguimiento"><p class="decision-rotulo">Seguimiento de la decisión</p>'
                   f'<ul class="decisiones">{items}</ul>'
                   f'<p class="decision-mas"><a href="../decisiones.html">Ver todas las decisiones en seguimiento →</a></p></div>\n')
@@ -1140,14 +1140,22 @@ def html_sigue_leyendo(e):
             f'<span class="sigue-flecha" aria-hidden="true">↓</span> Baje para seguir leyendo</a>')
 
 
+def texto_whatsapp(e):
+    """El mensaje con que se comparte una edición: titular, «En pocas palabras» y enlace."""
+    url = f"{SITIO_URL}/ediciones/{e['slug']}.html" if SITIO_URL else f"ediciones/{e['slug']}.html"
+    pocas = entradilla(e)
+    return f"*{e['titulo']}*\n\n" + (f"{pocas}\n\n" if pocas else "") + f"Léala completa en Otra lectura: {url}"
+
+
+def enlace_whatsapp(texto):
+    from urllib.parse import quote
+    return "https://wa.me/?text=" + quote(texto, safe="")
+
+
 def html_herramientas(e):
     """Enviar la edición por WhatsApp (un enlace, sin JS). El botón «Escuchar»
     se quitó por ahora (pedido de Mateo, 2026-10-23)."""
-    url = f"{SITIO_URL}/ediciones/{e['slug']}.html" if SITIO_URL else f"ediciones/{e['slug']}.html"
-    pocas = entradilla(e)
-    texto = f"*{e['titulo']}*\n\n" + (f"{pocas}\n\n" if pocas else "") + f"Léala completa en Otra lectura: {url}"
-    from urllib.parse import quote
-    wa = "https://wa.me/?text=" + quote(texto, safe="")
+    wa = enlace_whatsapp(texto_whatsapp(e))
     return f"""<div class="herramientas">
 <a class="whatsapp" href="{html.escape(wa)}" target="_blank" rel="noopener">Enviar por WhatsApp</a>
 </div>"""
@@ -1279,8 +1287,9 @@ def html_recuadro_decisiones(ediciones, raiz="", cuantas=4):
         if clave in vistas:
             continue
         vistas.add(clave)
-        decisiones.append(({"plazo": d["plazo"], "quien": d["quien"], "que": d["que"]}, e))
-    otras = sorted((({"plazo": v["fecha"], "quien": v["quien"] or "Para el calendario", "que": v["que"]}, e)
+        decisiones.append(({"plazo": d["plazo"], "quien": d["quien"], "que": d["que"], "ics": d.get("ics")}, e))
+    otras = sorted((({"plazo": v["fecha"], "quien": v["quien"] or "Para el calendario", "que": v["que"],
+                      "ics": v.get("ics")}, e)
                     for e in ediciones for v in e["viene"] if v["fecha"] >= hoy),
                    key=lambda x: (x[0]["plazo"], x[1]["fecha"]))
     if otras:
@@ -1298,7 +1307,9 @@ def html_recuadro_decisiones(ediciones, raiz="", cuantas=4):
 <time datetime="{d['plazo']}"><span class="pp-dia">{f.day}</span> {MESES[f.month - 1][:3]}</time>
 <span class="pp-quien">{html.escape(d['quien'])}</span>
 <span class="pp-que">{html.escape(recortar(d['que'], 110))}</span>
-</a></li>""")
+</a>""" + (f'<a class="pp-cal" href="{raiz}calendario/{d["ics"]}.ics" download '
+           f'aria-label="Agregar al calendario: {html.escape(recortar(d["que"], 80))}">+ Al calendario</a>'
+           if d.get("ics") else "") + "</li>")
     return f"""<aside class="pp-decide" aria-labelledby="pp-decide-titulo">
 <h2 id="pp-decide-titulo">Lo que viene</h2>
 <p class="pp-decide-sub">Fechas que vienen en los temas que contamos</p>
@@ -1599,10 +1610,12 @@ def html_decision(d, raiz="", e=None):
     nota = historial + nota
     origen = (f'<p class="decision-origen"><a href="{raiz}ediciones/{e["slug"]}.html">'
               f'{html.escape(e["titulo"])}</a> · {fecha_legible(e["fecha"])}</p>') if e else ""
+    cal = (f'<p class="decision-cal"><a href="{raiz}calendario/{d["ics"]}.ics" download>'
+           f'Agregar a mi calendario</a></p>') if d.get("ics") else ""
     return (f'<li class="decision decision-{clase}"><p class="decision-estado">'
             f'<span class="estado">{texto}</span>{plazo}</p>'
             f'<p class="decision-que"><strong>{html.escape(d["quien"])}</strong>: {convertir_linea(d["que"])}</p>'
-            f'{nota}{origen}</li>')
+            f'{nota}{origen}{cal}</li>')
 
 
 def pagina_decisiones(base, ediciones):
@@ -1991,6 +2004,105 @@ def pagina_texto(base, origen, destino, titulo, descripcion, seccion=None):
 
 # --- Principal -----------------------------------------------------------------
 
+def ics_escapar(texto):
+    return (texto.replace("\\", "\\\\").replace(";", "\\;").replace(",", "\\,")
+            .replace("\n", "\\n"))
+
+
+def ics_plegar(linea):
+    """Las líneas de un .ics no pasan de 75 bytes: el resto sigue con un espacio."""
+    datos, partes = linea.encode("utf-8"), []
+    while len(datos) > 75:
+        corte = 75 if not partes else 74
+        while (datos[corte] & 0xC0) == 0x80:  # no partir un carácter
+            corte -= 1
+        partes.append(datos[:corte].decode("utf-8"))
+        datos = datos[corte:]
+    partes.append(datos.decode("utf-8"))
+    return "\r\n ".join(partes)
+
+
+def escribir_calendarios(ediciones):
+    """Un archivo .ics por cada fecha futura de «Lo que viene» (decisiones
+    pendientes con plazo y fechas del campo `viene`), para que el lector la
+    agregue a su calendario y el teléfono le avise. El evento es de día
+    completo y trae un recordatorio a las 9 de la mañana del día anterior
+    (pedido de Mateo, 2026-10-28: recordatorios)."""
+    hoy = date.today().isoformat()
+    (SITE / "calendario").mkdir(exist_ok=True)
+    sello = date.today().strftime("%Y%m%dT000000Z")
+    for e in ediciones:
+        url = f"{SITIO_URL}/ediciones/{e['slug']}.html"
+        fechas = [(f"{e['slug']}-d{i}", d["plazo"], d["quien"], d["que"], d)
+                  for i, d in enumerate(e["decisiones"], 1)
+                  if d["estado"] == "pendiente" and d["plazo"] and d["plazo"] >= hoy]
+        fechas += [(f"{e['slug']}-v{i}", v["fecha"], v["quien"], v["que"], v)
+                   for i, v in enumerate(e["viene"], 1) if v["fecha"] >= hoy]
+        for clave, cuando, quien, que, origen in fechas:
+            dia = date.fromisoformat(cuando)
+            resumen = recortar(que, 90)
+            descripcion = (f"{quien}: {que}\n\n" if quien else f"{que}\n\n") + \
+                f"Lo contamos en Otra lectura, «{e['titulo']}»: {url}"
+            lineas = [
+                "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Otra lectura//Lo que viene//ES",
+                "CALSCALE:GREGORIAN", "METHOD:PUBLISH", "BEGIN:VEVENT",
+                f"UID:{clave}@otralectura.co", f"DTSTAMP:{sello}",
+                f"DTSTART;VALUE=DATE:{dia.strftime('%Y%m%d')}",
+                f"DTEND;VALUE=DATE:{(dia + timedelta(days=1)).strftime('%Y%m%d')}",
+                f"SUMMARY:{ics_escapar(resumen)}",
+                f"DESCRIPTION:{ics_escapar(descripcion)}", f"URL:{url}",
+                "BEGIN:VALARM", "ACTION:DISPLAY", f"DESCRIPTION:{ics_escapar(resumen)}",
+                "TRIGGER:-PT15H", "END:VALARM", "END:VEVENT", "END:VCALENDAR"]
+            (SITE / "calendario" / f"{clave}.ics").write_text(
+                "\r\n".join(ics_plegar(l) for l in lineas) + "\r\n", encoding="utf-8", newline="")
+            origen["ics"] = clave
+
+
+def pagina_compartir(base, dias):
+    """compartir.html: la edición de hoy lista para mandar por WhatsApp. Una
+    sola dirección para guardar en el celular; cada mañana trae el mensaje
+    nuevo (pedido de Mateo, 2026-10-28). Sin JS, el botón de WhatsApp
+    funciona igual; con JS, además se puede copiar el texto."""
+    fecha, del_dia = dias[0]
+    principales = sorted(del_dia, key=lambda o: (o["orden"], o["slug"]))
+    bloques = []
+    for i, e in enumerate(principales):
+        texto = texto_whatsapp(e)
+        bloques.append(f"""<section class="compartir-item">
+<h2><a href="ediciones/{e['slug']}.html">{html.escape(e['titulo'])}</a></h2>
+<label class="compartir-rotulo" for="mensaje-{i}">Mensaje</label>
+<textarea class="compartir-texto" id="mensaje-{i}" rows="8" readonly>{html.escape(texto)}</textarea>
+<div class="herramientas">
+<a class="whatsapp" href="{html.escape(enlace_whatsapp(texto))}" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+<button type="button" class="copiar" data-para="mensaje-{i}" hidden>Copiar el mensaje</button>
+</div>
+</section>""")
+    contenido = f"""<header class="cabecera">
+<h1>Compartir hoy</h1>
+<p class="bajada">La edición del {fecha_con_dia(fecha)}, lista para mandar. Toque «Enviar por WhatsApp» y elija el grupo o la persona; o copie el mensaje y péguelo donde quiera.</p>
+</header>
+{"".join(bloques)}
+<p class="compartir-nota">Esta página cambia sola cada mañana con la edición nueva. Guárdela en el celular para tenerla a un toque.</p>
+<script>
+(function () {{
+  document.querySelectorAll(".copiar").forEach(function (b) {{
+    if (!navigator.clipboard) return;
+    b.hidden = false;
+    b.addEventListener("click", function () {{
+      var t = document.getElementById(b.dataset.para);
+      navigator.clipboard.writeText(t.value).then(function () {{
+        b.textContent = "Copiado";
+        setTimeout(function () {{ b.textContent = "Copiar el mensaje"; }}, 2000);
+      }});
+    }});
+  }});
+}})();
+</script>"""
+    return pagina(base, "Compartir hoy · Otra lectura",
+                  "La edición de hoy de Otra lectura, lista para mandar por WhatsApp.", "",
+                  contenido, "/compartir.html")
+
+
 def main():
     base = Template((PLANTILLA / "base.html").read_text(encoding="utf-8"))
 
@@ -2081,12 +2193,14 @@ def main():
         for h in hilos.values():
             (SITE / "temas" / f"{h['slug']}.html").write_text(pagina_hilo(base, h), encoding="utf-8")
 
+    escribir_calendarios(ediciones)
     for i, e in enumerate(ediciones):
         (SITE / "ediciones" / f"{e['slug']}.html").write_text(
             pagina_edicion(base, e, ediciones), encoding="utf-8")
 
     dias = por_dia(ediciones)
     (SITE / "index.html").write_text(pagina_portada(base, dias), encoding="utf-8")
+    (SITE / "compartir.html").write_text(pagina_compartir(base, dias), encoding="utf-8")
     (SITE / "archivo.html").write_text(pagina_archivo(base, dias, hilos), encoding="utf-8")
     (SITE / "decisiones.html").write_text(pagina_decisiones(base, ediciones), encoding="utf-8")
     (SITE / "memoria.html").write_text(pagina_memoria(base, ediciones), encoding="utf-8")
