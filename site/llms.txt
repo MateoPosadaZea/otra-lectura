@@ -13,6 +13,7 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 
 ## Ediciones
 
+- [La semana: cinco temas, lo que cambió y lo que viene](https://otralectura.co/ediciones/2026-10-30-semana.html): 30 de octubre de 2026.
 - [Termina la cumbre de biodiversidad y el Fondo Cali sigue casi vacío](https://otralectura.co/ediciones/2026-10-30-radar.html): 30 de octubre de 2026.
 - [Los colegios públicos mejoran, pero la brecha con los privados creció](https://otralectura.co/ediciones/2026-10-29-radar.html): 29 de octubre de 2026.
 - [Las muertes por calor crecen y Colombia aún no tiene alertas](https://otralectura.co/ediciones/2026-10-28-radar.html): 28 de octubre de 2026.
@@ -100,3 +101,8 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 - [La tasa de madres adolescentes cayó a menos de la mitad](https://otralectura.co/temas/embarazo-adolescente-descenso.html)
 - [En 2036 Colombia tendrá más mayores de 60 años que niños](https://otralectura.co/temas/envejecimiento-cuidado.html)
 - [Mosquitos con una bacteria bajaron el dengue 95% en Medellín y Bello](https://otralectura.co/temas/wolbachia-dengue-mosquitos.html)
+- [Bre-B sumó 36 millones de usuarios en su primer año](https://otralectura.co/temas/bre-b-pagos-inmediatos.html)
+- [Una de cada tres víctimas de feminicidio ya había pedido protección](https://otralectura.co/temas/feminicidio-proteccion-riesgo.html)
+- [Las muertes por calor crecen y Colombia aún no tiene alertas](https://otralectura.co/temas/calor-salud-alertas.html)
+- [Los colegios públicos mejoran, pero la brecha con los privados creció](https://otralectura.co/temas/brecha-colegios-oficiales-privados.html)
+- [Termina la cumbre de biodiversidad y el Fondo Cali sigue casi vacío](https://otralectura.co/temas/biodiversidad-cop17-fondo-cali.html)
