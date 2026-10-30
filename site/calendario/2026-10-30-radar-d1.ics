@@ -1,0 +1,28 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-10-30-radar-d1@otralectura.co
+DTSTAMP:20261030T000000Z
+DTSTART;VALUE=DATE:20261030
+DTEND;VALUE=DATE:20261031
+SUMMARY:Adoptar la primera revisión mundial de las metas de naturaleza par
+ a 2030\, acordar quién…
+DESCRIPTION:Los países del Convenio sobre la Diversidad Biológica\, en la
+  plenaria final de la COP17 (Ereván\, Armenia): Adoptar la primera revisi
+ ón mundial de las metas de naturaleza para 2030\, acordar quién aporta d
+ inero para la biodiversidad y ajustar las reglas del Fondo Cali.\n\nLo con
+ tamos en Otra lectura\, «Termina la cumbre de biodiversidad y el Fondo Ca
+ li sigue casi vacío»: https://otralectura.co/ediciones/2026-10-30-radar.
+ html
+URL:https://otralectura.co/ediciones/2026-10-30-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Adoptar la primera revisión mundial de las metas de naturaleza
+  para 2030\, acordar quién…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR
