@@ -13,6 +13,7 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 
 ## Ediciones
 
+- [Lo que pasó esta semana · 26 al 31 de octubre](https://otralectura.co/ediciones/2026-11-01-radar.html): 1 de noviembre de 2026.
 - [La inteligencia artificial toca más a los empleos mejor pagados de Colombia](https://otralectura.co/ediciones/2026-10-31-radar.html): 31 de octubre de 2026.
 - [La semana: cinco temas, lo que cambió y lo que viene](https://otralectura.co/ediciones/2026-10-30-semana.html): 30 de octubre de 2026.
 - [Termina la cumbre de biodiversidad y el Fondo Cali sigue casi vacío](https://otralectura.co/ediciones/2026-10-30-radar.html): 30 de octubre de 2026.
@@ -107,3 +108,4 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 - [Las muertes por calor crecen y Colombia aún no tiene alertas](https://otralectura.co/temas/calor-salud-alertas.html)
 - [Los colegios públicos mejoran, pero la brecha con los privados creció](https://otralectura.co/temas/brecha-colegios-oficiales-privados.html)
 - [Termina la cumbre de biodiversidad y el Fondo Cali sigue casi vacío](https://otralectura.co/temas/biodiversidad-cop17-fondo-cali.html)
+- [La inteligencia artificial toca más a los empleos mejor pagados de Colombia](https://otralectura.co/temas/inteligencia-artificial-empleo.html)
