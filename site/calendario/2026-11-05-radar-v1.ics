@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-11-05-radar-v1@otralectura.co
+DTSTAMP:20261105T000000Z
+DTSTART;VALUE=DATE:20261201
+DTEND;VALUE=DATE:20261202
+SUMMARY:Día Mundial del Sida: ONUSIDA y los ministerios de salud suelen pr
+ esentar ese día cifras…
+DESCRIPTION:ONUSIDA y Organización Mundial de la Salud: Día Mundial del S
+ ida: ONUSIDA y los ministerios de salud suelen presentar ese día cifras n
+ uevas y planes de prevención.\n\nLo contamos en Otra lectura\, «Inyecci
+ ón contra el VIH a 40 dólares: Colombia quedó por fuera»: https://otra
+ lectura.co/ediciones/2026-11-05-radar.html
+URL:https://otralectura.co/ediciones/2026-11-05-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Día Mundial del Sida: ONUSIDA y los ministerios de salud suele
+ n presentar ese día cifras…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR
