@@ -455,3 +455,28 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   viene» tiene «Agregar a mi calendario» (un `.ics` de día completo con
   aviso a las 9 de la mañana del día anterior), en la portada, en la
   edición y en Decisiones. Sin servicios externos ni costo.
+- 2026-11-05 · Mateo: «están un poco random, no sé cómo lo del sarampión
+  va a afectar en 10 o 50 años… eso es lo que buscamos: cosas que
+  realmente sean relevantes, que cambien el curso de la humanidad». Rige
+  desde la edición del 2026-11-05 y prevalece sobre prompt.md («Qué entra
+  al Radar») y RUTINA.md (sección 2b):
+  - **El horizonte es eliminatorio.** Antes de cualquier otro filtro, el
+    tema debe contestar que sí a: «¿Esto cambia el rumbo de cómo vive la
+    gente, en Colombia o en el mundo, dentro de 10 a 50 años?». Si no, no
+    entra, aunque pase las otras preguntas. En el puntaje, solo entra un
+    tema con horizonte 3; un brote, un trámite, un impuesto puntual o un
+    dato de coyuntura no llegan a 3.
+  - **Se buscan transformaciones, no episodios.** Prioridad a lo que mueve
+    el curso de las cosas: energía, clima, inteligencia artificial y
+    tecnología, ciencia y medicina que cambian lo posible, población
+    (envejecimiento, natalidad, migración), agua y alimentos, ciudades, y
+    las instituciones que deciden todo eso. El hecho del día es solo la
+    puerta de entrada a esa tendencia, y el texto debe decir en una frase
+    qué cambia en 10 a 50 años y con qué evidencia (una serie o una
+    proyección institucional).
+  - **La mezcla de la semana ya no manda.** Es una preferencia para
+    desempatar: nunca justifica elegir un tema más flojo. Si no hay un
+    avance, un tema del mundo o uno de ciencia que pase el horizonte, se
+    repite la puerta y se dice en la nota metodológica.
+  - **Los nudos, solo si son estructurales:** que su mecanismo, si no se
+    desata, siga dañando a millones durante décadas.
