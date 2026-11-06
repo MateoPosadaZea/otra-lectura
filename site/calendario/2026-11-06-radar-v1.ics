@@ -1,0 +1,27 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-11-06-radar-v1@otralectura.co
+DTSTAMP:20261106T000000Z
+DTSTART;VALUE=DATE:20261118
+DTEND;VALUE=DATE:20261119
+SUMMARY:Empieza la Semana Mundial de Concienciación sobre la Resistencia a
+  los Antimicrobianos…
+DESCRIPTION:OMS\, FAO\, PNUMA y Organización Mundial de Sanidad Animal: Em
+ pieza la Semana Mundial de Concienciación sobre la Resistencia a los Anti
+ microbianos (hasta el 24 de noviembre)\, con el lema «Una salud\, una acc
+ ión: prevenir la resistencia ahora».\n\nLo contamos en Otra lectura\, «
+ En 2050\, las bacterias resistentes matarían 1\,9 millones de personas al
+  año»: https://otralectura.co/ediciones/2026-11-06-radar.html
+URL:https://otralectura.co/ediciones/2026-11-06-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Empieza la Semana Mundial de Concienciación sobre la Resistenc
+ ia a los Antimicrobianos…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

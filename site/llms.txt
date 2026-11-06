@@ -13,6 +13,8 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 
 ## Ediciones
 
+- [La semana: cinco temas y lo que cambian a largo plazo](https://otralectura.co/ediciones/2026-11-06-semana.html): 6 de noviembre de 2026.
+- [En 2050, las bacterias resistentes matarían 1,9 millones de personas al año](https://otralectura.co/ediciones/2026-11-06-radar.html): 6 de noviembre de 2026.
 - [Inyección contra el VIH a 40 dólares: Colombia quedó por fuera](https://otralectura.co/ediciones/2026-11-05-radar.html): 5 de noviembre de 2026.
 - [Colombia conserva el certificado contra el sarampión; Estados Unidos podría perderlo](https://otralectura.co/ediciones/2026-11-04-radar.html): 4 de noviembre de 2026.
 - [Colombia exporta petróleo, pero el carro más vendido del año es eléctrico](https://otralectura.co/ediciones/2026-11-03-radar.html): 3 de noviembre de 2026.
@@ -113,3 +115,8 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 - [Los colegios públicos mejoran, pero la brecha con los privados creció](https://otralectura.co/temas/brecha-colegios-oficiales-privados.html)
 - [Termina la cumbre de biodiversidad y el Fondo Cali sigue casi vacío](https://otralectura.co/temas/biodiversidad-cop17-fondo-cali.html)
 - [La inteligencia artificial toca más a los empleos mejor pagados de Colombia](https://otralectura.co/temas/inteligencia-artificial-empleo.html)
+- [El impuesto a las bebidas azucaradas, entre quitarlo y ampliarlo](https://otralectura.co/temas/impuestos-saludables-ultraprocesados.html)
+- [Colombia exporta petróleo, pero el carro más vendido del año es eléctrico](https://otralectura.co/temas/carros-electricos-colombia.html)
+- [Colombia conserva el certificado contra el sarampión; Estados Unidos podría perderlo](https://otralectura.co/temas/sarampion-certificado-eliminacion.html)
+- [Inyección contra el VIH a 40 dólares: Colombia quedó por fuera](https://otralectura.co/temas/lenacapavir-vih-patentes.html)
+- [En 2050, las bacterias resistentes matarían 1,9 millones de personas al año](https://otralectura.co/temas/resistencia-antimicrobiana.html)
