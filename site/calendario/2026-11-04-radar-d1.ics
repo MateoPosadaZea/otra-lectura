@@ -1,0 +1,30 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-11-04-radar-d1@otralectura.co
+DTSTAMP:20261108T000000Z
+DTSTART;VALUE=DATE:20261113
+DTEND;VALUE=DATE:20261114
+SUMMARY:Decidir si Estados Unidos y México restablecieron la transmisión 
+ endémica del sarampión…
+DESCRIPTION:Comisión Regional de Monitoreo y Reverificación de la Elimina
+ ción del Sarampión y la Rubéola (expertos independientes) y\, con su re
+ comendación\, el director de la OPS: Decidir si Estados Unidos y México 
+ restablecieron la transmisión endémica del sarampión\, es decir\, si el
+  mismo virus circuló sin parar 12 meses o más\, y si pierden su estatus 
+ de eliminación\, como Canadá en noviembre de 2025.\n\nLo contamos en Otr
+ a lectura\, «Colombia conserva el certificado contra el sarampión\; Esta
+ dos Unidos podría perderlo»: https://otralectura.co/ediciones/2026-11-04
+ -radar.html
+URL:https://otralectura.co/ediciones/2026-11-04-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Decidir si Estados Unidos y México restablecieron la transmisi
+ ón endémica del sarampión…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

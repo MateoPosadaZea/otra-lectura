@@ -13,6 +13,7 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 
 ## Ediciones
 
+- [Lo que pasó esta semana · 2 al 7 de noviembre](https://otralectura.co/ediciones/2026-11-08-radar.html): 8 de noviembre de 2026.
 - [Imaginemos: que todo niño de colegio público lea al terminar segundo](https://otralectura.co/ediciones/2026-11-07-imaginemos-colegios.html): 7 de noviembre de 2026.
 - [La semana: cinco temas y lo que cambian a largo plazo](https://otralectura.co/ediciones/2026-11-06-semana.html): 6 de noviembre de 2026.
 - [En 2050, las bacterias resistentes matarían 1,9 millones de personas al año](https://otralectura.co/ediciones/2026-11-06-radar.html): 6 de noviembre de 2026.
@@ -121,3 +122,4 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 - [Colombia conserva el certificado contra el sarampión; Estados Unidos podría perderlo](https://otralectura.co/temas/sarampion-certificado-eliminacion.html)
 - [Inyección contra el VIH a 40 dólares: Colombia quedó por fuera](https://otralectura.co/temas/lenacapavir-vih-patentes.html)
 - [En 2050, las bacterias resistentes matarían 1,9 millones de personas al año](https://otralectura.co/temas/resistencia-antimicrobiana.html)
+- [Imaginemos: que todo niño de colegio público lea al terminar segundo](https://otralectura.co/temas/imaginemos-colegios.html)
