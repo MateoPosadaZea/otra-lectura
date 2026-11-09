@@ -1,0 +1,29 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-11-09-radar-d1@otralectura.co
+DTSTAMP:20261109T000000Z
+DTSTART;VALUE=DATE:20261120
+DTEND;VALUE=DATE:20261121
+SUMMARY:Adoptar las decisiones de cierre de la cumbre del clima\, en un añ
+ o en que\, según el…
+DESCRIPTION:Los países de la Convención Marco de las Naciones Unidas sobr
+ e el Cambio Climático\, reunidos en la COP31\, en Antalya (Turquía): Ado
+ ptar las decisiones de cierre de la cumbre del clima\, en un año en que\,
+  según el Programa de la ONU para el Medio Ambiente\, los compromisos de 
+ reducción de emisiones no alcanzan para limitar el calentamiento a 1\,5 
+ °C sin pasarse.\n\nLo contamos en Otra lectura\, «El mundo roza 1\,5 °C
+ \; Colombia perdió 91% de su área glaciar»: https://otralectura.co/edic
+ iones/2026-11-09-radar.html
+URL:https://otralectura.co/ediciones/2026-11-09-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Adoptar las decisiones de cierre de la cumbre del clima\, en un
+  año en que\, según el…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

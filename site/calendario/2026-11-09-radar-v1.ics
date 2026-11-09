@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-11-09-radar-v1@otralectura.co
+DTSTAMP:20261109T000000Z
+DTSTART;VALUE=DATE:20270321
+DTEND;VALUE=DATE:20270322
+SUMMARY:Día Mundial de los Glaciares\, que la Asamblea General de la ONU p
+ roclamó para cada 21 de…
+DESCRIPTION:Naciones Unidas\, con la OMM y la Unesco: Día Mundial de los G
+ laciares\, que la Asamblea General de la ONU proclamó para cada 21 de mar
+ zo desde 2025.\n\nLo contamos en Otra lectura\, «El mundo roza 1\,5 °C\;
+  Colombia perdió 91% de su área glaciar»: https://otralectura.co/edicio
+ nes/2026-11-09-radar.html
+URL:https://otralectura.co/ediciones/2026-11-09-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Día Mundial de los Glaciares\, que la Asamblea General de la O
+ NU proclamó para cada 21 de…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR
