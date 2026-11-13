@@ -1,0 +1,26 @@
+{
+  "slug": "2026-11-13-radar",
+  "edicion": 66,
+  "fecha": "13 de noviembre de 2026",
+  "imagen": "imagenes/2026-11-13-radar.webp",
+  "pie_imagen": "Campamento de la Comisión Corográfica, 1850",
+  "escenas": [
+    {"tipo": "portada", "rotulo": "Nudo", "titulo": "El catastro debía estar al día en 2025; ==va cerca del 40%=="},
+    {"tipo": "frase", "texto": "En 2019, el Gobierno prometió tener al día el catastro: ==el inventario de cada predio==, de quién es y cuánto vale."},
+    {"tipo": "frase", "texto": "La meta era el 100% en 2025."},
+    {"tipo": "grafico", "titulo": "Territorio de Colombia con el catastro al día", "unidad": "%", "destacar": "Julio de 2026",
+     "fuente": "DNP (Conpes 3958 y 4204) e IGAC",
+     "datos": [
+       {"etiqueta": "2018", "valor": 5.7},
+       {"etiqueta": "Fin de 2024", "valor": 26.8},
+       {"etiqueta": "Enero de 2026", "valor": 38.9},
+       {"etiqueta": "Julio de 2026", "valor": 41.3}
+     ]},
+    {"tipo": "frase", "texto": "Ahora ==la meta se mudó a 2030.=="},
+    {"tipo": "frase", "texto": "Y cuando por fin se actualiza, el avalúo salta: en abril hubo bloqueos en al menos siete departamentos."},
+    {"tipo": "cifra", "valor": 53, "sufijo": " de cada 100", "texto": "predios rurales serían informales, según la UPRA (2019)."},
+    {"tipo": "frase", "texto": "Saber quién es dueño de qué decide, por generaciones, ==quién puede heredar, vender o defender su tierra.=="},
+    {"tipo": "cierre", "texto": "La historia completa, con fuentes y lo que viene:"}
+  ],
+  "pie": "En 2019, el Gobierno prometió tener al día en 2025 el catastro, el inventario de cada predio, de quién es y cuánto vale. Va cerca del 40%, y la meta se mudó a 2030.\n\nDe ese inventario dependen los papeles de millones de campesinos y el predial de los municipios.\n\nLa historia completa, con fuentes, en otralectura.co (enlace en la bio).\n\n#Colombia #Catastro #Tierra #Campo #OtraLectura"
+}
