@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url><loc>https://otralectura.co/</loc><lastmod>2026-11-12</lastmod></url>
+<url><loc>https://otralectura.co/</loc><lastmod>2026-11-13</lastmod></url>
+<url><loc>https://otralectura.co/ediciones/2026-11-13-semana.html</loc><lastmod>2026-11-13</lastmod></url>
+<url><loc>https://otralectura.co/ediciones/2026-11-13-radar.html</loc><lastmod>2026-11-13</lastmod></url>
 <url><loc>https://otralectura.co/ediciones/2026-11-12-radar.html</loc><lastmod>2026-11-12</lastmod></url>
 <url><loc>https://otralectura.co/ediciones/2026-11-11-radar.html</loc><lastmod>2026-11-11</lastmod></url>
 <url><loc>https://otralectura.co/ediciones/2026-11-10-radar.html</loc><lastmod>2026-11-10</lastmod></url>
@@ -66,6 +68,7 @@
 <url><loc>https://otralectura.co/ediciones/2026-09-23-radar.html</loc><lastmod>2026-10-20</lastmod></url>
 <url><loc>https://otralectura.co/ediciones/2026-09-22-radar-02.html</loc><lastmod>2026-09-30</lastmod></url>
 <url><loc>https://otralectura.co/ediciones/2026-09-22-radar-01.html</loc><lastmod>2026-09-30</lastmod></url>
+<url><loc>https://otralectura.co/dias/2026-11-13.html</loc></url>
 <url><loc>https://otralectura.co/dias/2026-11-12.html</loc></url>
 <url><loc>https://otralectura.co/dias/2026-11-11.html</loc></url>
 <url><loc>https://otralectura.co/dias/2026-11-10.html</loc></url>
@@ -173,4 +176,9 @@
 <url><loc>https://otralectura.co/temas/lenacapavir-vih-patentes.html</loc></url>
 <url><loc>https://otralectura.co/temas/resistencia-antimicrobiana.html</loc></url>
 <url><loc>https://otralectura.co/temas/imaginemos-colegios.html</loc></url>
+<url><loc>https://otralectura.co/temas/glaciares-colombia-1-5-grados.html</loc></url>
+<url><loc>https://otralectura.co/temas/energia-solar-colombia.html</loc></url>
+<url><loc>https://otralectura.co/temas/semaglutida-genericos-obesidad.html</loc></url>
+<url><loc>https://otralectura.co/temas/agentes-ia-incidentes.html</loc></url>
+<url><loc>https://otralectura.co/temas/catastro-multiproposito-predial.html</loc></url>
 </urlset>

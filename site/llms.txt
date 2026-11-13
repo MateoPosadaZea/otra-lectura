@@ -13,6 +13,8 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 
 ## Ediciones
 
+- [La semana: cinco temas y lo que cambian a largo plazo](https://otralectura.co/ediciones/2026-11-13-semana.html): 13 de noviembre de 2026.
+- [El catastro debía estar al día en 2025; va cerca del 40%](https://otralectura.co/ediciones/2026-11-13-radar.html): 13 de noviembre de 2026.
 - [Nadie le pidió entrar: una IA abrió archivos no públicos en Australia](https://otralectura.co/ediciones/2026-11-12-radar.html): 12 de noviembre de 2026.
 - [En India, las copias del Ozempic cuestan desde 14 dólares al mes](https://otralectura.co/ediciones/2026-11-11-radar.html): 11 de noviembre de 2026.
 - [La capacidad solar de Colombia creció 62% en nueve meses](https://otralectura.co/ediciones/2026-11-10-radar.html): 10 de noviembre de 2026.
@@ -127,3 +129,8 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 - [Inyección contra el VIH a 40 dólares: Colombia quedó por fuera](https://otralectura.co/temas/lenacapavir-vih-patentes.html)
 - [En 2050, las bacterias resistentes matarían 1,9 millones de personas al año](https://otralectura.co/temas/resistencia-antimicrobiana.html)
 - [Imaginemos: que todo niño de colegio público lea al terminar segundo](https://otralectura.co/temas/imaginemos-colegios.html)
+- [El mundo roza 1,5 °C; Colombia perdió 91% de su área glaciar](https://otralectura.co/temas/glaciares-colombia-1-5-grados.html)
+- [La capacidad solar de Colombia creció 62% en nueve meses](https://otralectura.co/temas/energia-solar-colombia.html)
+- [En India, las copias del Ozempic cuestan desde 14 dólares al mes](https://otralectura.co/temas/semaglutida-genericos-obesidad.html)
+- [Nadie le pidió entrar: una IA abrió archivos no públicos en Australia](https://otralectura.co/temas/agentes-ia-incidentes.html)
+- [El catastro debía estar al día en 2025; va cerca del 40%](https://otralectura.co/temas/catastro-multiproposito-predial.html)

@@ -1,0 +1,27 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-11-13-semana-v1@otralectura.co
+DTSTAMP:20261113T000000Z
+DTSTART;VALUE=DATE:20261124
+DTEND;VALUE=DATE:20261125
+SUMMARY:Se cumplen diez años de la firma del Acuerdo Final de paz entre el
+  Gobierno y las FARC…
+DESCRIPTION:Colombia\; balances de la Defensoría\, la Procuraduría y la C
+ ontraloría: Se cumplen diez años de la firma del Acuerdo Final de paz en
+ tre el Gobierno y las FARC\, el 24 de noviembre de 2016 en el Teatro Coló
+ n de Bogotá.\n\nLo contamos en Otra lectura\, «La semana: cinco temas y 
+ lo que cambian a largo plazo»: https://otralectura.co/ediciones/2026-11-1
+ 3-semana.html
+URL:https://otralectura.co/ediciones/2026-11-13-semana.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Se cumplen diez años de la firma del Acuerdo Final de paz entr
+ e el Gobierno y las FARC…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

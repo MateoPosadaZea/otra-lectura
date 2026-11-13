@@ -1,0 +1,27 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-11-13-radar-d3@otralectura.co
+DTSTAMP:20261113T000000Z
+DTSTART;VALUE=DATE:20261115
+DTEND;VALUE=DATE:20261116
+SUMMARY:Entregar al Consejo Nacional de Planeación las bases del Plan Naci
+ onal de Desarrollo…
+DESCRIPTION:Gobierno nacional: el Departamento Nacional de Planeación (DNP
+ ): Entregar al Consejo Nacional de Planeación las bases del Plan Nacional
+  de Desarrollo 2026-2030\, donde se sabrá si mantiene la meta del IGAC de
+  tener todo el país con el catastro al día en 2030.\n\nLo contamos en Ot
+ ra lectura\, «El catastro debía estar al día en 2025\; va cerca del 40%
+ »: https://otralectura.co/ediciones/2026-11-13-radar.html
+URL:https://otralectura.co/ediciones/2026-11-13-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Entregar al Consejo Nacional de Planeación las bases del Plan 
+ Nacional de Desarrollo…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR
