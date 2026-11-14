@@ -249,7 +249,7 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
 .cifra{transform-origin:left center}.logo-anim{display:inline-block;white-space:nowrap}
 .foto{height:${reel ? 760 : 470}px;overflow:hidden;margin-bottom:56px;border:2px solid var(--tinta)}
 .foto img{width:100%;height:100%;object-fit:cover;filter:sepia(.2) contrast(1.05);mix-blend-mode:multiply}
-.rot{color:var(--rojo);font-weight:800;font-size:34px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:20px}
+.rot{color:var(--rojo);font-weight:600;font-size:34px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:20px}
 .tit{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 104 : 84}px;line-height:1.02;letter-spacing:-.01em}
 .frase{font-family:var(--tit);font-weight:var(--tw);line-height:1.08}
 .frase.corta{font-size:${reel ? 150 : 124}px;line-height:1}
@@ -266,14 +266,14 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
 .col{flex:1;display:flex;flex-direction:column;height:100%;justify-content:flex-end;align-items:stretch;text-align:center}
 .barra-c{flex:1;display:flex;align-items:flex-end;max-height:${reel ? 760 : 520}px;position:relative}
 .g-meta{position:absolute;left:0;border-top:3px dashed var(--tinta);transform-origin:left;z-index:1}
-.g-meta span{position:absolute;left:0;bottom:12px;font-weight:700;font-size:${reel ? 34 : 30}px;white-space:nowrap;text-align:left}
+.g-meta span{position:absolute;left:0;bottom:12px;font-weight:500;font-size:${reel ? 34 : 30}px;white-space:nowrap;text-align:left}
 .g-brecha{position:absolute;left:50%;border-left:4px dashed var(--rojo);transform-origin:bottom}
-.g-brecha span{position:absolute;right:28px;top:50%;transform:translateY(-50%);color:var(--rojo);font-weight:700;font-size:${reel ? 36 : 32}px;line-height:1.1;white-space:nowrap;text-align:right}
+.g-brecha span{position:absolute;right:28px;top:50%;transform:translateY(-50%);color:var(--rojo);font-weight:500;font-size:${reel ? 36 : 32}px;line-height:1.1;white-space:nowrap;text-align:right}
 .barra{width:100%;background:var(--gris);transform-origin:bottom}
 .dest .barra{background:var(--rojo)}
-.val{position:absolute;left:0;right:0;font-weight:800;font-size:46px;line-height:1}
+.val{position:absolute;left:0;right:0;font-weight:600;font-size:46px;line-height:1}
 .dest .val{color:var(--rojo)}
-.etq{position:relative;top:0;font-size:30px;font-weight:600;line-height:1.15;margin-top:14px;height:72px;margin-bottom:-86px}
+.etq{position:relative;top:0;font-size:30px;font-weight:500;line-height:1.15;margin-top:14px;height:72px;margin-bottom:-86px}
 .g-fuente{margin-top:110px;font-size:28px;color:var(--tenue)}
 /* Nunca una palabra sola en la última línea: titulares parejos, textos reacomodados. */
 .tit,.frase,.cierre-txt,.logo-bajada,.firma-lema,.g-tit{text-wrap:balance}

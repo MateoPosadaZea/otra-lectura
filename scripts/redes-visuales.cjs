@@ -353,12 +353,12 @@ const CSS = `
 .sello{fill:none;stroke:var(--rojo);stroke-width:4}
 .barco{fill:var(--papel);stroke:var(--tinta);stroke-width:4;stroke-linejoin:round}
 .ilus text{font-family:var(--sans);fill:var(--tinta)}
-.tx-num{font-size:52px;font-weight:800}.tx-peq{font-size:30px;fill:var(--tenue)!important;font-weight:600}
-.tx-etq{font-size:40px;font-weight:700}
-.tx-rojo{font-size:44px;font-weight:800;fill:var(--rojo)!important;letter-spacing:.06em;text-transform:uppercase}
-.tx-rojo-peq{font-size:30px;font-weight:800;fill:var(--rojo)!important;letter-spacing:.12em}
-.tx-sup{font-size:34px;font-weight:800;fill:var(--rojo)!important}
-.tx-sello{font-size:30px;font-weight:800;fill:var(--rojo)!important;letter-spacing:.08em;text-transform:uppercase}
+.tx-num{font-size:52px;font-weight:600}.tx-peq{font-size:30px;fill:var(--tenue)!important;font-weight:500}
+.tx-etq{font-size:40px;font-weight:500}
+.tx-rojo{font-size:44px;font-weight:600;fill:var(--rojo)!important;letter-spacing:.06em;text-transform:uppercase}
+.tx-rojo-peq{font-size:30px;font-weight:600;fill:var(--rojo)!important;letter-spacing:.12em}
+.tx-sup{font-size:34px;font-weight:600;fill:var(--rojo)!important}
+.tx-sello{font-size:30px;font-weight:600;fill:var(--rojo)!important;letter-spacing:.08em;text-transform:uppercase}
 .tx-grande{font-family:var(--tit)!important;font-size:150px}.tx-rojo-g{fill:var(--rojo)!important}.tx-gris{fill:rgba(22,19,15,.35)!important}
 .mp{overflow:visible}
 .mp-cam{transform-box:view-box!important;transform-origin:0 0!important}
@@ -370,8 +370,8 @@ const CSS = `
 .mp-borde{stroke-width:3}
 .mp-mini{fill:var(--papel);stroke:var(--tinta);stroke-width:7}
 .mp-ciudad{fill:var(--tinta)}
-.mp-nombre{font-size:48px;font-weight:600}
-.mp-valor{font-family:var(--sans);font-weight:800;font-size:30px;fill:var(--tinta)}
+.mp-nombre{font-size:48px;font-weight:500}
+.mp-valor{font-family:var(--sans);font-weight:600;font-size:30px;fill:var(--tinta)}
 .mp-etiqueta{}
 @keyframes zoom{to{transform:var(--zoom)}}
 @keyframes adelgaza{to{stroke-width:var(--fino)}}
