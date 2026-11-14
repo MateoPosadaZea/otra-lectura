@@ -4,7 +4,7 @@
 //   - carrusel-N.png: una lámina 1080 × 1350 por escena, en su estado final.
 //   - pie.txt: el texto del post.
 //
-// Uso: NODE_PATH=$(npm root -g) node scripts/redes.cjs redes/guiones/<slug>.json [--solo-carrusel]
+// Uso: NODE_PATH=$(npm root -g) node scripts/redes.cjs redes/guiones/<slug>.json [--solo-carrusel] [--cuadro=MS]
 // Sale en redes/salida/<slug>/. No forma parte del build del sitio: necesita
 // Chromium (Playwright) y ffmpeg, que no existen en el build de Cloudflare.
 
@@ -19,8 +19,8 @@ const FPS = 30;
 const CAPTURA = 60; // dos capturas por cuadro final: desenfoque de movimiento
 
 const TIPOS = {
-  // titular, texto. Las fuentes viven en plantilla/fuentes (sin red).
-  actual: { titular: "'Instrument Serif'", peso: 400, texto: "Manrope" },
+  // titular, texto. Las fuentes viven en plantilla/fuentes y redes/fuentes (sin red).
+  actual: { titular: "'Instrument Serif'", peso: 400, texto: "'Inter Tight'" },
 };
 
 function esc(s) {
@@ -224,7 +224,7 @@ function html(guion, alto, tipo) {
   const doc = `<!doctype html><html lang="es"><head><meta charset="utf-8"><style>
 @font-face{font-family:"Instrument Serif";src:url(${f("instrument-serif.woff2")})}
 @font-face{font-family:"Instrument Serif";font-style:italic;src:url(${f("instrument-serif-italic.woff2")})}
-@font-face{font-family:"Manrope";src:url(${f("manrope.woff2")});font-weight:200 800}
+@font-face{font-family:"Inter Tight";src:url(${"file://" + path.join(RAIZ, "redes", "fuentes", "inter-tight.ttf")});font-weight:100 900}
 @font-face{font-family:"Unifraktur";src:url(${f("unifraktur.woff2")})}
 :root{--papel:#efe7d6;--tinta:#16130f;--tenue:#5a5145;--rojo:#a1231b;--gris:#a39c92;
   --tit:${ty.titular};--tw:${ty.peso};--sans:${ty.texto}}
@@ -360,6 +360,15 @@ async function main() {
     const page = await browser.newPage({ viewport: { width: 1080, height: 1920 } });
     await page.goto("file://" + archivo);
     await page.evaluate(() => document.fonts.ready);
+    // --cuadro=MS: solo una imagen del reel en ese instante, para revisar rápido.
+    const cuadro = args.find((a) => a.startsWith("--cuadro="));
+    if (cuadro) {
+      const ms = +cuadro.slice(9);
+      await fijar(page, ms);
+      await page.screenshot({ path: path.join(salida, `cuadro-${ms}.png`) });
+      console.log(`cuadro: ${path.join(salida, `cuadro-${ms}.png`)}`);
+      return;
+    }
     const mp4 = path.join(salida, "reel.mp4");
     const ff = spawn("ffmpeg", ["-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", String(CAPTURA),
       "-i", "-", "-vf", `tmix=frames=${CAPTURA / FPS},fps=${FPS}`, "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "20", "-preset", "medium",

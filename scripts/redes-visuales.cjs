@@ -360,7 +360,7 @@ const CSS = `
 .tx-sup{font-size:34px;font-weight:800;fill:var(--rojo)!important}
 .tx-sello{font-size:30px;font-weight:800;fill:var(--rojo)!important;letter-spacing:.08em;text-transform:uppercase}
 .tx-grande{font-family:var(--tit)!important;font-size:150px}.tx-rojo-g{fill:var(--rojo)!important}.tx-gris{fill:rgba(22,19,15,.35)!important}
-.mp{overflow:hidden}
+.mp{overflow:visible}
 .mp-cam{transform-box:view-box!important;transform-origin:0 0!important}
 .mp-cam *{transform-box:view-box;transform-origin:0 0}
 .mp-vecino{fill:none;stroke:rgba(22,19,15,.22);stroke-width:1.4;vector-effect:non-scaling-stroke}
@@ -369,10 +369,10 @@ const CSS = `
 .mp-linea{fill:none;stroke:rgba(22,19,15,.38);stroke-width:1.2;vector-effect:non-scaling-stroke}
 .mp-borde{stroke-width:3}
 .mp-mini{fill:var(--papel);stroke:var(--tinta);stroke-width:7}
-.mp-ciudad{fill:var(--tinta);stroke:var(--papel);stroke-width:4}
-.mp-nombre{paint-order:stroke;stroke:var(--papel);stroke-width:8px;stroke-linejoin:round}
-.mp-valor{font-family:var(--sans);font-weight:800;font-size:30px;fill:var(--tinta);paint-order:stroke;stroke:var(--papel);stroke-width:6px}
-.mp-etiqueta{paint-order:stroke;stroke:var(--papel);stroke-width:10px}
+.mp-ciudad{fill:var(--tinta)}
+.mp-nombre{font-size:48px;font-weight:600}
+.mp-valor{font-family:var(--sans);font-weight:800;font-size:30px;fill:var(--tinta)}
+.mp-etiqueta{}
 @keyframes zoom{to{transform:var(--zoom)}}
 @keyframes adelgaza{to{stroke-width:var(--fino)}}
 @keyframes dibuja{to{stroke-dashoffset:0}}
