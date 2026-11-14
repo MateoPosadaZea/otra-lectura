@@ -20,13 +20,44 @@ body::after{content:"";position:absolute;inset:0;opacity:.5;background:url("data
 .p{display:inline-block;width:.2em;height:.2em;border-radius:50%;background:#a1231b;margin-left:.04em}
 ${extra}</style></head><body>${cuerpo}</body></html>`;
 
+// La O gótica centrada por su forma (no por la caja de la letra) y el punto
+// rojo al lado, sin correrla. La medida la hace el navegador con canvas.
+function sello(tam) {
+  return base(`<canvas id="m" width="${tam * 2}" height="${tam * 2}" style="display:none"></canvas>
+    <div id="o" style="position:absolute;left:0;top:0;font-family:U;font-size:${tam}px;line-height:1">O</div>
+    <i id="p" style="position:absolute;border-radius:50%;background:#a1231b"></i>
+    <script>
+    document.fonts.load('${tam}px U').then(function () {
+      // Dibuja la O en un lienzo con la línea base en y = tam y busca su tinta.
+      var cv = document.getElementById('m'), c = cv.getContext('2d');
+      c.font = '${tam}px U'; c.textBaseline = 'alphabetic'; c.fillText('O', ${tam / 2}, ${tam});
+      var px = c.getImageData(0, 0, cv.width, cv.height).data, x0 = 1e9, x1 = -1, y0 = 1e9, y1 = -1;
+      for (var y = 0; y < cv.height; y++) for (var x = 0; x < cv.width; x++) {
+        if (px[(y * cv.width + x) * 4 + 3] > 128) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+      }
+      // Desplazamiento de la tinta respecto al origen del texto (x = tam/2, base = tam).
+      var izq = x0 - ${tam / 2}, der = x1 - ${tam / 2}, arriba = y0 - ${tam}, abajo = y1 - ${tam};
+      var o = document.getElementById('o'), p = document.getElementById('p');
+      // Con line-height 1, la base queda a medio interlineado más el ascendente.
+      var fm = c.measureText('O'), asc = (${tam} - fm.fontBoundingBoxAscent - fm.fontBoundingBoxDescent) / 2 + fm.fontBoundingBoxAscent;
+      var bx = 540 - (izq + der) / 2, by = 540 - (arriba + abajo) / 2; // origen del texto deseado
+      o.style.left = bx + 'px'; o.style.top = (by - asc) + 'px';
+      var d = ${tam} * 0.12;
+      p.style.width = p.style.height = d + 'px';
+      p.style.left = (bx + der + ${tam} * 0.035) + 'px';
+      p.style.top = (by + abajo - d) + 'px';
+      document.body.dataset.listo = '1';
+    });
+    </script>`);
+}
+
 const PERFIL = {
   // Las dos palabras, una sobre otra: se lee el nombre completo.
   "perfil-a-nombre": base(`<div class="c" style="font-family:U;font-size:300px;line-height:.95"><div>Otra</div><div>Lectura<span class="p"></span></div></div>`),
   // Monograma: las iniciales en la letra del logo.
   "perfil-b-monograma": base(`<div class="c" style="font-family:U;font-size:560px;line-height:1"><div>OL<span class="p" style="width:.13em;height:.13em"></span></div></div>`),
   // Solo la O gótica con el punto rojo: el sello.
-  "perfil-c-sello": base(`<div class="c" style="font-family:U;font-size:760px;line-height:1"><div style="margin-top:-40px">O<span class="p" style="width:.12em;height:.12em"></span></div></div>`),
+  "perfil-c-sello": sello(760),
 };
 
 // Portadas de destacadas: dibujos, no texto (Instagram ya pone el nombre debajo).
@@ -34,7 +65,7 @@ const MAPA = JSON.parse(fs.readFileSync(path.join(RAIZ, "redes", "mapas", "colom
 const trazo = 'fill="none" stroke="#16130f" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"';
 const bog = MAPA.ciudades.bogota;
 const DESTACADAS = {
-  "quienes-somos": `<div class="c" style="font-family:U;font-size:640px;line-height:1"><div style="margin-top:-30px">O<span class="p" style="width:.12em;height:.12em"></span></div></div>`,
+  "quienes-somos": null, // se arma con sello() abajo
   "mapas": `<div class="c"><svg viewBox="${MAPA.viewBox}" style="height:760px"><path d="${MAPA.contorno}" fill="none" stroke="#16130f" stroke-width="10" stroke-linejoin="round"/><circle cx="${bog.x}" cy="${bog.y}" r="34" fill="#a1231b"/></svg></div>`,
   "graficos": `<div class="c"><svg viewBox="0 0 600 600" style="width:620px"><path d="M60 540 H540" ${trazo}/><rect x="100" y="380" width="100" height="160" fill="#a39c92"/><rect x="250" y="260" width="100" height="280" fill="#a39c92"/><rect x="400" y="110" width="100" height="430" fill="#a1231b"/></svg></div>`,
   "para-conversar": `<div class="c"><svg viewBox="0 0 800 720" style="width:700px"><path d="M90 120 H460 Q490 120 490 150 V330 Q490 360 460 360 H220 L150 430 L165 360 H90 Q60 360 60 330 V150 Q60 120 90 120 Z" ${trazo}/><path d="M360 400 H710 Q740 400 740 430 V590 Q740 620 710 620 H650 L670 690 L590 620 H360 Q330 620 330 590 V430 Q330 400 360 400 Z" ${trazo.replace("#16130f", "#a1231b")}/></svg></div>`,
@@ -49,11 +80,13 @@ const DESTACADAS = {
     fs.writeFileSync(archivo, html);
     await p.goto("file://" + archivo);
     await p.evaluate(() => document.fonts.ready);
+    if (html.includes('id="o"')) await p.waitForFunction(() => document.body.dataset.listo === "1");
     await p.screenshot({ path: path.join(SALIDA, `${nombre}.png`) });
     fs.unlinkSync(archivo);
   };
   for (const [nombre, html] of Object.entries(PERFIL)) await foto(html, nombre);
-  for (const [nombre, html] of Object.entries(DESTACADAS)) await foto(base(html), `destacada-${nombre}`);
+  DESTACADAS["quienes-somos"] = sello(640);
+  for (const [nombre, html] of Object.entries(DESTACADAS)) await foto(html.startsWith("<!doctype") ? html : base(html), `destacada-${nombre}`);
   await b.close();
   console.log("listo:", fs.readdirSync(SALIDA).join(", "));
 })();
