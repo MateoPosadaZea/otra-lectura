@@ -12,7 +12,7 @@ ciudadanía informada y participativa.
 Esa frase es el punto de partida: entender antes de opinar.
 
 No busca contarlo todo ni llegar primero. Cada mañana elige los temas que
-de verdad mueven la aguja y se detiene en ellos. Casi siempre es uno; si
+pueden cambiarnos como sociedad y se detiene en ellos. Casi siempre es uno; si
 el día lo pide, dos o tres. Nunca se rellena.
 
 ## Qué se cuenta
@@ -28,7 +28,7 @@ concretos (el comercio, el agua, la salud, la frontera). Se cuenta canal
 por canal y sin tomar partido.
 
 Lo que pasa en el mundo entra con las mismas reglas: si una guerra, una
-pandemia o una decisión de otro país mueve la aguja, se cuenta, y se
+pandemia o una decisión de otro país puede cambiarnos, se cuenta, y se
 explica por dónde nos toca. Si no hay nada de ese tamaño, no se rellena.
 
 Entre los temas posibles se elige por impacto: a cuántas personas toca,

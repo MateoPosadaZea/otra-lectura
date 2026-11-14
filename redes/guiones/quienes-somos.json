@@ -2,8 +2,8 @@
   "slug": "quienes-somos",
   "escenas": [
     {"tipo": "logo", "texto": "Un periódico pequeño para entender los temas de gran impacto."},
-    {"tipo": "explica", "visual": {"tipo": "titulares", "etiqueta": "Lo que mueve la aguja"},
-     "texto": "No buscamos contarlo todo ni llegar primero. ==Elegimos lo que de verdad mueve la aguja.=="},
+    {"tipo": "explica", "visual": {"tipo": "titulares", "etiqueta": "Lo trascendental"},
+     "texto": "No buscamos contarlo todo ni llegar primero. ==Elegimos los temas que pueden cambiarnos como sociedad.=="},
     {"tipo": "explica", "visual": {"tipo": "tiempo", "hitos": [{"etq": "Hoy"}, {"etq": "2036", "sub": "10 años"}, {"etq": "2050"}, {"etq": "2076", "sub": "50 años"}]},
      "texto": "Cada mañana, una historia que ==puede cambiar cómo viviremos en 10 a 50 años.=="},
     {"tipo": "explica", "visual": {"tipo": "iconos", "lista": ["sol", "rayo", "corazon", "chip", "planta", "ciudad"], "etiquetas": ["Clima", "Energía", "Salud", "Tecnología", "Tierra", "Ciudades"]},
