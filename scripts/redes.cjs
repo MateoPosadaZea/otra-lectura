@@ -273,6 +273,9 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
 .dest .val{color:var(--rojo)}
 .etq{position:relative;top:0;font-size:30px;font-weight:600;line-height:1.15;margin-top:14px;height:72px;margin-bottom:-86px}
 .g-fuente{margin-top:110px;font-size:28px;color:var(--tenue)}
+/* Nunca una palabra sola en la última línea: titulares parejos, textos reacomodados. */
+.tit,.frase,.cierre-txt,.logo-bajada,.firma-lema,.g-tit{text-wrap:balance}
+.exp,.cita,.cifra-txt{text-wrap:pretty}
 .esc-cierre,.esc-firma{text-align:center;align-items:center}
 .firma-lema{font-family:var(--tit);font-style:italic;font-size:${reel ? 58 : 50}px;line-height:1.15;color:var(--tenue);margin-top:${reel ? 40 : 30}px;max-width:${reel ? 760 : 720}px;text-wrap:balance}
 .firma-fondo{position:absolute;inset:-${reel ? 260 : 200}px -90px -${reel ? 220 : 140}px;background-size:cover;background-position:center;mix-blend-mode:multiply;opacity:.22;filter:sepia(.45) contrast(1.1) brightness(1.05);
