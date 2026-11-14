@@ -168,8 +168,12 @@ function html(guion, alto, tipo) {
   }).join("\n");
   const total = t;
   const fin = tiempos[tiempos.length - 1];
-  // En el cierre sobran el logo de arriba y el pie: los dice la propia escena.
-  const ocultar = fin && fin.tipo === "cierre" ? ` style="animation: sale 400ms ease-in ${fin.ini}ms both"` : "";
+  // En la portada con logo y en el cierre sobran el logo de arriba y el pie: los dice la propia escena.
+  const ini = tiempos[0];
+  const anim = [];
+  if (ini && ini.tipo === "logo") anim.push(`llega 450ms ease-out ${ini.ini + ini.dur}ms both`);
+  if (fin && fin.tipo === "cierre") anim.push(`sale 400ms ease-in ${fin.ini}ms ${anim.length ? "forwards" : "both"}`);
+  const ocultar = anim.length ? ` style="animation: ${anim.join(", ")}"` : "";
   const ty = TIPOS[tipo] || TIPOS.actual;
   const reel = alto === 1920;
   const doc = `<!doctype html><html lang="es"><head><meta charset="utf-8"><style>
@@ -186,7 +190,7 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
 .cab{position:absolute;top:${reel ? 90 : 56}px;left:90px;right:90px;text-align:center;font-family:Unifraktur;font-size:${reel ? 64 : 52}px;padding-bottom:18px;z-index:2}
 .prog{position:absolute;top:${reel ? 190 : 140}px;left:90px;right:90px;height:6px;background:rgba(22,19,15,.12);z-index:2}
 .prog i{display:block;height:100%;background:var(--rojo);transform-origin:left;animation:prog ${total}ms linear 0ms both}
-.pie{position:absolute;bottom:${reel ? 110 : 60}px;left:90px;right:90px;display:flex;justify-content:space-between;font-weight:700;font-size:30px;letter-spacing:.12em;text-transform:uppercase;color:var(--tenue);z-index:2}
+.pie{position:absolute;bottom:${reel ? 110 : 60}px;left:90px;right:90px;display:flex;justify-content:space-between;font-family:var(--tit);font-style:italic;font-size:42px;color:var(--tenue);z-index:2}
 .esc{position:absolute;inset:${reel ? 260 : 200}px 90px ${reel ? 220 : 140}px;display:flex;flex-direction:column;justify-content:center}
 .foto{height:${reel ? 760 : 470}px;overflow:hidden;margin-bottom:56px;border:2px solid var(--tinta)}
 .foto img{width:100%;height:100%;object-fit:cover;filter:sepia(.2) contrast(1.05);mix-blend-mode:multiply}
@@ -228,6 +232,7 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
 .exp{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 80 : 64}px;line-height:1.1}
 ${V.CSS}
 @keyframes entra{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes llega{from{opacity:0}to{opacity:1}}
 @keyframes sale{from{opacity:1}to{opacity:0;transform:translateY(-24px)}}
 @keyframes palabra{from{opacity:0;transform:translateY(.35em)}to{opacity:1;transform:none}}
 @keyframes marca{to{background-size:100% 100%}}
