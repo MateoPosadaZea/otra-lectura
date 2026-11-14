@@ -148,10 +148,14 @@ function escenaHtml(e, t0, d, g, base) {
     </section>`;
   }
   if (e.tipo === "cita") {
+    // Comillas: "cursiva" (una “ grande en la serif cursiva), "latinas" (« »
+    // finas, colgadas al margen) o "gotica" (la “ de la letra del logo).
+    const estilo = e.comillas || "cursiva";
     const p = palabras(e.texto, t0 + 300, 120);
+    const marca = { cursiva: "“", latinas: "«", gotica: "“" }[estilo];
     return `<section ${base}>
-      <div class="comillas" style="animation: pop 900ms var(--rebote) ${t0}ms both">«</div>
-      <p class="cita">${p.html}</p>
+      <div class="comillas com-${estilo}" style="animation: llega 1200ms var(--suave) ${t0}ms both">${marca}</div>
+      <p class="cita cita-${estilo}">${p.html}</p>
       <p class="autor" style="animation: sube 500ms var(--suave) ${p.fin + 300}ms both">${esc(e.autor || "")}</p>
     </section>`;
   }
@@ -258,9 +262,13 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
 .logo-xl{white-space:nowrap;font-family:Unifraktur;font-size:${reel ? 150 : 128}px;text-align:center;line-height:1.1}
 .logo-xl{margin-bottom:40px}
 .logo-bajada{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 72 : 62}px;line-height:1.12;text-align:center}
-.comillas{font-family:var(--tit);color:var(--rojo);font-size:${reel ? 260 : 200}px;line-height:.6;height:${reel ? 130 : 100}px}
+.comillas{color:var(--rojo);line-height:1}
+.com-cursiva{font-family:var(--tit);font-style:italic;font-size:${reel ? 400 : 330}px;height:${reel ? 190 : 150}px;line-height:.9;margin-left:-.06em}
+.com-latinas{font-family:var(--tit);font-size:${reel ? 84 : 70}px;position:relative;height:0;top:.06em;left:-.62em}
+.com-gotica{font-family:Unifraktur;font-size:${reel ? 300 : 250}px;height:${reel ? 160 : 130}px;line-height:.85}
+.cita-latinas{font-style:italic}
 .cita{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 84 : 70}px;line-height:1.12}
-.autor{margin-top:36px;font-size:36px;font-weight:700;color:var(--tenue);letter-spacing:.04em}
+.autor{margin-top:36px;font-family:var(--tit);font-style:italic;font-size:${reel ? 46 : 40}px;color:var(--tenue)}
 .esc-explica{justify-content:flex-start}
 .vis{height:${reel ? 900 : 610}px;display:flex;align-items:center;justify-content:center;margin-bottom:${reel ? 50 : 24}px}
 .exp{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 80 : 64}px;line-height:1.1}
