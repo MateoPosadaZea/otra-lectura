@@ -480,3 +480,11 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
     repite la puerta y se dice en la nota metodológica.
   - **Los nudos, solo si son estructurales:** que su mecanismo, si no se
     desata, siga dañando a millones durante décadas.
+- 2026-11-14 · Mateo: «usemos inter tight… de ahora en adelante» y
+  «apliquemos [Inter Tight] en la web también, nueva tipografía para
+  textos, párrafos». La letra del cuerpo y de todo lo que no es titular
+  (párrafos, rótulos, menús, botones, cifras de gráficos) pasa de Manrope a
+  Inter Tight (OFL, servida desde el sitio). La Instrument Serif sigue en
+  los titulares y la UnifrakturMaguntia en el logo. La medida de la columna
+  no cambia: con Inter Tight da unos 66 caracteres por línea. Lo mismo rige
+  para las piezas de redes, sin bordeados alrededor del texto.

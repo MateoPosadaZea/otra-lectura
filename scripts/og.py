@@ -61,7 +61,7 @@ def generar(destino, titulo, rotulo="", pie="UNA EDICIÓN CADA MAÑANA", bajada=
     # Franja de abajo
     banda = 74
     d.rectangle([(0, ALTO - banda), (ANCHO, ALTO)], fill=TINTA)
-    sans_pie = _fuente("manrope.ttf", 22, 700)
+    sans_pie = _fuente("inter-tight.ttf", 22, 700)
     pie = pie.upper()
     wp = d.textlength(pie, font=sans_pie) + len(pie) * 3
     x = (ANCHO - wp) / 2
@@ -72,7 +72,7 @@ def generar(destino, titulo, rotulo="", pie="UNA EDICIÓN CADA MAÑANA", bajada=
     # Rótulo + título, centrados en el espacio del medio
     arriba, abajo = 138, ALTO - banda
     ancho = ANCHO - 2 * MARGEN
-    sans = _fuente("manrope.ttf", 22, 800)
+    sans = _fuente("inter-tight.ttf", 22, 800)
     alto_rotulo = 44 if rotulo else 0
     cursiva = _fuente("instrument-serif-italic.ttf", 34)
     lineas_bajada = _partir(d, bajada, cursiva, ancho - 80)[:2] if bajada else []
