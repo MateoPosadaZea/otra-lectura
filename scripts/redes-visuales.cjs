@@ -8,9 +8,29 @@ function esc(s) {
   return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-const dib = (t, dur = 900) => `style="animation: dibuja ${dur}ms ease-out ${Math.round(t)}ms both"`;
-const pop = (t, dur = 450) => `style="animation: pop ${dur}ms cubic-bezier(.2,1.4,.4,1) ${Math.round(t)}ms both"`;
-const sube = (t, dur = 500) => `style="animation: sube ${dur}ms ease-out ${Math.round(t)}ms both"`;
+// Curvas de movimiento. Nada se mueve parejo: llega rápido y se posa (suave),
+// se va acelerando (salida), se dibuja como una mano (trazo) o rebota con un
+// muelle amortiguado de verdad (rebote, muelle), muestreado para CSS linear().
+function muelle(z) {
+  const T = 4.6 / z, n = 40, wd = Math.sqrt(1 - z * z), pts = [];
+  for (let i = 0; i <= n; i++) {
+    const t = (T * i) / n;
+    pts.push(+(1 - Math.exp(-z * t) * (Math.cos(wd * t) + (z / wd) * Math.sin(wd * t))).toFixed(4));
+  }
+  pts[n] = 1;
+  return `linear(${pts.join(",")})`;
+}
+const MOV = {
+  suave: "cubic-bezier(.16,1,.3,1)",
+  salida: "cubic-bezier(.7,0,.84,0)",
+  trazo: "cubic-bezier(.65,0,.35,1)",
+  rebote: muelle(0.42),
+  muelle: muelle(0.68),
+};
+
+const dib = (t, dur = 900) => `style="animation: dibuja ${Math.round(dur * 1.15)}ms var(--trazo) ${Math.round(t)}ms both"`;
+const pop = (t, dur = 450) => `style="animation: pop ${Math.round(dur * 1.8)}ms var(--rebote) ${Math.round(t)}ms both"`;
+const sube = (t, dur = 500) => `style="animation: sube ${Math.round(dur * 1.4)}ms var(--suave) ${Math.round(t)}ms both"`;
 
 function svg(vb, cuerpo) {
   return `<svg class="ilus" viewBox="${vb}" preserveAspectRatio="xMidYMid meet">${cuerpo}</svg>`;
@@ -151,7 +171,7 @@ function maizBacterias(v, t) {
   const destinos = [[-55, 88], [-23, 117], [9, 127], [41, 107], [68, 78], [-40, 60], [30, 70], [0, 100]];
   destinos.forEach(([dx, dy], i) => {
     const ox = (i % 2 ? 1 : -1) * (250 + i * 20), oy = -220 + (i % 3) * 60;
-    s += `<g style="--dx:${ox}px;--dy:${oy}px;animation: viaja 1400ms cubic-bezier(.3,.6,.3,1) ${t + 1600 + i * 160}ms both">
+    s += `<g style="--dx:${ox}px;--dy:${oy}px;animation: viaja 1600ms var(--suave) ${t + 1600 + i * 160}ms both">
       <ellipse cx="${400 + dx * 1.3}" cy="${420 + dy * 1.3}" rx="16" ry="9" class="pt-rojo" style="transform:rotate(${i * 37}deg)"/></g>`;
   });
   s += `<text x="400" y="110" class="tx-etq" text-anchor="middle" ${sube(t + 3200)}>${esc(v.etiqueta || "")}</text>`;
@@ -165,7 +185,7 @@ function bolsa(v, t) {
     s += `<text x="400" y="${240 + i * 50}" class="tx-etq" text-anchor="middle" ${sube(t + 900 + i * 120)}>${esc(w)}</text>`;
   });
   s += `<clipPath id="cb"><path d="M250 120 Q400 80 550 120 L590 620 Q400 660 210 620 Z"/></clipPath>`;
-  s += `<g clip-path="url(#cb)"><rect x="180" y="375" width="440" height="300" class="relleno-rojo" style="transform-origin:bottom;animation: crece 1200ms cubic-bezier(.2,.8,.2,1) ${t + 1600}ms both"/></g>`;
+  s += `<g clip-path="url(#cb)"><rect x="180" y="375" width="440" height="300" class="relleno-rojo" style="transform-origin:bottom;animation: crece 1500ms var(--muelle) ${t + 1600}ms both"/></g>`;
   s += `<path pathLength="1" class="tr tr-punteado" d="M200 375 H600" ${dib(t + 1500, 700)}/>`;
   s += `<text x="620" y="385" class="tx-rojo-peq" ${sube(t + 2600)}>${esc(v.marca || "")}</text>`;
   return svg("0 0 800 700", s);
@@ -187,7 +207,7 @@ function ruta(v, t) {
   s += `<circle cx="700" cy="320" r="16" class="pt-tinta" ${pop(t)}/><circle cx="100" cy="320" r="16" class="pt-rojo" ${pop(t + 1300)}/>`;
   s += `<text x="700" y="390" class="tx-etq" text-anchor="middle" ${sube(t + 200)}>${esc(v.desde)}</text>`;
   s += `<text x="100" y="390" class="tx-etq" text-anchor="middle" ${sube(t + 1400)}>${esc(v.hasta)}</text>`;
-  s += `<g style="offset-path: path('M700 300 Q400 100 100 300');offset-rotate:0deg;animation: navega 2400ms ease-in-out ${t + 400}ms both">
+  s += `<g style="offset-path: path('M700 300 Q400 100 100 300');offset-rotate:0deg;animation: navega 2600ms var(--trazo) ${t + 400}ms both">
     <path class="barco" d="M-40 0 H40 L28 22 H-28 Z M0 0 V-46 L28 -12 H0"/></g>`;
   return svg("0 0 800 460", s);
 }
@@ -201,6 +221,7 @@ function visual(v, t) {
 }
 
 const CSS = `
+:root{--suave:${MOV.suave};--salida:${MOV.salida};--trazo:${MOV.trazo};--rebote:${MOV.rebote};--muelle:${MOV.muelle}}
 .ilus{width:100%;height:100%;overflow:visible}
 .ilus *{transform-box:fill-box;transform-origin:center}
 .tr{fill:none;stroke:var(--tinta);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
@@ -223,10 +244,10 @@ const CSS = `
 .tx-sello{font-size:30px;font-weight:800;fill:var(--rojo)!important;letter-spacing:.08em;text-transform:uppercase}
 .tx-grande{font-family:var(--tit)!important;font-size:150px}.tx-rojo-g{fill:var(--rojo)!important}.tx-gris{fill:rgba(22,19,15,.35)!important}
 @keyframes dibuja{to{stroke-dashoffset:0}}
-@keyframes pop{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:none}}
+@keyframes pop{0%{opacity:0;transform:scale(.2)}15%{opacity:1}100%{opacity:1;transform:none}}
 @keyframes aparece{from{opacity:0}to{opacity:1}}
 @keyframes viaja{from{transform:translate(var(--dx),var(--dy));opacity:0}25%{opacity:1}to{transform:none;opacity:1}}
 @keyframes navega{from{offset-distance:0%}to{offset-distance:100%}}
 `;
 
-module.exports = { visual, CSS, ICONOS };
+module.exports = { visual, CSS, ICONOS, MOV };

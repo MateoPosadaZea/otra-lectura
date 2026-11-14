@@ -16,6 +16,7 @@ const V = require("./redes-visuales.cjs");
 
 const RAIZ = path.resolve(__dirname, "..");
 const FPS = 30;
+const CAPTURA = 60; // dos capturas por cuadro final: desenfoque de movimiento
 
 const TIPOS = {
   // titular, texto. Las fuentes viven en plantilla/fuentes (sin red).
@@ -44,7 +45,7 @@ function palabras(texto, inicio, paso) {
     for (const w of ws) {
       if (!w) continue;
       if (/^\s+$/.test(w)) { trozo += " "; continue; }
-      trozo += `<span class="w" style="animation-delay:${Math.round(inicio + i * paso)}ms">${esc(w)}</span>`;
+      trozo += `<span class="wm"><span class="w" style="animation-delay:${Math.round(inicio + i * paso)}ms">${esc(w)}</span></span>`;
       i++;
     }
     if (marcado) {
@@ -76,14 +77,26 @@ function duracion(e) {
   }
 }
 
-function escena(e, t0, d, g, ultima) {
-  const sale = ultima ? "" : `, sale 450ms ease-in ${t0 + d - 450}ms forwards`;
-  const base = `class="esc esc-${e.tipo}" style="animation: entra 450ms ease-out ${t0}ms both${sale}"`;
+function escena(e, t0, d, g, ultima, primera) {
+  // Sale acelerando hacia arriba; la siguiente ya viene entrando (se solapan).
+  const sale = ultima ? "" : `, sale 420ms var(--salida) ${t0 + d - 420}ms forwards`;
+  const ent = primera ? t0 : t0 - 140;
+  const base = `class="esc esc-${e.tipo}" style="animation: entra 1000ms var(--suave) ${ent}ms both${sale}"`;
+  return cam(escenaHtml(e, t0, d, g, base), t0, d);
+}
+
+// Cámara viva: cada pantalla se acerca muy despacio mientras se lee.
+function cam(html, t0, d) {
+  return html.replace(/^(<section [^>]*>)([\s\S]*)(<\/section>)$/, (m, a, b, c) =>
+    `${a}<div class="cam" style="animation: deriva ${d + 600}ms linear ${t0 - 140}ms both">${b}</div>${c}`);
+}
+
+function escenaHtml(e, t0, d, g, base) {
   if (e.tipo === "portada") {
     const p = palabras(e.titulo, t0 + 700, 110);
     return `<section ${base}>
-      <div class="foto"><img src="${g.imagenUrl}" style="animation: kb ${d + 600}ms linear ${t0}ms both"></div>
-      <div class="rot" style="animation: sube 600ms ease-out ${t0 + 300}ms both">${esc(e.rotulo)} · ${esc(g.fecha)}</div>
+      <div class="foto" style="animation: revela 1300ms var(--suave) ${t0 + 100}ms both"><img src="${g.imagenUrl}" style="animation: kb ${d + 600}ms linear ${t0}ms both"></div>
+      <div class="rot" style="animation: sube 600ms var(--suave) ${t0 + 300}ms both">${esc(e.rotulo)} · ${esc(g.fecha)}</div>
       <h1 class="tit">${p.html}</h1>
     </section>`;
   }
@@ -97,7 +110,7 @@ function escena(e, t0, d, g, ultima) {
     const dec = String(e.valor).includes(".") ? String(e.valor).split(".")[1].length : 0;
     const p = palabras(e.texto, t0 + 1700, 90);
     return `<section ${base}>
-      <div class="cifra"><span class="cuenta" data-hasta="${e.valor}" data-dec="${dec}" data-ini="${t0 + 300}" data-dur="1400">0</span><span class="suf" style="animation: sube 500ms ease-out ${t0 + 1500}ms both">${esc(e.sufijo || "")}</span></div>
+      <div class="cifra" style="animation: escala 1300ms var(--muelle) ${t0 + 200}ms both"><span class="cuenta" data-hasta="${e.valor}" data-dec="${dec}" data-ini="${t0 + 300}" data-dur="1400">0</span><span class="suf" style="animation: sube 500ms var(--suave) ${t0 + 1500}ms both">${esc(e.sufijo || "")}</span></div>
       <p class="cifra-txt">${p.html}</p>
     </section>`;
   }
@@ -109,28 +122,28 @@ function escena(e, t0, d, g, ultima) {
       const dest = x.etiqueta === e.destacar ? " dest" : "";
       const dec = String(x.valor).includes(".") ? 1 : 0;
       return `<div class="col${dest}">
-        <div class="val" style="animation: sube 400ms ease-out ${t + 500}ms both">${numero(x.valor, dec)}${esc(e.unidad || "")}</div>
-        <div class="barra-c"><div class="barra" style="height:${alto}%;animation: crece 800ms cubic-bezier(.2,.8,.2,1) ${t}ms both"></div></div>
+        <div class="val" style="animation: sube 400ms var(--suave) ${t + 500}ms both">${numero(x.valor, dec)}${esc(e.unidad || "")}</div>
+        <div class="barra-c"><div class="barra" style="height:${alto}%;animation: crece 1300ms var(--muelle) ${t}ms both"></div></div>
         <div class="etq">${esc(x.etiqueta)}</div></div>`;
     }).join("");
     return `<section ${base}>
-      <h2 class="g-tit" style="animation: sube 500ms ease-out ${t0 + 200}ms both">${esc(e.titulo)}</h2>
+      <h2 class="g-tit" style="animation: sube 500ms var(--suave) ${t0 + 200}ms both">${esc(e.titulo)}</h2>
       <div class="cols">${cols}</div>
-      <div class="g-fuente" style="animation: sube 500ms ease-out ${t0 + 900}ms both">Fuente: ${esc(e.fuente || "")}</div>
+      <div class="g-fuente" style="animation: sube 500ms var(--suave) ${t0 + 900}ms both">Fuente: ${esc(e.fuente || "")}</div>
     </section>`;
   }
   if (e.tipo === "logo") {
     return `<section ${base}>
-      <div class="logo-xl"><span style="animation: aparece 1200ms ease-out ${t0 + 200}ms both">Otra Lectura</span></div>
-      <p class="logo-bajada" style="animation: sube 600ms ease-out ${t0 + 1500}ms both">${esc(e.texto || "")}</p>
+      <div class="logo-xl"><span class="logo-anim" style="animation: logo 1800ms var(--suave) ${t0 + 200}ms both">Otra Lectura</span></div>
+      <p class="logo-bajada" style="animation: sube 600ms var(--suave) ${t0 + 1500}ms both">${esc(e.texto || "")}</p>
     </section>`;
   }
   if (e.tipo === "cita") {
     const p = palabras(e.texto, t0 + 300, 120);
     return `<section ${base}>
-      <div class="comillas" style="animation: pop 500ms ease-out ${t0}ms both">«</div>
+      <div class="comillas" style="animation: pop 900ms var(--rebote) ${t0}ms both">«</div>
       <p class="cita">${p.html}</p>
-      <p class="autor" style="animation: sube 500ms ease-out ${p.fin + 300}ms both">${esc(e.autor || "")}</p>
+      <p class="autor" style="animation: sube 500ms var(--suave) ${p.fin + 300}ms both">${esc(e.autor || "")}</p>
     </section>`;
   }
   if (e.tipo === "explica") {
@@ -142,13 +155,13 @@ function escena(e, t0, d, g, ultima) {
   }
   if (e.tipo === "cierre") {
     return `<section ${base}>
-      <p class="cierre-txt" style="animation: sube 500ms ease-out ${t0 + 200}ms both">${esc(e.texto)}</p>
-      <div class="url" style="animation: sube 600ms ease-out ${t0 + 800}ms both">otralectura.co</div>
-      <div class="ed" style="animation: sube 500ms ease-out ${t0 + 1300}ms both">${g.edicion ? `Edición ${esc(g.edicion)} · ${esc(g.fecha)}` : esc(e.bajada || "Una edición cada mañana")}</div>
+      <p class="cierre-txt" style="animation: sube 500ms var(--suave) ${t0 + 200}ms both">${esc(e.texto)}</p>
+      <div class="url" style="animation: sube 600ms var(--suave) ${t0 + 800}ms both">otralectura.co</div>
+      <div class="ed" style="animation: sube 500ms var(--suave) ${t0 + 1300}ms both">${g.edicion ? `Edición ${esc(g.edicion)} · ${esc(g.fecha)}` : esc(e.bajada || "Una edición cada mañana")}</div>
     </section>`;
   }
   if (e.tipo === "firma") {
-    return `<section ${base}><div class="logo-xl" style="margin:0;animation: sube 700ms ease-out ${t0 + 150}ms both">Otra Lectura</div></section>`;
+    return `<section ${base}><div class="logo-xl" style="margin:0"><span class="logo-anim" style="animation: logo 1600ms var(--suave) ${t0 + 100}ms both">Otra Lectura</span></div></section>`;
   }
   throw new Error(`tipo de escena desconocido: ${e.tipo}`);
 }
@@ -167,7 +180,7 @@ function html(guion, alto, tipo) {
   const secciones = escenas.map((e, i) => {
     const d = duracion(e);
     tiempos.push({ ini: t, dur: d, tipo: e.tipo });
-    const s = escena(e, t, d, g, i === escenas.length - 1);
+    const s = escena(e, t, d, g, i === escenas.length - 1, i === 0);
     t += d;
     return s;
   }).join("\n");
@@ -175,9 +188,9 @@ function html(guion, alto, tipo) {
   // En la portada con logo y en el cierre sobran el logo de arriba y el pie: los dice la propia escena.
   const ini = tiempos[0];
   const anim = [];
-  if (ini && ini.tipo === "logo") anim.push(`llega 450ms ease-out ${ini.ini + ini.dur}ms both`);
+  if (ini && ini.tipo === "logo") anim.push(`llega 450ms var(--suave) ${ini.ini + ini.dur}ms both`);
   const cierre = tiempos.find((x) => x.tipo === "cierre");
-  if (cierre) anim.push(`sale 400ms ease-in ${cierre.ini}ms ${anim.length ? "forwards" : "both"}`);
+  if (cierre) anim.push(`sale 420ms var(--salida) ${cierre.ini - 420}ms ${anim.length ? "forwards" : "both"}`);
   const ocultar = anim.length ? ` style="animation: ${anim.join(", ")}"` : "";
   const ty = TIPOS[tipo] || TIPOS.actual;
   const reel = alto === 1920;
@@ -197,6 +210,8 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
 .prog i{display:block;height:100%;background:var(--rojo);transform-origin:left;animation:prog ${total}ms linear 0ms both}
 .pie{position:absolute;bottom:${reel ? 110 : 60}px;left:90px;right:90px;display:flex;justify-content:space-between;font-family:var(--tit);font-style:italic;font-size:42px;color:var(--tenue);z-index:2}
 .esc{position:absolute;inset:${reel ? 260 : 200}px 90px ${reel ? 220 : 140}px;display:flex;flex-direction:column;justify-content:center}
+.cam{width:100%;height:100%;display:flex;flex-direction:column;justify-content:inherit;align-items:inherit;text-align:inherit;will-change:transform}
+.cifra{transform-origin:left center}.logo-anim{display:inline-block}
 .foto{height:${reel ? 760 : 470}px;overflow:hidden;margin-bottom:56px;border:2px solid var(--tinta)}
 .foto img{width:100%;height:100%;object-fit:cover;filter:sepia(.2) contrast(1.05);mix-blend-mode:multiply}
 .rot{color:var(--rojo);font-weight:800;font-size:34px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:20px}
@@ -205,8 +220,9 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
 .frase.corta{font-size:${reel ? 150 : 124}px;line-height:1}
 .frase.media{font-size:${reel ? 112 : 94}px}
 .frase.larga{font-size:${reel ? 96 : 80}px}
-.w{display:inline-block;animation:palabra 520ms cubic-bezier(.2,.8,.2,1) both}
-.m{background:linear-gradient(transparent 58%,rgba(161,35,27,.28) 58%) no-repeat 0 0/0% 100%;animation:marca 700ms ease-out both;color:inherit}
+.wm{display:inline-block;overflow:hidden;vertical-align:bottom;padding:.14em .06em .2em;margin:-.14em -.06em -.2em}
+.w{display:inline-block;animation:palabra 900ms var(--suave) both}
+.m{background:linear-gradient(transparent 58%,rgba(161,35,27,.28) 58%) no-repeat 0 0/0% 100%;animation:marca 650ms var(--trazo) both;color:inherit}
 .cifra{font-family:var(--tit);font-weight:var(--tw);color:var(--rojo);font-size:${reel ? 300 : 250}px;line-height:1}
 .suf{font-size:${reel ? 96 : 80}px;display:inline-block}
 .cifra-txt{font-size:${reel ? 64 : 54}px;line-height:1.25;margin-top:36px;font-weight:500}
@@ -236,10 +252,14 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
 .vis{height:${reel ? 900 : 610}px;display:flex;align-items:center;justify-content:center;margin-bottom:${reel ? 50 : 24}px}
 .exp{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 80 : 64}px;line-height:1.1}
 ${V.CSS}
-@keyframes entra{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes entra{from{opacity:0;transform:translateY(90px)}35%{opacity:1}to{opacity:1;transform:none}}
 @keyframes llega{from{opacity:0}to{opacity:1}}
-@keyframes sale{from{opacity:1}to{opacity:0;transform:translateY(-24px)}}
-@keyframes palabra{from{opacity:0;transform:translateY(.35em)}to{opacity:1;transform:none}}
+@keyframes sale{from{opacity:1}to{opacity:0;transform:translateY(-70px)}}
+@keyframes palabra{from{transform:translateY(115%)}to{transform:none}}
+@keyframes deriva{from{transform:scale(1)}to{transform:scale(1.03)}}
+@keyframes revela{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
+@keyframes escala{from{opacity:0;transform:scale(.7)}25%{opacity:1}to{opacity:1;transform:none}}
+@keyframes logo{from{opacity:0;letter-spacing:.3em;filter:blur(8px)}to{opacity:1;letter-spacing:0;filter:none}}
 @keyframes marca{to{background-size:100% 100%}}
 @keyframes sube{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 @keyframes crece{from{transform:scaleY(0)}to{transform:scaleY(1)}}
@@ -254,7 +274,7 @@ ${secciones}
 window.alTiempo = function(t){
   document.querySelectorAll('.cuenta').forEach(function(el){
     var ini=+el.dataset.ini, dur=+el.dataset.dur, hasta=+el.dataset.hasta, dec=+el.dataset.dec;
-    var p=Math.min(1,Math.max(0,(t-ini)/dur)); p=1-Math.pow(1-p,3);
+    var p=Math.min(1,Math.max(0,(t-ini)/dur)); p=p>=1?1:1-Math.pow(2,-10*p);
     el.textContent=(hasta*p).toLocaleString('es-CO',{minimumFractionDigits:dec,maximumFractionDigits:dec});
   });
 };
@@ -305,12 +325,12 @@ async function main() {
     await page.goto("file://" + archivo);
     await page.evaluate(() => document.fonts.ready);
     const mp4 = path.join(salida, "reel.mp4");
-    const ff = spawn("ffmpeg", ["-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", String(FPS),
-      "-i", "-", "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "20", "-preset", "medium",
+    const ff = spawn("ffmpeg", ["-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", String(CAPTURA),
+      "-i", "-", "-vf", `tmix=frames=${CAPTURA / FPS},fps=${FPS}`, "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "20", "-preset", "medium",
       "-movflags", "+faststart", mp4], { stdio: ["pipe", "inherit", "inherit"] });
-    const cuadros = Math.ceil((total / 1000) * FPS) + FPS; // un segundo final quieto
+    const cuadros = Math.ceil((total / 1000) * CAPTURA) + CAPTURA; // un segundo final quieto
     for (let k = 0; k < cuadros; k++) {
-      await fijar(page, Math.min(total - 1, (k * 1000) / FPS));
+      await fijar(page, Math.min(total - 1, (k * 1000) / CAPTURA));
       const buf = await page.screenshot({ type: "jpeg", quality: 92 });
       if (!ff.stdin.write(buf)) await new Promise((r) => ff.stdin.once("drain", r));
     }
