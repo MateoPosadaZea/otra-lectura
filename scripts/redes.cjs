@@ -175,7 +175,16 @@ function escenaHtml(e, t0, d, g, base) {
     </section>`;
   }
   if (e.tipo === "firma") {
-    return `<section ${base}><div class="logo-xl" style="margin:0"><span class="logo-anim" style="animation: logo 1600ms var(--suave) ${t0 + 100}ms both">Otra Lectura</span></div></section>`;
+    // Lámina final. "lema": logo y lema; "grabado": sobre un grabado tenue;
+    // "marco": filete doble de portadilla. Se pueden combinar: "grabado marco".
+    const estilo = e.estilo || g.firma || "lema";
+    const fondo = estilo.includes("grabado") && g.fondoUrl
+      ? `<div class="firma-fondo" style="background-image:url('${g.fondoUrl}');animation: llega 1600ms var(--suave) ${t0}ms both"></div>` : "";
+    const marco = estilo.includes("marco") ? `<div class="firma-marco" style="animation: llega 1200ms var(--suave) ${t0 + 200}ms both"></div>` : "";
+    return `<section ${base}>${fondo}${marco}
+      <div class="logo-xl" style="margin:0"><span class="logo-anim" style="animation: logo 1600ms var(--suave) ${t0 + 100}ms both">Otra Lectura</span></div>
+      <p class="firma-lema" style="animation: sube 900ms var(--suave) ${t0 + 700}ms both">${puntoFinal("Un periódico pequeño para entender los temas de gran impacto.", 0)}</p>
+    </section>`;
   }
   throw new Error(`tipo de escena desconocido: ${e.tipo}`);
 }
@@ -188,6 +197,10 @@ function html(guion, alto, tipo) {
     fecha: guion.fecha,
     edicion: guion.edicion,
     imagenUrl: guion.imagen ? "file://" + path.join(RAIZ, guion.imagen) : "",
+    // Grabado de la lámina final: el de la edición o, si no hay, el de la
+    // Comisión Corográfica (Ed. 66).
+    fondoUrl: "file://" + path.join(RAIZ, guion.imagen || "imagenes/2026-11-13-radar.webp"),
+    firma: guion.firma,
   };
   const escenas = guion.escenas.slice();
   if (escenas.length && escenas[escenas.length - 1].tipo === "cierre") escenas.push({ tipo: "firma" });
@@ -251,7 +264,11 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
 .dest .val{color:var(--rojo)}
 .etq{position:relative;top:0;font-size:30px;font-weight:600;line-height:1.15;margin-top:14px;height:72px;margin-bottom:-86px}
 .g-fuente{margin-top:110px;font-size:28px;color:var(--tenue)}
-.esc-cierre{text-align:center;align-items:center}
+.esc-cierre,.esc-firma{text-align:center;align-items:center}
+.firma-lema{font-family:var(--tit);font-style:italic;font-size:${reel ? 58 : 50}px;line-height:1.15;color:var(--tenue);margin-top:${reel ? 40 : 30}px;max-width:${reel ? 760 : 720}px;text-wrap:balance}
+.firma-fondo{position:absolute;inset:-${reel ? 260 : 200}px -90px -${reel ? 220 : 140}px;background-size:cover;background-position:center;mix-blend-mode:multiply;opacity:.22;filter:sepia(.45) contrast(1.1) brightness(1.05);
+  -webkit-mask-image:radial-gradient(ellipse 75% 65% at 50% 50%,transparent 20%,#000 75%);mask-image:radial-gradient(ellipse 75% 65% at 50% 50%,transparent 20%,#000 75%)}
+.firma-marco{position:absolute;inset:-${reel ? 150 : 110}px -30px -${reel ? 120 : 80}px;border:2px solid var(--tinta);outline:1px solid var(--tinta);outline-offset:-14px}
 .cierre-txt{text-wrap:balance}
 .cierre-txt{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 84 : 70}px;line-height:1.1}
 .url{margin-top:${reel ? 40 : 28}px;font-family:var(--tit);font-style:italic;font-weight:400;font-size:${reel ? 132 : 112}px;line-height:1;color:var(--rojo)}
