@@ -91,7 +91,9 @@ function escena(e, t0, d, g, ultima, primera, n) {
   const sale = ultima ? "" : `, sale 420ms var(--salida) ${t0 + d - 420}ms forwards`;
   const ent = primera ? t0 : t0 - 140;
   const base = `id="esc-${n}" class="esc esc-${e.tipo}" style="animation: entra 1000ms var(--suave) ${ent}ms both${sale}"`;
-  return cam(escenaHtml(e, t0, d, g, base), t0, d);
+  // La portada queda quieta: el grabado no se mueve.
+  const html = escenaHtml(e, t0, d, g, base);
+  return e.tipo === "portada" ? html : cam(html, t0, d);
 }
 
 // Cámara viva: cada pantalla se acerca muy despacio mientras se lee.
@@ -104,7 +106,7 @@ function escenaHtml(e, t0, d, g, base) {
   if (e.tipo === "portada") {
     const p = palabras(e.titulo, t0 + 700, 110);
     return `<section ${base}>
-      <div class="foto" style="animation: revela 1300ms var(--suave) ${t0 + 100}ms both"><img src="${g.imagenUrl}" style="animation: kb ${d + 600}ms linear ${t0}ms both"></div>
+      <div class="foto"><img src="${g.imagenUrl}"></div>
       <div class="rot" style="animation: sube 600ms var(--suave) ${t0 + 300}ms both">${esc(e.rotulo)} · ${esc(g.fecha)}</div>
       <h1 class="tit">${p.html}</h1>
     </section>`;
