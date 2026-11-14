@@ -81,7 +81,7 @@ function duracion(e) {
     case "firma": return 2800;
     case "logo": return 4200;
     case "cita": return Math.max(5200, 1600 + contar(e.texto) * 300);
-    case "explica": return Math.max(5200, 2600 + contar(e.texto) * 300);
+    case "explica": return Math.max(e.visual && e.visual.tipo === "mapa" ? (e.visual.zoom ? 7600 : 6000) : 5200, 2600 + contar(e.texto) * 300);
     default: return 4000;
   }
 }
