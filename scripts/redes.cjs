@@ -288,7 +288,7 @@ ${V.CSS}
 @keyframes prog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 </style></head><body>
 <div class="cab"${ocultar}>Otra Lectura</div>
-${reel ? '<div class="prog"><i></i></div>' : ""}
+${reel ? `<div class="prog"${ocultar}><i></i></div>` : ""}
 ${secciones}
 <div id="punto"></div>
 <div class="pie"${ocultar}><span>otralectura.co</span><span>${guion.edicion ? `Edición ${esc(guion.edicion)}` : "Una edición cada mañana"}</span></div>
