@@ -46,7 +46,7 @@ function cuadricula(v, t) {
   }
   for (let i = 0; i < n; i++) {
     const x = 60 + (i % 10) * 64, y = 60 + Math.floor(i / 10) * 64;
-    s += `<circle cx="${x}" cy="${y}" r="24" class="pt-rojo${i === 0 ? " ancla" : ""}" data-t="${t + 900}" ${pop(t + 900 + i * 14, 300)}/>`;
+    s += `<circle cx="${x}" cy="${y}" r="24" class="pt-rojo" ${pop(t + 900 + i * 14, 300)}/>`;
   }
   return svg("0 0 700 700", s);
 }
@@ -59,7 +59,7 @@ function tiempo(v, t) {
   hs.forEach((h, i) => {
     const x = x0 + ((x1 - x0 - 60) * i) / (hs.length - 1);
     const ti = t + 300 + i * 420;
-    s += `<circle cx="${x}" cy="300" r="22" class="pt-rojo${i === 0 ? " ancla" : ""}" data-t="${ti}" ${pop(ti)}/>`;
+    s += `<circle cx="${x}" cy="300" r="${i ? 22 : 16}" class="${i ? "pt-rojo" : "pt-tinta"}" ${pop(ti)}/>`;
     s += `<text x="${x}" y="${i % 2 ? 390 : 240}" class="tx-num" text-anchor="middle" ${sube(ti + 150)}>${esc(h.etq)}</text>`;
     if (h.sub) s += `<text x="${x}" y="${i % 2 ? 432 : 198}" class="tx-peq" text-anchor="middle" ${sube(ti + 250)}>${esc(h.sub)}</text>`;
   });
@@ -133,7 +133,7 @@ function conversar(v, t) {
 }
 
 // La planta con raíces; nodulos rojos opcionales y bacterias que llegan.
-function planta(x, alto, conNodulos, t, rotulo, tam = 1, ancla = false) {
+function planta(x, alto, conNodulos, t, rotulo, tam = 1) {
   const suelo = 420;
   let s = `<path pathLength="1" class="tr" d="M${x} ${suelo} V${suelo - alto}" ${dib(t, 700)}/>`;
   const hojas = tam > 1
@@ -146,7 +146,7 @@ function planta(x, alto, conNodulos, t, rotulo, tam = 1, ancla = false) {
   const raices = [[-60, 90], [-25, 120], [10, 130], [45, 110], [75, 80]];
   raices.forEach(([dx, dy], i) => {
     s += `<path pathLength="1" class="tr tr-fino" d="M${x} ${suelo} Q${x + dx * 0.4} ${suelo + dy * 0.6} ${x + dx * tam} ${suelo + dy * tam}" ${dib(t + 800 + i * 90, 600)}/>`;
-    if (conNodulos) s += `<circle cx="${x + dx * 0.7 * tam}" cy="${suelo + dy * 0.75 * tam}" r="11" class="pt-rojo${ancla && i === 2 ? " ancla" : ""}" data-t="${t + 1700 + i * 140}" ${pop(t + 1700 + i * 140)}/>`;
+    if (conNodulos) s += `<circle cx="${x + dx * 0.7 * tam}" cy="${suelo + dy * 0.75 * tam}" r="11" class="pt-rojo" ${pop(t + 1700 + i * 140)}/>`;
   });
   if (rotulo) s += `<text x="${x}" y="${suelo + 200}" class="tx-etq" text-anchor="middle" ${sube(t + 600)}>${esc(rotulo)}</text>`;
   return s;
@@ -158,7 +158,7 @@ function suelo(t) {
 
 function soyaMaiz(v, t) {
   let s = suelo(t);
-  s += planta(230, 180, true, t + 300, "Soya", 1, true);
+  s += planta(230, 180, true, t + 300, "Soya");
   s += planta(560, 300, false, t + 900, "Maíz", 1.3);
   s += `<text x="640" y="560" class="tx-grande tx-gris" ${pop(t + 3000)}>?</text>`;
   return svg("0 0 800 650", s);
@@ -194,7 +194,7 @@ function bolsa(v, t) {
 function salto(v, t) {
   let s = `<path pathLength="1" class="tr tr-fino" d="M80 560 H740 M80 560 V80" ${dib(t, 800)}/>`;
   s += `<path pathLength="1" class="tr tr-rojo tr-grueso" d="M90 430 L250 420 L360 435 L430 425 L470 230 L560 215 L700 220" ${dib(t + 700, 1800)}/>`;
-  s += `<circle cx="470" cy="230" r="14" class="pt-rojo ancla" data-t="${t + 1900}" ${pop(t + 1900)}/>`;
+  s += `<circle cx="470" cy="230" r="14" class="pt-rojo" ${pop(t + 1900)}/>`;
   s += `<text x="490" y="170" class="tx-num tx-rojo-g" ${pop(t + 2100)}>${esc(v.etiqueta || "")}</text>`;
   if (v.cuando) s += `<text x="470" y="610" class="tx-peq" text-anchor="middle" ${sube(t + 2300)}>${esc(v.cuando)}</text>`;
   return svg("0 0 800 660", s);
@@ -203,7 +203,7 @@ function salto(v, t) {
 // Un barco que cruza de un punto a otro.
 function ruta(v, t) {
   let s = `<path pathLength="1" class="tr tr-punteado" d="M700 320 Q400 120 100 320" ${dib(t, 1400)}/>`;
-  s += `<circle cx="700" cy="320" r="16" class="pt-tinta" ${pop(t)}/><circle cx="100" cy="320" r="16" class="pt-rojo ancla" data-t="${t + 1300}" ${pop(t + 1300)}/>`;
+  s += `<circle cx="700" cy="320" r="16" class="pt-tinta" ${pop(t)}/><circle cx="100" cy="320" r="16" class="pt-rojo" ${pop(t + 1300)}/>`;
   s += `<text x="700" y="390" class="tx-etq" text-anchor="middle" ${sube(t + 200)}>${esc(v.desde)}</text>`;
   s += `<text x="100" y="390" class="tx-etq" text-anchor="middle" ${sube(t + 1400)}>${esc(v.hasta)}</text>`;
   s += `<g style="offset-path: path('M700 300 Q400 100 100 300');offset-rotate:0deg;animation: navega 2600ms var(--trazo) ${t + 400}ms both">
