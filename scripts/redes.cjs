@@ -167,10 +167,14 @@ function html(guion, alto, tipo) {
     return s;
   }).join("\n");
   const total = t;
+  const fin = tiempos[tiempos.length - 1];
+  // En el cierre sobran el logo de arriba y el pie: los dice la propia escena.
+  const ocultar = fin && fin.tipo === "cierre" ? ` style="animation: sale 400ms ease-in ${fin.ini}ms both"` : "";
   const ty = TIPOS[tipo] || TIPOS.actual;
   const reel = alto === 1920;
   const doc = `<!doctype html><html lang="es"><head><meta charset="utf-8"><style>
 @font-face{font-family:"Instrument Serif";src:url(${f("instrument-serif.woff2")})}
+@font-face{font-family:"Instrument Serif";font-style:italic;src:url(${f("instrument-serif-italic.woff2")})}
 @font-face{font-family:"Manrope";src:url(${f("manrope.woff2")});font-weight:200 800}
 @font-face{font-family:"Unifraktur";src:url(${f("unifraktur.woff2")})}
 :root{--papel:#efe7d6;--tinta:#16130f;--tenue:#5a5145;--rojo:#a1231b;--gris:#a39c92;
@@ -207,9 +211,11 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
 .dest .val{color:var(--rojo)}
 .etq{position:relative;top:0;font-size:30px;font-weight:600;line-height:1.15;margin-top:14px;height:72px;margin-bottom:-86px}
 .g-fuente{margin-top:110px;font-size:28px;color:var(--tenue)}
-.cierre-txt{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 90 : 76}px;line-height:1.08}
-.url{margin-top:50px;font-weight:800;font-size:${reel ? 104 : 92}px;color:var(--rojo);letter-spacing:-.01em}
-.ed{margin-top:24px;font-size:36px;color:var(--tenue);font-weight:600}
+.esc-cierre{text-align:center;align-items:center}
+.cierre-txt{text-wrap:balance}
+.cierre-txt{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 84 : 70}px;line-height:1.1}
+.url{margin-top:${reel ? 40 : 28}px;font-family:var(--tit);font-style:italic;font-weight:400;font-size:${reel ? 132 : 112}px;line-height:1;color:var(--rojo)}
+.ed{margin-top:${reel ? 30 : 20}px;font-family:var(--tit);font-style:italic;font-size:${reel ? 46 : 40}px;color:var(--tenue)}
 .logo-g{margin-top:${reel ? 160 : 70}px;font-family:Unifraktur;font-size:${reel ? 120 : 96}px;text-align:center}
 .logo-xl{font-family:Unifraktur;font-size:${reel ? 150 : 128}px;text-align:center;line-height:1.1}
 .logo-xl{margin-bottom:40px}
@@ -230,10 +236,10 @@ ${V.CSS}
 @keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.14) translate(-2%,-1%)}}
 @keyframes prog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 </style></head><body>
-<div class="cab">Otra Lectura</div>
+<div class="cab"${ocultar}>Otra Lectura</div>
 ${reel ? '<div class="prog"><i></i></div>' : ""}
 ${secciones}
-<div class="pie"><span>otralectura.co</span><span>${guion.edicion ? `Edición ${esc(guion.edicion)}` : "Una edición cada mañana"}</span></div>
+<div class="pie"${ocultar}><span>otralectura.co</span><span>${guion.edicion ? `Edición ${esc(guion.edicion)}` : "Una edición cada mañana"}</span></div>
 <script>
 window.alTiempo = function(t){
   document.querySelectorAll('.cuenta').forEach(function(el){
