@@ -1,0 +1,18 @@
+{
+  "slug": "2026-11-14-radar",
+  "edicion": 68,
+  "fecha": "14 de noviembre de 2026",
+  "imagen": "imagenes/2026-11-14-radar.webp",
+  "pie_imagen": "Las islas Chincha (Perú), durante el auge del guano, 1863",
+  "escenas": [
+    {"tipo": "portada", "rotulo": "Fondo", "titulo": "Bacterias diseñadas para abonar el maíz ya se prueban en el campo"},
+    {"tipo": "frase", "texto": "La soya y el fríjol alojan en sus raíces bacterias que les dan nitrógeno. ==El maíz, el arroz y el trigo, no.=="},
+    {"tipo": "frase", "texto": "Ahora hay ==bacterias modificadas para hacerlo==. Ya se prueban en lotes pequeños de maíz en Estados Unidos."},
+    {"tipo": "frase", "texto": "La empresa que las desarrolla, con científicos de tres países, sugiere que algún día podrían reemplazar ==hasta la mitad del fertilizante sintético.=="},
+    {"tipo": "cifra", "valor": 94, "sufijo": " de cada 100", "texto": "toneladas de fertilizante las compra Colombia afuera, según la SAC."},
+    {"tipo": "frase", "texto": "En abril, la urea subió 50%: ==el abono de una papa de Boyacá se decide, en parte, en el golfo Pérsico.=="},
+    {"tipo": "frase", "texto": "Brasil ya lo hace con la soya. En el maíz, ==las mejores cifras las publican las empresas que venden las bacterias.=="},
+    {"tipo": "cierre", "texto": "La historia completa, con fuentes y lo que viene:"}
+  ],
+  "pie": "Bacterias modificadas para darle nitrógeno al maíz ya se prueban en fincas de Estados Unidos. La empresa que las desarrolla, con científicos de tres países, sugiere que algún día podrían reemplazar hasta la mitad del fertilizante sintético.\n\nA Colombia le importa: compra afuera más de 90 de cada 100 toneladas de su fertilizante. Brasil ya lo hace con la soya; en el maíz, las mejores cifras las publican las empresas que venden las bacterias.\n\nLa historia completa, con fuentes, en otralectura.co (enlace en la bio).\n\n#Ciencia #Agricultura #Fertilizantes #Colombia #OtraLectura"
+}

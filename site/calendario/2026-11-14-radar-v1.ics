@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-11-14-radar-v1@otralectura.co
+DTSTAMP:20261114T000000Z
+DTSTART;VALUE=DATE:20261205
+DTEND;VALUE=DATE:20261206
+SUMMARY:Día Mundial del Suelo\, que la Asamblea General de la ONU fijó pa
+ ra cada 5 de diciembre en…
+DESCRIPTION:FAO y Naciones Unidas: Día Mundial del Suelo\, que la Asamblea
+  General de la ONU fijó para cada 5 de diciembre en 2013\, a propuesta de
+  la FAO.\n\nLo contamos en Otra lectura\, «Bacterias diseñadas para abon
+ ar el maíz ya se prueban en el campo»: https://otralectura.co/ediciones/
+ 2026-11-14-radar.html
+URL:https://otralectura.co/ediciones/2026-11-14-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Día Mundial del Suelo\, que la Asamblea General de la ONU fij
+ ó para cada 5 de diciembre en…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR
