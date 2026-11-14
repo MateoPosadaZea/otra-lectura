@@ -12,6 +12,7 @@ const fs = require("fs");
 const path = require("path");
 const { spawn } = require("child_process");
 const { chromium } = require("playwright");
+const V = require("./redes-visuales.cjs");
 
 const RAIZ = path.resolve(__dirname, "..");
 const FPS = 30;
@@ -67,6 +68,9 @@ function duracion(e) {
     case "cifra": return 5000;
     case "grafico": return 6800;
     case "cierre": return 5000;
+    case "logo": return 4200;
+    case "cita": return Math.max(5200, 1600 + contar(e.texto) * 300);
+    case "explica": return Math.max(5200, 2600 + contar(e.texto) * 300);
     default: return 4000;
   }
 }
@@ -114,11 +118,32 @@ function escena(e, t0, d, g, ultima) {
       <div class="g-fuente" style="animation: sube 500ms ease-out ${t0 + 900}ms both">Fuente: ${esc(e.fuente || "")}</div>
     </section>`;
   }
+  if (e.tipo === "logo") {
+    return `<section ${base}>
+      <div class="logo-xl"><span style="animation: aparece 1200ms ease-out ${t0 + 200}ms both">Otra Lectura</span></div>
+      <p class="logo-bajada" style="animation: sube 600ms ease-out ${t0 + 1500}ms both">${esc(e.texto || "")}</p>
+    </section>`;
+  }
+  if (e.tipo === "cita") {
+    const p = palabras(e.texto, t0 + 300, 120);
+    return `<section ${base}>
+      <div class="comillas" style="animation: pop 500ms ease-out ${t0}ms both">«</div>
+      <p class="cita">${p.html}</p>
+      <p class="autor" style="animation: sube 500ms ease-out ${p.fin + 300}ms both">${esc(e.autor || "")}</p>
+    </section>`;
+  }
+  if (e.tipo === "explica") {
+    const p = palabras(e.texto, t0 + 1400, 120);
+    return `<section ${base}>
+      <div class="vis">${V.visual(e.visual, t0 + 250)}</div>
+      <p class="exp">${p.html}</p>
+    </section>`;
+  }
   if (e.tipo === "cierre") {
     return `<section ${base}>
       <p class="cierre-txt" style="animation: sube 500ms ease-out ${t0 + 200}ms both">${esc(e.texto)}</p>
       <div class="url" style="animation: sube 600ms ease-out ${t0 + 800}ms both">otralectura.co</div>
-      <div class="ed" style="animation: sube 500ms ease-out ${t0 + 1300}ms both">Edición ${esc(g.edicion)} · ${esc(g.fecha)}</div>
+      <div class="ed" style="animation: sube 500ms ease-out ${t0 + 1300}ms both">${g.edicion ? `Edición ${esc(g.edicion)} · ${esc(g.fecha)}` : esc(e.bajada || "Una edición cada mañana")}</div>
       <div class="logo-g" style="animation: sube 600ms ease-out ${t0 + 1700}ms both">Otra Lectura</div>
     </section>`;
   }
@@ -132,7 +157,7 @@ function html(guion, alto, tipo) {
   const g = {
     fecha: guion.fecha,
     edicion: guion.edicion,
-    imagenUrl: "file://" + path.join(RAIZ, guion.imagen),
+    imagenUrl: guion.imagen ? "file://" + path.join(RAIZ, guion.imagen) : "",
   };
   const secciones = guion.escenas.map((e, i) => {
     const d = duracion(e);
@@ -154,7 +179,7 @@ function html(guion, alto, tipo) {
 html,body{width:1080px;height:${alto}px;overflow:hidden;background:var(--papel);color:var(--tinta);font-family:var(--sans)}
 body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
   background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-.cab{position:absolute;top:${reel ? 90 : 56}px;left:90px;right:90px;text-align:center;font-family:Unifraktur;font-size:${reel ? 64 : 52}px;padding-bottom:18px;border-bottom:2px solid var(--tinta);z-index:2}
+.cab{position:absolute;top:${reel ? 90 : 56}px;left:90px;right:90px;text-align:center;font-family:Unifraktur;font-size:${reel ? 64 : 52}px;padding-bottom:18px;z-index:2}
 .prog{position:absolute;top:${reel ? 190 : 140}px;left:90px;right:90px;height:6px;background:rgba(22,19,15,.12);z-index:2}
 .prog i{display:block;height:100%;background:var(--rojo);transform-origin:left;animation:prog ${total}ms linear 0ms both}
 .pie{position:absolute;bottom:${reel ? 110 : 60}px;left:90px;right:90px;display:flex;justify-content:space-between;font-weight:700;font-size:30px;letter-spacing:.12em;text-transform:uppercase;color:var(--tenue);z-index:2}
@@ -186,6 +211,16 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
 .url{margin-top:50px;font-weight:800;font-size:${reel ? 104 : 92}px;color:var(--rojo);letter-spacing:-.01em}
 .ed{margin-top:24px;font-size:36px;color:var(--tenue);font-weight:600}
 .logo-g{margin-top:${reel ? 160 : 70}px;font-family:Unifraktur;font-size:${reel ? 120 : 96}px;text-align:center}
+.logo-xl{font-family:Unifraktur;font-size:${reel ? 150 : 128}px;text-align:center;line-height:1.1}
+.logo-xl{margin-bottom:40px}
+.logo-bajada{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 72 : 62}px;line-height:1.12;text-align:center}
+.comillas{font-family:var(--tit);color:var(--rojo);font-size:${reel ? 260 : 200}px;line-height:.6;height:${reel ? 130 : 100}px}
+.cita{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 84 : 70}px;line-height:1.12}
+.autor{margin-top:36px;font-size:36px;font-weight:700;color:var(--tenue);letter-spacing:.04em}
+.esc-explica{justify-content:flex-start}
+.vis{height:${reel ? 900 : 610}px;display:flex;align-items:center;justify-content:center;margin-bottom:${reel ? 50 : 24}px}
+.exp{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 80 : 64}px;line-height:1.1}
+${V.CSS}
 @keyframes entra{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 @keyframes sale{from{opacity:1}to{opacity:0;transform:translateY(-24px)}}
 @keyframes palabra{from{opacity:0;transform:translateY(.35em)}to{opacity:1;transform:none}}
@@ -198,7 +233,7 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
 <div class="cab">Otra Lectura</div>
 ${reel ? '<div class="prog"><i></i></div>' : ""}
 ${secciones}
-<div class="pie"><span>otralectura.co</span><span>Edición ${esc(guion.edicion)}</span></div>
+<div class="pie"><span>otralectura.co</span><span>${guion.edicion ? `Edición ${esc(guion.edicion)}` : "Una edición cada mañana"}</span></div>
 <script>
 window.alTiempo = function(t){
   document.querySelectorAll('.cuenta').forEach(function(el){
