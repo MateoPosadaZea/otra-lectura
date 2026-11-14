@@ -589,6 +589,7 @@ def leer_edicion(ruta):
     e["cuerpo"] = bajar_conexion(subir_que_hacer(recorridos.insertar(
         graficos.insertar(marcar_bloques(cuerpo), figuras), historias)))
     e["cuerpo"], e["cruces"] = sacar_cruces(e["cuerpo"], dict(e["indice_nudos"]))
+    e["cuerpo"] = poner_capitular(e["cuerpo"])
     e["glosario"] = extraer_glosario(e["cuerpo"])
 
     for i, a in enumerate(e["actualizaciones"], 1):
@@ -1441,13 +1442,21 @@ def html_primera_plana(dias, raiz="", cuantas=12):
                         for slug, t in abre["indice_nudos"])
         temas = f'<ul class="dia-temas" aria-label="Temas principales">{temas}</ul>'
     largo = " pp-largo" if len(abre["titulo"]) > 90 else ""
+
+    def bajada_portada(b):
+        if not b:
+            return ""
+        if letra_capitular(b):
+            return f'<p class="pp-bajada con-capitular">{capitular(b[0])}{html.escape(b[1:])}</p>'
+        return f'<p class="pp-bajada">{html.escape(b)}</p>'
+
     portada = f"""<article class="pp-abre{' pp-con-grabado' if abre['grabado'] else ''}">
 <p class="pp-ante">{edicion}</p>
 <h2 class="pp-titular{largo}"><a href="{href}">{html.escape(abre['titulo'])}</a></h2>
 {miniatura_grabado(abre, raiz, True)}
 <div class="pp-cuerpo">
 {aviso_cambios(abre, raiz)}
-{f'<p class="pp-bajada">{html.escape(bajada)}</p>' if bajada else ''}
+{bajada_portada(bajada)}
 {temas}
 <p class="seguir-leyendo"><a class="boton-seguir" href="{href}">Seguir leyendo<span class="solo-lectores">: {html.escape(abre['titulo'])}</span> <span aria-hidden="true">→</span></a></p>
 </div>
@@ -1643,6 +1652,35 @@ def pagina_decisiones(base, ediciones):
     return pagina(base, "Decisiones · Otra lectura",
                   "Seguimiento de las decisiones pendientes sobre los temas de Otra lectura.", "",
                   contenido, "/decisiones.html", seccion="decisiones")
+
+
+# Capitulares ornamentadas (lettrines de la edición de Rabelais de Marty-Laveaux,
+# dominio público; ver scripts/capitulares.py). Solo hay las letras que tenía
+# la imprenta: sin J, K, U, W, X ni Y. Si falta, el párrafo queda como antes.
+CAPITULARES = PLANTILLA / "capitulares"
+
+
+def letra_capitular(texto):
+    """La letra si hay capitular para ella; si no, None (tildes y signos, no)."""
+    letra = texto[:1]
+    if letra.isascii() and letra.isalpha() and (CAPITULARES / f"{letra.lower()}.png").exists():
+        return letra
+    return None
+
+
+def capitular(letra):
+    # La letra sigue en el texto (buscadores, lectores de pantalla, copiar y pegar);
+    # se ve el grabado, pintado con el color de la tinta (sirve de noche).
+    return f'<span class="capitular cap-{letra.lower()}">{letra}</span>'
+
+
+def poner_capitular(cuerpo):
+    """Capitular al abrir la edición: primera letra de «En pocas palabras»."""
+    m = re.search(r'<p class="con-etiqueta([^"]*)">(\s*<strong class="etiqueta">En pocas palabras\.?</strong>\s*)(\S)', cuerpo)
+    if not m or not letra_capitular(m.group(3)):
+        return cuerpo
+    return (cuerpo[:m.start()] + f'<p class="con-etiqueta{m.group(1)} con-capitular">{m.group(2)}{capitular(m.group(3))}'
+            + cuerpo[m.end():])
 
 
 def subir_que_hacer(cuerpo):
@@ -2164,6 +2202,8 @@ def main():
     (SITE / "ediciones").mkdir(parents=True)
     shutil.copy(PLANTILLA / "estilo.css", SITE / "estilo.css")
     shutil.copytree(PLANTILLA / "fuentes", SITE / "fuentes")
+    if CAPITULARES.is_dir():
+        shutil.copytree(CAPITULARES, SITE / "capitulares")
     shutil.copy(PLANTILLA / "og.png", SITE / "og.png")
     for icono in (PLANTILLA / "iconos").iterdir():
         shutil.copy(icono, SITE / icono.name)

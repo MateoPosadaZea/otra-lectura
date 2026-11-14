@@ -497,3 +497,11 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   rótulos, enlaces). Pies de foto más legibles, menos palabras partidas con
   guion, la línea de la fecha sin palabras sueltas y los resúmenes de la
   portada alineados a la izquierda (justificados abrían huecos).
+- 2026-11-14 · Mateo: «colocar esa primera letra… con esos adornos y
+  arabescos antiguos… le darían su toque»; aprobada la muestra («Perfecto,
+  mucho mejor»). Capitular ornamentada al abrir cada edición (primera letra de
+  «En pocas palabras») y en el resumen de la portada: lettrines del siglo XVI
+  de la edición de Rabelais de Marty-Laveaux (dominio público, Wikimedia
+  Commons; scripts/capitulares.py), pintadas con el color de la tinta. La
+  colección no trae J, K, U, W, X ni Y: con esas letras, el párrafo queda sin
+  capitular.

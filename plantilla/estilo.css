@@ -2250,3 +2250,40 @@ main:has(> .primera) {
 @keyframes sigue-baja { 0%, 100% { transform: translateY(-2px); } 50% { transform: translateY(3px); } }
 @media (prefers-reduced-motion: reduce) { .sigue-flecha { animation: none; } .sigue-leyendo { transition: none; } }
 @media print { .sigue-leyendo { display: none !important; } }
+
+/* Capitular ornamentada (2026-11-14): grabado del siglo XVI usado como máscara,
+   pintado con el color de la tinta, así funciona en claro y en oscuro. La letra
+   real queda debajo, transparente. Ocupa tres renglones. */
+.capitular {
+  float: left;
+  width: 4.3em;
+  height: 4.3em;
+  margin: 0.2em 0.45em 0 0;
+  color: transparent;
+  background: var(--tinta);
+  -webkit-mask: var(--cap) center / contain no-repeat;
+  mask: var(--cap) center / contain no-repeat;
+  line-height: 1;
+  overflow: hidden;
+}
+.con-capitular::first-letter { float: none; margin: 0; padding: 0; font: inherit; background: none; color: inherit; }
+.cap-a { --cap: url("capitulares/a.png"); }
+.cap-b { --cap: url("capitulares/b.png"); }
+.cap-c { --cap: url("capitulares/c.png"); }
+.cap-d { --cap: url("capitulares/d.png"); }
+.cap-e { --cap: url("capitulares/e.png"); }
+.cap-f { --cap: url("capitulares/f.png"); }
+.cap-g { --cap: url("capitulares/g.png"); }
+.cap-h { --cap: url("capitulares/h.png"); }
+.cap-i { --cap: url("capitulares/i.png"); }
+.cap-l { --cap: url("capitulares/l.png"); }
+.cap-m { --cap: url("capitulares/m.png"); }
+.cap-n { --cap: url("capitulares/n.png"); }
+.cap-o { --cap: url("capitulares/o.png"); }
+.cap-p { --cap: url("capitulares/p.png"); }
+.cap-q { --cap: url("capitulares/q.png"); }
+.cap-r { --cap: url("capitulares/r.png"); }
+.cap-s { --cap: url("capitulares/s.png"); }
+.cap-t { --cap: url("capitulares/t.png"); }
+.cap-v { --cap: url("capitulares/v.png"); }
+.cap-z { --cap: url("capitulares/z.png"); }
