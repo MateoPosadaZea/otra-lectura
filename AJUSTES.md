@@ -488,3 +488,12 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   los titulares y la UnifrakturMaguntia en el logo. La medida de la columna
   no cambia: con Inter Tight da unos 66 caracteres por línea. Lo mismo rige
   para las piezas de redes, sin bordeados alrededor del texto.
+- 2026-11-14 · Mateo: «hay cosas por mejorar a nivel tipográfico.
+  Interlíneas, jerarquías y combinaciones». Con Inter Tight: interlineado
+  del texto de 1,7 a 1,55 y más aire entre párrafos; los subtítulos del
+  nudo («¿Por qué?», «Pero ojo», «El dato curioso») pasan de versalitas sans
+  diminutas a la serif en 1,5em, un nivel claro entre el titular y el texto;
+  las versalitas sans quedan para datos de servicio (fecha, edición,
+  rótulos, enlaces). Pies de foto más legibles, menos palabras partidas con
+  guion, la línea de la fecha sin palabras sueltas y los resúmenes de la
+  portada alineados a la izquierda (justificados abrían huecos).

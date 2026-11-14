@@ -99,9 +99,12 @@ body {
   color: var(--tinta);
   font-family: var(--sans);
   font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
-  line-height: 1.7;
+  /* Inter Tight (desde el 2026-11-14): interlineado 1,55; con Manrope era 1,7. */
+  line-height: 1.55;
   font-kerning: normal;
   hyphens: auto;
+  /* Partir solo palabras largas (7+ letras, dejando al menos 3 a cada lado). */
+  hyphenate-limit-chars: 7 3 3;
   overflow-wrap: break-word;
 }
 
@@ -228,6 +231,7 @@ footer.sitio .cabezote { font-size: 1.6rem; color: var(--tinta); }
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  text-wrap: balance;
 }
 .cabecera h1 {
   margin: 0 0 1rem;
@@ -268,17 +272,17 @@ footer.sitio .cabezote { font-size: 1.6rem; color: var(--tinta); }
 
 /* --- Cuerpo --- */
 
-.edicion p, .edicion ul, .edicion ol { margin: 0 0 0.85em; }
+.edicion p, .edicion ul, .edicion ol { margin: 0 0 1em; }
 .edicion ul, .edicion ol { padding-left: 1.1em; }
 .grabado { margin: 1.6rem 0 2.2rem; }
 .grabado img { display: block; width: 100%; height: auto; border: 1px solid var(--tinta); outline: 1px solid var(--tinta); outline-offset: 4px; }
 /* Pie de foto pequeño y en cursiva, para que no se confunda con la noticia
    (pedido de Mateo, 2026-10-23); el crédito, aún más pequeño, debajo. */
-.grabado figcaption { max-width: 34em; margin: 0.8rem auto 0; text-align: center; font: italic 400 0.74rem/1.45 var(--sans); letter-spacing: 0; text-transform: none; color: var(--tenue); }
-.grabado .grabado-credito { display: block; margin-top: 0.2rem; font-style: normal; font-size: 0.62rem; letter-spacing: 0.04em; hyphens: manual; }
+.grabado figcaption { max-width: 34em; margin: 0.8rem auto 0; text-align: center; font: italic 400 0.82rem/1.4 var(--sans); letter-spacing: 0; text-transform: none; color: var(--tenue); }
+.grabado .grabado-credito { display: block; margin-top: 0.25rem; font-style: normal; font-size: 0.7rem; letter-spacing: 0.04em; hyphens: manual; }
 .grabado figcaption a { color: inherit; text-decoration: none; }
 .grabado figcaption a:hover { text-decoration: underline; }
-.edicion li + li { margin-top: 0.85em; }
+.edicion li + li { margin-top: 0.6em; }
 .edicion ul, .edicion ol { margin-top: 0.6em; margin-bottom: 1.7em; }
 .edicion strong { font-weight: 700; }
 
@@ -317,7 +321,7 @@ footer.sitio .cabezote { font-size: 1.6rem; color: var(--tinta); }
   font-family: var(--serif);
   font-weight: 400;
   font-size: 2.5em;
-  line-height: 1;
+  line-height: 1.04;
   letter-spacing: -0.01em;
   hyphens: manual;
   text-wrap: balance;
@@ -325,15 +329,18 @@ footer.sitio .cabezote { font-size: 1.6rem; color: var(--tinta); }
 .item + .item { margin-top: 3.5rem; border-top: 1px solid var(--tinta); }
 .edicion h4, .edicion h5, .edicion h6 { font-family: var(--serif); font-weight: 400; font-size: 1.4em; margin: 1.5rem 0 0.25rem; }
 
-/* Subtítulos del nudo (Qué pasó, Contrapeso…): versalitas sans, al estilo National Geographic. */
+/* Subtítulos del nudo (Qué pasó, Pero ojo…): en la serif, un nivel claro entre
+   el titular (2,5em) y el texto (2026-11-14; antes, versalitas sans de 0,7rem). */
 .carril-radar .etiqueta {
   display: block;
-  margin: 0 0 0.45rem;
-  font-family: var(--sans);
-  font-size: 0.7rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  margin: 0 0 0.35rem;
+  font-family: var(--serif);
+  font-size: 1.5em;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: 0;
+  text-transform: none;
+  hyphens: manual;
 }
 /* Aire entre bloques: cada subtítulo abre un respiro claro. */
 .carril-radar p.con-etiqueta { margin-top: 2.4rem; }
@@ -1847,8 +1854,9 @@ main:has(> .primera) {
 .pp-abre .reticula-imagen img { aspect-ratio: 4 / 3; object-fit: cover; }
 .pp-bajada {
   margin: 0 0 0.6rem;
-  font: 400 clamp(1.02rem, 0.95rem + 0.3vw, 1.18rem)/1.62 var(--sans);
-  text-align: justify;
+  font: 400 clamp(1.02rem, 0.95rem + 0.3vw, 1.18rem)/1.5 var(--sans);
+  /* Alineado a la izquierda (2026-11-14): justificado, la columna angosta abría huecos. */
+  text-align: left;
   hyphens: auto;
 }
 .pp-bajada::first-letter {
@@ -1968,9 +1976,9 @@ main:has(> .primera) {
 .plana-titulo a:hover, .plana-titulo a:focus-visible { text-decoration: underline; text-decoration-thickness: 1px; }
 .plana-bajada {
   margin: 0 0 0.6rem;
-  font: 400 0.92rem/1.55 var(--sans);
+  font: 400 0.92rem/1.5 var(--sans);
   color: var(--tenue);
-  text-align: justify;
+  text-align: left;
   hyphens: auto;
 }
 .plana-seguir { margin: 0; }
