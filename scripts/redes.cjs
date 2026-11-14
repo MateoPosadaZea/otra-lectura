@@ -76,7 +76,7 @@ function duracion(e) {
     case "portada": return 5200;
     case "frase": return Math.max(3400, 1300 + contar(e.texto) * 330);
     case "cifra": return 5000;
-    case "grafico": return 6800;
+    case "grafico": return e.meta ? 8600 : 6800;
     case "cierre": return 4600;
     case "firma": return 2800;
     case "logo": return 4200;
@@ -124,15 +124,20 @@ function escenaHtml(e, t0, d, g, base) {
     </section>`;
   }
   if (e.tipo === "grafico") {
-    const max = Math.max(...e.datos.map((x) => x.valor));
+    // "meta": {"valor", "etiqueta"} dibuja la promesa como línea punteada;
+    // "brecha": texto que marca lo que falta sobre la barra destacada.
+    const meta = e.meta && +e.meta.valor;
+    const max = Math.max(meta || 0, ...e.datos.map((x) => x.valor));
+    const n = e.datos.length, tMeta = t0 + 900 + n * 450 + 300;
     const cols = e.datos.map((x, i) => {
       const t = t0 + 900 + i * 450;
       const alto = (x.valor / max) * 100;
       const dest = x.etiqueta === e.destacar ? " dest" : "";
       const dec = String(x.valor).includes(".") ? 1 : 0;
       return `<div class="col${dest}">
-        <div class="val" style="animation: sube 400ms var(--suave) ${t + 500}ms both">${numero(x.valor, dec)}${esc(e.unidad || "")}</div>
-        <div class="barra-c"><div class="barra" style="height:${alto}%;animation: crece 1300ms var(--muelle) ${t}ms both"></div></div>
+        <div class="barra-c"><div class="val" style="bottom:calc(${alto}% + 10px);animation: sube 400ms var(--suave) ${t + 500}ms both">${numero(x.valor, dec)}${esc(e.unidad || "")}</div><div class="barra" style="height:${alto}%;animation: crece 1300ms var(--muelle) ${t}ms both"></div>${
+          meta && i === 0 ? `<div class="g-meta" style="bottom:${(meta / max) * 100}%;width:calc(${n} * 100% + ${(n - 1) * 34}px);animation: dibuja-x 1100ms var(--trazo) ${tMeta}ms both"><span style="animation: sube 700ms var(--suave) ${tMeta + 700}ms both">${esc(e.meta.etiqueta || "")}</span></div>` : ""}${
+          meta && e.brecha && dest ? `<div class="g-brecha" style="bottom:calc(${alto}% + 66px);height:calc(${((meta - x.valor) / max) * 100}% - 66px);animation: crece 900ms var(--trazo) ${tMeta + 1100}ms both"><span style="animation: sube 700ms var(--suave) ${tMeta + 1700}ms both">${esc(e.brecha)}</span></div>` : ""}</div>
         <div class="etq">${esc(x.etiqueta)}</div></div>`;
     }).join("");
     return `<section ${base}>
@@ -254,13 +259,17 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
 .cifra{font-family:var(--tit);font-weight:var(--tw);color:var(--rojo);font-size:${reel ? 300 : 250}px;line-height:1}
 .suf{font-size:${reel ? 96 : 80}px;display:inline-block}
 .cifra-txt{font-size:${reel ? 64 : 54}px;line-height:1.25;margin-top:36px;font-weight:500}
-.g-tit{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 76 : 64}px;line-height:1.05;margin-bottom:40px}
+.g-tit{text-wrap:balance;font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 76 : 64}px;line-height:1.05;margin-bottom:40px}
 .cols{display:flex;gap:34px;align-items:flex-end;height:${reel ? 900 : 640}px;border-bottom:3px solid var(--tinta)}
 .col{flex:1;display:flex;flex-direction:column;height:100%;justify-content:flex-end;align-items:stretch;text-align:center}
-.barra-c{flex:1;display:flex;align-items:flex-end;max-height:${reel ? 760 : 520}px}
+.barra-c{flex:1;display:flex;align-items:flex-end;max-height:${reel ? 760 : 520}px;position:relative}
+.g-meta{position:absolute;left:0;border-top:3px dashed var(--tinta);transform-origin:left;z-index:1}
+.g-meta span{position:absolute;left:0;bottom:12px;font-weight:700;font-size:${reel ? 34 : 30}px;white-space:nowrap;text-align:left}
+.g-brecha{position:absolute;left:50%;border-left:4px dashed var(--rojo);transform-origin:bottom}
+.g-brecha span{position:absolute;right:28px;top:50%;transform:translateY(-50%);color:var(--rojo);font-weight:700;font-size:${reel ? 36 : 32}px;line-height:1.1;white-space:nowrap;text-align:right}
 .barra{width:100%;background:var(--gris);transform-origin:bottom}
 .dest .barra{background:var(--rojo)}
-.val{font-weight:800;font-size:46px;margin-bottom:12px}
+.val{position:absolute;left:0;right:0;font-weight:800;font-size:46px;line-height:1}
 .dest .val{color:var(--rojo)}
 .etq{position:relative;top:0;font-size:30px;font-weight:600;line-height:1.15;margin-top:14px;height:72px;margin-bottom:-86px}
 .g-fuente{margin-top:110px;font-size:28px;color:var(--tenue)}
@@ -299,6 +308,7 @@ ${V.CSS}
 @keyframes marca{to{background-size:100% 100%}}
 @keyframes sube{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 @keyframes crece{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes dibuja-x{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.14) translate(-2%,-1%)}}
 @keyframes prog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 </style></head><body>
