@@ -211,7 +211,7 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
 .pie{position:absolute;bottom:${reel ? 110 : 60}px;left:90px;right:90px;display:flex;justify-content:space-between;font-family:var(--tit);font-style:italic;font-size:42px;color:var(--tenue);z-index:2}
 .esc{position:absolute;inset:${reel ? 260 : 200}px 90px ${reel ? 220 : 140}px;display:flex;flex-direction:column;justify-content:center}
 .cam{width:100%;height:100%;display:flex;flex-direction:column;justify-content:inherit;align-items:inherit;text-align:inherit;will-change:transform}
-.cifra{transform-origin:left center}.logo-anim{display:inline-block}
+.cifra{transform-origin:left center}.logo-anim{display:inline-block;white-space:nowrap}
 .foto{height:${reel ? 760 : 470}px;overflow:hidden;margin-bottom:56px;border:2px solid var(--tinta)}
 .foto img{width:100%;height:100%;object-fit:cover;filter:sepia(.2) contrast(1.05);mix-blend-mode:multiply}
 .rot{color:var(--rojo);font-weight:800;font-size:34px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:20px}
@@ -242,7 +242,7 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
 .url{margin-top:${reel ? 40 : 28}px;font-family:var(--tit);font-style:italic;font-weight:400;font-size:${reel ? 132 : 112}px;line-height:1;color:var(--rojo)}
 .ed{margin-top:${reel ? 30 : 20}px;font-family:var(--tit);font-style:italic;font-size:${reel ? 46 : 40}px;color:var(--tenue)}
 .logo-g{margin-top:${reel ? 160 : 70}px;font-family:Unifraktur;font-size:${reel ? 120 : 96}px;text-align:center}
-.logo-xl{font-family:Unifraktur;font-size:${reel ? 150 : 128}px;text-align:center;line-height:1.1}
+.logo-xl{white-space:nowrap;font-family:Unifraktur;font-size:${reel ? 150 : 128}px;text-align:center;line-height:1.1}
 .logo-xl{margin-bottom:40px}
 .logo-bajada{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 72 : 62}px;line-height:1.12;text-align:center}
 .comillas{font-family:var(--tit);color:var(--rojo);font-size:${reel ? 260 : 200}px;line-height:.6;height:${reel ? 130 : 100}px}
@@ -259,7 +259,7 @@ ${V.CSS}
 @keyframes deriva{from{transform:scale(1)}to{transform:scale(1.03)}}
 @keyframes revela{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
 @keyframes escala{from{opacity:0;transform:scale(.7)}25%{opacity:1}to{opacity:1;transform:none}}
-@keyframes logo{from{opacity:0;letter-spacing:.3em;filter:blur(8px)}to{opacity:1;letter-spacing:0;filter:none}}
+@keyframes logo{from{opacity:0;transform:scale(1.08);filter:blur(12px)}to{opacity:1;transform:none;filter:none}}
 @keyframes marca{to{background-size:100% 100%}}
 @keyframes sube{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 @keyframes crece{from{transform:scaleY(0)}to{transform:scaleY(1)}}
