@@ -317,9 +317,10 @@ function dibujaPunto(t){
     var T = ESC[b].ini, e = inOut(cl((t - (T - VUELO)) / (2 * VUELO)));
     var bc = centro(B), dB = M[b] ? M[b].d : bc.d;
     var p = arco(A, bc, e), q = arco(A, bc, Math.min(1, e + .02));
-    x = p.x; y = p.y; d = A.d + (dB - A.d) * e;
+    // Crece a mitad del vuelo para que se lea como un punto que viaja.
+    x = p.x; y = p.y; d = (A.d + (dB - A.d) * e) * (1 + 1.8 * Math.sin(Math.PI * e));
     var v = Math.hypot(q.x - p.x, q.y - p.y);
-    rot = Math.atan2(q.y - p.y, q.x - p.x); est = 1 + Math.min(.9, v / 18);
+    rot = Math.atan2(q.y - p.y, q.x - p.x); est = 1 + Math.min(.55, v / 26);
   } else if (b > 0 && A && !B && t < ESC[b].ini + VUELO) {
     var f = cl((t - (ESC[b].ini - VUELO)) / 400);
     x = A.x; y = A.y - 70 * inOut(f); d = A.d * (1 - inOut(f));
