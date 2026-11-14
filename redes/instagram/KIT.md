@@ -7,7 +7,7 @@ regeneran con `NODE_PATH=$(npm root -g) node scripts/instagram.cjs`.
 
 | Campo | Qué poner |
 |---|---|
-| Usuario | **@otralectura** (si está tomado: @otralectura.co, @otra.lectura o @otralecturaco) |
+| Usuario | **@otralectura.co** (cuenta creada el 14 de noviembre de 2026; enlazada desde el pie del sitio) |
 | Nombre | **Otra Lectura** |
 | Foto | `perfil-c-sello.png` (recomendada), `perfil-a-nombre.png` o `perfil-b-monograma.png` |
 | Descripción | ver abajo (máximo 150 caracteres) |
