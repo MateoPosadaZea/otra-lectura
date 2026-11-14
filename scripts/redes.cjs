@@ -32,7 +32,8 @@ function numero(v, dec) {
 }
 
 // Palabras con su retraso; ==así== marca lo que se subraya.
-function palabras(texto, inicio, paso) {
+function palabras(texto, inicio, paso, punto = true) {
+  const total = contar(texto);
   const partes = texto.split(/(==[^=]+==)/).filter(Boolean);
   let i = 0;
   let html = "";
@@ -45,7 +46,10 @@ function palabras(texto, inicio, paso) {
     for (const w of ws) {
       if (!w) continue;
       if (/^\s+$/.test(w)) { trozo += " "; continue; }
-      trozo += `<span class="wm"><span class="w" style="animation-delay:${Math.round(inicio + i * paso)}ms">${esc(w)}</span></span>`;
+      const t = Math.round(inicio + i * paso);
+      const final = punto && i === total - 1 && /[^.]\.$/.test(w);
+      const txt = final ? `${esc(w.slice(0, -1))}<span class="punto ancla" data-t="${t + 350}"></span>` : esc(w);
+      trozo += `<span class="wm"><span class="w" style="animation-delay:${t}ms">${txt}</span></span>`;
       i++;
     }
     if (marcado) {
@@ -56,6 +60,11 @@ function palabras(texto, inicio, paso) {
     html += trozo;
   }
   return { html, n: i, fin: inicio + i * paso };
+}
+
+// Para textos sin animación por palabra: el punto final como ancla.
+function puntoFinal(texto, t) {
+  return /[^.]\.$/.test(texto) ? `${esc(texto.slice(0, -1))}<span class="punto ancla" data-t="${t}"></span>` : esc(texto);
 }
 
 function contar(texto) {
@@ -77,11 +86,11 @@ function duracion(e) {
   }
 }
 
-function escena(e, t0, d, g, ultima, primera) {
+function escena(e, t0, d, g, ultima, primera, n) {
   // Sale acelerando hacia arriba; la siguiente ya viene entrando (se solapan).
   const sale = ultima ? "" : `, sale 420ms var(--salida) ${t0 + d - 420}ms forwards`;
   const ent = primera ? t0 : t0 - 140;
-  const base = `class="esc esc-${e.tipo}" style="animation: entra 1000ms var(--suave) ${ent}ms both${sale}"`;
+  const base = `id="esc-${n}" class="esc esc-${e.tipo}" style="animation: entra 1000ms var(--suave) ${ent}ms both${sale}"`;
   return cam(escenaHtml(e, t0, d, g, base), t0, d);
 }
 
@@ -135,7 +144,7 @@ function escenaHtml(e, t0, d, g, base) {
   if (e.tipo === "logo") {
     return `<section ${base}>
       <div class="logo-xl"><span class="logo-anim" style="animation: logo 1800ms var(--suave) ${t0 + 200}ms both">Otra Lectura</span></div>
-      <p class="logo-bajada" style="animation: sube 600ms var(--suave) ${t0 + 1500}ms both">${esc(e.texto || "")}</p>
+      <p class="logo-bajada" style="animation: sube 600ms var(--suave) ${t0 + 1500}ms both">${puntoFinal(e.texto || "", t0 + 1700)}</p>
     </section>`;
   }
   if (e.tipo === "cita") {
@@ -147,16 +156,17 @@ function escenaHtml(e, t0, d, g, base) {
     </section>`;
   }
   if (e.tipo === "explica") {
-    const p = palabras(e.texto, t0 + 1400, 120);
+    const vis = V.visual(e.visual, t0 + 250);
+    const p = palabras(e.texto, t0 + 1400, 120, !vis.includes("ancla"));
     return `<section ${base}>
-      <div class="vis">${V.visual(e.visual, t0 + 250)}</div>
+      <div class="vis">${vis}</div>
       <p class="exp">${p.html}</p>
     </section>`;
   }
   if (e.tipo === "cierre") {
     return `<section ${base}>
       <p class="cierre-txt" style="animation: sube 500ms var(--suave) ${t0 + 200}ms both">${esc(e.texto)}</p>
-      <div class="url" style="animation: sube 600ms var(--suave) ${t0 + 800}ms both">otralectura.co</div>
+      <div class="url" style="animation: sube 600ms var(--suave) ${t0 + 800}ms both">otralectura<span class="punto ancla" data-t="${t0 + 1100}"></span>co</div>
       <div class="ed" style="animation: sube 500ms var(--suave) ${t0 + 1300}ms both">${g.edicion ? `Edición ${esc(g.edicion)} · ${esc(g.fecha)}` : esc(e.bajada || "Una edición cada mañana")}</div>
     </section>`;
   }
@@ -180,7 +190,7 @@ function html(guion, alto, tipo) {
   const secciones = escenas.map((e, i) => {
     const d = duracion(e);
     tiempos.push({ ini: t, dur: d, tipo: e.tipo });
-    const s = escena(e, t, d, g, i === escenas.length - 1, i === 0);
+    const s = escena(e, t, d, g, i === escenas.length - 1, i === 0, i);
     t += d;
     return s;
   }).join("\n");
@@ -211,6 +221,9 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
 .pie{position:absolute;bottom:${reel ? 110 : 60}px;left:90px;right:90px;display:flex;justify-content:space-between;font-family:var(--tit);font-style:italic;font-size:42px;color:var(--tenue);z-index:2}
 .esc{position:absolute;inset:${reel ? 260 : 200}px 90px ${reel ? 220 : 140}px;display:flex;flex-direction:column;justify-content:center}
 .cam{width:100%;height:100%;display:flex;flex-direction:column;justify-content:inherit;align-items:inherit;text-align:inherit;will-change:transform}
+.punto{display:inline-block;width:.2em;height:.2em;margin-left:.03em}
+.ancla{visibility:hidden}
+#punto{position:absolute;left:0;top:0;width:10px;height:10px;border-radius:50%;background:var(--rojo);z-index:3;opacity:0;will-change:transform}
 .cifra{transform-origin:left center}.logo-anim{display:inline-block;white-space:nowrap}
 .foto{height:${reel ? 760 : 470}px;overflow:hidden;margin-bottom:56px;border:2px solid var(--tinta)}
 .foto img{width:100%;height:100%;object-fit:cover;filter:sepia(.2) contrast(1.05);mix-blend-mode:multiply}
@@ -269,9 +282,57 @@ ${V.CSS}
 <div class="cab"${ocultar}>Otra Lectura</div>
 ${reel ? '<div class="prog"><i></i></div>' : ""}
 ${secciones}
+<div id="punto"></div>
 <div class="pie"${ocultar}><span>otralectura.co</span><span>${guion.edicion ? `Edición ${esc(guion.edicion)}` : "Una edición cada mañana"}</span></div>
 <script>
+// El punto rojo: hilo conductor de todo el video. Descansa en el ancla de cada
+// escena (casi siempre el punto final de la frase) y, cuando la escena sale,
+// vuela en arco hasta el ancla de la siguiente, estirándose con la velocidad.
+var ESC = ${JSON.stringify(tiempos.map((x) => ({ ini: x.ini, dur: x.dur })))}, VUELO = 460;
+function ancla(k){ return k >= 0 && k < ESC.length ? document.querySelector('#esc-' + k + ' .ancla') : null; }
+function centro(el){ var r = el.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2, d: Math.max(r.width, r.height) }; }
+function cl(x){ return Math.max(0, Math.min(1, x)); }
+function inOut(x){ return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
+function rebote(x){ var c = 1.9; return x <= 0 ? 0 : x >= 1 ? 1 : 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); }
+function arco(a, b, e){
+  var mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2 - Math.hypot(b.x - a.x, b.y - a.y) * .3, u = 1 - e;
+  return { x: u * u * a.x + 2 * u * e * mx + e * e * b.x, y: u * u * a.y + 2 * u * e * my + e * e * b.y };
+}
+function dibujaPunto(t){
+  var P = document.getElementById('punto'), M = window.MEDIDAS || {};
+  var k = 0; while (k < ESC.length - 1 && t >= ESC[k + 1].ini) k++;
+  var x = 0, y = 0, d = 0, rot = 0, est = 1;
+  // ¿Estamos en un vuelo? Entre la salida de una escena y la llegada a la otra.
+  var b = (t >= ESC[k].ini + ESC[k].dur - VUELO && k < ESC.length - 1) ? k + 1 : (t < ESC[k].ini + VUELO ? k : -1);
+  var A = b > 0 ? M[b - 1] : null, B = b >= 0 ? ancla(b) : null;
+  if (b > 0 && A && B) {
+    var T = ESC[b].ini, e = inOut(cl((t - (T - VUELO)) / (2 * VUELO)));
+    var bc = centro(B), dB = M[b] ? M[b].d : bc.d;
+    var p = arco(A, bc, e), q = arco(A, bc, Math.min(1, e + .02));
+    x = p.x; y = p.y; d = A.d + (dB - A.d) * e;
+    var v = Math.hypot(q.x - p.x, q.y - p.y);
+    rot = Math.atan2(q.y - p.y, q.x - p.x); est = 1 + Math.min(.9, v / 18);
+  } else if (b > 0 && A && !B && t < ESC[b].ini + VUELO) {
+    var f = cl((t - (ESC[b].ini - VUELO)) / 400);
+    x = A.x; y = A.y - 70 * inOut(f); d = A.d * (1 - inOut(f));
+  } else {
+    var el = ancla(k);
+    if (el) {
+      var c = centro(el), llegada = k > 0 && M[k - 1];
+      var s = llegada ? 1 : rebote(cl((t - (+el.dataset.t || ESC[k].ini)) / 650));
+      x = c.x; y = c.y; d = (M[k] ? M[k].d : c.d) * s;
+      if (k < ESC.length - 1 && !ancla(k + 1) && t > ESC[k].ini + ESC[k].dur - VUELO) {
+        var g = cl((t - (ESC[k].ini + ESC[k].dur - VUELO)) / 400);
+        y -= 70 * inOut(g); d *= 1 - inOut(g);
+      }
+    }
+  }
+  P.style.opacity = d > .5 ? 1 : 0;
+  P.style.width = P.style.height = d + 'px';
+  P.style.transform = 'translate(' + (x - d / 2) + 'px,' + (y - d / 2) + 'px) rotate(' + rot + 'rad) scale(' + est + ',' + (1 / Math.sqrt(est)) + ')';
+}
 window.alTiempo = function(t){
+  dibujaPunto(t);
   document.querySelectorAll('.cuenta').forEach(function(el){
     var ini=+el.dataset.ini, dur=+el.dataset.dur, hasta=+el.dataset.hasta, dec=+el.dataset.dec;
     var p=Math.min(1,Math.max(0,(t-ini)/dur)); p=p>=1?1:1-Math.pow(2,-10*p);
@@ -280,6 +341,22 @@ window.alTiempo = function(t){
 };
 </script></body></html>`;
   return { doc, total, tiempos };
+}
+
+// Dónde está cada ancla cuando su escena empieza a salir: de ahí despega el punto.
+async function medir(page, tiempos) {
+  const M = {};
+  for (const [k, s] of tiempos.entries()) {
+    await fijar(page, s.ini + s.dur - 470);
+    const r = await page.evaluate((k) => {
+      const el = document.querySelector(`#esc-${k} .ancla`);
+      if (!el) return null;
+      const b = el.getBoundingClientRect();
+      return { x: b.left + b.width / 2, y: b.top + b.height / 2, d: Math.max(b.width, b.height) };
+    }, k);
+    if (r) M[k] = r;
+  }
+  await page.evaluate((M) => { window.MEDIDAS = M; }, M);
 }
 
 async function fijar(page, t) {
@@ -309,6 +386,7 @@ async function main() {
       const page = await browser.newPage({ viewport: { width: 1080, height: 1350 } });
       await page.goto("file://" + archivo);
       await page.evaluate(() => document.fonts.ready);
+      await medir(page, tiempos);
       for (const [i, s] of tiempos.entries()) {
         await fijar(page, s.ini + s.dur - (i === tiempos.length - 1 ? 1 : 480));
         await page.screenshot({ path: path.join(salida, `carrusel-${i + 1}.png`) });
@@ -318,12 +396,13 @@ async function main() {
     if (args.includes("--solo-carrusel")) return;
 
     // Reel: cuadro por cuadro, con el tiempo de las animaciones fijado a mano.
-    const { doc, total } = html(guion, 1920, tipo);
+    const { doc, total, tiempos } = html(guion, 1920, tipo);
     const archivo = path.join(salida, "_reel.html");
     fs.writeFileSync(archivo, doc);
     const page = await browser.newPage({ viewport: { width: 1080, height: 1920 } });
     await page.goto("file://" + archivo);
     await page.evaluate(() => document.fonts.ready);
+    await medir(page, tiempos);
     const mp4 = path.join(salida, "reel.mp4");
     const ff = spawn("ffmpeg", ["-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", String(CAPTURA),
       "-i", "-", "-vf", `tmix=frames=${CAPTURA / FPS},fps=${FPS}`, "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "20", "-preset", "medium",
