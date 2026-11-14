@@ -67,7 +67,8 @@ function duracion(e) {
     case "frase": return Math.max(3400, 1300 + contar(e.texto) * 330);
     case "cifra": return 5000;
     case "grafico": return 6800;
-    case "cierre": return 5000;
+    case "cierre": return 4600;
+    case "firma": return 2800;
     case "logo": return 4200;
     case "cita": return Math.max(5200, 1600 + contar(e.texto) * 300);
     case "explica": return Math.max(5200, 2600 + contar(e.texto) * 300);
@@ -144,8 +145,10 @@ function escena(e, t0, d, g, ultima) {
       <p class="cierre-txt" style="animation: sube 500ms ease-out ${t0 + 200}ms both">${esc(e.texto)}</p>
       <div class="url" style="animation: sube 600ms ease-out ${t0 + 800}ms both">otralectura.co</div>
       <div class="ed" style="animation: sube 500ms ease-out ${t0 + 1300}ms both">${g.edicion ? `Edición ${esc(g.edicion)} · ${esc(g.fecha)}` : esc(e.bajada || "Una edición cada mañana")}</div>
-      <div class="logo-g" style="animation: sube 600ms ease-out ${t0 + 1700}ms both">Otra Lectura</div>
     </section>`;
+  }
+  if (e.tipo === "firma") {
+    return `<section ${base}><div class="logo-xl" style="margin:0;animation: sube 700ms ease-out ${t0 + 150}ms both">Otra Lectura</div></section>`;
   }
   throw new Error(`tipo de escena desconocido: ${e.tipo}`);
 }
@@ -159,20 +162,22 @@ function html(guion, alto, tipo) {
     edicion: guion.edicion,
     imagenUrl: guion.imagen ? "file://" + path.join(RAIZ, guion.imagen) : "",
   };
-  const secciones = guion.escenas.map((e, i) => {
+  const escenas = guion.escenas.slice();
+  if (escenas.length && escenas[escenas.length - 1].tipo === "cierre") escenas.push({ tipo: "firma" });
+  const secciones = escenas.map((e, i) => {
     const d = duracion(e);
     tiempos.push({ ini: t, dur: d, tipo: e.tipo });
-    const s = escena(e, t, d, g, i === guion.escenas.length - 1);
+    const s = escena(e, t, d, g, i === escenas.length - 1);
     t += d;
     return s;
   }).join("\n");
   const total = t;
-  const fin = tiempos[tiempos.length - 1];
   // En la portada con logo y en el cierre sobran el logo de arriba y el pie: los dice la propia escena.
   const ini = tiempos[0];
   const anim = [];
   if (ini && ini.tipo === "logo") anim.push(`llega 450ms ease-out ${ini.ini + ini.dur}ms both`);
-  if (fin && fin.tipo === "cierre") anim.push(`sale 400ms ease-in ${fin.ini}ms ${anim.length ? "forwards" : "both"}`);
+  const cierre = tiempos.find((x) => x.tipo === "cierre");
+  if (cierre) anim.push(`sale 400ms ease-in ${cierre.ini}ms ${anim.length ? "forwards" : "both"}`);
   const ocultar = anim.length ? ` style="animation: ${anim.join(", ")}"` : "";
   const ty = TIPOS[tipo] || TIPOS.actual;
   const reel = alto === 1920;
