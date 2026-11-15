@@ -1,0 +1,20 @@
+{
+  "slug": "2026-11-15-radar",
+  "edicion": 69,
+  "fecha": "15 de noviembre de 2026",
+  "escenas": [
+    {"tipo": "frase", "texto": "Seis temas en una semana: ==cinco se movieron y ninguno quedó resuelto.=="},
+    {"tipo": "explica", "visual": {"tipo": "cuadricula", "n": 9},
+     "texto": "A Colombia le queda ==menos de una décima parte== del área glaciar del siglo XIX, según el Ideam."},
+    {"tipo": "frase", "texto": "La cumbre del clima debe cerrar el viernes 20, y ==aún no hay acuerdo sobre el dinero para adaptarse.=="},
+    {"tipo": "explica", "visual": {"tipo": "iconos", "lista": ["sol", "rayo"], "etiquetas": ["2.590 MW", "+62%"]},
+     "texto": "Colombia ya tiene ==2.590 megavatios solares==, 62% más que en diciembre, según XM."},
+    {"tipo": "frase", "texto": "La ley que les cobraría IVA a los paneles desde 2028 ==ya tiene ponentes, pero no fecha de debate.=="},
+    {"tipo": "cifra", "valor": 14, "sufijo": " dólares", "texto": "al mes cuestan en India las copias del Ozempic. En Colombia no encontramos ninguna aprobada."},
+    {"tipo": "explica", "visual": {"tipo": "mapa", "resaltar": ["santander"], "zoom": "santander", "ciudades": ["bucaramanga"], "etiqueta": "Unos 40 municipios"},
+     "texto": "En Santander, el gobernador pidió revisar el catastro rural en ==unos 40 municipios.== No encontramos respuesta."},
+    {"tipo": "frase", "texto": "Las bases del Plan de Desarrollo llegaron el viernes 13. ==¿Mantienen la meta del catastro para 2030? Aún no lo sabemos.=="},
+    {"tipo": "cierre", "texto": "La semana completa, con fuentes y lo que viene:", "bajada": "Síguenos para recibir la historia del día"}
+  ],
+  "pie": "De los seis temas de la semana, cinco tuvieron alguna novedad y ninguno quedó resuelto. La cumbre del clima entra a su última semana sin acuerdo sobre el dinero para adaptarse, y la ley que les cobraría IVA a los paneles solares ya tiene ponentes, pero no fecha de debate.\n\nEn India, las copias del Ozempic cuestan desde 14 dólares al mes; en Colombia no encontramos ninguna aprobada. Y llegaron las bases del Plan de Desarrollo: falta saber si mantienen la meta del catastro para 2030.\n\nLa historia completa, con fuentes, en otralectura.co (enlace en la bio).\n\n#Colombia #Clima #EnergíaSolar #Catastro #OtraLectura"
+}
