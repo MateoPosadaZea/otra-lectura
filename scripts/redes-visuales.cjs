@@ -83,17 +83,21 @@ const ICONOS = {
 };
 
 function iconos(v, t) {
+  // Íconos y nombres alineados a la izquierda, al mismo borde que el texto de
+  // la escena: cada nombre empieza justo debajo de su ícono.
   const n = v.lista.length, cols = Math.min(3, n), filas = Math.ceil(n / cols);
+  const col = 330, k = 1.8;
   let s = "";
   v.lista.forEach((nom, i) => {
     const c = i % cols, f = Math.floor(i / cols);
-    const x = 40 + c * 300, y = 30 + f * 300;
+    const x = c * col, y = 20 + f * 300;
     const ti = t + i * 380;
     const trazos = ICONOS[nom].replace(/<(path|circle|rect)\b/g, `<$1 pathLength="1" class="tr ic" ${dib(ti, 1000)}`);
-    s += `<g transform="translate(${x + 40} ${y}) scale(1.8)">${trazos}</g>`;
-    if (v.etiquetas && v.etiquetas[i]) s += `<text x="${x + 130}" y="${y + 228}" class="tx-etq" text-anchor="middle" ${sube(ti + 500)}>${esc(v.etiquetas[i])}</text>`;
+    // La escala va en estilo, con origen en la esquina: así no se corre de lugar.
+    s += `<g style="transform: translate(${x - 10 * k}px, ${y}px) scale(${k}); transform-box: view-box; transform-origin: 0 0">${trazos}</g>`;
+    if (v.etiquetas && v.etiquetas[i]) s += `<text x="${x}" y="${y + 226}" class="tx-etq" text-anchor="start" ${sube(ti + 500)}>${esc(v.etiquetas[i])}</text>`;
   });
-  return svg(`0 0 ${cols * 300 + 40} ${filas * 300}`, s);
+  return `<svg class="ilus" viewBox="0 0 ${cols * col} ${filas * 300}" preserveAspectRatio="xMinYMid meet">${s}</svg>`;
 }
 
 // Muchas noticias; una se queda.
