@@ -519,3 +519,25 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   - **Cero jerga sin explicar:** si aparece una palabra técnica, en la misma
     frase se dice qué es.
   - **Siempre el «¿y a mí qué?»:** en qué toca la vida de quien lee.
+- 2026-11-16 · Mateo: «la idea es ir mejorando cada reel hasta tener algo
+  cada vez más sólido, un storytelling más convincente, más ilustrativo y por
+  lo tanto más explicativo»; aprobado («sí a ambos»). Dirección de los
+  reels, desde el guion de la edición siguiente:
+  - **Gancho en tres segundos:** la primera pantalla es la pregunta o el
+    contraste que obliga a quedarse. Nada de presentar el tema ni el medio.
+  - **Un asunto, una meta, un giro:** cada reel cuenta una sola historia y
+    tiene un momento en que cambia (el «pero», el «entonces»). Lo que no
+    sirve a esa historia se queda en el sitio.
+  - **El final responde al principio:** la última escena antes del cierre
+    retoma la pregunta inicial y la contesta, o la deja en manos de quien
+    mira.
+  - **Mostrar antes que decir:** cada idea con un visual (mapa, cuadrícula,
+    línea de tiempo, documento, gráfico); como mucho dos pantallas de solo
+    texto.
+  - **Ritmo variado:** alternar pantallas cortas (una frase, una cifra) con
+    pantallas que explican; nunca tres seguidas del mismo tipo.
+  - **Tres estructuras antes de escribir:** probar tres órdenes posibles
+    (cronológico, pregunta y respuesta, contraste) y quedarse con el del
+    giro más claro.
+  - **Medida:** de 8 a 10 escenas, unos 60 a 75 segundos. El generador da a
+    cada pantalla el tiempo de leerla (una letra cada 1/15 s más respiro).
