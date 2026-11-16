@@ -505,3 +505,17 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   Commons; scripts/capitulares.py), pintadas con el color de la tinta. La
   colección no trae J, K, U, W, X ni Y: con esas letras, el párrafo queda sin
   capitular.
+- 2026-11-16 · Mateo: «creo que la diferencia va a estar en la explicación,
+  como si tuviéramos 5 años». Rige desde la edición siguiente, en el texto y
+  en los guiones de redes. Explicar como a un amigo inteligente que no sabe
+  nada del tema: la claridad de un niño, sin tratar a nadie como niño.
+  - **Empezar por la pregunta que haría cualquiera** («¿Cómo sabe un país de
+    quién es cada pedazo de tierra?»), no por la sigla o la cifra.
+  - **Una comparación con algo de la casa** para la idea central (el catastro
+    es el inventario de la casa del país). Que sea exacta: si no hay una
+    comparación honesta, mejor ninguna.
+  - **Cifras a escala humana:** «de cada 100 hectáreas, unas 41», no
+    «41,3%»; el porcentaje exacto queda en el gráfico y en las fuentes.
+  - **Cero jerga sin explicar:** si aparece una palabra técnica, en la misma
+    frase se dice qué es.
+  - **Siempre el «¿y a mí qué?»:** en qué toca la vida de quien lee.

@@ -116,7 +116,7 @@ function documento(v, t) {
   [[565, 168, "1"], [535, 230, "2"], [575, 292, "3"]].forEach(([x, y, n], i) => {
     s += `<text x="${x}" y="${y + 14}" class="tx-sup" ${pop(t + 1700 + i * 250)}>${n}</text>`;
   });
-  s += `<text x="230" y="520" class="tx-rojo-peq" ${sube(t + 2500)}>FUENTES</text>`;
+  s += `<text x="230" y="520" class="tx-rojo-peq" ${sube(t + 2500)}>${esc((v.rotulo || "Fuentes").toUpperCase())}</text>`;
   [0, 1, 2].forEach((i) => {
     s += `<rect x="230" y="${545 + i * 36}" width="${[300, 260, 280][i]}" height="12" rx="4" class="bl-gris" ${pop(t + 2700 + i * 120, 300)}/>`;
   });
