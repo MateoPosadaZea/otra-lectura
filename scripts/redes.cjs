@@ -250,9 +250,9 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
 .foto{height:${reel ? 760 : 470}px;overflow:hidden;margin-bottom:56px;border:2px solid var(--tinta)}
 .foto img{width:100%;height:100%;object-fit:cover;filter:sepia(.2) contrast(1.05);mix-blend-mode:multiply}
 .rot{color:var(--rojo);font-weight:600;font-size:34px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:20px}
-.tit{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 104 : 84}px;line-height:1.02;letter-spacing:-.01em}
-.frase{font-family:var(--tit);font-weight:var(--tw);line-height:1.08}
-.frase.corta{font-size:${reel ? 150 : 124}px;line-height:1}
+.tit{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 104 : 84}px;line-height:1.08;letter-spacing:-.01em}
+.frase{font-family:var(--tit);font-weight:var(--tw);line-height:1.16}
+.frase.corta{font-size:${reel ? 150 : 124}px;line-height:1.06}
 .frase.media{font-size:${reel ? 112 : 94}px}
 .frase.larga{font-size:${reel ? 96 : 80}px}
 .wm{display:inline-block;overflow:hidden;vertical-align:bottom;padding:.14em .06em .2em;margin:-.14em -.06em -.2em}
@@ -284,7 +284,7 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
   -webkit-mask-image:radial-gradient(ellipse 75% 65% at 50% 50%,transparent 20%,#000 75%);mask-image:radial-gradient(ellipse 75% 65% at 50% 50%,transparent 20%,#000 75%)}
 .firma-marco{position:absolute;inset:-${reel ? 150 : 110}px -30px -${reel ? 120 : 80}px;border:2px solid var(--tinta);outline:1px solid var(--tinta);outline-offset:-14px}
 .cierre-txt{text-wrap:balance}
-.cierre-txt{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 84 : 70}px;line-height:1.1}
+.cierre-txt{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 84 : 70}px;line-height:1.18}
 .url{margin-top:${reel ? 40 : 28}px;font-family:var(--tit);font-style:italic;font-weight:400;font-size:${reel ? 132 : 112}px;line-height:1;color:var(--rojo)}
 .ed{margin-top:${reel ? 30 : 20}px;font-family:var(--tit);font-style:italic;font-size:${reel ? 46 : 40}px;color:var(--tenue)}
 .logo-g{margin-top:${reel ? 160 : 70}px;font-family:Unifraktur;font-size:${reel ? 120 : 96}px;text-align:center}
@@ -296,11 +296,11 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
 .com-latinas{font-family:var(--tit);font-size:${reel ? 84 : 70}px;position:relative;height:0;top:.06em;left:-.62em}
 .com-gotica{font-family:Unifraktur;font-size:${reel ? 300 : 250}px;height:${reel ? 160 : 130}px;line-height:.85}
 .cita-latinas{font-style:italic}
-.cita{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 84 : 70}px;line-height:1.12}
+.cita{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 84 : 70}px;line-height:1.2}
 .autor{margin-top:36px;font-family:var(--tit);font-style:italic;font-size:${reel ? 46 : 40}px;color:var(--tenue)}
 .esc-explica{justify-content:flex-start}
 .vis{height:${reel ? 900 : 610}px;display:flex;align-items:center;justify-content:center;margin-bottom:${reel ? 50 : 24}px}
-.exp{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 80 : 64}px;line-height:1.1}
+.exp{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 80 : 64}px;line-height:1.2}
 ${V.CSS}
 @keyframes entra{from{opacity:0;transform:translateY(90px)}35%{opacity:1}to{opacity:1;transform:none}}
 @keyframes llega{from{opacity:0}to{opacity:1}}

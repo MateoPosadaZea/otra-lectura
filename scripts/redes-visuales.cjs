@@ -53,15 +53,20 @@ function cuadricula(v, t) {
 
 // Línea de tiempo horizontal con hitos.
 function tiempo(v, t) {
-  const hs = v.hitos, ancho = 900, x0 = 60, x1 = 840;
+  const hs = v.hitos, ancho = 900, x0 = 70, x1 = 830;
   let s = `<path pathLength="1" class="tr" d="M${x0} 300 H${x1}" ${dib(t, 1400)}/>`;
   s += `<path pathLength="1" class="tr" d="M${x1 - 30} 280 L${x1 + 4} 300 L${x1 - 30} 320" ${dib(t + 1300, 300)}/>`;
   hs.forEach((h, i) => {
     const x = x0 + ((x1 - x0 - 60) * i) / (hs.length - 1);
     const ti = t + 300 + i * 420;
+    // Los extremos se alinean hacia adentro para no salirse del cuadro.
+    const ancla = i === 0 ? "start" : i === hs.length - 1 && hs.length > 2 ? "end" : "middle";
+    const xt = ancla === "start" ? x - 20 : ancla === "end" ? x + 20 : x;
+    const arriba = i % 2 === 0;
     s += `<circle cx="${x}" cy="300" r="${i ? 22 : 16}" class="${i ? "pt-rojo" : "pt-tinta"}" ${pop(ti)}/>`;
-    s += `<text x="${x}" y="${i % 2 ? 390 : 240}" class="tx-num" text-anchor="middle" ${sube(ti + 150)}>${esc(h.etq)}</text>`;
-    if (h.sub) s += `<text x="${x}" y="${i % 2 ? 432 : 198}" class="tx-peq" text-anchor="middle" ${sube(ti + 250)}>${esc(h.sub)}</text>`;
+    // Número y rótulo con aire entre sí: el rótulo pequeño va más lejos de la línea.
+    s += `<text x="${xt}" y="${arriba ? 236 : 392}" class="tx-num" text-anchor="${ancla}" ${sube(ti + 150)}>${esc(h.etq)}</text>`;
+    if (h.sub) s += `<text x="${xt}" y="${arriba ? 168 : 446}" class="tx-peq" text-anchor="${ancla}" ${sube(ti + 250)}>${esc(h.sub)}</text>`;
   });
   return svg(`0 0 ${ancho} 600`, s);
 }
