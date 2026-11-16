@@ -1,0 +1,101 @@
+{
+  "slug": "2026-11-16-radar",
+  "edicion": 70,
+  "fecha": "16 de noviembre de 2026",
+  "imagen": "imagenes/2026-11-16-radar.webp",
+  "escenas": [
+    {
+      "tipo": "frase",
+      "texto": "¿Se puede ==acabar con un cáncer?=="
+    },
+    {
+      "tipo": "explica",
+      "visual": {
+        "tipo": "tiempo",
+        "hitos": [
+          {
+            "etq": "9 años",
+            "sub": "La vacuna"
+          },
+          {
+            "etq": "Años después",
+            "sub": "Llega el virus"
+          },
+          {
+            "etq": "Décadas",
+            "sub": "Puede venir el cáncer"
+          }
+        ]
+      },
+      "texto": "La vacuna es como una sombrilla: ==sirve si se abre antes de que llueva.=="
+    },
+    {
+      "tipo": "explica",
+      "visual": {
+        "tipo": "cuadricula",
+        "n": 98
+      },
+      "texto": "En 2012, Colombia vacunó a ==98 de cada 100 niñas.=="
+    },
+    {
+      "tipo": "explica",
+      "visual": {
+        "tipo": "mapa",
+        "resaltar": [
+          "bolivar"
+        ],
+        "zoom": "bolivar",
+        "ciudades": [
+          "cartagena"
+        ],
+        "etiqueta": "Bolívar"
+      },
+      "texto": "En 2014, cientos de niñas de El Carmen de Bolívar fueron al hospital tras vacunarse. ==No se halló relación con la vacuna.=="
+    },
+    {
+      "tipo": "explica",
+      "visual": {
+        "tipo": "cuadricula",
+        "n": 14
+      },
+      "texto": "Dos años después: ==14 de cada 100.== El miedo corrió más que el informe."
+    },
+    {
+      "tipo": "explica",
+      "visual": {
+        "tipo": "cuadricula",
+        "n": 53
+      },
+      "texto": "En 2024: ==53 de cada 100.== La OMS pide 90."
+    },
+    {
+      "tipo": "explica",
+      "visual": {
+        "tipo": "documento",
+        "sello": "0 casos",
+        "rotulo": "Escocia, 2024"
+      },
+      "texto": "En Escocia, ninguna mujer vacunada a los 12 o 13 años tuvo este cáncer. ==Y basta una dosis.=="
+    },
+    {
+      "tipo": "explica",
+      "visual": {
+        "tipo": "iconos",
+        "lista": [
+          "personas",
+          "corazon"
+        ],
+        "etiquetas": [
+          "9 a 17 años",
+          "Una dosis gratis"
+        ]
+      },
+      "texto": "¿Y a mí qué? Con alguien de 9 a 17 años en casa: ==la dosis es gratis.=="
+    },
+    {
+      "tipo": "cierre",
+      "texto": "La historia completa, con fuentes y lo que viene:"
+    }
+  ],
+  "pie": "¿Se puede acabar con un cáncer? Con el de cuello uterino parece posible: casi siempre lo causa un virus común, y una sola dosis de vacuna a los nueve años protege. Es como una sombrilla: sirve si se abre antes de que llueva.\n\nEn 2012, Colombia vacunó a 98 de cada 100 niñas. Tras el episodio de El Carmen de Bolívar, en 2014, la cifra se desplomó, y en 2024 llegó a unas 53 de cada 100 niñas de nueve años, lejos de las 90 que pide la OMS. Mientras tanto, mueren unas seis mujeres al día por este cáncer.\n\n¿Y a mí qué? Si en su casa hay alguien de 9 a 17 años, la dosis es gratis en los puntos públicos de vacunación.\n\nLa historia completa, con fuentes, en otralectura.co (enlace en la bio).\n\n#Salud #Vacunas #CáncerDeCuelloUterino #Colombia #OtraLectura"
+}
