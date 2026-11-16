@@ -239,15 +239,18 @@ function html(guion, alto, tipo) {
 html,body{width:1080px;height:${alto}px;overflow:hidden;background:var(--papel);color:var(--tinta);font-family:var(--sans)}
 body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
   background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-.cab{position:absolute;top:${reel ? 90 : 56}px;left:90px;right:90px;text-align:center;font-family:Unifraktur;font-size:${reel ? 64 : 52}px;padding-bottom:18px;z-index:2}
+/* Reel: todo dentro de la zona que Instagram no recorta en el feed (4:5 al
+   centro, de y = 285 a 1635) ni tapa con su barra; sin logo arriba, que el
+   perfil ya lo muestra. */
+.cab{position:absolute;top:${reel ? 90 : 56}px;display:${reel ? "none" : "block"};left:90px;right:90px;text-align:center;font-family:Unifraktur;font-size:${reel ? 64 : 52}px;padding-bottom:18px;z-index:2}
 .prog{position:absolute;top:${reel ? 190 : 140}px;left:90px;right:90px;height:6px;background:rgba(22,19,15,.12);z-index:2}
 .prog i{display:block;height:100%;background:var(--rojo);transform-origin:left;animation:prog ${total}ms linear 0ms both}
-.pie{position:absolute;bottom:${reel ? 110 : 60}px;left:90px;right:90px;display:flex;justify-content:space-between;font-family:var(--tit);font-style:italic;font-size:42px;color:var(--tenue);z-index:2}
-.esc{position:absolute;inset:${reel ? 260 : 200}px 90px ${reel ? 220 : 140}px;display:flex;flex-direction:column;justify-content:center}
+.pie{position:absolute;bottom:${reel ? 330 : 60}px;left:90px;right:90px;display:flex;justify-content:space-between;font-family:var(--tit);font-style:italic;font-size:42px;color:var(--tenue);z-index:2}
+.esc{position:absolute;inset:${reel ? 430 : 200}px 90px ${reel ? 410 : 140}px;display:flex;flex-direction:column;justify-content:center}
 .cam{width:100%;height:100%;display:flex;flex-direction:column;justify-content:inherit;align-items:inherit;text-align:inherit;will-change:transform}
 .punto{display:inline-block;width:.2em;height:.2em;margin-left:.03em;border-radius:50%;background:var(--rojo)}
 .cifra{transform-origin:left center}.logo-anim{display:inline-block;white-space:nowrap}
-.foto{height:${reel ? 760 : 470}px;overflow:hidden;margin-bottom:56px;border:2px solid var(--tinta)}
+.foto{height:${reel ? 480 : 470}px;overflow:hidden;margin-bottom:56px;border:2px solid var(--tinta)}
 .foto img{width:100%;height:100%;object-fit:cover;filter:sepia(.2) contrast(1.05);mix-blend-mode:multiply}
 .rot{color:var(--rojo);font-weight:600;font-size:34px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:20px}
 .tit{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 104 : 84}px;line-height:1.08;letter-spacing:-.01em}
@@ -262,9 +265,9 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
 .suf{font-size:${reel ? 96 : 80}px;display:inline-block}
 .cifra-txt{font-size:${reel ? 64 : 54}px;line-height:1.25;margin-top:36px;font-weight:500}
 .g-tit{text-wrap:balance;font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 76 : 64}px;line-height:1.05;margin-bottom:40px}
-.cols{display:flex;gap:34px;align-items:flex-end;height:${reel ? 900 : 640}px;border-bottom:3px solid var(--tinta)}
+.cols{display:flex;gap:34px;align-items:flex-end;height:${reel ? 680 : 640}px;border-bottom:3px solid var(--tinta)}
 .col{flex:1;display:flex;flex-direction:column;height:100%;justify-content:flex-end;align-items:stretch;text-align:center}
-.barra-c{flex:1;display:flex;align-items:flex-end;max-height:${reel ? 760 : 520}px;position:relative}
+.barra-c{flex:1;display:flex;align-items:flex-end;max-height:${reel ? 540 : 520}px;position:relative}
 .g-meta{position:absolute;left:0;border-top:3px dashed var(--tinta);transform-origin:left;z-index:1}
 .g-meta span{position:absolute;left:0;bottom:12px;font-weight:500;font-size:${reel ? 34 : 30}px;white-space:nowrap;text-align:left}
 .g-brecha{position:absolute;left:50%;border-left:4px dashed var(--rojo);transform-origin:bottom}
@@ -280,9 +283,9 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
 .exp,.cita,.cifra-txt{text-wrap:pretty}
 .esc-cierre,.esc-firma{text-align:center;align-items:center}
 .firma-lema{font-family:var(--tit);font-style:italic;font-size:${reel ? 58 : 50}px;line-height:1.15;color:var(--tenue);margin-top:${reel ? 40 : 30}px;max-width:${reel ? 760 : 720}px;text-wrap:balance}
-.firma-fondo{position:absolute;inset:-${reel ? 260 : 200}px -90px -${reel ? 220 : 140}px;background-size:cover;background-position:center;mix-blend-mode:multiply;opacity:.22;filter:sepia(.45) contrast(1.1) brightness(1.05);
+.firma-fondo{position:absolute;inset:-${reel ? 430 : 200}px -90px -${reel ? 410 : 140}px;background-size:cover;background-position:center;mix-blend-mode:multiply;opacity:.22;filter:sepia(.45) contrast(1.1) brightness(1.05);
   -webkit-mask-image:radial-gradient(ellipse 75% 65% at 50% 50%,transparent 20%,#000 75%);mask-image:radial-gradient(ellipse 75% 65% at 50% 50%,transparent 20%,#000 75%)}
-.firma-marco{position:absolute;inset:-${reel ? 150 : 110}px -30px -${reel ? 120 : 80}px;border:2px solid var(--tinta);outline:1px solid var(--tinta);outline-offset:-14px}
+.firma-marco{position:absolute;inset:-${reel ? 80 : 110}px -30px -${reel ? 80 : 80}px;border:2px solid var(--tinta);outline:1px solid var(--tinta);outline-offset:-14px}
 .cierre-txt{text-wrap:balance}
 .cierre-txt{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 84 : 70}px;line-height:1.18}
 .url{margin-top:${reel ? 40 : 28}px;font-family:var(--tit);font-style:italic;font-weight:400;font-size:${reel ? 132 : 112}px;line-height:1;color:var(--rojo)}
@@ -299,7 +302,7 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
 .cita{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 84 : 70}px;line-height:1.2}
 .autor{margin-top:36px;font-family:var(--tit);font-style:italic;font-size:${reel ? 46 : 40}px;color:var(--tenue)}
 .esc-explica{justify-content:flex-start}
-.vis{height:${reel ? 900 : 610}px;display:flex;align-items:center;justify-content:center;margin-bottom:${reel ? 50 : 24}px}
+.vis{height:${reel ? 640 : 610}px;display:flex;align-items:center;justify-content:center;margin-bottom:${reel ? 50 : 24}px}
 .exp{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 80 : 64}px;line-height:1.2}
 ${V.CSS}
 @keyframes entra{from{opacity:0;transform:translateY(90px)}35%{opacity:1}to{opacity:1;transform:none}}
@@ -318,7 +321,7 @@ ${V.CSS}
 @keyframes prog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 </style></head><body>
 <div class="cab"${ocultar}>Otra Lectura</div>
-${reel ? `<div class="prog"${ocultar}><i></i></div>` : ""}
+${"" /* Sin barra de progreso: Instagram ya muestra la suya y recorta la parte de arriba. */}
 ${secciones}
 <div class="pie"${ocultar}><span>otralectura.co</span><span>${guion.edicion ? `Edición ${esc(guion.edicion)}` : "Una edición cada mañana"}</span></div>
 <script>
