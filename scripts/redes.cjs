@@ -71,7 +71,31 @@ function contar(texto) {
   return texto.replace(/==/g, "").split(/\s+/).filter(Boolean).length;
 }
 
+// Tiempo para leer: una letra cada 1/15 s más 1,5 s de respiro (regla de
+// lectura de las guías de dirección de cine explicativo).
+// Aquí las palabras entran de a una y se leen mientras aparecen, así que la
+// cuenta empieza cuando arranca el texto, no cuando termina de entrar.
+function lectura(texto, inicio, paso) {
+  const limpio = (texto || "").replace(/==/g, "");
+  return inicio + (limpio.length / 15) * 1000 + 1500 + 300;
+}
+
 function duracion(e) {
+  return Math.round(Math.max(duracionBase(e), duracionLectura(e)));
+}
+
+function duracionLectura(e) {
+  switch (e.tipo) {
+    case "portada": return lectura(e.titulo, 700, 110);
+    case "frase": return lectura(e.texto, 350, 140);
+    case "cifra": return lectura(e.texto, 1700, 90);
+    case "cita": return lectura(e.texto, 300, 120);
+    case "explica": return lectura(e.texto, 1400, 120);
+    default: return 0;
+  }
+}
+
+function duracionBase(e) {
   switch (e.tipo) {
     case "portada": return 5200;
     case "frase": return Math.max(3400, 1300 + contar(e.texto) * 330);
@@ -86,14 +110,17 @@ function duracion(e) {
   }
 }
 
-function escena(e, t0, d, g, ultima, primera, n) {
+function escena(e, t0, d, g, ultima, primera, n, paso) {
   // Sale acelerando hacia arriba; la siguiente ya viene entrando (se solapan).
   const sale = ultima ? "" : `, sale 420ms var(--salida) ${t0 + d - 420}ms forwards`;
   const ent = primera ? t0 : t0 - 140;
   const base = `id="esc-${n}" class="esc esc-${e.tipo}" style="animation: entra 1000ms var(--suave) ${ent}ms both${sale}"`;
   // La portada queda quieta: el grabado no se mueve.
-  const html = escenaHtml(e, t0, d, g, base);
-  return e.tipo === "portada" ? html : cam(html, t0, d);
+  let html = escenaHtml(e, t0, d, g, base);
+  html = e.tipo === "portada" ? html : cam(html, t0, d);
+  // «3 / 9»: cuántos pasos lleva la historia; ayuda a quedarse hasta el final.
+  if (paso) html = html.replace(/<\/section>$/, `<div class="paso">${paso[0]} / ${paso[1]}</div></section>`);
+  return html;
 }
 
 // Cámara viva: cada pantalla se acerca muy despacio mientras se lee.
@@ -211,10 +238,13 @@ function html(guion, alto, tipo) {
   };
   const escenas = guion.escenas.slice();
   if (escenas.length && escenas[escenas.length - 1].tipo === "cierre") escenas.push({ tipo: "firma" });
+  const cuentan = (e) => !["cierre", "firma", "logo"].includes(e.tipo);
+  const totalPasos = escenas.filter(cuentan).length;
+  let paso = 0;
   const secciones = escenas.map((e, i) => {
     const d = duracion(e);
     tiempos.push({ ini: t, dur: d, tipo: e.tipo });
-    const s = escena(e, t, d, g, i === escenas.length - 1, i === 0, i);
+    const s = escena(e, t, d, g, i === escenas.length - 1, i === 0, i, cuentan(e) ? [++paso, totalPasos] : null);
     t += d;
     return s;
   }).join("\n");
@@ -246,6 +276,13 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
 .prog{position:absolute;top:${reel ? 190 : 140}px;left:90px;right:90px;height:6px;background:rgba(22,19,15,.12);z-index:2}
 .prog i{display:block;height:100%;background:var(--rojo);transform-origin:left;animation:prog ${total}ms linear 0ms both}
 .pie{position:absolute;bottom:${reel ? 330 : 60}px;left:90px;right:90px;display:flex;justify-content:space-between;font-family:var(--tit);font-style:italic;font-size:42px;color:var(--tenue);z-index:2}
+.paso{position:absolute;right:0;bottom:-${reel ? 80 : 80}px;font-family:var(--tit);font-style:italic;font-size:42px;color:var(--tenue);line-height:1}
+/* Marcas de corte, como en las pruebas de imprenta: enmarcan la zona segura. */
+.marcas i{position:absolute;width:34px;height:34px;border:0 solid rgba(22,19,15,.45);z-index:2}
+.marcas i:nth-child(1){left:48px;top:${reel ? 330 : 30}px;border-left-width:2px;border-top-width:2px}
+.marcas i:nth-child(2){right:48px;top:${reel ? 330 : 30}px;border-right-width:2px;border-top-width:2px}
+.marcas i:nth-child(3){left:48px;bottom:${reel ? 300 : 30}px;border-left-width:2px;border-bottom-width:2px}
+.marcas i:nth-child(4){right:48px;bottom:${reel ? 300 : 30}px;border-right-width:2px;border-bottom-width:2px}
 .esc{position:absolute;inset:${reel ? 430 : 200}px 90px ${reel ? 410 : 140}px;display:flex;flex-direction:column;justify-content:center}
 .cam{width:100%;height:100%;display:flex;flex-direction:column;justify-content:inherit;align-items:inherit;text-align:inherit;will-change:transform}
 .punto{display:inline-block;width:.2em;height:.2em;margin-left:.03em;border-radius:50%;background:var(--rojo)}
@@ -323,7 +360,8 @@ ${V.CSS}
 <div class="cab"${ocultar}>Otra Lectura</div>
 ${"" /* Sin barra de progreso: Instagram ya muestra la suya y recorta la parte de arriba. */}
 ${secciones}
-<div class="pie"${ocultar}><span>otralectura.co</span><span>${guion.edicion ? `Edición ${esc(guion.edicion)}` : "Una edición cada mañana"}</span></div>
+<div class="pie"${ocultar}><span>otralectura.co</span></div>
+<div class="marcas"><i></i><i></i><i></i><i></i></div>
 <script>
 window.alTiempo = function(t){
   document.querySelectorAll('.cuenta').forEach(function(el){
