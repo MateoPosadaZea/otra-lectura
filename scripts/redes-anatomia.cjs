@@ -93,92 +93,131 @@ const DIBUJOS = {
   },
 };
 
+// Tiempos de la escena, relativos al inicio de la figura. Se desmenuza: la
+// casa se arma y se abre; luego cada pieza tiene su turno (se ilumina, las
+// demás se apagan y entra su rótulo, con tiempo para leerlo); al final se ve
+// todo junto, con la pieza destacada en rojo.
+function tiempos(e) {
+  const rot = e.piezas || [];
+  const n = (DIBUJOS[e.dibujo || "gotera"]("x", 0).piezas || []).length;
+  const tSepara = 1300, tFocos = 3000;
+  const focos = [];
+  let t = tFocos;
+  for (let i = 0; i < n; i++) {
+    const r = rot[i] || {};
+    const letras = `${r.nombre || ""} ${(r.nota || "").replace(/\n/g, " ")}`.length;
+    const dur = Math.max(2800, (letras / 15) * 1000 + 1700);
+    focos.push({ ini: t, dur });
+    t += dur;
+  }
+  return { tSepara, tFocos, focos, tTodo: t, fin: t + 2600 };
+}
+
+// Animación de opacidad a lo largo de toda la escena: puntos [instante, valor].
+function curva(nombre, puntos, t0, t1) {
+  const total = t1 - t0;
+  const pct = (x) => (Math.min(Math.max((x - t0) / total, 0), 1) * 100).toFixed(3);
+  const k = puntos.map(([x, v]) => `${pct(x)}%{opacity:${v}}`).join("");
+  return { css: `@keyframes ${nombre}{${k}}`, anim: `animation: ${nombre} ${ms(total)}ms linear ${ms(t0)}ms both` };
+}
+
 // e: { dibujo, piezas: [{nombre, nota}], destacar } ; t: inicio de la figura.
-// Devuelve { svg, fin } con el instante en que termina de encenderse.
 function anatomia(e, t, id) {
   const d = DIBUJOS[e.dibujo || "gotera"];
   if (!d) throw new Error(`dibujo desconocido: ${e.dibujo}`);
   const { piezas, fondo, defs } = d(id, t);
   const rotulos = e.piezas || [];
-  const n = piezas.length;
-  const tSepara = t + 1300, tNombre = t + 2300, cada = 760;
-  const tLuz = tNombre + n * cada + 200;
+  const T = tiempos(e);
+  const abs = (x) => t + x;
+  const tSepara = abs(T.tSepara), tFocos = abs(T.tFocos), tTodo = abs(T.tTodo), tFin = abs(T.fin);
+  const focos = T.focos.map((f) => ({ ini: abs(f.ini), fin: abs(f.ini + f.dur) }));
   const dest = e.destacar != null ? e.destacar - 1 : piezas.findIndex((p) => p.destaca);
+  const iTecho = piezas.findIndex((p) => p.mancha);
+  const tRojo = dest >= 0 ? focos[dest].ini + 300 : tTodo;
+  const tCae = iTecho >= 0 ? focos[iTecho].ini + 400 : tTodo;
+  const R = 350; // rampa de luz entre turnos
+  let estilos = "";
+
+  // Curvas de cada pieza (iluminada en su turno, apagada en el de las demás)
+  // y de cada rótulo (aparece en su turno, queda tenue después).
+  const curvaPieza = piezas.map((p, j) => {
+    const pts = [[tFocos, 1]];
+    focos.forEach((f, i) => { const v = i === j ? 1 : 0.16; pts.push([f.ini, pts[pts.length - 1][1]], [f.ini + R, v]); });
+    pts.push([tTodo, pts[pts.length - 1][1]], [tTodo + R + 150, 1], [tFin, 1]);
+    const c = curva(`pz-${id}-${j}`, pts, tFocos, tFin); estilos += c.css; return c.anim;
+  });
+  const curvaRotulo = piezas.map((p, j) => {
+    const f = focos[j];
+    const fin = j === dest ? 1 : 0.5;
+    const pts = [[tFocos, 0], [f.ini, 0], [f.ini + 450, 1], [f.fin, 1], [f.fin + R, 0.32], [tTodo, 0.32], [tTodo + R + 150, fin], [tFin, fin]];
+    const c = curva(`rt-${id}-${j}`, pts, tFocos, tFin); estilos += c.css; return c.anim;
+  });
 
   let s = `<defs>
     <filter id="acu-${id}" x="-10%" y="-10%" width="120%" height="120%">
       <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="7" result="r"/>
       <feDisplacementMap in="SourceGraphic" in2="r" scale="5" xChannelSelector="R" yChannelSelector="G"/>
     </filter>
-    <pattern id="trama-${id}" width="13" height="13" patternUnits="userSpaceOnUse"><circle cx="6.5" cy="6.5" r="3.1" fill="var(--rojo)"/></pattern>
-    <pattern id="trama-tinta-${id}" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="6" cy="6" r="2" fill="rgba(22,19,15,.5)"/></pattern>
     <radialGradient id="luzroja-${id}"><stop offset="0" stop-color="var(--rojo)" stop-opacity=".26"/><stop offset=".55" stop-color="var(--rojo)" stop-opacity=".1"/><stop offset="1" stop-color="var(--rojo)" stop-opacity="0"/></radialGradient>
-    <radialGradient id="rg-${id}"><stop offset=".25" stop-color="#fff"/><stop offset="1" stop-color="#000"/></radialGradient>
-    <mask id="halo-${id}"><circle cx="0" cy="0" r="165" fill="url(#rg-${id})"/></mask>
     ${defs}
   </defs>`;
   s += fondo;
 
   const dy = (p) => p.y - p.cy;
-  // El halo de la pieza destacada va detrás de todo.
   if (dest >= 0) {
     const p = piezas[dest];
-    s += `<g transform="translate(660 ${420 + dy(p)})"><g style="animation: halo 1300ms var(--muelle) ${ms(tLuz)}ms both">
-      <circle r="160" fill="url(#luzroja-${id})"/></g></g>`;
+    s += `<g style="${curvaPieza[dest]}"><g transform="translate(660 ${420 + dy(p)})"><g style="animation: halo 1300ms var(--muelle) ${ms(tRojo)}ms both">
+      <circle r="160" fill="url(#luzroja-${id})"/></g></g></g>`;
   }
 
   piezas.forEach((p, i) => {
     const tA = t + 250 + i * 140;
-    s += `<g transform="translate(0 ${dy(p)})"><g style="animation: aparece 700ms var(--suave) ${ms(tA)}ms both">
+    s += `<g transform="translate(0 ${dy(p)})"><g style="${curvaPieza[i]}"><g style="animation: aparece 700ms var(--suave) ${ms(tA)}ms both">
       <g style="--dy:${p.junta}px;animation: separa 1500ms var(--muelle) ${ms(tSepara + i * 110)}ms both">
       <g style="animation: flota ${3200 + i * 500}ms ease-in-out ${ms(tSepara + 1500 + i * 300)}ms infinite alternate">
         <g filter="url(#acu-${id})" ${aparece(tA + 300, 900)}>${p.aguada}</g>
         <g ${aparece(tA + 500, 900)}>${p.extra}</g>
-        ${p.luz && i === dest ? `<path class="an-rojo-f" d="${p.luz}" ${aparece(tLuz + 150, 700)}/>` : ""}
+        ${p.luz && i === dest ? `<path class="an-rojo-f" d="${p.luz}" ${aparece(tRojo + 150, 700)}/>` : ""}
         ${p.trazo.replace(/<path /g, () => `<path ${dib(tA, 900)} `)}
-        ${p.mancha ? `<g transform="translate(660 546)"><g style="animation: mancha 1800ms var(--muelle) ${ms(tLuz + 1500)}ms both">
+        ${p.mancha ? `<g transform="translate(660 546)"><g style="animation: mancha 1800ms var(--muelle) ${ms(tCae + 800)}ms both">
           <g filter="url(#acu-${id})"><path class="an-mancha" d="M-60 -8 Q-54 -22 -24 -20 Q0 -28 28 -18 Q60 -18 58 2 Q64 18 34 20 Q8 26 -16 20 Q-56 22 -60 -8 Z"/>
           <path class="an-mancha-c" d="M-34 -4 Q-30 -12 -12 -11 Q4 -16 20 -9 Q36 -8 34 2 Q36 10 18 11 Q2 14 -12 10 Q-34 11 -34 -4 Z"/></g>
           <path class="an-aro" d="M-62 -8 Q-56 -24 -24 -22 Q0 -30 28 -20 Q62 -20 60 2 Q66 20 34 22 Q8 28 -16 22 Q-58 24 -62 -8 Z"/></g></g>` : ""}
-      </g></g></g></g>`;
+      </g></g></g></g></g>`;
   });
 
-  // La gota que cae hasta el cielo raso, cuando se enciende la luz.
-  const gota = piezas[dest], techo = piezas.find((p) => p.mancha);
+  // La gota que cae hasta el cielo raso, en el turno de la mancha.
+  const gota = piezas[dest], techo = piezas[iTecho];
   if (gota && techo) {
     const y0 = 462 + dy(gota), y1 = 524 + dy(techo);
-    s += `<g transform="translate(660 ${y0})"><g style="--caida:${y1 - y0}px;animation: cae 900ms var(--salida) ${ms(tLuz + 700)}ms both">
+    s += `<g transform="translate(660 ${y0})"><g style="--caida:${y1 - y0}px;animation: cae 900ms var(--salida) ${ms(tCae)}ms both">
       <path class="an-gotita" d="M0 -16 C-6 -6 -10 0 -10 6 A10 10 0 0 0 10 6 C10 0 6 -6 0 -16 Z"/></g></g>`;
   }
 
   // Rótulos: número, nombre y nota, con la línea de puntos hasta la pieza.
   const puntos = (x0, x1, y, t0, clase) => {
     let o = "";
-    for (let x = x0, k = 0; x < x1; x += 13, k++) o += `<circle class="${clase}" cx="${x}" cy="${y}" r="2.7" ${aparece(t0 + k * 14, 160)}/>`;
+    for (let x = x0, k = 0; x < x1; x += 13, k++) o += `<circle class="${clase}" cx="${x}" cy="${y}" r="2.7" ${aparece(t0 + k * 12, 160)}/>`;
     return o;
   };
   piezas.forEach((p, i) => {
-    const r = rotulos[i] || {}, tR = tNombre + i * cada;
+    const r = rotulos[i] || {}, tR = focos[i].ini;
     const [ax, ayDib] = p.ancla, ay = ayDib + dy(p), y = ay + 13;
     const nombre = r.nombre || "", ancho = 66 + nombre.length * 22 + 30;
     const rojo = i === dest;
-    s += puntos(ancho, ax - 14, ay, tR, "an-punto");
-    s += `<circle class="an-ojo" cx="${ax - 4}" cy="${ay}" r="7" ${aparece(tR + 420, 300)}/>`;
-    s += `<g style="animation: sube 600ms var(--suave) ${ms(tR + 80)}ms both">
-      <text x="0" y="${y}" class="an-num">${String(i + 1).padStart(2, "0")}</text>
-      <text x="66" y="${y}" class="an-nombre">${esc(nombre)}</text></g>`;
-    if (rojo) {
-      s += `<g ${aparece(tLuz, 500)}><text x="0" y="${y}" class="an-num an-rojo">${String(i + 1).padStart(2, "0")}</text>
-        <text x="66" y="${y}" class="an-nombre an-rojo">${esc(nombre)}</text></g>`;
-      s += puntos(ancho, ax - 14, ay, tLuz, "an-punto an-punto-rojo");
-      s += `<circle class="an-ojo an-ojo-rojo" cx="${ax - 4}" cy="${ay}" r="7" ${aparece(tLuz + 300, 300)}/>`;
-    }
+    s += `<g style="${curvaRotulo[i]}">`;
+    s += puntos(ancho, ax - 14, ay, tR + 150, rojo ? "an-punto an-punto-rojo" : "an-punto");
+    s += `<circle class="an-ojo${rojo ? " an-ojo-rojo" : ""}" cx="${ax - 4}" cy="${ay}" r="7" ${aparece(tR + 500, 300)}/>`;
+    s += `<g style="animation: sube 600ms var(--suave) ${ms(tR)}ms both">
+      <text x="0" y="${y}" class="an-num${rojo ? " an-rojo" : ""}">${String(i + 1).padStart(2, "0")}</text>
+      <text x="66" y="${y}" class="an-nombre${rojo ? " an-rojo" : ""}">${esc(nombre)}</text></g>`;
     (r.nota || "").split("\n").forEach((linea, k) => {
-      s += `<text x="66" y="${y + 44 + k * 36}" class="an-nota" style="animation: sube 600ms var(--suave) ${ms(tR + 260 + k * 90)}ms both">${esc(linea)}</text>`;
+      s += `<text x="66" y="${y + 48 + k * 40}" class="an-nota" style="animation: sube 600ms var(--suave) ${ms(tR + 350 + k * 120)}ms both">${esc(linea)}</text>`;
     });
+    s += `</g>`;
   });
 
-  return { svg: `<svg class="ilus an" viewBox="0 0 900 820" preserveAspectRatio="xMidYMid meet">${s}</svg>`, fin: tLuz + 2600 };
+  return { svg: `<svg class="ilus an" viewBox="0 0 900 820" preserveAspectRatio="xMidYMid meet"><style>${estilos}</style>${s}</svg>`, fin: T.fin };
 }
 
 const CSS = `
@@ -200,7 +239,7 @@ const CSS = `
 .an text{font-family:var(--sans)}
 .an-num{font-size:34px;font-weight:600;fill:var(--tenue)!important;font-variant-numeric:tabular-nums;letter-spacing:.02em}
 .an-nombre{font-size:42px;font-weight:500;fill:var(--tinta)}
-.an-nota{font-size:30px;font-weight:500;fill:var(--tenue)!important}
+.an-nota{font-size:34px;font-weight:500;fill:var(--tenue)!important}
 .an-rojo{fill:var(--rojo)!important}
 .an-rojo-f{fill:rgba(161,35,27,.78)}
 @keyframes separa{from{transform:translateY(var(--dy))}to{transform:none}}
@@ -210,4 +249,4 @@ const CSS = `
 @keyframes mancha{from{opacity:0;transform:scale(.25)}to{opacity:1;transform:none}}
 `;
 
-module.exports = { anatomia, CSS, DIBUJOS };
+module.exports = { anatomia, tiempos, CSS, DIBUJOS };

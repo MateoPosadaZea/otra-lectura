@@ -94,7 +94,6 @@ function duracionLectura(e) {
     case "cita": return lectura(e.texto, 300, 120);
     case "explica": return lectura(e.texto, 1400, 120);
     case "giro": return lectura(e.texto, 600, 140);
-    case "anatomia": return lectura([e.titulo, e.bajada, ...(e.piezas || []).map((x) => `${x.nombre} ${x.nota || ""}`)].join(" "), 200, 110);
     default: return 0;
   }
 }
@@ -112,7 +111,7 @@ function duracionBase(e) {
     case "montaje": return M.duracionMontaje(e);
     case "pausa": return e.ms || 1500;
     case "giro": return Math.max(4200, 1400 + contar(e.texto) * 330);
-    case "anatomia": return 2300 + (e.piezas || []).length * 760 + 200 + 3400;
+    case "anatomia": return 500 + A.tiempos(e).fin + 400;
     case "explica": return Math.max(e.visual && e.visual.tipo === "mapa" ? (e.visual.zoom ? 7600 : 6000) : 5200, 2600 + contar(e.texto) * 300);
     default: return 4000;
   }
