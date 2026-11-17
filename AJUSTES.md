@@ -541,3 +541,11 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
     giro más claro.
   - **Medida:** de 8 a 10 escenas, unos 60 a 75 segundos. El generador da a
     cada pantalla el tiempo de leerla (una letra cada 1/15 s más respiro).
+- 2026-11-17 · Mateo: «ampliemos a fotos de museos de dominio público».
+  Las imágenes de las ediciones y de los reels pueden venir, además de
+  Wikimedia Commons, de las colecciones abiertas del Art Institute of
+  Chicago, el Cleveland Museum of Art y el Met (scripts/museo.py), solo
+  obras de dominio público o CC0: grabados, dibujos, pinturas y fotografías
+  históricas. Cada imagen lleva su crédito con autor, año y museo, y sigue
+  la regla de evocar sin engañar: nunca se presenta como foto del hecho de
+  hoy. Para los reels se arma un banco temático en redes/banco/.

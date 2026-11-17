@@ -526,8 +526,14 @@ referente visual es el de los periódicos de Red Dead Redemption).
    engraving», «grabado», «Harper's Weekly», «Le Tour du monde»,
    «L'Illustration». Preferir escenas de Colombia, los Andes o América
    Latina; si no hay, una escena universal del mismo asunto.
-2. **Solo grabados, litografías o dibujos de época**, no fotos, y solo
-   dominio público o CC BY / CC BY-SA. Nada de imágenes de juegos, de
+   **Si Commons no responde o no hay nada que encaje** (rige desde el 17
+   de noviembre de 2026), buscar en los museos de acceso abierto, en
+   inglés: `.venv/bin/python scripts/museo.py buscar "<términos>"`
+   (Art Institute of Chicago, Cleveland Museum of Art y el Met; el script
+   solo muestra obras de dominio público o CC0).
+2. **Grabados, litografías, dibujos y fotografías de época**, solo de
+   dominio público o CC0 (y CC BY / CC BY-SA en Commons). Las fotos, solo
+   históricas y de colecciones de museo. Nada de imágenes de juegos, de
    bancos de imágenes ni de prensa actual.
 3. **Debe evocar, no engañar.** La imagen es de otra época y el pie lo
    dice: lugar, hecho y año. Nunca se presenta como foto del hecho de hoy.
@@ -539,8 +545,11 @@ referente visual es el de los periódicos de Red Dead Redemption).
    bloque `grabado:` para el frontmatter. Completar `pie` y `alt` en
    español (el `alt` describe lo que se ve) y traducir el crédito
    («Grabado de <autor>, <año> · Dominio público, vía Wikimedia Commons»).
+   Desde un museo: `.venv/bin/python scripts/museo.py bajar <fuente>:<id> <slug-de-la-edición>`
+   hace lo mismo y deja el crédito con el museo («Aguafuerte de <autor>,
+   <año> · Dominio público, Art Institute of Chicago»).
 5. Commons limita las descargas seguidas (error 429): el script espera y
-   reintenta; no insistir más de tres veces.
+   reintenta; no insistir más de tres veces y pasar a los museos.
 6. Si no aparece un grabado que encaje bien, la edición sale sin grabado.
    Mejor ninguno que uno forzado. Una línea en la nota metodológica dice
    de dónde salió (o por qué no hay).
