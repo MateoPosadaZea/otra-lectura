@@ -1447,7 +1447,8 @@ def html_primera_plana(dias, raiz="", cuantas=12):
         if not b:
             return ""
         if letra_capitular(b):
-            return f'<p class="pp-bajada con-capitular">{capitular(b[0])}{html.escape(b[1:])}</p>'
+            signo, resto = partir_signo(b)
+            return f'<p class="pp-bajada con-capitular">{capitular(resto[0], signo)}{html.escape(resto[1:])}</p>'
         return f'<p class="pp-bajada">{html.escape(b)}</p>'
 
     portada = f"""<article class="pp-abre{' pp-con-grabado' if abre['grabado'] else ''}">
@@ -1660,26 +1661,40 @@ def pagina_decisiones(base, ediciones):
 CAPITULARES = PLANTILLA / "capitulares"
 
 
+SIGNOS_APERTURA = "¿¡"
+
+
 def letra_capitular(texto):
-    """La letra si hay capitular para ella; si no, None (tildes y signos, no)."""
-    letra = texto[:1]
+    """La letra si hay capitular para ella; si no, None (tildes y signos, no).
+    Un ¿ o ¡ inicial no cuenta: la capitular es la letra que sigue."""
+    letra = texto.lstrip(SIGNOS_APERTURA)[:1]
     if letra.isascii() and letra.isalpha() and (CAPITULARES / f"{letra.lower()}.png").exists():
         return letra
     return None
 
 
-def capitular(letra):
+def capitular(letra, signo=""):
     # La letra sigue en el texto (buscadores, lectores de pantalla, copiar y pegar);
     # se ve el grabado, pintado con el color de la tinta (sirve de noche).
-    return f'<span class="capitular cap-{letra.lower()}">{letra}</span>'
+    cap = f'<span class="capitular cap-{letra.lower()}">{letra}</span>'
+    if not signo:
+        return cap
+    # El ¿ o el ¡ va al lado del grabado, dentro de la misma caja flotante.
+    return f'<span class="capitular-caja"><span class="cap-signo">{signo}</span>{cap}</span>'
+
+
+def partir_signo(texto):
+    """(signos de apertura iniciales, resto del texto)."""
+    resto = texto.lstrip(SIGNOS_APERTURA)
+    return texto[:len(texto) - len(resto)], resto
 
 
 def poner_capitular(cuerpo):
     """Capitular al abrir la edición: primera letra de «En pocas palabras»."""
-    m = re.search(r'<p class="con-etiqueta([^"]*)">(\s*<strong class="etiqueta">En pocas palabras\.?</strong>\s*)(\S)', cuerpo)
-    if not m or not letra_capitular(m.group(3)):
+    m = re.search(r'<p class="con-etiqueta([^"]*)">(\s*<strong class="etiqueta">En pocas palabras\.?</strong>\s*)([¿¡]*)(\S)', cuerpo)
+    if not m or not letra_capitular(m.group(4)):
         return cuerpo
-    return (cuerpo[:m.start()] + f'<p class="con-etiqueta{m.group(1)} con-capitular">{m.group(2)}{capitular(m.group(3))}'
+    return (cuerpo[:m.start()] + f'<p class="con-etiqueta{m.group(1)} con-capitular">{m.group(2)}{capitular(m.group(4), m.group(3))}'
             + cuerpo[m.end():])
 
 
