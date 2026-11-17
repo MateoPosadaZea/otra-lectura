@@ -1,0 +1,21 @@
+{
+  "slug": "prueba-anatomia",
+  "edicion": 71,
+  "fecha": "17 de noviembre de 2026",
+  "escenas": [
+    {
+      "tipo": "anatomia",
+      "dibujo": "gotera",
+      "titulo": "Anatomía de una gotera",
+      "bajada": "Así entra la demencia: años antes de que se note.",
+      "destacar": 3,
+      "piezas": [
+        {"nombre": "Tejas", "nota": "Presión, oído\ny colesterol"},
+        {"nombre": "Entretecho", "nota": "Años sin que\nse vea nada"},
+        {"nombre": "La gota", "nota": "En Antioquia, el daño\nempieza hacia los 28"},
+        {"nombre": "La mancha", "nota": "El primer olvido,\nhacia los 44"}
+      ]
+    }
+  ],
+  "pie": ""
+}

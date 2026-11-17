@@ -13,6 +13,7 @@ const path = require("path");
 const { spawn } = require("child_process");
 const { chromium } = require("playwright");
 const V = require("./redes-visuales.cjs");
+const A = require("./redes-anatomia.cjs");
 
 const RAIZ = path.resolve(__dirname, "..");
 const FPS = 30;
@@ -91,6 +92,7 @@ function duracionLectura(e) {
     case "cifra": return lectura(e.texto, 1700, 90);
     case "cita": return lectura(e.texto, 300, 120);
     case "explica": return lectura(e.texto, 1400, 120);
+    case "anatomia": return lectura([e.titulo, e.bajada, ...(e.piezas || []).map((x) => `${x.nombre} ${x.nota || ""}`)].join(" "), 200, 110);
     default: return 0;
   }
 }
@@ -105,6 +107,7 @@ function duracionBase(e) {
     case "firma": return 2800;
     case "logo": return 4200;
     case "cita": return Math.max(5200, 1600 + contar(e.texto) * 300);
+    case "anatomia": return 2300 + (e.piezas || []).length * 760 + 200 + 3400;
     case "explica": return Math.max(e.visual && e.visual.tipo === "mapa" ? (e.visual.zoom ? 7600 : 6000) : 5200, 2600 + contar(e.texto) * 300);
     default: return 4000;
   }
@@ -191,6 +194,15 @@ function escenaHtml(e, t0, d, g, base) {
       <div class="comillas com-${estilo}" style="animation: llega 1200ms var(--suave) ${t0}ms both">${marca}</div>
       <p class="cita cita-${estilo}">${p.html}</p>
       <p class="autor" style="animation: sube 500ms var(--suave) ${p.fin + 300}ms both">${esc(e.autor || "")}</p>
+    </section>`;
+  }
+  if (e.tipo === "anatomia") {
+    const p = palabras(e.titulo, t0 + 150, 110, false);
+    const fig = A.anatomia(e, t0 + 500, t0);
+    return `<section ${base}>
+      <h2 class="an-tit">${p.html}</h2>
+      <p class="an-bajada" style="animation: sube 600ms var(--suave) ${t0 + 700}ms both">${esc(e.bajada || "")}</p>
+      <div class="an-fig">${fig.svg}</div>
     </section>`;
   }
   if (e.tipo === "explica") {
@@ -342,6 +354,7 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
 .vis{height:${reel ? 640 : 610}px;display:flex;align-items:center;justify-content:center;margin-bottom:${reel ? 50 : 24}px}
 .exp{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 80 : 64}px;line-height:1.2}
 ${V.CSS}
+${A.CSS}
 @keyframes entra{from{opacity:0;transform:translateY(90px)}35%{opacity:1}to{opacity:1;transform:none}}
 @keyframes llega{from{opacity:0}to{opacity:1}}
 @keyframes sale{from{opacity:1}to{opacity:0;transform:translateY(-70px)}}
