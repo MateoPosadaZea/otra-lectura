@@ -14,6 +14,7 @@ const { spawn } = require("child_process");
 const { chromium } = require("playwright");
 const V = require("./redes-visuales.cjs");
 const A = require("./redes-anatomia.cjs");
+const M = require("./redes-montaje.cjs");
 
 const RAIZ = path.resolve(__dirname, "..");
 const FPS = 30;
@@ -92,6 +93,7 @@ function duracionLectura(e) {
     case "cifra": return lectura(e.texto, 1700, 90);
     case "cita": return lectura(e.texto, 300, 120);
     case "explica": return lectura(e.texto, 1400, 120);
+    case "giro": return lectura(e.texto, 600, 140);
     case "anatomia": return lectura([e.titulo, e.bajada, ...(e.piezas || []).map((x) => `${x.nombre} ${x.nota || ""}`)].join(" "), 200, 110);
     default: return 0;
   }
@@ -107,6 +109,9 @@ function duracionBase(e) {
     case "firma": return 2800;
     case "logo": return 4200;
     case "cita": return Math.max(5200, 1600 + contar(e.texto) * 300);
+    case "montaje": return M.duracionMontaje(e);
+    case "pausa": return e.ms || 1500;
+    case "giro": return Math.max(4200, 1400 + contar(e.texto) * 330);
     case "anatomia": return 2300 + (e.piezas || []).length * 760 + 200 + 3400;
     case "explica": return Math.max(e.visual && e.visual.tipo === "mapa" ? (e.visual.zoom ? 7600 : 6000) : 5200, 2600 + contar(e.texto) * 300);
     default: return 4000;
@@ -140,6 +145,18 @@ function escenaHtml(e, t0, d, g, base) {
       <div class="rot" style="animation: sube 600ms var(--suave) ${t0 + 300}ms both">${esc(e.rotulo)} · ${esc(g.fecha)}</div>
       <h1 class="tit">${p.html}</h1>
     </section>`;
+  }
+  if (e.tipo === "montaje") {
+    return `<section ${base}>${M.montaje(e, t0)}</section>`;
+  }
+  if (e.tipo === "pausa") {
+    return `<section ${base}><div class="pausa-punto" style="animation: late 900ms linear ${t0 + 200}ms infinite"></div></section>`;
+  }
+  if (e.tipo === "giro") {
+    const p = palabras(e.texto, t0 + 600, 140);
+    const n = contar(e.texto);
+    const tam = n <= 8 ? "corta" : n <= 16 ? "media" : "larga";
+    return `<section ${base}><div class="giro-fondo" style="animation: llena 800ms var(--suave) ${t0}ms both"></div><p class="frase ${tam}">${p.html}</p></section>`;
   }
   if (e.tipo === "frase") {
     const p = palabras(e.texto, t0 + 350, 140);
@@ -250,7 +267,7 @@ function html(guion, alto, tipo) {
   };
   const escenas = guion.escenas.slice();
   if (escenas.length && escenas[escenas.length - 1].tipo === "cierre") escenas.push({ tipo: "firma" });
-  const cuentan = (e) => !["cierre", "firma", "logo"].includes(e.tipo);
+  const cuentan = (e) => !["cierre", "firma", "logo", "montaje", "pausa", "giro"].includes(e.tipo);
   const totalPasos = escenas.filter(cuentan).length;
   let paso = 0;
   const secciones = escenas.map((e, i) => {
@@ -355,6 +372,7 @@ body::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
 .exp{font-family:var(--tit);font-weight:var(--tw);font-size:${reel ? 80 : 64}px;line-height:1.2}
 ${V.CSS}
 ${A.CSS}
+${M.CSS}
 @keyframes entra{from{opacity:0;transform:translateY(90px)}35%{opacity:1}to{opacity:1;transform:none}}
 @keyframes llega{from{opacity:0}to{opacity:1}}
 @keyframes sale{from{opacity:1}to{opacity:0;transform:translateY(-70px)}}

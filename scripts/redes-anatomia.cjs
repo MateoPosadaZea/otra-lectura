@@ -1,6 +1,6 @@
 // Escena «anatomia» de scripts/redes.cjs: un objeto que se desarma en piezas
 // numeradas, con líneas punteadas hacia cada nombre y una pieza resaltada con
-// trama de puntos rojos. Primero aparece armado, luego se abre como un
+// una luz roja suave. Primero aparece armado, luego se abre como un
 // despiece de manual, se nombran las piezas una a una y al final se enciende
 // la que importa. Dibujos a tinta con aguadas de acuarela, en la paleta del
 // periódico. Cada dibujo devuelve sus piezas (de arriba abajo) y el fondo.
@@ -56,6 +56,7 @@ const DIBUJOS = {
       },
       {
         cy: 404, y: 440, junta: -50, ancla: [618, 414], destaca: true,
+        luz: "M660 346 C640 378 620 398 620 420 A40 40 0 0 0 700 420 C700 398 680 378 660 346 Z",
         aguada: `<path class="ac-1" d="M660 346 C640 378 620 398 620 420 A40 40 0 0 0 700 420 C700 398 680 378 660 346 Z"/>
           <path class="ac-2" d="M660 346 C680 378 700 398 700 420 A40 40 0 0 1 664 460 C686 440 690 400 660 346 Z"/>`,
         trazo: `<path class="tr an-tr" pathLength="1" d="M660 346 C640 378 620 398 620 420 A40 40 0 0 0 700 420 C700 398 680 378 660 346 Z"/>`,
@@ -70,12 +71,10 @@ const DIBUJOS = {
         extra: `<path class="an-fino" d="M560 520 L548 572 M610 520 L604 572 M710 520 L716 572 M760 520 L772 572"/>`,
       },
     ];
-    // La sala: piso con trama de puntos, la poltrona, la mesa con el libro y
+    // La sala: el piso, la poltrona, la mesa con el libro y
     // la lámpara de pie con su luz.
     const P = 800;
     const fondo = `
-      <rect x="0" y="${P - 110}" width="900" height="110" fill="url(#trama-tinta-${id})" mask="url(#piso-${id})" ${aparece(t + 300, 900)}/>
-      <g transform="translate(838 ${P - 100})"><circle r="70" fill="url(#trama-tinta-${id})" mask="url(#luz-${id})" ${aparece(t + 900, 900)}/></g>
       <path class="tr an-tr" pathLength="1" d="M0 ${P} H900" ${dib(t + 200, 1100)}/>
       <g filter="url(#acu-${id})" ${aparece(t + 500, 700)}>
         <path class="ac-2" d="M606 ${P} V${P - 56} Q606 ${P - 84} 636 ${P - 84} H694 Q722 ${P - 84} 722 ${P - 56} V${P} Z"/>
@@ -109,13 +108,11 @@ function anatomia(e, t, id) {
   let s = `<defs>
     <filter id="acu-${id}" x="-10%" y="-10%" width="120%" height="120%">
       <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="7" result="r"/>
-      <feDisplacementMap in="SourceGraphic" in2="r" scale="9" xChannelSelector="R" yChannelSelector="G" result="d"/>
-      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="2" result="g"/>
-      <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.1 1.25" result="gm"/>
-      <feComposite in="d" in2="gm" operator="in"/>
+      <feDisplacementMap in="SourceGraphic" in2="r" scale="5" xChannelSelector="R" yChannelSelector="G"/>
     </filter>
     <pattern id="trama-${id}" width="13" height="13" patternUnits="userSpaceOnUse"><circle cx="6.5" cy="6.5" r="3.1" fill="var(--rojo)"/></pattern>
     <pattern id="trama-tinta-${id}" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="6" cy="6" r="2" fill="rgba(22,19,15,.5)"/></pattern>
+    <radialGradient id="luzroja-${id}"><stop offset="0" stop-color="var(--rojo)" stop-opacity=".26"/><stop offset=".55" stop-color="var(--rojo)" stop-opacity=".1"/><stop offset="1" stop-color="var(--rojo)" stop-opacity="0"/></radialGradient>
     <radialGradient id="rg-${id}"><stop offset=".25" stop-color="#fff"/><stop offset="1" stop-color="#000"/></radialGradient>
     <mask id="halo-${id}"><circle cx="0" cy="0" r="165" fill="url(#rg-${id})"/></mask>
     ${defs}
@@ -127,7 +124,7 @@ function anatomia(e, t, id) {
   if (dest >= 0) {
     const p = piezas[dest];
     s += `<g transform="translate(660 ${420 + dy(p)})"><g style="animation: halo 1300ms var(--muelle) ${ms(tLuz)}ms both">
-      <rect x="-170" y="-170" width="340" height="340" fill="url(#trama-${id})" mask="url(#halo-${id})" opacity=".85"/></g></g>`;
+      <circle r="160" fill="url(#luzroja-${id})"/></g></g>`;
   }
 
   piezas.forEach((p, i) => {
@@ -137,6 +134,7 @@ function anatomia(e, t, id) {
       <g style="animation: flota ${3200 + i * 500}ms ease-in-out ${ms(tSepara + 1500 + i * 300)}ms infinite alternate">
         <g filter="url(#acu-${id})" ${aparece(tA + 300, 900)}>${p.aguada}</g>
         <g ${aparece(tA + 500, 900)}>${p.extra}</g>
+        ${p.luz && i === dest ? `<path class="an-rojo-f" d="${p.luz}" ${aparece(tLuz + 150, 700)}/>` : ""}
         ${p.trazo.replace(/<path /g, () => `<path ${dib(tA, 900)} `)}
         ${p.mancha ? `<g transform="translate(660 546)"><g style="animation: mancha 1800ms var(--muelle) ${ms(tLuz + 1500)}ms both">
           <g filter="url(#acu-${id})"><path class="an-mancha" d="M-60 -8 Q-54 -22 -24 -20 Q0 -28 28 -18 Q60 -18 58 2 Q64 18 34 20 Q8 26 -16 20 Q-56 22 -60 -8 Z"/>
@@ -204,6 +202,7 @@ const CSS = `
 .an-nombre{font-size:42px;font-weight:500;fill:var(--tinta)}
 .an-nota{font-size:30px;font-weight:500;fill:var(--tenue)!important}
 .an-rojo{fill:var(--rojo)!important}
+.an-rojo-f{fill:rgba(161,35,27,.78)}
 @keyframes separa{from{transform:translateY(var(--dy))}to{transform:none}}
 @keyframes flota{from{transform:translateY(0)}to{transform:translateY(-7px)}}
 @keyframes halo{0%{opacity:0;transform:scale(.3)}20%{opacity:1}100%{opacity:1;transform:none}}
