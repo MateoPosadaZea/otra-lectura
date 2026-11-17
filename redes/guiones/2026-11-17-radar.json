@@ -1,0 +1,100 @@
+{
+  "slug": "2026-11-17-radar",
+  "edicion": 71,
+  "fecha": "17 de noviembre de 2026",
+  "escenas": [
+    {
+      "tipo": "frase",
+      "texto": "¿Se puede ==evitar perder la memoria?=="
+    },
+    {
+      "tipo": "explica",
+      "visual": {
+        "tipo": "tiempo",
+        "hitos": [
+          {
+            "etq": "28 años",
+            "sub": "Empieza el daño"
+          },
+          {
+            "etq": "44 años",
+            "sub": "Primeros olvidos"
+          }
+        ]
+      },
+      "texto": "La demencia es como una gotera: ==el daño entra años antes de que se note.== Así pasa en Antioquia."
+    },
+    {
+      "tipo": "cifra",
+      "valor": 45,
+      "sufijo": " de 100",
+      "texto": "casos se podrían evitar o retrasar, según The Lancet."
+    },
+    {
+      "tipo": "grafico",
+      "titulo": "Cerca de Boston: de cada 100 mayores de 60, cuántos tuvieron demencia en cinco años",
+      "unidad": "",
+      "destacar": "Hacia 2010",
+      "fuente": "Framingham, NEJM 2016",
+      "datos": [
+        {
+          "etiqueta": "Fines de los 70",
+          "valor": 3.6
+        },
+        {
+          "etiqueta": "Hacia 2010",
+          "valor": 2.0
+        }
+      ]
+    },
+    {
+      "tipo": "frase",
+      "texto": "Pero en América Latina ==va al revés.=="
+    },
+    {
+      "tipo": "explica",
+      "visual": {
+        "tipo": "cuadricula",
+        "n": 15
+      },
+      "texto": "En México, la demencia en mayores de 65 pasó de 10 a ==15 de cada 100== en 20 años."
+    },
+    {
+      "tipo": "cifra",
+      "valor": 55,
+      "sufijo": "%",
+      "texto": "más mejoraron las pruebas de memoria y razonamiento con ejercicio guiado, salsa y tango incluidos. Colombia participó."
+    },
+    {
+      "tipo": "explica",
+      "visual": {
+        "tipo": "documento",
+        "sello": "Sin plan",
+        "rotulo": "Colombia"
+      },
+      "texto": "Chile tiene un plan nacional de demencia. ==Colombia no, según expertos.=="
+    },
+    {
+      "tipo": "explica",
+      "visual": {
+        "tipo": "tiempo",
+        "hitos": [
+          {
+            "etq": "40 años",
+            "sub": "Presión, oído, colesterol"
+          },
+          {
+            "etq": "80 años",
+            "sub": "La memoria"
+          }
+        ]
+      },
+      "texto": "¿Se puede evitar? En parte: ==la memoria de los 80 se cuida desde los 40.=="
+    },
+    {
+      "tipo": "cierre",
+      "texto": "La historia completa, con fuentes y lo que viene:"
+    }
+  ],
+  "pie": "¿Se puede evitar perder la memoria? En parte. La demencia es como una gotera: el daño entra años antes de que se note. Por eso, casi la mitad de los casos se podría evitar o retrasar cuidando el oído, la presión y el colesterol en la mitad de la vida, según The Lancet.\n\nEn un pueblo cerca de Boston, el riesgo de demencia a una misma edad cayó casi a la mitad en tres décadas. En América Latina va al revés: en México, los mayores de 65 con demencia pasaron de 10 a 15 de cada 100 en unos 20 años.\n\n¿Y a mí qué? La memoria de los 80 se cuida desde los 40. Y Colombia, según expertos, todavía no tiene un plan nacional de demencias.\n\nLa historia completa, con fuentes, en otralectura.co (enlace en la bio).\n\n#Salud #Demencia #Alzheimer #Colombia #OtraLectura"
+}

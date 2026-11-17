@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-11-17-radar-v1@otralectura.co
+DTSTAMP:20261117T000000Z
+DTSTART;VALUE=DATE:20261119
+DTEND;VALUE=DATE:20261120
+SUMMARY:Cierra en Boston el congreso CTAD\, donde investigadores de todo el
+  mundo presentan los…
+DESCRIPTION:CTAD (Clinical Trials on Alzheimer's Disease): Cierra en Boston
+  el congreso CTAD\, donde investigadores de todo el mundo presentan los en
+ sayos clínicos más recientes contra el alzhéimer.\n\nLo contamos en Otr
+ a lectura\, «¿Se puede evitar la demencia? En países ricos ya empezó a
+  bajar»: https://otralectura.co/ediciones/2026-11-17-radar.html
+URL:https://otralectura.co/ediciones/2026-11-17-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Cierra en Boston el congreso CTAD\, donde investigadores de tod
+ o el mundo presentan los…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR
