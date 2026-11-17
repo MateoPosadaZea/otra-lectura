@@ -7,14 +7,15 @@
       "tipo": "montaje",
       "texto": "Todos hemos olvidado dónde dejamos las llaves.",
       "objetos": [
-        "gafas",
-        "taza",
-        "calendario",
-        "reloj",
-        "retrato",
-        "libro",
-        "llaves"
-      ]
+        "img:redes/banco/olvido/aic-58.webp",
+        "img:redes/banco/olvido/aic-117601.webp",
+        "img:redes/banco/olvido/aic-7390.webp",
+        "img:redes/banco/olvido/cleveland-302194.webp",
+        "img:redes/banco/olvido/aic-57819.webp",
+        "img:imagenes/2026-11-17-radar.webp",
+        "img:redes/banco/olvido/met-206349.webp"
+      ],
+      "paso": 620
     },
     {
       "tipo": "pausa",
@@ -77,5 +78,5 @@
       "texto": "La historia completa, con fuentes y lo que viene:"
     }
   ],
-  "pie": "¿Se puede evitar perder la memoria? En parte. La demencia es como una gotera: el daño entra años antes de que se note. Por eso, casi la mitad de los casos se podría evitar o retrasar cuidando el oído, la presión y el colesterol en la mitad de la vida, según The Lancet.\n\nEn un pueblo cerca de Boston, el riesgo de demencia a una misma edad cayó casi a la mitad en tres décadas. En América Latina va al revés: en México, los mayores de 65 con demencia pasaron de 10 a 15 de cada 100 en unos 20 años.\n\n¿Y a mí qué? La memoria de los 80 se cuida desde los 40. Y Colombia, según expertos, todavía no tiene un plan nacional de demencias.\n\nLa historia completa, con fuentes, en otralectura.co (enlace en la bio).\n\n#Salud #Demencia #Alzheimer #Colombia #OtraLectura"
+  "pie": "¿Se puede evitar perder la memoria? En parte. La demencia es como una gotera: el daño entra años antes de que se note. Por eso, casi la mitad de los casos se podría evitar o retrasar cuidando el oído, la presión y el colesterol en la mitad de la vida, según The Lancet.\n\nEn un pueblo cerca de Boston, el riesgo de demencia a una misma edad cayó casi a la mitad en tres décadas. En América Latina va al revés: en México, los mayores de 65 con demencia pasaron de 10 a 15 de cada 100 en unos 20 años.\n\n¿Y a mí qué? La memoria de los 80 se cuida desde los 40. Y Colombia, según expertos, todavía no tiene un plan nacional de demencias.\n\nLa historia completa, con fuentes, en otralectura.co (enlace en la bio).\n\nImágenes: Art Institute of Chicago, Cleveland Museum of Art y The Met (dominio público).\n\n#Salud #Demencia #Alzheimer #Colombia #OtraLectura"
 }

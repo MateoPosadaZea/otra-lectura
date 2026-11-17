@@ -160,7 +160,14 @@ def bajar(ref, destino):
     f = FUENTES[fuente][1](i)
     if not f["imagen"]:
         sys.exit("La obra no trae imagen descargable.")
-    im = entintar(pedir(f["imagen"]))
+    try:
+        crudo = pedir(f["imagen"])
+    except urllib.error.HTTPError as err:
+        # El Art Institute sirve algunas obras solo hasta 843 px de ancho.
+        if err.code != 403 or "/full/1200," not in f["imagen"]:
+            raise
+        crudo = pedir(f["imagen"].replace("/full/1200,", "/full/843,"))
+    im = entintar(crudo)
     if destino.startswith("banco/"):
         salida = RAIZ / "redes" / destino / f"{fuente}-{i}.webp"
     else:

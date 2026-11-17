@@ -4,6 +4,9 @@
 // silencio (papel en blanco y el punto rojo latiendo) y el giro, con la
 // pantalla llenándose de rojo. Los dibujos son objetos de la casa a tinta.
 
+const path = require("path");
+const RAIZ = path.resolve(__dirname, "..");
+
 function esc(s) {
   return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
@@ -49,17 +52,24 @@ function montaje(e, t0) {
   let cuadros = "", rotulo = "";
   palabras.forEach((w, i) => {
     const ini = t0 + 250 + i * paso, fin = ini + paso;
-    const o = OBJETOS[objs[i % objs.length]];
-    if (!o) throw new Error(`objeto desconocido: ${objs[i % objs.length]}`);
+    const nombre = objs[i % objs.length];
+    // «img:ruta» usa una imagen del banco (redes/banco/…) o de imagenes/.
+    const img = nombre.startsWith("img:") ? "file://" + path.join(RAIZ, nombre.slice(4)) : "";
+    const o = img ? null : OBJETOS[nombre];
+    if (!img && !o) throw new Error(`objeto desconocido: ${nombre}`);
     const ultimo = i === palabras.length - 1;
     const vis = `animation: corte-on 1ms linear ${ms(ini)}ms both${ultimo ? "" : `, corte-off 1ms linear ${ms(fin)}ms forwards`}`;
-    cuadros += `<g style="${vis}"><g style="animation: golpe ${ms(paso + 400)}ms var(--suave) ${ms(ini)}ms both">
+    cuadros += img
+      ? `<g style="${vis}"><g style="animation: golpe ${ms(paso + 600)}ms var(--suave) ${ms(ini)}ms both">
+      <image href="${img}" x="0" y="0" width="400" height="400" preserveAspectRatio="xMidYMid slice"/></g></g>`
+      : `<g style="${vis}"><g style="animation: golpe ${ms(paso + 400)}ms var(--suave) ${ms(ini)}ms both">
       <path class="mt-aguada" d="${o.aguada}"/>
       <path class="mt-trazo" pathLength="1" d="${o.trazo}" style="animation: dibuja ${ms(Math.min(420, paso * 0.8))}ms var(--trazo) ${ms(ini)}ms both"/>
     </g></g>`;
     rotulo += `<span class="mt-w" style="animation: mt-abre 260ms var(--suave) ${ms(ini)}ms both">${esc(w)}&nbsp;</span>`;
   });
-  return `<div class="mt-fig"><svg viewBox="0 0 400 400" class="mt-svg">${cuadros}</svg></div>
+  const fotos = objs.some((x) => x.startsWith("img:"));
+  return `<div class="mt-fig"><svg viewBox="0 0 400 400" class="mt-svg${fotos ? " mt-fotos" : ""}">${fotos ? `<clipPath id="mt-c-${t0}"><rect width="400" height="400"/></clipPath><g clip-path="url(#mt-c-${t0})">${cuadros}</g><rect class="mt-marco" width="400" height="400"/>` : cuadros}</svg></div>
     <div class="mt-rotulo"><span class="mt-pildora">${rotulo}</span></div>`;
 }
 
@@ -75,6 +85,8 @@ const CSS = `
 .mt-svg *{transform-box:fill-box;transform-origin:center}
 .mt-trazo{fill:none;stroke:var(--tinta);stroke-width:5.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
 .mt-aguada{fill:rgba(22,19,15,.1)}
+.mt-fotos{width:900px;height:900px}
+.mt-marco{fill:none;stroke:var(--tinta);stroke-width:1.2}
 .mt-rotulo{width:100%;display:flex;justify-content:center;margin-bottom:10px}
 .mt-pildora{display:inline-flex;flex-wrap:nowrap;font-family:var(--sans);font-weight:500;font-size:42px;line-height:1;padding:22px 30px 22px 34px;border:2px solid rgba(22,19,15,.22);border-radius:60px;background:rgba(239,231,214,.92);white-space:nowrap}
 .mt-w{display:inline-block;overflow:hidden;white-space:nowrap;max-width:0}
