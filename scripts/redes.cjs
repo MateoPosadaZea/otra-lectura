@@ -462,7 +462,12 @@ async function main() {
     const cuadros = Math.ceil((total / 1000) * CAPTURA) + CAPTURA; // un segundo final quieto
     for (let k = 0; k < cuadros; k++) {
       await fijar(page, Math.min(total - 1, (k * 1000) / CAPTURA));
-      const buf = await page.screenshot({ type: "jpeg", quality: 92 });
+      // Chromium a veces falla una captura suelta («Unable to capture screenshot»): reintentar.
+      let buf;
+      for (let intento = 0; ; intento++) {
+        try { buf = await page.screenshot({ type: "jpeg", quality: 92 }); break; }
+        catch (err) { if (intento >= 4) throw err; await page.waitForTimeout(300 * (intento + 1)); await fijar(page, Math.min(total - 1, (k * 1000) / CAPTURA)); }
+      }
       if (!ff.stdin.write(buf)) await new Promise((r) => ff.stdin.once("drain", r));
     }
     ff.stdin.end();
