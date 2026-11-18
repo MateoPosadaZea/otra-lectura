@@ -1,0 +1,93 @@
+{
+  "slug": "2026-11-18-radar",
+  "edicion": 72,
+  "fecha": "18 de noviembre de 2026",
+  "imagen": "imagenes/2026-11-18-radar.webp",
+  "escenas": [
+    {
+      "tipo": "montaje",
+      "texto": "Lavamos los platos y el agua sucia desaparece.",
+      "objetos": [
+        "img:redes/banco/2026-11-18/aic-202408.webp",
+        "img:redes/banco/2026-11-18/met-377674.webp",
+        "img:redes/banco/2026-11-18/aic-10647.webp",
+        "img:redes/banco/2026-11-18/met-371696.webp",
+        "img:redes/banco/2026-11-18/cleveland-106582.webp",
+        "img:redes/banco/2026-11-18/aic-31058.webp",
+        "img:redes/banco/2026-11-18/met-265932.webp",
+        "img:redes/banco/2026-11-18/aic-155995.webp"
+      ],
+      "paso": 620
+    },
+    {
+      "tipo": "pausa",
+      "ms": 1500
+    },
+    {
+      "tipo": "giro",
+      "texto": "Pero no desaparece: ==casi la mitad llega al río sin limpiar.=="
+    },
+    {
+      "tipo": "explica",
+      "visual": {
+        "tipo": "cuadricula",
+        "n": 53
+      },
+      "texto": "En 2021, de cada 100 litros, ==53 llegaban a una planta.=="
+    },
+    {
+      "tipo": "explica",
+      "visual": {
+        "tipo": "cuadricula",
+        "n": 19
+      },
+      "texto": "Recoger no es lavar: según la OCDE, ==solo 19 de cada 100 quedan bien tratados.=="
+    },
+    {
+      "tipo": "explica",
+      "visual": {
+        "tipo": "mapa",
+        "resaltar": [
+          "cundinamarca"
+        ],
+        "zoom": "cundinamarca",
+        "ciudades": [
+          "bogota"
+        ],
+        "etiqueta": "Cundinamarca"
+      },
+      "texto": "¿Y a mí qué? En Soacha, hortalizas regadas con el río ==pasaron el límite de plomo para bebés.=="
+    },
+    {
+      "tipo": "explica",
+      "visual": {
+        "tipo": "tiempo",
+        "hitos": [
+          {
+            "etq": "1998",
+            "sub": "17 de cada 100"
+          },
+          {
+            "etq": "2012",
+            "sub": "Casi todo"
+          }
+        ]
+      },
+      "texto": "Chile lo resolvió en 14 años: ==hoy limpia casi toda el agua de sus ciudades.=="
+    },
+    {
+      "tipo": "explica",
+      "visual": {
+        "tipo": "documento",
+        "sello": "Licitación",
+        "rotulo": "Planta Canoas, 2026"
+      },
+      "texto": "Bogotá licitó una planta para 70 de cada 100 litros. ==El agua no desaparece: hay que lavarla.=="
+    },
+    {
+      "tipo": "cierre",
+      "texto": "La historia completa, con fuentes y lo que viene:"
+    }
+  ],
+  "pie": "¿A dónde va el agua cuando uno lava los platos? No desaparece: en las ciudades de Colombia, casi la mitad vuelve a los ríos sin pasar por una planta que la limpie, según el Ministerio de Vivienda. Y pasar por una planta no es quedar limpio: según la OCDE, solo unos 19 de cada 100 litros quedan bien tratados.\n\n¿Y a mí qué? Río abajo, con esa agua se riegan hortalizas. En Soacha, un estudio de 2008 encontró en lechugas regadas con agua del río Bogotá más plomo del que la Unión Europea permite en la comida de bebés.\n\nTiene salida. Tener alcantarillado es recoger los platos; tratar el agua es lavarlos. Chile pasó a lavar casi toda el agua de sus ciudades en 14 años, y Bogotá acaba de abrir la licitación de la planta Canoas, que limpiaría 70 de cada 100 litros de la capital.\n\nImágenes: Art Institute of Chicago, Cleveland Museum of Art y The Met (dominio público); caricatura de Punch, 1858, vía Wikimedia Commons (dominio público).\n\nLa historia completa, con fuentes, en otralectura.co (enlace en la bio).\n\n#OtraLectura #Agua #RíoBogotá #Colombia #MedioAmbiente"
+}
