@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-11-19-radar-v2@otralectura.co
+DTSTAMP:20261119T000000Z
+DTSTART;VALUE=DATE:20261129
+DTEND;VALUE=DATE:20261130
+SUMMARY:Reunión ministerial de la OPEP y sus aliados (OPEP+)\, que decidir
+ ía cuánto petróleo…
+DESCRIPTION:OPEP y países aliados: Reunión ministerial de la OPEP y sus a
+ liados (OPEP+)\, que decidiría cuánto petróleo producen en 2027.\n\nLo 
+ contamos en Otra lectura\, «El consumo mundial de petróleo tocaría tech
+ o hacia 2030\, según la AIE»: https://otralectura.co/ediciones/2026-11-1
+ 9-radar.html
+URL:https://otralectura.co/ediciones/2026-11-19-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Reunión ministerial de la OPEP y sus aliados (OPEP+)\, que dec
+ idiría cuánto petróleo…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

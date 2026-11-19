@@ -1,0 +1,27 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-11-19-radar-d1@otralectura.co
+DTSTAMP:20261119T000000Z
+DTSTART;VALUE=DATE:20261231
+DTEND;VALUE=DATE:20270101
+SUMMARY:Abrir las nuevas rondas para adjudicar áreas de exploración de pe
+ tróleo y gas\, incluidos…
+DESCRIPTION:Ministerio de Minas y Energía y Agencia Nacional de Hidrocarbu
+ ros (ANH): Abrir las nuevas rondas para adjudicar áreas de exploración d
+ e petróleo y gas\, incluidos los yacimientos no convencionales (fracking)
+ .\n\nLo contamos en Otra lectura\, «El consumo mundial de petróleo tocar
+ ía techo hacia 2030\, según la AIE»: https://otralectura.co/ediciones/2
+ 026-11-19-radar.html
+URL:https://otralectura.co/ediciones/2026-11-19-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Abrir las nuevas rondas para adjudicar áreas de exploración d
+ e petróleo y gas\, incluidos…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

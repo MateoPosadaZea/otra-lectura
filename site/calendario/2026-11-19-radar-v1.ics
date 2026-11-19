@@ -1,0 +1,27 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-11-19-radar-v1@otralectura.co
+DTSTAMP:20261119T000000Z
+DTSTART;VALUE=DATE:20261120
+DTEND;VALUE=DATE:20261121
+SUMMARY:Cierra la cumbre del clima COP31 en Antalya (Turquía). Un borrador
+  de decisión del 16 de…
+DESCRIPTION:Naciones Unidas (Convención Marco sobre el Cambio Climático):
+  Cierra la cumbre del clima COP31 en Antalya (Turquía). Un borrador de de
+ cisión del 16 de noviembre pide acelerar la salida de los combustibles f
+ ósiles.\n\nLo contamos en Otra lectura\, «El consumo mundial de petróle
+ o tocaría techo hacia 2030\, según la AIE»: https://otralectura.co/edic
+ iones/2026-11-19-radar.html
+URL:https://otralectura.co/ediciones/2026-11-19-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Cierra la cumbre del clima COP31 en Antalya (Turquía). Un borr
+ ador de decisión del 16 de…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR
