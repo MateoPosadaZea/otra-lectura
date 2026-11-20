@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-11-20-radar-v1@otralectura.co
+DTSTAMP:20261120T000000Z
+DTSTART;VALUE=DATE:20270916
+DTEND;VALUE=DATE:20270917
+SUMMARY:Se cumplen 40 años de la firma del Protocolo de Montreal\, en el D
+ ía Internacional de la…
+DESCRIPTION:Naciones Unidas: Se cumplen 40 años de la firma del Protocolo 
+ de Montreal\, en el Día Internacional de la Preservación de la Capa de O
+ zono.\n\nLo contamos en Otra lectura\, «La capa de ozono se recupera grac
+ ias a un tratado de 1987»: https://otralectura.co/ediciones/2026-11-20-ra
+ dar.html
+URL:https://otralectura.co/ediciones/2026-11-20-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Se cumplen 40 años de la firma del Protocolo de Montreal\, en 
+ el Día Internacional de la…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

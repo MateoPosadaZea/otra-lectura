@@ -13,6 +13,8 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 
 ## Ediciones
 
+- [La semana: cinco temas, de una vacuna a la capa de ozono](https://otralectura.co/ediciones/2026-11-20-semana.html): 20 de noviembre de 2026.
+- [La capa de ozono se recupera gracias a un tratado de 1987](https://otralectura.co/ediciones/2026-11-20-radar.html): 20 de noviembre de 2026.
 - [El consumo mundial de petróleo tocaría techo hacia 2030, según la AIE](https://otralectura.co/ediciones/2026-11-19-radar.html): 19 de noviembre de 2026.
 - [En Colombia, casi la mitad del agua sucia urbana no se trata](https://otralectura.co/ediciones/2026-11-18-radar.html): 18 de noviembre de 2026.
 - [¿Se puede evitar la demencia? En países ricos ya empezó a bajar](https://otralectura.co/ediciones/2026-11-17-radar.html): 17 de noviembre de 2026.
@@ -141,3 +143,8 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 - [Nadie le pidió entrar: una IA abrió archivos no públicos en Australia](https://otralectura.co/temas/agentes-ia-incidentes.html)
 - [El catastro debía estar al día en 2025; va cerca del 40%](https://otralectura.co/temas/catastro-multiproposito-predial.html)
 - [Bacterias diseñadas para abonar el maíz ya se prueban en el campo](https://otralectura.co/temas/bacterias-fijadoras-nitrogeno-fertilizantes.html)
+- [Colombia vacuna a la mitad de las niñas contra un cáncer evitable](https://otralectura.co/temas/vacuna-vph-cancer-cuello-uterino.html)
+- [¿Se puede evitar la demencia? En países ricos ya empezó a bajar](https://otralectura.co/temas/demencia-prevencion-riesgo.html)
+- [En Colombia, casi la mitad del agua sucia urbana no se trata](https://otralectura.co/temas/aguas-residuales-tratamiento-rios.html)
+- [El consumo mundial de petróleo tocaría techo hacia 2030, según la AIE](https://otralectura.co/temas/petroleo-techo-demanda-colombia.html)
+- [La capa de ozono se recupera gracias a un tratado de 1987](https://otralectura.co/temas/capa-ozono-kigali-refrigerantes.html)
