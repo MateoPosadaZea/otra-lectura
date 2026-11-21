@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-11-21-radar-v1@otralectura.co
+DTSTAMP:20261121T000000Z
+DTSTART;VALUE=DATE:20271013
+DTEND;VALUE=DATE:20271014
+SUMMARY:Día Internacional para la Reducción del Riesgo de Desastres\, que
+  la Asamblea General de…
+DESCRIPTION:Naciones Unidas: Día Internacional para la Reducción del Ries
+ go de Desastres\, que la Asamblea General de la ONU fijó para cada 13 de 
+ octubre en 2009.\n\nLo contamos en Otra lectura\, «Los celulares ya avisa
+ n de terremotos\; Colombia aún no tiene sistema oficial»: https://otrale
+ ctura.co/ediciones/2026-11-21-radar.html
+URL:https://otralectura.co/ediciones/2026-11-21-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Día Internacional para la Reducción del Riesgo de Desastres\,
+  que la Asamblea General de…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR
