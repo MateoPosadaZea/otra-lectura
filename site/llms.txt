@@ -13,6 +13,7 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 
 ## Ediciones
 
+- [Lo que pasó esta semana · 16 al 21 de noviembre](https://otralectura.co/ediciones/2026-11-22-radar.html): 22 de noviembre de 2026.
 - [Los celulares ya avisan de terremotos; Colombia aún no tiene sistema oficial](https://otralectura.co/ediciones/2026-11-21-radar.html): 21 de noviembre de 2026.
 - [La semana: cinco temas, de una vacuna a la capa de ozono](https://otralectura.co/ediciones/2026-11-20-semana.html): 20 de noviembre de 2026.
 - [La capa de ozono se recupera gracias a un tratado de 1987](https://otralectura.co/ediciones/2026-11-20-radar.html): 20 de noviembre de 2026.
@@ -149,3 +150,4 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 - [En Colombia, casi la mitad del agua sucia urbana no se trata](https://otralectura.co/temas/aguas-residuales-tratamiento-rios.html)
 - [El consumo mundial de petróleo tocaría techo hacia 2030, según la AIE](https://otralectura.co/temas/petroleo-techo-demanda-colombia.html)
 - [La capa de ozono se recupera gracias a un tratado de 1987](https://otralectura.co/temas/capa-ozono-kigali-refrigerantes.html)
+- [Los celulares ya avisan de terremotos; Colombia aún no tiene sistema oficial](https://otralectura.co/temas/alerta-sismica-temprana-celulares.html)
