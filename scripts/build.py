@@ -1676,11 +1676,9 @@ def letra_capitular(texto):
 def capitular(letra, signo=""):
     # La letra sigue en el texto (buscadores, lectores de pantalla, copiar y pegar);
     # se ve el grabado, pintado con el color de la tinta (sirve de noche).
-    cap = f'<span class="capitular cap-{letra.lower()}">{letra}</span>'
-    if not signo:
-        return cap
-    # El ¿ o el ¡ va al lado del grabado, dentro de la misma caja flotante.
-    return f'<span class="capitular-caja"><span class="cap-signo">{signo}</span>{cap}</span>'
+    # Si el texto abre con ¿ o ¡, el signo no se muestra: la capitular sola,
+    # sin el signo al lado (pedido de Mateo, 2026-11-23).
+    return f'<span class="capitular cap-{letra.lower()}">{letra}</span>'
 
 
 def partir_signo(texto):
