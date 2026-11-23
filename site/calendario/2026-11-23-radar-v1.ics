@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-11-23-radar-v1@otralectura.co
+DTSTAMP:20261123T000000Z
+DTSTART;VALUE=DATE:20270424
+DTEND;VALUE=DATE:20270425
+SUMMARY:Día de la Niñez y la Recreación\, que la Ley 724 de 2001 fija pa
+ ra el último sábado de…
+DESCRIPTION:Congreso de Colombia (Ley 724 de 2001): Día de la Niñez y la 
+ Recreación\, que la Ley 724 de 2001 fija para el último sábado de abril
+  de cada año.\n\nLo contamos en Otra lectura\, «Colombia da educación i
+ nicial a la mitad de sus niños pequeños»: https://otralectura.co/edicio
+ nes/2026-11-23-radar.html
+URL:https://otralectura.co/ediciones/2026-11-23-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Día de la Niñez y la Recreación\, que la Ley 724 de 2001 fij
+ a para el último sábado de…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR
