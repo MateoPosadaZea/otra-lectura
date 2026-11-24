@@ -1,0 +1,27 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-11-24-radar-v1@otralectura.co
+DTSTAMP:20261124T000000Z
+DTSTART;VALUE=DATE:20270324
+DTEND;VALUE=DATE:20270325
+SUMMARY:Día Mundial de la Tuberculosis\, que se conmemora cada 24 de marzo
+ \, el día de 1882 en que…
+DESCRIPTION:Organización Panamericana de la Salud y Organización Mundial 
+ de la Salud: Día Mundial de la Tuberculosis\, que se conmemora cada 24 de
+  marzo\, el día de 1882 en que Robert Koch dio a conocer la bacteria que 
+ la causa.\n\nLo contamos en Otra lectura\, «La tuberculosis tiene cura y 
+ aun así sube en Colombia desde 2021»: https://otralectura.co/ediciones/2
+ 026-11-24-radar.html
+URL:https://otralectura.co/ediciones/2026-11-24-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Día Mundial de la Tuberculosis\, que se conmemora cada 24 de m
+ arzo\, el día de 1882 en que…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR
