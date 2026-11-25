@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Otra lectura//Lo que viene//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-11-25-radar-v1@otralectura.co
+DTSTAMP:20261125T000000Z
+DTSTART;VALUE=DATE:20261218
+DTEND;VALUE=DATE:20261219
+SUMMARY:Día Internacional del Migrante\, proclamado por la Asamblea Genera
+ l de las Naciones Unidas…
+DESCRIPTION:Naciones Unidas: Día Internacional del Migrante\, proclamado p
+ or la Asamblea General de las Naciones Unidas en el año 2000.\n\nLo conta
+ mos en Otra lectura\, «Colombia: uno de cada 19 habitantes es venezolano\
+ ; con papeles\, ganaron más»: https://otralectura.co/ediciones/2026-11-2
+ 5-radar.html
+URL:https://otralectura.co/ediciones/2026-11-25-radar.html
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Día Internacional del Migrante\, proclamado por la Asamblea Ge
+ neral de las Naciones Unidas…
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR
