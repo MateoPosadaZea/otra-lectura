@@ -549,3 +549,46 @@ Formato: una regla por viñeta, con la fecha y el ajuste que la originó.
   históricas. Cada imagen lleva su crédito con autor, año y museo, y sigue
   la regla de evocar sin engañar: nunca se presenta como foto del hecho de
   hoy. Para los reels se arma un banco temático en redes/banco/.
+- 2026-11-26 · Mateo: «veo muchas noticias locales que se pierden, que no
+  dan ganas de ingresar… National Geographic, Wired, otros noticieros más
+  globales… contar historias, otro tipo de historias… siento un poco
+  aburridas las noticias». Rige desde la edición del 2026-11-27 y manda
+  sobre cualquier regla anterior que choque (prompt.md, RUTINA.md 2b):
+  - **Primero las ganas de leer.** Antes de puntuar, cada candidato
+    responde: ¿alguien que no sigue las noticias abriría esto por
+    curiosidad? Si la respuesta honesta es no, no entra, por importante
+    que sea. En el puntaje, la cercanía a Colombia se reemplaza por
+    **ganas de leer** (1: solo le interesa a quien sigue el tema; 3: da
+    ganas de contárselo a alguien) y vale doble.
+  - **Mirada global por defecto.** Ya no se prefiere el tema colombiano a
+    igual puntaje. De lunes a sábado, como mucho **dos** ediciones sobre
+    Colombia, y como mucho **un** nudo (un problema que se repite). No hace
+    falta un «canal hacia Colombia» para que entre un tema del mundo.
+  - **Nueva puerta: historia** (`puerta: historia`). Una historia real
+    contada como historia: personas, un lugar, un descubrimiento, un
+    misterio que se resolvió, una hazaña, una idea que cambió algo, la
+    naturaleza, la tecnología, el deporte, la cultura, el pasado que
+    explica el presente. Al menos **tres historias** por semana (de lunes
+    a sábado). Lugar de búsqueda: National Geographic, Wired, Smithsonian,
+    BBC Future, The Atlantic, Quanta, Nature y Science (noticias), Aeon,
+    Rest of World, The Guardian, El País, Atlas Obscura y similares; la
+    revista da la pista y la historia se confirma con la fuente primaria
+    (el estudio, el museo, el documento).
+  - **Forma de la historia.** Empieza con una escena o una persona, no con
+    una cifra. Avanza con un giro (el «pero», el «entonces») y cierra
+    respondiendo la pregunta del principio. Lleva **En pocas palabras.**
+    (lo exige el sitio) y luego subtítulos libres; nada de la plantilla
+    del nudo. «Quién decide y cuándo», «Dos lecturas» y «Qué hacer con
+    esto» solo si de verdad aplican. Se mantienen «Pero ojo.» (lo que no
+    se sabe o se exagera), «Para conversar», «Para leer más», las fuentes
+    y las marcas de no verificado. Unas 700 palabras.
+  - **El rigor no baja.** Nada inventado ni novelado: cada escena, cita y
+    detalle sale de una fuente. Si no se sabe qué pensó o dijo alguien,
+    no se escribe.
+  - **Cómo convive con el horizonte (regla del 2026-11-05).** Las
+    historias no pasan por el horizonte eliminatorio ni por la pregunta de
+    entrada: su filtro es que den ganas de leer, que enseñen algo que dura
+    y que todo se pueda confirmar. Las otras puertas (nudo, avance, fondo)
+    siguen con el horizonte, y además deben dar ganas de leer. Las tres
+    historias de la semana son obligatorias, no un desempate: si falta,
+    tienen prioridad sobre el puntaje.

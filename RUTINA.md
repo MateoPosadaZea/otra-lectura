@@ -112,7 +112,7 @@ con qué contrapeso y qué patrón histórico ayuda a entenderlo.
 
 El sitio trata **los temas de mayor impacto en la sociedad**, no los más
 comentados del día. Antes de escribir, reunir de 6 a 10 candidatos de las
-tres puertas (nudo, avance, cambio de fondo; prompt.md, «Qué entra al
+cuatro puertas (nudo, avance, cambio de fondo, historia; prompt.md, «Qué entra al
 Radar»), no solo problemas. Cada uno pasa primero la **pregunta de
 entrada** y luego el filtro de su puerta (el que falle queda fuera, sin
 importar su puntaje). Después se puntúa cada uno de 1 a 3 en seis
@@ -124,13 +124,14 @@ mucho más crítico»):
 | Alcance | ¿A cuántas personas toca? | miles | millones / todo un país |
 | Peso en la vida | ¿Toca vida, salud, ingreso, aprendizaje, derechos o seguridad? Vale igual si mejora o si empeora | molestia | vida o salud |
 | Horizonte | ¿Seguirá importando en diez años? | pasa en semanas | décadas o generaciones |
-| Cercanía | ¿Qué tanto toca a Colombia, por un canal real? | sin canal claro | directo |
+| Ganas de leer | ¿Alguien que no sigue las noticias lo abriría por curiosidad? (desde el 2026-11-26, reemplaza a la cercanía) | solo a quien sigue el tema | da ganas de contárselo a alguien |
 | Margen de acción | ¿Se decide algo ahora o hay algo que preparar? | nada | decisión inminente o algo concreto que hacer |
 | Mirada propia | ¿Lo está explicando alguien más? | está en todas las portadas | casi nadie lo explica |
 
-**Peso en la vida y horizonte valen doble:**
-total = alcance + 2 × peso + 2 × horizonte + cercanía + margen + mirada.
-Se elige **el de mayor puntaje** (máximo 24), respetando la mezcla de la
+**Peso en la vida, horizonte y ganas de leer valen doble:**
+total = alcance + 2 × peso + 2 × horizonte + 2 × ganas de leer + margen + mirada.
+Se elige **el de mayor puntaje** (máximo 27; el umbral para un segundo o
+tercer tema pasa a 21), respetando la mezcla de la
 semana (abajo). Cada edición trata un solo tema.
 
 Por qué así: antes la cercanía valía doble y dejaba por fuera casi todo lo
@@ -172,8 +173,9 @@ publica uno y ya: no se rellena. Reglas:
   y cubre todos los elegidos y los descartados.
 
 Reglas de selección:
-- A igualdad de puntaje, preferir el **tema colombiano** (si no hay
-  novedad, un seguimiento de fondo de uno ya tratado).
+- Desde el 2026-11-26 ya no se prefiere el tema colombiano a igual
+  puntaje, y un tema del mundo no necesita canal hacia Colombia (AJUSTES.md,
+  regla del 2026-11-26).
 - El tema puede ser **estructural y de largo plazo** (pensiones, salud,
   seguridad, empleo, clima, educación, agua, alimentación…): basta un
   **hecho reciente** que lo reactive (informe, cifra, votación, fallo,
@@ -195,8 +197,11 @@ secundarias, no «La semana» del viernes) debe haber como mínimo:
 - **un tema del mundo** (puede ser el mismo cambio de fondo);
 - **un tema de ciencia o tecnología** (desde el 2026-10-24; puede ser el
   mismo avance o cambio de fondo);
+- **tres historias** (`puerta: historia`, desde el 2026-11-26; ver
+  AJUSTES.md);
 
-y como máximo **tres nudos**. Antes de elegir, mirar el campo `puerta`
+y como máximo **un nudo** y **dos ediciones sobre Colombia** (desde el
+2026-11-26). Antes de elegir, mirar el campo `puerta`
 de las ediciones desde el lunes: si quedan pocos días para cumplir la
 mezcla, la puerta que falta tiene prioridad sobre el puntaje, siempre
 que el candidato pase la pregunta de entrada y su filtro. Si de verdad

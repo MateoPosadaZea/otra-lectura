@@ -41,9 +41,10 @@ por importante que parezca hoy:
 3. **¿Alguien puede hacer algo, incluido el lector?** Una decisión
    pública, una costumbre, un dato que conviene saber para decidir.
 
-**Tres puertas.** Lo que pasa la pregunta de entrada entra por una de
-estas tres puertas, cada una con su filtro. La puerta va en el campo
-`puerta` del frontmatter (`nudo`, `avance` o `fondo`).
+**Cuatro puertas.** Lo que pasa la pregunta de entrada entra por una de
+estas puertas, cada una con su filtro (la historia no pasa por la pregunta
+de entrada; ver AJUSTES.md, regla del 2026-11-26). La puerta va en el campo
+`puerta` del frontmatter (`nudo`, `avance`, `fondo` o `historia`).
 
 - **Nudo**: algo que falla y se repite. Las cuatro condiciones de abajo.
 - **Avance**: algo que mejora de verdad. Entra si (1) hay una serie de
@@ -60,6 +61,14 @@ estas tres puertas, cada una con su filtro. La puerta va en el campo
   (2) toca a Colombia por un canal concreto; (3) hay algo que se decide
   o se puede preparar ahora. Basta un hecho reciente que lo reactive (un
   informe, una cifra, una decisión).
+
+- **Historia** (`historia`, desde el 2026-11-26): una historia real del
+  mundo contada como historia (personas, descubrimientos, naturaleza,
+  tecnología, cultura, deporte, el pasado que explica el presente). Entra
+  si da ganas de leerla a quien no sigue las noticias, si enseña algo que
+  dura y si cada detalle se puede confirmar en una fuente. No necesita
+  canal hacia Colombia ni decisión pendiente. Forma y reglas en AJUSTES.md
+  (regla del 2026-11-26).
 
 **Lo que ya no entra como tema del día:** el caso individual que ya
 cubren todos los medios (una captura, una audiencia, una declaración),

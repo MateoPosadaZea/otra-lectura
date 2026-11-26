@@ -125,7 +125,7 @@ ESTADOS_CANDIDATA = ["pendiente", "evaluada", "descartada", "activa"]
 
 # Por qué puerta entró el tema (prompt.md, «Qué entra al Radar»). Opcional:
 # las ediciones anteriores al 2026-10-22 no lo llevan.
-PUERTAS = ["nudo", "avance", "fondo"]
+PUERTAS = ["nudo", "avance", "fondo", "historia"]
 
 CAMPOS_LISTA = ["temas", "categorias", "lugares", "cruce_mattriz", "seguimiento"]
 CAMPOS_CONOCIDOS = {"fecha", "edicion", "titulo", "slug", "nota",
