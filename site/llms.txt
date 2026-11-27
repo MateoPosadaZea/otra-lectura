@@ -13,6 +13,8 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 
 ## Ediciones
 
+- [La semana: del preescolar a unos dados en el fondo del mar](https://otralectura.co/ediciones/2026-11-27-semana.html): 27 de noviembre de 2026.
+- [Un barco de Kublai Kan hundido en 1281 guardaba dados y fichas](https://otralectura.co/ediciones/2026-11-27-radar.html): 27 de noviembre de 2026.
 - [Trece años mirando jaguares en Brasil: no siempre viven solos](https://otralectura.co/ediciones/2026-11-26-jaguares.html): 26 de noviembre de 2026.
 - [Solo 7 de cada 100 pesos de crecimiento salieron de producir mejor](https://otralectura.co/ediciones/2026-11-26-radar.html): 26 de noviembre de 2026.
 - [Colombia: uno de cada 19 habitantes es venezolano; con papeles, ganaron más](https://otralectura.co/ediciones/2026-11-25-radar.html): 25 de noviembre de 2026.
@@ -156,3 +158,9 @@ Sitio colombiano en español. Cada día explica un problema que se repite (un «
 - [El consumo mundial de petróleo tocaría techo hacia 2030, según la AIE](https://otralectura.co/temas/petroleo-techo-demanda-colombia.html)
 - [La capa de ozono se recupera gracias a un tratado de 1987](https://otralectura.co/temas/capa-ozono-kigali-refrigerantes.html)
 - [Los celulares ya avisan de terremotos; Colombia aún no tiene sistema oficial](https://otralectura.co/temas/alerta-sismica-temprana-celulares.html)
+- [Colombia da educación inicial a la mitad de sus niños pequeños](https://otralectura.co/temas/primera-infancia-educacion-inicial.html)
+- [La tuberculosis tiene cura y aun así sube en Colombia desde 2021](https://otralectura.co/temas/tuberculosis-colombia-tratamiento.html)
+- [Colombia: uno de cada 19 habitantes es venezolano; con papeles, ganaron más](https://otralectura.co/temas/migracion-venezolana-integracion.html)
+- [Solo 7 de cada 100 pesos de crecimiento salieron de producir mejor](https://otralectura.co/temas/productividad-colombia-estancada.html)
+- [Trece años mirando jaguares en Brasil: no siempre viven solos](https://otralectura.co/temas/jaguares-vida-social.html)
+- [Un barco de Kublai Kan hundido en 1281 guardaba dados y fichas](https://otralectura.co/temas/flota-kublai-kan-dados-takashima.html)
